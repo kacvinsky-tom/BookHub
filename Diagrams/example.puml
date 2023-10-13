@@ -1,0 +1,10 @@
+@startuml
+
+entity Example {
+  *e1_id : number <<generated>>
+  --
+  *name : text
+  description : text
+}
+
+@enduml
