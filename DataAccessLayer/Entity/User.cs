@@ -1,27 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace BookHub.DataAccessLayer.Entity;
+﻿namespace BookHub.DataAccessLayer.Entity;
 
 public class User : BaseEntity 
 {
-    [Required]
     public string Username { get; set; }
     
-    [Required]
     public string Email { get; set; }
     
-    [Required]
     public string Password { get; set; }
     
-    [Required]
     public string FirstName { get; set; }
     
-    [Required]
     public string LastName { get; set; }
     
-    [Required]
     public string PhoneNumber { get; set; }
 
-    [Required]
-    public bool IsAdmin { get; set; } = false;
+    public bool IsAdmin { get; set; }
+
+    public ICollection<Order> Orders { get; } = new List<Order>();
+
+    public ICollection<CartItem> CartItems { get; } = new List<CartItem>();
+    
+    public ICollection<Review> Reviews { get; } = new List<Review>();
 }
