@@ -10,7 +10,8 @@ entity User {
     *last_name
     *phone
     *is_admin
-    created_at
+    *created_at
+    updated_at
 }
 
 entity Book {
@@ -24,12 +25,16 @@ entity Book {
     *quantity
     *publisher
     *release_year
+    *deleted
+    *created_at
+    updated_at
 }
 
 entity Genre {
     *id
     --
     *name
+    *created_at
 }
 
 entity Author {
@@ -37,6 +42,7 @@ entity Author {
     --
     *first_name
     *last_name
+    *created_at
 }
 
 entity Order {
@@ -45,7 +51,7 @@ entity Order {
     *user_id
     *total_price
     *status
-    created_at
+    *created_at
     updated_at
 }
 
@@ -53,10 +59,12 @@ entity OrderItem {
     *id
     --
     *order_id
-    *book_id
     *quantity
     *price
-    created_at
+    *title
+    *isbn
+    book_id
+    *created_at
     updated_at
 }
 
@@ -66,7 +74,7 @@ entity CartItem {
     *user_id
     *book_id
     *quantity
-    created_at
+    *created_at
     updated_at
 }
 
@@ -77,7 +85,7 @@ entity Review {
     *book_id
     *rating
     *comment
-    created_at
+    *created_at
     updated_at
 }
 
@@ -86,6 +94,7 @@ entity WishList {
     --
     *user_id
     *name
+    *created_at
 }
 
 entity WishListItem {
@@ -93,8 +102,7 @@ entity WishListItem {
     --
     *wish_list_id
     *book_id
-    created_at
-    updated_at
+    *created_at
 }
 
 User ||--o{ Order
@@ -109,7 +117,5 @@ Book ||--o{ WishListItem
 Book ||--o{ OrderItem
 Author }|--o{ Book
 Genre }|--o{ Book
-
-
 
 @enduml
