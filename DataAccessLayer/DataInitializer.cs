@@ -40,6 +40,38 @@ public static class DataInitializer
         modelBuilder.Entity<OrderItem>()
             .HasData(orderItems);
     }
+    
+    public static object[] BookGenreData()
+    {
+        return new object[]
+        {
+            new { BooksId = 1, GenresId = 2 },
+            new { BooksId = 1, GenresId = 8 },
+            new { BooksId = 2, GenresId = 2 },
+            new { BooksId = 2, GenresId = 8 },
+            new { BooksId = 3, GenresId = 2 },
+            new { BooksId = 3, GenresId = 8 },
+            new { BooksId = 3, GenresId = 9 },
+            new { BooksId = 4, GenresId = 1 },
+            new { BooksId = 4, GenresId = 5 },
+            new { BooksId = 4, GenresId = 6 },
+            new { BooksId = 4, GenresId = 7 },
+            new { BooksId = 5, GenresId = 2 },
+            new { BooksId = 5, GenresId = 8 },
+            new { BooksId = 6, GenresId = 2 },
+            new { BooksId = 6, GenresId = 8 },
+            new { BooksId = 7, GenresId = 2 },
+            new { BooksId = 7, GenresId = 8 },
+            new { BooksId = 8, GenresId = 2 },
+            new { BooksId = 8, GenresId = 8 },
+            new { BooksId = 9, GenresId = 2 },
+            new { BooksId = 9, GenresId = 8 },
+            new { BooksId = 10, GenresId = 2 },
+            new { BooksId = 10, GenresId = 8 },
+            new { BooksId = 11, GenresId = 2 },
+            new { BooksId = 11, GenresId = 8 },
+        };
+    }
 
     private static IEnumerable<User> PrepareUserModels()
     {

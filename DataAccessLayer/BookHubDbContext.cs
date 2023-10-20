@@ -65,6 +65,19 @@ public class BookHubDbContext : DbContext
 
         modelBuilder.Seed();
 
+        modelBuilder.Entity<Book>()
+            .HasMany(b => b.Genres)
+            .WithMany(g => g.Books)
+            .UsingEntity<Dictionary<string, object>>(
+                "BookGenre",
+                r => r.HasOne<Genre>().WithMany().HasForeignKey("GenresId"),
+                l => l.HasOne<Book>().WithMany().HasForeignKey("BooksId"),
+                je =>
+                {
+                    je.HasKey("BooksId", "GenresId");
+                    je.HasData(DataInitializer.BookGenreData());
+                });
+
         base.OnModelCreating(modelBuilder);
     }
 
