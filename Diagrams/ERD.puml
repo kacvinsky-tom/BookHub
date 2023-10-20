@@ -35,6 +35,7 @@ entity Genre {
     --
     *name
     *created_at
+    updated_at
 }
 
 entity Author {
@@ -43,6 +44,7 @@ entity Author {
     *first_name
     *last_name
     *created_at
+    updated_at
 }
 
 entity Order {
@@ -95,6 +97,7 @@ entity WishList {
     *user_id
     *name
     *created_at
+    updated_at
 }
 
 entity WishListItem {
@@ -103,6 +106,7 @@ entity WishListItem {
     *wish_list_id
     *book_id
     *created_at
+    updated_at
 }
 
 User ||--o{ Order
