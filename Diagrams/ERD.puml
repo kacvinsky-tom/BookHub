@@ -1,0 +1,121 @@
+@startuml
+
+entity User {
+    *id
+    --
+    *username
+    *email
+    *password
+    *first_name
+    *last_name
+    *phone
+    *is_admin
+    *created_at
+    updated_at
+}
+
+entity Book {
+    *id
+    --
+    *title
+    *isbn
+    *description
+    image
+    *price
+    *quantity
+    *publisher
+    *release_year
+    *deleted
+    *created_at
+    updated_at
+}
+
+entity Genre {
+    *id
+    --
+    *name
+    *created_at
+}
+
+entity Author {
+    *id
+    --
+    *first_name
+    *last_name
+    *created_at
+}
+
+entity Order {
+    *id
+    --
+    *user_id
+    *total_price
+    *status
+    *created_at
+    updated_at
+}
+
+entity OrderItem {
+    *id
+    --
+    *order_id
+    *quantity
+    *price
+    *title
+    *isbn
+    book_id
+    *created_at
+    updated_at
+}
+
+entity CartItem {
+    *id
+    --
+    *user_id
+    *book_id
+    *quantity
+    *created_at
+    updated_at
+}
+
+entity Review {
+    *id
+    --
+    *user_id
+    *book_id
+    *rating
+    *comment
+    *created_at
+    updated_at
+}
+
+entity WishList {
+    *id
+    --
+    *user_id
+    *name
+    *created_at
+}
+
+entity WishListItem {
+    *id
+    --
+    *wish_list_id
+    *book_id
+    *created_at
+}
+
+User ||--o{ Order
+Order ||--o{ OrderItem
+User ||--o{ CartItem
+Book ||--o{ CartItem
+User ||--o{ Review
+Book ||--o{ Review
+User ||--o{ WishList
+WishList ||--o{ WishListItem
+Book ||--o{ WishListItem
+Book ||--o{ OrderItem
+Author }|--o{ Book
+Genre }|--o{ Book
+
+@enduml
