@@ -1,6 +1,9 @@
-﻿using BookHub.API.Mapper;
+﻿using BookHub.API.InputType;
+using BookHub.API.Mapper;
 using BookHub.DataAccessLayer;
 using BookHub.DataAccessLayer.Entity;
+using BookHub.DataAccessLayer.Exception;
+using BookHub.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookHub.API.Controllers;
@@ -10,10 +13,12 @@ namespace BookHub.API.Controllers;
 public class BookController : ControllerBase
 {
     private readonly UnitOfWork _unitOfWork;
+    private readonly BookService _bookService;
     
-    public BookController(UnitOfWork unitOfWork)
+    public BookController(UnitOfWork unitOfWork, BookService bookService)
     {
         _unitOfWork = unitOfWork;
+        _bookService = bookService;
     }
 
     [HttpGet]
@@ -23,11 +28,11 @@ public class BookController : ControllerBase
         
         return Ok(books.Select(BookMapper.Map));
     }
-    
+
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
-        var book = await _unitOfWork.Books.GetById(id);
+        var book = await _unitOfWork.Books.GetByIdWithRelations(id);
         
         if (book == null)
         {
@@ -38,16 +43,26 @@ public class BookController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<IActionResult> Create(Book book)
+    public async Task<IActionResult> Create([FromBody] BookInput bookCreateInput)
     {
-        _unitOfWork.Books.Add(book);
-        await _unitOfWork.Complete();
+        try
+        {
+            var book = await _bookService.Create(bookCreateInput);
+            
+            _unitOfWork.Books.Add(book);
 
-        return Ok(BookMapper.Map(book));
+            await _unitOfWork.Complete();
+
+            return Ok(BookMapper.Map(book));
+        }
+        catch (EntityNotFoundException<Author> e)
+        {
+            return NotFound(e.Message);
+        }
     }
 
     [HttpPut("{id:int}")]
-    public async Task<IActionResult> Update(Book book, int id)
+    public async Task<IActionResult> Update([FromBody] BookInput bookUpdateInput, int id)
     {
         var bookToUpdate = await _unitOfWork.Books.GetById(id);
         
@@ -55,22 +70,19 @@ public class BookController : ControllerBase
         {
             return NotFound();
         }
-        
-        bookToUpdate.Title = book.Title;
-        bookToUpdate.ISBN = book.ISBN;
-        bookToUpdate.Description = book.Description;
-        bookToUpdate.Image = book.Image;
-        bookToUpdate.Price = book.Price;
-        bookToUpdate.Quantity = book.Quantity;
-        bookToUpdate.Publisher = book.Publisher;
-        bookToUpdate.ReleaseYear = book.ReleaseYear;
-        bookToUpdate.AuthorId = book.AuthorId;
-        bookToUpdate.Author = book.Author;
-        bookToUpdate.Genres = book.Genres;
 
-        await _unitOfWork.Complete();
-
-        return Ok(BookMapper.Map(bookToUpdate));
+        try
+        {
+            await _bookService.Update(bookUpdateInput, bookToUpdate);
+            
+            await _unitOfWork.Complete();
+            
+            return Ok(BookMapper.Map(bookToUpdate));
+        }
+        catch (EntityNotFoundException<Author> e)
+        {
+            return NotFound(e.Message);
+        }
     }
 
     [HttpDelete("{id:int}")]

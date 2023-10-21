@@ -19,4 +19,15 @@ public class BookRepository : GenericRepository<Book>, IBookRepository
             .Where(book => !book.IsDeleted)
             .ToListAsync();
     }
+
+    public async Task<Book?> GetByIdWithRelations(int id)
+    {
+        return await _context.Books
+            .Include(book => book.Genres)
+            .Include(book => book.Reviews)
+            .ThenInclude(review => review.User)
+            .Include(book => book.Author)
+            .Where(book => !book.IsDeleted)
+            .FirstOrDefaultAsync(book => book.Id == id);
+    }
 }

@@ -1,4 +1,5 @@
 using BookHub.DataAccessLayer;
+using BookHub.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,8 @@ builder.Services.AddDbContext<BookHubDbContext>();
 builder.Services.AddScoped<UnitOfWork>();
 
 builder.Services.AddRepositories();
+
+builder.Services.AddTransient<BookService>();
 
 var app = builder.Build();
 
