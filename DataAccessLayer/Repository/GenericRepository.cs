@@ -1,9 +1,10 @@
 ﻿using System.Linq.Expressions;
+using BookHub.DataAccessLayer.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookHub.DataAccessLayer.Repository;
 
-public class GenericRepository<T> : IGenericRepository<T> where T : class
+public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
 {
     protected readonly BookHubDbContext _context;
 

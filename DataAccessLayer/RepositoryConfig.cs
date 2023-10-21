@@ -6,8 +6,8 @@ public static class RepositoryConfig
 {
     public static void AddRepositories(this IServiceCollection services)
     {
-        services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         
-        services.AddTransient<IBookRepository, BookRepository>();
+        services.AddScoped<IBookRepository, BookRepository>();
     }
 }
