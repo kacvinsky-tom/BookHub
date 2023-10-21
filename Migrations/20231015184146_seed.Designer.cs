@@ -3,6 +3,7 @@ using System;
 using BookHub.DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookHub.Migrations
 {
     [DbContext(typeof(BookHubDbContext))]
-    partial class BookHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231015184146_seed")]
+    partial class seed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.12");
@@ -952,7 +955,7 @@ namespace BookHub.Migrations
                     b.HasOne("BookHub.DataAccessLayer.Entity.User", "User")
                         .WithMany("CartItems")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Book");
@@ -965,7 +968,7 @@ namespace BookHub.Migrations
                     b.HasOne("BookHub.DataAccessLayer.Entity.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -982,7 +985,7 @@ namespace BookHub.Migrations
                     b.HasOne("BookHub.DataAccessLayer.Entity.Order", "Order")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Book");
@@ -1001,7 +1004,7 @@ namespace BookHub.Migrations
                     b.HasOne("BookHub.DataAccessLayer.Entity.User", "User")
                         .WithMany("Reviews")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Book");
@@ -1012,9 +1015,9 @@ namespace BookHub.Migrations
             modelBuilder.Entity("BookHub.DataAccessLayer.Entity.WishList", b =>
                 {
                     b.HasOne("BookHub.DataAccessLayer.Entity.User", "User")
-                        .WithMany("WishLists")
+                        .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -1031,7 +1034,7 @@ namespace BookHub.Migrations
                     b.HasOne("BookHub.DataAccessLayer.Entity.WishList", "WishList")
                         .WithMany("WishListItems")
                         .HasForeignKey("WishListId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Book");
@@ -1067,8 +1070,6 @@ namespace BookHub.Migrations
                     b.Navigation("Orders");
 
                     b.Navigation("Reviews");
-
-                    b.Navigation("WishLists");
                 });
 
             modelBuilder.Entity("BookHub.DataAccessLayer.Entity.WishList", b =>
