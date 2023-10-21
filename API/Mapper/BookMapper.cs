@@ -1,6 +1,6 @@
 ﻿using BookHub.DataAccessLayer.Entity;
 
-namespace BookHub.Mapper;
+namespace BookHub.API.Mapper;
 
 public static class BookMapper
 {

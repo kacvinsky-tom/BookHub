@@ -1,9 +1,9 @@
-﻿using BookHub.DataAccessLayer;
+﻿using BookHub.API.Mapper;
+using BookHub.DataAccessLayer;
 using BookHub.DataAccessLayer.Entity;
-using BookHub.Mapper;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookHub.Controllers;
+namespace BookHub.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
