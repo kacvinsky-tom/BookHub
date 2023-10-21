@@ -1,4 +1,5 @@
 ﻿using BookHub.API.InputType;
+using BookHub.API.InputType.Filter;
 using BookHub.API.Mapper;
 using BookHub.DataAccessLayer;
 using BookHub.DataAccessLayer.Entity;
@@ -22,9 +23,9 @@ public class BookController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Fetch()
+    public async Task<IActionResult> Fetch([FromQuery] BookFilterInput filterInput)
     {
-        var books = await _unitOfWork.Books.GetWithRelations();
+        var books = await _unitOfWork.Books.GetWithRelations(filterInput);
         
         return Ok(books.Select(BookMapper.Map));
     }
