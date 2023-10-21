@@ -33,6 +33,36 @@ public class BookHubDbContext : DbContext
             relationship.DeleteBehavior = DeleteBehavior.Restrict;
         }
 
+        modelBuilder.Entity<WishList>()
+            .HasMany(wl => wl.WishListItems)
+            .WithOne(wli => wli.WishList)
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        modelBuilder.Entity<Order>()
+            .HasMany(o => o.OrderItems)
+            .WithOne(oi => oi.Order)
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        modelBuilder.Entity<User>()
+            .HasMany(u => u.Orders)
+            .WithOne(o => o.User)
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        modelBuilder.Entity<User>()
+            .HasMany(u => u.Reviews)
+            .WithOne(r => r.User)
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        modelBuilder.Entity<User>()
+            .HasMany(u => u.CartItems)
+            .WithOne(ci => ci.User)
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        modelBuilder.Entity<User>()
+            .HasMany(u => u.WishLists)
+            .WithOne(wl => wl.User)
+            .OnDelete(DeleteBehavior.Cascade);
+
         modelBuilder.Seed();
 
         base.OnModelCreating(modelBuilder);
