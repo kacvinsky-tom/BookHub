@@ -10,6 +10,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<BookHubDbContext>();
+builder.Services.AddScoped<UnitOfWork>();
+
 builder.Services.AddRepositories();
 
 var app = builder.Build();

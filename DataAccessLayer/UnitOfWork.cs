@@ -15,9 +15,9 @@ public class UnitOfWork
         Books = new BookRepository(_context);
     }
 
-    public async Task<int> Complete()
+    public async Task Complete()
     {
-        return await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
     }
 
     public async void Dispose()
