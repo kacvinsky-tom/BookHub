@@ -70,8 +70,8 @@ public class BookHubDbContext : DbContext
             .WithMany(g => g.Books)
             .UsingEntity<Dictionary<string, object>>(
                 "BookGenre",
-                r => r.HasOne<Genre>().WithMany().HasForeignKey("GenresId"),
-                l => l.HasOne<Book>().WithMany().HasForeignKey("BooksId"),
+                r => r.HasOne<Genre>().WithMany().HasForeignKey("GenresId").OnDelete(DeleteBehavior.Restrict),
+                l => l.HasOne<Book>().WithMany().HasForeignKey("BooksId").OnDelete(DeleteBehavior.Cascade),
                 je =>
                 {
                     je.HasKey("BooksId", "GenresId");
