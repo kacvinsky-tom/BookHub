@@ -12,7 +12,7 @@ public static class BookMapper
             book.Title,
             book.ISBN,
             book.Description,
-            book.Image, //TODO how are we going to handle images?
+            book.Image, 
             book.Price,
             book.Quantity,
             book.Publisher,
