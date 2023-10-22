@@ -15,7 +15,7 @@ builder.Services.AddScoped<UnitOfWork>();
 
 builder.Services.AddRepositories();
 
-builder.Services.AddTransient<BookService>();
+builder.Services.AddScoped<BookService>();
 
 var app = builder.Build();
 

@@ -9,7 +9,7 @@ public static class RepositoryConfig
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         
         services.AddScoped<IBookRepository, BookRepository>();
-        services.AddTransient<IAuthorRepository, AuthorRepository>();
-        services.AddTransient<IGenreRepository, GenreRepository>();
+        services.AddScoped<IAuthorRepository, AuthorRepository>();
+        services.AddScoped<IGenreRepository, GenreRepository>();
     }
 }
