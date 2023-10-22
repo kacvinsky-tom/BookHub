@@ -1,4 +1,5 @@
-﻿namespace BookHub.DataAccessLayer.Entity;
+﻿
+namespace BookHub.DataAccessLayer.Entity;
 
 public class Book : BaseEntity
 {
@@ -23,7 +24,7 @@ public class Book : BaseEntity
     public int AuthorId { get; set; }
     public virtual Author Author { get; set; } = null!;
     
-    public ICollection<Genre> Genres { get; } = new List<Genre>();
+    public ICollection<Genre> Genres { get; set; } = new List<Genre>();
     
     public ICollection<OrderItem> OrderItems { get; } = new List<OrderItem>();
     

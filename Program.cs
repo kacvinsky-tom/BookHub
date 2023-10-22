@@ -1,5 +1,7 @@
 using BookHub.DataAccessLayer;
+using BookHub.Services;
 using BookHub.Middlewares;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +13,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<BookHubDbContext>();
+builder.Services.AddScoped<UnitOfWork>();
+
 builder.Services.AddRepositories();
+
+builder.Services.AddScoped<BookService>();
 
 var app = builder.Build();
 

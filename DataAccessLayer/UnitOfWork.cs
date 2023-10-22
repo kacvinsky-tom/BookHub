@@ -7,17 +7,21 @@ public class UnitOfWork
     private readonly BookHubDbContext _context;
 
     public IBookRepository Books { get; }
+    public IAuthorRepository Authors { get; }
+    public IGenreRepository Genres { get; }
     
     public UnitOfWork(BookHubDbContext context)
     {
         _context = context;
         
         Books = new BookRepository(_context);
+        Authors = new AuthorRepository(_context);
+        Genres = new GenreRepository(_context);
     }
 
-    public async Task<int> Complete()
+    public async Task Complete()
     {
-        return await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
     }
 
     public async void Dispose()

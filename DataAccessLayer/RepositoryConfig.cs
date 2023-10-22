@@ -9,5 +9,7 @@ public static class RepositoryConfig
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         
         services.AddScoped<IBookRepository, BookRepository>();
+        services.AddScoped<IAuthorRepository, AuthorRepository>();
+        services.AddScoped<IGenreRepository, GenreRepository>();
     }
 }
