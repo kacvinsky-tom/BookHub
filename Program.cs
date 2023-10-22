@@ -1,4 +1,5 @@
 using BookHub.DataAccessLayer;
+using BookHub.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseLoggingMiddleware();
 
 app.UseHttpsRedirection();
 
