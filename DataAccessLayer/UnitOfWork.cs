@@ -10,6 +10,8 @@ public class UnitOfWork
     public IAuthorRepository Authors { get; }
     public IGenreRepository Genres { get; }
     
+    public IUserRepository Users { get; }
+    
     public UnitOfWork(BookHubDbContext context)
     {
         _context = context;
@@ -17,6 +19,7 @@ public class UnitOfWork
         Books = new BookRepository(_context);
         Authors = new AuthorRepository(_context);
         Genres = new GenreRepository(_context);
+        Users = new UserRepository(_context);
     }
 
     public async Task Complete()
