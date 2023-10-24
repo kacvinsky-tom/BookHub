@@ -7,6 +7,7 @@ public class BookHubDbContext : DbContext
 {
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<Author> Authors { get; set; } = null!;
+    public DbSet<Publisher> Publishers { get; set; } = null!;
     public DbSet<Book> Books { get; set; } = null!;
     public DbSet<Genre> Genres { get; set; } = null!;
     public DbSet<Order> Orders { get; set; } = null!;

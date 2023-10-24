@@ -15,8 +15,14 @@ public static class BookMapper
             book.Image, 
             book.Price,
             book.Quantity,
-            book.Publisher,
             book.ReleaseYear,
+            Publisher = new
+            {
+                book.Publisher.Id,
+                book.Publisher.Name,
+                book.Publisher.Address,
+                book.Publisher.Email
+            },
             Author = new
             {
                 book.Author.Id,
