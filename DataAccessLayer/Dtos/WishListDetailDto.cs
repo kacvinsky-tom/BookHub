@@ -2,6 +2,7 @@
 
 public class WishListDetailDto : DtoBase
 {
+    public int UserId { get; set; }
     public string Name { get; set; }
-    public ICollection<WishListItemDto> WishListItems { get; set; }
+    public IEnumerable<WishListItemListDto> WishListItems { get; set; }
 }

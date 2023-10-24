@@ -8,8 +8,8 @@ public class UserDetailDto : DtoBase
     public string LastName { get; set; }
     public string PhoneNumber { get; set; }
     public bool IsAdmin { get; set; }
-    public ICollection<OrderListDto> Orders { get; set; }
-    public ICollection<CartItemDto> CartItems { get; set; }
-    public ICollection<ReviewListDto> Reviews { get; set; }
-    public ICollection<WishListListDto> WishLists { get; set; }
+    public IEnumerable<OrderListDto> Orders { get; set; }
+    public IEnumerable<CartItemDto> CartItems { get; set; }
+    public IEnumerable<ReviewListDto> Reviews { get; set; }
+    public IEnumerable<WishListListDto> WishLists { get; set; }
 }

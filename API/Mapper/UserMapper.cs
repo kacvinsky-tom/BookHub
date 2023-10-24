@@ -9,12 +9,13 @@ public static class UserMapper
     {
         return new UserListDto()
         {
+            Id = user.Id,
             Username = user.Username,
             Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
             PhoneNumber = user.PhoneNumber,
-            IsAdmin = user.IsAdmin
+            IsAdmin = user.IsAdmin,
         };
     }
     
@@ -22,13 +23,13 @@ public static class UserMapper
     {
         return new UserDetailDto()
         {
+            Id = user.Id,
             Username = user.Username,
             Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
             PhoneNumber = user.PhoneNumber,
             IsAdmin = user.IsAdmin,
-            
         };
     }
 }
