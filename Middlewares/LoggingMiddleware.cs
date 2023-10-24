@@ -4,16 +4,18 @@ public class LoggingMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly IConfiguration _configuration;
+    private readonly ILogger<LoggingMiddleware> _logger;
     
-    public LoggingMiddleware(RequestDelegate next, IConfiguration configuration)
+    public LoggingMiddleware(RequestDelegate next, IConfiguration configuration, ILogger<LoggingMiddleware> logger)
     {
         _next = next;
         _configuration = configuration;
+        _logger = logger;
     }
     
     public async Task InvokeAsync(HttpContext context)
     {
-        Console.WriteLine(_configuration.GetValue<bool>("Logging:RequestLogging:Detailed")
+        _logger.LogInformation(_configuration.GetValue<bool>("Logging:RequestLogging:Detailed")
             ? FormatContextDataLong(context)
             : FormatContextDataShort(context));
 
