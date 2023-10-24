@@ -95,8 +95,8 @@ public class BookController : ControllerBase
         {
             return NotFound();
         }
-        
-        _unitOfWork.Books.Remove(book);
+
+        _bookService.Remove(book);
         await _unitOfWork.Complete();
 
         return Ok();
