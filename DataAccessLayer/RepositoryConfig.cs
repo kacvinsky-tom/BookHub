@@ -11,5 +11,9 @@ public static class RepositoryConfig
         services.AddScoped<IBookRepository, BookRepository>();
         services.AddScoped<IAuthorRepository, AuthorRepository>();
         services.AddScoped<IGenreRepository, GenreRepository>();
+        services.AddScoped<IReviewRepository, ReviewRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IWishListRepository, WishListRepository>();
+        services.AddScoped<IWishListItemRepository, WishListItemRepository>();
     }
 }
