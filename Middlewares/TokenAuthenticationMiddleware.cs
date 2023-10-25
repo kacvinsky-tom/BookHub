@@ -1,4 +1,6 @@
-﻿namespace BookHub.Middlewares;
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace BookHub.Middlewares;
 
 public class TokenAuthenticationMiddleware
 {
@@ -13,19 +15,24 @@ public class TokenAuthenticationMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
+        var hardcodedToken = _configuration.GetValue<string>("APIAuthorization:BearerToken");
+
+
         if (!context.Request.Headers.ContainsKey("Authorization"))
         {
             context.Response.StatusCode = 401;
-            await context.Response.WriteAsync("Unauthorized. Missing authorization token");
+            context.Response.ContentType = "text/plain";
+            await context.Response.WriteAsync("Unauthorized. Missing authorization token.");
             return;
         }
 
-        var tokenInput = context.Request.Headers.Authorization.ToString();
+        var requestToken = context.Request.Headers.Authorization.ToString();
 
-        if (tokenInput != _configuration.GetValue<string>("APIAuthorization:BearerToken"))
+        if (requestToken != hardcodedToken)
         {
             context.Response.StatusCode = 401;
-            await context.Response.WriteAsync("Unauthorized. Invalid or expired authorization token");
+            context.Response.ContentType = "text/plain";
+            await context.Response.WriteAsync("Unauthorized. Invalid or expired authorization token.");
             return;
         }
 

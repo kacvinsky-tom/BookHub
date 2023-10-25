@@ -1,7 +1,7 @@
 using BookHub.DataAccessLayer;
 using BookHub.Services;
 using BookHub.Middlewares;
-using Microsoft.OpenApi.Models;
+using BookHub;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,36 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-  {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookHub API", Version = "v1" });
-
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-      Description = "Enter the API key as follows: Bearer YourHardcodedToken",
-      Name = "Authorization",
-      In = ParameterLocation.Header,
-      Type = SecuritySchemeType.ApiKey,
-      Scheme = "Bearer"
-    });
-
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-      {
-          {
-              new OpenApiSecurityScheme
-              {
-                  Reference = new OpenApiReference
-                  {
-                      Type = ReferenceType.SecurityScheme,
-                      Id = "Bearer"
-                  }
-              },
-              new string[] {}
-          }
-      });
-  });
+builder.Services.AddSwaggerWithAuthentication();
 
 builder.Services.AddLogging();
 
