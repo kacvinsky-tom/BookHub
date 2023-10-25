@@ -5,9 +5,9 @@ namespace BookHub.API.Mapper;
 
 public static class CartItemMapper
 {
-    public static CartItemDto Map(CartItem cartList)
+    public static CartItemOutputDto Map(CartItem cartList)
     {
-        return new CartItemDto()
+        return new CartItemOutputDto()
         {
             // TODO
         };

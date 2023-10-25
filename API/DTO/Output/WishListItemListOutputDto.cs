@@ -1,6 +1,6 @@
-﻿namespace BookHub.DataAccessLayer.Dtos;
+﻿namespace BookHub.API.DTO.Output;
 
-public class WishListItemListDto : DtoBase
+public class WishListItemListOutputDto : OutputDtoBase
 {
     public string BookTitle { get; set; }
     public double BookPrice { get; set; }

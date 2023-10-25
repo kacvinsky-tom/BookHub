@@ -11,47 +11,47 @@ namespace BookHub.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class WishListController : ControllerBase
+public class ReviewController : ControllerBase
 {
     private readonly UnitOfWork _unitOfWork;
-    private readonly WishListService _wishListService;
+    private readonly ReviewService _reviewService;
     
-    public WishListController(UnitOfWork unitOfWork, WishListService wishListService)
+    public ReviewController(UnitOfWork unitOfWork, ReviewService reviewService)
     {
         _unitOfWork = unitOfWork;
-        _wishListService = wishListService;
+        _reviewService = reviewService;
     }
     
     [HttpGet]
     public async Task<IActionResult> Fetch()
     {
-        var wishLists = await _unitOfWork.WishLists.GetAll();
+        var reviews = await _unitOfWork.Reviews.GetAllWithRelations();
         
-        return Ok(wishLists.Select(WishListMapper.MapList));
+        return Ok(reviews.Select(ReviewMapper.MapList));
     }
     
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
-        var wishList = await _unitOfWork.WishLists.GetById(id);
+        var review = await _unitOfWork.Reviews.GetByIdWithRelations(id);
         
-        if (wishList == null)
+        if (review == null)
         {
             return NotFound();
         }
 
-        return Ok(WishListMapper.MapDetail(wishList));
+        return Ok(ReviewMapper.MapDetail(review));
     }
     
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] WishListInputDto wishListInputDto)
+    public async Task<IActionResult> Create([FromBody] ReviewInputDto reviewInputDto)
     {
         try
         {
-            var wishList = await _wishListService.Create(wishListInputDto);
-            _unitOfWork.WishLists.Add(wishList);
+            var review = await _reviewService.Create(reviewInputDto);
+            _unitOfWork.Reviews.Add(review);
             await _unitOfWork.Complete();
-            return Ok(WishListMapper.MapDetail(wishList));
+            return Ok(ReviewMapper.MapDetail(review));
         }
         catch (EntityNotFoundException<User> e)
         {
@@ -60,21 +60,22 @@ public class WishListController : ControllerBase
     }
     
     [HttpPut("{id:int}")]
-    public async Task<IActionResult> Update(int id, [FromBody] WishListInputDto wishListInputDto)
+    public async Task<IActionResult> Update(int id, [FromBody] ReviewUpdateInputDto reviewInputDto)
     {
-        var wishList = await _unitOfWork.WishLists.GetByIdWithRelations(id);
+        var review = await _unitOfWork.Reviews.GetById(id);
         
-        if (wishList == null)
+        if (review == null)
         {
             return NotFound();
         }
 
         try
         {
-            await _wishListService.Update(wishListInputDto, wishList);
+            review.Rating = reviewInputDto.Rating;
+            review.Comment = reviewInputDto.Comment;
             await _unitOfWork.Complete();
-            return Ok(WishListMapper.MapDetail(wishList));
-        } 
+            return Ok(ReviewMapper.MapDetail(review));
+        }
         catch (EntityNotFoundException<User> e)
         {
             return NotFound(e.Message);
@@ -84,17 +85,15 @@ public class WishListController : ControllerBase
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var wishList = await _unitOfWork.WishLists.GetById(id);
+        var review = await _unitOfWork.Reviews.GetById(id);
         
-        if (wishList == null)
+        if (review == null)
         {
             return NotFound();
         }
 
-        _unitOfWork.WishLists.Remove(wishList);
-        
+        _unitOfWork.Reviews.Remove(review);
         await _unitOfWork.Complete();
-
         return Ok();
     }
 }

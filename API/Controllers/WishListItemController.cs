@@ -1,4 +1,5 @@
-﻿using BookHub.API.InputType;
+﻿using BookHub.API.DTO.Input;
+using BookHub.API.InputType;
 using BookHub.API.Mapper;
 using BookHub.DataAccessLayer;
 using BookHub.DataAccessLayer.Entity;
@@ -24,7 +25,7 @@ public class WishListItemController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Fetch()
     {
-        var wishListItems = await _unitOfWork.WishListItems.GetAll();
+        var wishListItems = await _unitOfWork.WishListItems.GetAllWithRelations();
         
         return Ok(wishListItems.Select(WishListItemMapper.MapList));
     }
@@ -52,7 +53,7 @@ public class WishListItemController : ControllerBase
             await _unitOfWork.Complete();
             return Ok(WishListItemMapper.MapDetail(wishListItem));
         }
-        catch (EntityNotFoundException<WishList> e)
+        catch (EntityNotFoundException<BaseEntity> e)
         {
             return NotFound(e.Message);
         }
@@ -74,7 +75,7 @@ public class WishListItemController : ControllerBase
             await _unitOfWork.Complete();
             return Ok(WishListItemMapper.MapDetail(wishListItem));
         }
-        catch (EntityNotFoundException<WishList> e)
+        catch (EntityNotFoundException<BaseEntity> e)
         {
             return NotFound(e.Message);
         }

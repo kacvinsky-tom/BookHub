@@ -1,13 +1,14 @@
-﻿using BookHub.DataAccessLayer.Dtos;
+﻿using BookHub.API.DTO.Output;
+using BookHub.DataAccessLayer.Dtos;
 using BookHub.DataAccessLayer.Entity;
 
 namespace BookHub.API.Mapper;
 
 public static class UserMapper
 {
-    public static UserListDto MapList(User user)
+    public static UserListOutputDto MapList(User user)
     {
-        return new UserListDto()
+        return new UserListOutputDto()
         {
             Id = user.Id,
             Username = user.Username,
@@ -19,9 +20,9 @@ public static class UserMapper
         };
     }
     
-    public static UserDetailDto MapDetail(User user)
+    public static UserDetailOutputDto MapDetail(User user)
     {
-        return new UserDetailDto()
+        return new UserDetailOutputDto()
         {
             Id = user.Id,
             Username = user.Username,

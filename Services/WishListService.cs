@@ -1,4 +1,5 @@
-﻿using BookHub.API.InputType;
+﻿using BookHub.API.DTO.Input;
+using BookHub.API.InputType;
 using BookHub.DataAccessLayer;
 using BookHub.DataAccessLayer.Entity;
 using BookHub.DataAccessLayer.Exception;

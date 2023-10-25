@@ -15,4 +15,11 @@ public class WishListItemRepository : GenericRepository<WishListItem>, IWishList
             .Include(w => w.Book)
             .FirstOrDefaultAsync(w => w.Id == id);
     }
+
+    public async Task<List<WishListItem>> GetAllWithRelations()
+    {
+        return await _context.WishListItems
+            .Include(w => w.Book)
+            .ToListAsync();
+    }
 }

@@ -1,13 +1,14 @@
-﻿using BookHub.DataAccessLayer.Dtos;
+﻿using BookHub.API.DTO.Output;
+using BookHub.DataAccessLayer.Dtos;
 using BookHub.DataAccessLayer.Entity;
 
 namespace BookHub.API.Mapper;
 
 public static class WishListMapper
 {
-    public static WishListListDto MapList(WishList wishList)
+    public static WishListListOutputDto MapList(WishList wishList)
     {
-        return new WishListListDto()
+        return new WishListListOutputDto()
         {
             Id = wishList.Id,
             UserId = wishList.UserId,
@@ -15,9 +16,9 @@ public static class WishListMapper
         };
     }
 
-    public static WishListDetailDto MapDetail(WishList wishList)
+    public static WishListDetailOutputDto MapDetail(WishList wishList)
     {
-        return new WishListDetailDto()
+        return new WishListDetailOutputDto()
         {
             Id = wishList.Id,
             UserId = wishList.UserId,
