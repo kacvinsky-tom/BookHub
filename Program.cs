@@ -39,6 +39,8 @@ app.UseLoggingMiddleware();
 
 app.UseHttpsRedirection();
 
+app.UseTokenAuthenticationMiddleware();
+
 app.UseAuthorization();
 
 app.MapControllers();
