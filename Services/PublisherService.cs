@@ -1,4 +1,4 @@
-﻿using BookHub.DataAccessLayer.Dtos.Input;
+﻿using BookHub.API.DTO.Input.Publisher;
 using BookHub.DataAccessLayer.Entity;
 
 namespace BookHub.Services;
@@ -11,7 +11,7 @@ public class PublisherService
         {
             Name = publisherCreateInput.Name,
             Email = publisherCreateInput.Email,
-            Address = publisherCreateInput.Address
+            State = publisherCreateInput.State
         };
 
         return publisher;
@@ -20,7 +20,7 @@ public class PublisherService
     public void Update(PublisherInputDto publisherUpdateInput, Publisher publisher)
     {
         publisher.Name = publisherUpdateInput.Name;
-        publisher.Address = publisherUpdateInput.Address;
+        publisher.State = publisherUpdateInput.State;
         publisher.Email = publisherUpdateInput.Email;
     }
 }

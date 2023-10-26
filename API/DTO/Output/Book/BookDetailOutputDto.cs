@@ -1,4 +1,4 @@
-﻿namespace BookHub.API.DTO.Output;
+﻿namespace BookHub.API.DTO.Output.Book;
 
 public class BookDetailOutputDto : OutputDtoBase
 {

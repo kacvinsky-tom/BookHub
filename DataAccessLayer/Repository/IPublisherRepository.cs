@@ -1,4 +1,5 @@
 ﻿using BookHub.DataAccessLayer.Entity;
+using BookHub.DataAccessLayer.Repository.Interfaces;
 
 namespace BookHub.DataAccessLayer.Repository;
 

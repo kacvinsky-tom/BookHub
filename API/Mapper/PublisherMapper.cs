@@ -1,4 +1,4 @@
-﻿using BookHub.DataAccessLayer.Dtos;
+﻿using BookHub.API.DTO.Output.Publisher;
 using BookHub.DataAccessLayer.Entity;
 
 namespace BookHub.API.Mapper;
@@ -11,7 +11,7 @@ public static class PublisherMapper
         {
             Id = publisher.Id,
             Name = publisher.Name,
-            Address = publisher.Address,
+            State = publisher.State,
             Email = publisher.Email
         };
     }
@@ -22,7 +22,7 @@ public static class PublisherMapper
         {
             Id = publisher.Id,
             Name = publisher.Name,
-            Address = publisher.Address,
+            State = publisher.State,
             Email = publisher.Email
         };
     }

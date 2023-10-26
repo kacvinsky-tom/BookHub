@@ -20,7 +20,7 @@ public static class BookMapper
             {
                 book.Publisher.Id,
                 book.Publisher.Name,
-                book.Publisher.Address,
+                book.Publisher.State,
                 book.Publisher.Email
             },
             Author = new

@@ -1,6 +1,6 @@
+using BookHub.API.DTO.Input.Publisher;
 using BookHub.API.Mapper;
 using BookHub.DataAccessLayer;
-using BookHub.DataAccessLayer.Dtos.Input;
 using BookHub.Services;
 using Microsoft.AspNetCore.Mvc;
 

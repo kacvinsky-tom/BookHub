@@ -249,21 +249,21 @@ public static class DataInitializer
             {
                 Id = 1,
                 Name = "Talpress",
-                Address = "Řeznická 1374/12, 110 00 Praha 1",
+                State = "Czech Republic",
                 Email = "eshop@talpress.cz"
             },
             new()
             {
                 Id = 2,
                 Name = "Albatros",
-                Address = "5. května 1746/22, 140 00 Praha 4 ",
+                State = "Czech Republic",
                 Email = "albatros@albatrosmedia.cz"
             },
             new()
             {
                 Id = 3,
                 Name = "Argo",
-                Address = "Milíčova 13, 130 00 Praha 3",
+                State = "Czech Republic",
                 Email = "argo@argo.cz"
             }
         };

@@ -49,7 +49,7 @@ entity Publisher {
     *id
     --
     *name
-    *address
+    *state
     *email
     *created_at
     updated_at
