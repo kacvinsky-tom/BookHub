@@ -8,20 +8,21 @@ namespace BookHub.Services;
 public class BookService
 {
     private readonly UnitOfWork _unitOfWork;
-    
+
     public BookService(UnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
-    
+
     public async Task<Book> Create(BookInput bookCreateInput)
     {
-        var author = await _unitOfWork.Authors.GetById(bookCreateInput.AuthorId);
         var publisher = await _unitOfWork.Publishers.GetById(bookCreateInput.PublisherId);
-        
-        if (author == null)
+        var authors = await _unitOfWork.Authors
+            .Find(author => bookCreateInput.AuthorsIds.Contains(author.Id));
+
+        if (authors == null)
         {
-            throw new EntityNotFoundException<Author>(bookCreateInput.AuthorId);
+            throw new EntityNotFoundException<Author>(bookCreateInput.AuthorsIds.FirstOrDefault());
         }
         if (publisher == null)
         {
@@ -42,22 +43,28 @@ public class BookService
             PublisherId = bookCreateInput.PublisherId,
             ReleaseYear = bookCreateInput.ReleaseYear,
             IsDeleted = false,
-            AuthorId = bookCreateInput.AuthorId,
-            Author = author,
+            Authors = authors.ToList(),
             Genres = genres.ToList(),
         };
 
         return book;
     }
-    
+
     public async Task Update(BookInput bookUpdateInput, Book book)
     {
-        var author = await _unitOfWork.Authors.GetById(bookUpdateInput.AuthorId);
         var publisher = await _unitOfWork.Publishers.GetById(bookUpdateInput.PublisherId);
         
-        if (author == null)
+        if (publisher == null)
         {
-            throw new EntityNotFoundException<Author>(bookUpdateInput.AuthorId);
+            throw new EntityNotFoundException<Publisher>(bookUpdateInput.PublisherId);
+        }
+        
+        var authors = await _unitOfWork.Authors
+            .Find(author => bookUpdateInput.AuthorsIds.Contains(author.Id));
+
+        if (authors == null)
+        {
+            throw new EntityNotFoundException<Author>(bookUpdateInput.AuthorsIds.FirstOrDefault());
         }
         if (publisher == null)
         {
@@ -76,13 +83,12 @@ public class BookService
         book.PublisherId = bookUpdateInput.PublisherId;
         book.ReleaseYear = bookUpdateInput.ReleaseYear;
         book.IsDeleted = bookUpdateInput.IsDeleted;
-        book.AuthorId = bookUpdateInput.AuthorId;
-        book.Author = author;
+        book.Authors = authors.ToList();
         book.Genres = genres.ToList();
     }
-
-    public void Remove(Book book)
+    public void Delete(Book book)
     {
         book.IsDeleted = true;
     }
+
 }

@@ -75,6 +75,38 @@ public static class DataInitializer
             new { BooksId = 11, GenresId = 8 },
         };
     }
+    
+    public static object[] BookAuthorData()
+    {
+        return new object[]
+        {
+            new { BooksId = 1, AuthorsId = 1 },
+            new { BooksId = 1, AuthorsId = 2 },
+            new { BooksId = 2, AuthorsId = 3 },
+            new { BooksId = 2, AuthorsId = 4 },
+            new { BooksId = 3, AuthorsId = 1 },
+            new { BooksId = 3, AuthorsId = 2 },
+            new { BooksId = 3, AuthorsId = 3 },
+            new { BooksId = 4, AuthorsId = 4 },
+            new { BooksId = 4, AuthorsId = 1 },
+            new { BooksId = 4, AuthorsId = 2 },
+            new { BooksId = 4, AuthorsId = 3 },
+            new { BooksId = 5, AuthorsId = 4 },
+            new { BooksId = 5, AuthorsId = 1 },
+            new { BooksId = 6, AuthorsId = 2 },
+            new { BooksId = 6, AuthorsId = 3 },
+            new { BooksId = 7, AuthorsId = 4 },
+            new { BooksId = 7, AuthorsId = 1 },
+            new { BooksId = 8, AuthorsId = 2 },
+            new { BooksId = 8, AuthorsId = 3 },
+            new { BooksId = 9, AuthorsId = 4 },
+            new { BooksId = 9, AuthorsId = 1 },
+            new { BooksId = 10, AuthorsId = 2 },
+            new { BooksId = 10, AuthorsId = 3 },
+            new { BooksId = 11, AuthorsId = 4 },
+            new { BooksId = 11, AuthorsId = 1 },
+        };
+    }
 
     private static IEnumerable<User> PrepareUserModels()
     {
@@ -282,7 +314,6 @@ public static class DataInitializer
                 Quantity = 7,
                 ReleaseYear = 1993,
                 PublisherId = 1,
-                AuthorId = 4,
             },
             new()
             {
@@ -294,7 +325,6 @@ public static class DataInitializer
                 Quantity = 17,
                 ReleaseYear = 1997,
                 PublisherId = 2,
-                AuthorId = 2,
             },
             new()
             {
@@ -306,7 +336,6 @@ public static class DataInitializer
                 Quantity = 15,
                 ReleaseYear = 1996,
                 PublisherId = 3,
-                AuthorId = 3,
             },
             new()
             {
@@ -318,7 +347,6 @@ public static class DataInitializer
                 Quantity = 2,
                 ReleaseYear = 1986,
                 PublisherId = 1,
-                AuthorId = 1,
             },
             new()
             {
@@ -330,7 +358,6 @@ public static class DataInitializer
                 Quantity = 9,
                 ReleaseYear = 1998,
                 PublisherId = 2,
-                AuthorId = 2,
             },
             new()
             {
@@ -342,7 +369,6 @@ public static class DataInitializer
                 Quantity = 11,
                 ReleaseYear = 1999,
                 PublisherId = 2,
-                AuthorId = 2,
             },
             new()
             {
@@ -354,7 +380,6 @@ public static class DataInitializer
                 Quantity = 13,
                 ReleaseYear = 2000,
                 PublisherId = 2,
-                AuthorId = 2,
             },
             new()
             {
@@ -366,7 +391,6 @@ public static class DataInitializer
                 Quantity = 13,
                 ReleaseYear = 2000,
                 PublisherId = 2,
-                AuthorId = 2,
             },
             new()
             {
@@ -378,7 +402,6 @@ public static class DataInitializer
                 Quantity = 13,
                 ReleaseYear = 2005,
                 PublisherId = 2,
-                AuthorId = 2,
             },
             new()
             {
@@ -390,7 +413,6 @@ public static class DataInitializer
                 Quantity = 13,
                 ReleaseYear = 2007,
                 PublisherId = 2,
-                AuthorId = 2,
             },
             new()
             {
@@ -402,7 +424,6 @@ public static class DataInitializer
                 Quantity = 13,
                 ReleaseYear = 2016,
                 PublisherId = 2,
-                AuthorId = 2,
             },
         };
         books.ForEach(book => book.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00));

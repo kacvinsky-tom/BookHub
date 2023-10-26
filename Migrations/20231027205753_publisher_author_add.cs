@@ -8,21 +8,52 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BookHub.Migrations
 {
     /// <inheritdoc />
-    public partial class add_publisher : Migration
+    public partial class publisher_author_add : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Books_Authors_AuthorId",
+                table: "Books");
+
             migrationBuilder.DropColumn(
                 name: "Publisher",
                 table: "Books");
 
-            migrationBuilder.AddColumn<int>(
-                name: "PublisherId",
+            migrationBuilder.RenameColumn(
+                name: "AuthorId",
                 table: "Books",
-                type: "INTEGER",
-                nullable: false,
-                defaultValue: 0);
+                newName: "PublisherId");
+
+            migrationBuilder.RenameIndex(
+                name: "IX_Books_AuthorId",
+                table: "Books",
+                newName: "IX_Books_PublisherId");
+
+            migrationBuilder.CreateTable(
+                name: "BookAuthor",
+                columns: table => new
+                {
+                    BooksId = table.Column<int>(type: "INTEGER", nullable: false),
+                    AuthorsId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BookAuthor", x => new { x.BooksId, x.AuthorsId });
+                    table.ForeignKey(
+                        name: "FK_BookAuthor_Authors_AuthorsId",
+                        column: x => x.AuthorsId,
+                        principalTable: "Authors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_BookAuthor_Books_BooksId",
+                        column: x => x.BooksId,
+                        principalTable: "Books",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Publishers",
@@ -41,82 +72,44 @@ namespace BookHub.Migrations
                     table.PrimaryKey("PK_Publishers", x => x.Id);
                 });
 
+            migrationBuilder.InsertData(
+                table: "BookAuthor",
+                columns: new[] { "AuthorsId", "BooksId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 2, 1 },
+                    { 3, 2 },
+                    { 4, 2 },
+                    { 1, 3 },
+                    { 2, 3 },
+                    { 3, 3 },
+                    { 1, 4 },
+                    { 2, 4 },
+                    { 3, 4 },
+                    { 4, 4 },
+                    { 1, 5 },
+                    { 4, 5 },
+                    { 2, 6 },
+                    { 3, 6 },
+                    { 1, 7 },
+                    { 4, 7 },
+                    { 2, 8 },
+                    { 3, 8 },
+                    { 1, 9 },
+                    { 4, 9 },
+                    { 2, 10 },
+                    { 3, 10 },
+                    { 1, 11 },
+                    { 4, 11 }
+                });
+
             migrationBuilder.UpdateData(
                 table: "Books",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "PublisherId",
                 value: 1);
-
-            migrationBuilder.UpdateData(
-                table: "Books",
-                keyColumn: "Id",
-                keyValue: 2,
-                column: "PublisherId",
-                value: 2);
-
-            migrationBuilder.UpdateData(
-                table: "Books",
-                keyColumn: "Id",
-                keyValue: 3,
-                column: "PublisherId",
-                value: 3);
-
-            migrationBuilder.UpdateData(
-                table: "Books",
-                keyColumn: "Id",
-                keyValue: 4,
-                column: "PublisherId",
-                value: 1);
-
-            migrationBuilder.UpdateData(
-                table: "Books",
-                keyColumn: "Id",
-                keyValue: 5,
-                column: "PublisherId",
-                value: 2);
-
-            migrationBuilder.UpdateData(
-                table: "Books",
-                keyColumn: "Id",
-                keyValue: 6,
-                column: "PublisherId",
-                value: 2);
-
-            migrationBuilder.UpdateData(
-                table: "Books",
-                keyColumn: "Id",
-                keyValue: 7,
-                column: "PublisherId",
-                value: 2);
-
-            migrationBuilder.UpdateData(
-                table: "Books",
-                keyColumn: "Id",
-                keyValue: 8,
-                column: "PublisherId",
-                value: 2);
-
-            migrationBuilder.UpdateData(
-                table: "Books",
-                keyColumn: "Id",
-                keyValue: 9,
-                column: "PublisherId",
-                value: 2);
-
-            migrationBuilder.UpdateData(
-                table: "Books",
-                keyColumn: "Id",
-                keyValue: 10,
-                column: "PublisherId",
-                value: 2);
-
-            migrationBuilder.UpdateData(
-                table: "Books",
-                keyColumn: "Id",
-                keyValue: 11,
-                column: "PublisherId",
-                value: 2);
 
             migrationBuilder.InsertData(
                 table: "Publishers",
@@ -129,9 +122,9 @@ namespace BookHub.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Books_PublisherId",
-                table: "Books",
-                column: "PublisherId");
+                name: "IX_BookAuthor_AuthorsId",
+                table: "BookAuthor",
+                column: "AuthorsId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Books_Publishers_PublisherId",
@@ -150,15 +143,20 @@ namespace BookHub.Migrations
                 table: "Books");
 
             migrationBuilder.DropTable(
+                name: "BookAuthor");
+
+            migrationBuilder.DropTable(
                 name: "Publishers");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Books_PublisherId",
-                table: "Books");
-
-            migrationBuilder.DropColumn(
+            migrationBuilder.RenameColumn(
                 name: "PublisherId",
-                table: "Books");
+                table: "Books",
+                newName: "AuthorId");
+
+            migrationBuilder.RenameIndex(
+                name: "IX_Books_PublisherId",
+                table: "Books",
+                newName: "IX_Books_AuthorId");
 
             migrationBuilder.AddColumn<string>(
                 name: "Publisher",
@@ -171,8 +169,8 @@ namespace BookHub.Migrations
                 table: "Books",
                 keyColumn: "Id",
                 keyValue: 1,
-                column: "Publisher",
-                value: "Talpress");
+                columns: new[] { "AuthorId", "Publisher" },
+                values: new object[] { 4, "Talpress" });
 
             migrationBuilder.UpdateData(
                 table: "Books",
@@ -243,6 +241,14 @@ namespace BookHub.Migrations
                 keyValue: 11,
                 column: "Publisher",
                 value: "Albatros");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Books_Authors_AuthorId",
+                table: "Books",
+                column: "AuthorId",
+                principalTable: "Authors",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
         }
     }
 }

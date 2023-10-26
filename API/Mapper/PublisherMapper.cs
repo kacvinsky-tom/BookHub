@@ -11,8 +11,6 @@ public static class PublisherMapper
         {
             Id = publisher.Id,
             Name = publisher.Name,
-            State = publisher.State,
-            Email = publisher.Email
         };
     }
     
