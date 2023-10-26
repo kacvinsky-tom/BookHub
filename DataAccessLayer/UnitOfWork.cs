@@ -9,7 +9,15 @@ public class UnitOfWork
     public IBookRepository Books { get; }
     public IAuthorRepository Authors { get; }
     public IGenreRepository Genres { get; }
-    
+
+    public IUserRepository Users { get; }
+
+    public IWishListRepository WishLists { get; }
+    public IWishListItemRepository WishListItems { get; }
+
+    public IReviewRepository Reviews { get; }
+
+
     public UnitOfWork(BookHubDbContext context)
     {
         _context = context;
@@ -17,6 +25,10 @@ public class UnitOfWork
         Books = new BookRepository(_context);
         Authors = new AuthorRepository(_context);
         Genres = new GenreRepository(_context);
+        Users = new UserRepository(_context);
+        WishLists = new WishListRepository(_context);
+        WishListItems = new WishListItemRepository(_context);
+        Reviews = new ReviewRepository(_context);
     }
 
     public async Task Complete()

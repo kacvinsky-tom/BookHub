@@ -75,7 +75,7 @@ public static class DataInitializer
 
     private static IEnumerable<User> PrepareUserModels()
     {
-        return new List<User>
+        var users = new List<User>
         {
             new()
             {
@@ -122,11 +122,14 @@ public static class DataInitializer
                 IsAdmin = false,
             }
         };
+        users.ForEach(user => user.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00));
+
+        return users;
     }
 
     private static IEnumerable<Genre> PrepareGenreModels()
     {
-        return new List<Genre>
+        var genres = new List<Genre>
         {
             new()
             {
@@ -199,11 +202,13 @@ public static class DataInitializer
                 Name = "Poezie",
             }
         };
+        genres.ForEach(genre => genre.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00));
+        return genres;
     }
 
     private static IEnumerable<Author> PrepareAuthorModels()
     {
-        return new List<Author>
+        var authors = new List<Author>
         {
             new()
             {
@@ -230,11 +235,13 @@ public static class DataInitializer
                 LastName = "Pratchett",
             }
         };
+        authors.ForEach(author => author.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00));
+        return authors;
     }
 
     private static IEnumerable<Book> PrepareBookModels()
     {
-        return new List<Book>
+        var books = new List<Book>
         {
             new()
             {
@@ -369,11 +376,13 @@ public static class DataInitializer
                 AuthorId = 2,
             },
         };
+        books.ForEach(book => book.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00));
+        return books;
     }
 
     private static IEnumerable<WishList> PrepareWishListModels()
     {
-        return new List<WishList>
+        var wishlists = new List<WishList>
         {
             new()
             {
@@ -388,11 +397,13 @@ public static class DataInitializer
                 UserId = 2,
             },
         };
+        wishlists.ForEach(wishlist => wishlist.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00));
+        return wishlists;
     }
 
     private static IEnumerable<WishListItem> PrepareWishListItemModels()
     {
-        return new List<WishListItem>
+        var wishlistItems = new List<WishListItem>
         {
             new()
             {
@@ -431,11 +442,13 @@ public static class DataInitializer
                 BookId = 11,
             },
         };
+        wishlistItems.ForEach(wishlistItem => wishlistItem.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00));
+        return wishlistItems;
     }
 
     private static IEnumerable<Review> PrepareReviewModels()
     {
-        return new List<Review>
+        var reviews = new List<Review>
         {
             new()
             {
@@ -502,11 +515,13 @@ public static class DataInitializer
                 Comment = "Harry Potter a Ohnivý pohár je dalším důkazem Rowlinginy brilantní schopnosti psát pro různé věkové kategorie. Tato kniha je poutavá, plná tajemství a emocí, a dokazuje, proč je série Harryho Pottera tak oblíbená po celém světě.",
             },
         };
+        reviews.ForEach(review => review.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00));
+        return reviews;
     }
 
     private static IEnumerable<CartItem> PrepareCartItemModels()
     {
-        return new List<CartItem>
+        var cartItems = new List<CartItem>
         {
             new()
             {
@@ -530,11 +545,13 @@ public static class DataInitializer
                 Quantity = 1,
             }
         };
+        cartItems.ForEach(cartItem => cartItem.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00));
+        return cartItems;
     }
 
     private static IEnumerable<Order> PrepareOrderModels()
     {
-        return new List<Order>
+        var orders = new List<Order>
         {
             new()
             {
@@ -558,11 +575,13 @@ public static class DataInitializer
                 TotalPrice = 399
             }
         };
+        orders.ForEach(order => order.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00));
+        return orders;
     }
 
     private static IEnumerable<OrderItem> PrepareOrderItemModels()
     {
-        return new List<OrderItem>
+        var orderItems = new List<OrderItem>
         {
             new()
             {
@@ -605,5 +624,7 @@ public static class DataInitializer
                 ISBN = "978-80-7197-611-0",
             }
         };
+        orderItems.ForEach(orderItem => orderItem.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00));
+        return orderItems;
     }
 }

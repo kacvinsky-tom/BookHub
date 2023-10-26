@@ -83,18 +83,23 @@ public class BookHubDbContext : DbContext
 
     public override int SaveChanges()
     {
-        AddUpdatedAt();
+        AddTimestamps();
         return base.SaveChanges();
     }
 
-    private void AddUpdatedAt()
+    private void AddTimestamps()
     {
         var entities = ChangeTracker.Entries()
-            .Where(x => x is { Entity: BaseEntity, State: EntityState.Modified });
-
+            .Where(x => x is { Entity: BaseEntity, State: EntityState.Modified or EntityState.Added });
+    
         foreach (var entity in entities)
         {
             var now = DateTime.Now;
+
+            if (entity.State == EntityState.Added)
+            {
+                ((BaseEntity)entity.Entity).CreatedAt = now;
+            }
 
             ((BaseEntity)entity.Entity).UpdatedAt = now;
         }
