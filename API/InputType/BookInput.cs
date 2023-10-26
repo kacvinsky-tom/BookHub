@@ -10,7 +10,7 @@ public class BookInput
 
     public string? Image { get; set; }
 
-    public double Price { get; set; }
+    public int Price { get; set; }
 
     public int Quantity { get; set; }
 

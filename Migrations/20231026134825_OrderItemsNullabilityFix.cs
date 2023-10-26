@@ -6,19 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BookHub.Migrations
 {
     /// <inheritdoc />
-    public partial class OrderItemBookIdAndPrice : Migration
+    public partial class OrderItemsNullabilityFix : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<double>(
-                name: "Price",
-                table: "OrderItems",
-                type: "REAL",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "INTEGER");
-
             migrationBuilder.AlterColumn<int>(
                 name: "BookId",
                 table: "OrderItems",
@@ -255,29 +247,29 @@ namespace BookHub.Migrations
                 table: "OrderItems",
                 keyColumn: "Id",
                 keyValue: 1,
-                columns: new[] { "CreatedAt", "Price" },
-                values: new object[] { new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified), 399.0 });
+                column: "CreatedAt",
+                value: new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified));
 
             migrationBuilder.UpdateData(
                 table: "OrderItems",
                 keyColumn: "Id",
                 keyValue: 2,
-                columns: new[] { "CreatedAt", "Price" },
-                values: new object[] { new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified), 399.0 });
+                column: "CreatedAt",
+                value: new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified));
 
             migrationBuilder.UpdateData(
                 table: "OrderItems",
                 keyColumn: "Id",
                 keyValue: 3,
-                columns: new[] { "CreatedAt", "Price" },
-                values: new object[] { new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified), 699.0 });
+                column: "CreatedAt",
+                value: new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified));
 
             migrationBuilder.UpdateData(
                 table: "OrderItems",
                 keyColumn: "Id",
                 keyValue: 4,
-                columns: new[] { "CreatedAt", "Price" },
-                values: new object[] { new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified), 399.0 });
+                column: "CreatedAt",
+                value: new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified));
 
             migrationBuilder.UpdateData(
                 table: "Orders",
@@ -444,14 +436,6 @@ namespace BookHub.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<int>(
-                name: "Price",
-                table: "OrderItems",
-                type: "INTEGER",
-                nullable: false,
-                oldClrType: typeof(double),
-                oldType: "REAL");
-
             migrationBuilder.AlterColumn<int>(
                 name: "BookId",
                 table: "OrderItems",
@@ -690,29 +674,29 @@ namespace BookHub.Migrations
                 table: "OrderItems",
                 keyColumn: "Id",
                 keyValue: 1,
-                columns: new[] { "CreatedAt", "Price" },
-                values: new object[] { new DateTime(2023, 10, 22, 19, 57, 38, 747, DateTimeKind.Local).AddTicks(6341), 399 });
+                column: "CreatedAt",
+                value: new DateTime(2023, 10, 22, 19, 57, 38, 747, DateTimeKind.Local).AddTicks(6341));
 
             migrationBuilder.UpdateData(
                 table: "OrderItems",
                 keyColumn: "Id",
                 keyValue: 2,
-                columns: new[] { "CreatedAt", "Price" },
-                values: new object[] { new DateTime(2023, 10, 22, 19, 57, 38, 747, DateTimeKind.Local).AddTicks(6346), 399 });
+                column: "CreatedAt",
+                value: new DateTime(2023, 10, 22, 19, 57, 38, 747, DateTimeKind.Local).AddTicks(6346));
 
             migrationBuilder.UpdateData(
                 table: "OrderItems",
                 keyColumn: "Id",
                 keyValue: 3,
-                columns: new[] { "CreatedAt", "Price" },
-                values: new object[] { new DateTime(2023, 10, 22, 19, 57, 38, 747, DateTimeKind.Local).AddTicks(6348), 699 });
+                column: "CreatedAt",
+                value: new DateTime(2023, 10, 22, 19, 57, 38, 747, DateTimeKind.Local).AddTicks(6348));
 
             migrationBuilder.UpdateData(
                 table: "OrderItems",
                 keyColumn: "Id",
                 keyValue: 4,
-                columns: new[] { "CreatedAt", "Price" },
-                values: new object[] { new DateTime(2023, 10, 22, 19, 57, 38, 747, DateTimeKind.Local).AddTicks(6350), 399 });
+                column: "CreatedAt",
+                value: new DateTime(2023, 10, 22, 19, 57, 38, 747, DateTimeKind.Local).AddTicks(6350));
 
             migrationBuilder.UpdateData(
                 table: "Orders",

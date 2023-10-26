@@ -3,6 +3,7 @@ using BookHub.API.InputType;
 using BookHub.API.Mapper;
 using BookHub.DataAccessLayer;
 using BookHub.DataAccessLayer.Entity;
+using BookHub.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,10 +14,12 @@ namespace BookHub.API.Controllers;
 public class UserController : ControllerBase
 {
     private readonly UnitOfWork _unitOfWork;
+    private readonly UserService _userService;
 
-    public UserController(UnitOfWork unitOfWork)
+    public UserController(UnitOfWork unitOfWork, UserService userService)
     {
         _unitOfWork = unitOfWork;
+        _userService = userService;
     }
     
     [HttpGet]
@@ -43,17 +46,7 @@ public class UserController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] UserInputDto userInputDto)
     {
-        var passwordHasher = new PasswordHasher<User>();
-        var user = new User
-        {
-            Username = userInputDto.Username,
-            Email = userInputDto.Email,
-            FirstName = userInputDto.FirstName,
-            LastName = userInputDto.LastName,
-            PhoneNumber = userInputDto.PhoneNumber,
-            IsAdmin = userInputDto.IsAdmin,
-        };
-        user.Password = passwordHasher.HashPassword(user, userInputDto.Password);
+        var user = _userService.Create(userInputDto);
         
         _unitOfWork.Users.Add(user);
 
@@ -72,14 +65,7 @@ public class UserController : ControllerBase
             return NotFound();
         }
 
-        var passwordHasher = new PasswordHasher<User>();
-        user.Username = userInputDto.Username;
-        user.Email = userInputDto.Email;
-        user.FirstName = userInputDto.FirstName;
-        user.LastName = userInputDto.LastName;
-        user.PhoneNumber = userInputDto.PhoneNumber;
-        user.IsAdmin = userInputDto.IsAdmin;
-        user.Password = passwordHasher.HashPassword(user, userInputDto.Password);
+        _userService.Update(user, userInputDto);
 
         await _unitOfWork.Complete();
 

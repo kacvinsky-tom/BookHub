@@ -20,6 +20,7 @@ builder.Services.AddRepositories();
 builder.Services.AddScoped<BookService>();
 builder.Services.AddScoped<WishListService>();
 builder.Services.AddScoped<ReviewService>();
+builder.Services.AddScoped<UserService>();
 
 var app = builder.Build();
 

@@ -10,7 +10,7 @@ public class OrderItem: BaseEntity
 
     public int Quantity { get; set; }
     
-    public double Price { get; set; }
+    public int Price { get; set; }
     
     public string Title { get; set; }
     
