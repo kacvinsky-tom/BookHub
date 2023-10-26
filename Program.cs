@@ -1,11 +1,9 @@
 using BookHub.DataAccessLayer;
 using BookHub.Services;
 using BookHub.Middlewares;
-using BookHub;
+using BookHub.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-
-
 
 // Add services to the container.
 

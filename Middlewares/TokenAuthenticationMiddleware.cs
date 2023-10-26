@@ -16,8 +16,7 @@ public class TokenAuthenticationMiddleware
     public async Task InvokeAsync(HttpContext context)
     {
         var hardcodedToken = _configuration.GetValue<string>("APIAuthorization:BearerToken");
-
-
+        
         if (!context.Request.Headers.ContainsKey("Authorization"))
         {
             context.Response.StatusCode = 401;

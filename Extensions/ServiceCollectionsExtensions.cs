@@ -1,6 +1,6 @@
 ﻿using Microsoft.OpenApi.Models;
 
-namespace BookHub;
+namespace BookHub.Extensions;
 
 public static class ServiceCollectionsExtensions
 {
