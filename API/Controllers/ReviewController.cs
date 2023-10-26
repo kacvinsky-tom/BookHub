@@ -44,11 +44,11 @@ public class ReviewController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] ReviewInputDto reviewInputDto)
+    public async Task<IActionResult> Create([FromBody] ReviewCreateInputDto reviewCreateInputDto)
     {
         try
         {
-            var review = await _reviewService.Create(reviewInputDto);
+            var review = await _reviewService.Create(reviewCreateInputDto);
             _unitOfWork.Reviews.Add(review);
             await _unitOfWork.Complete();
             return Ok(ReviewMapper.MapDetail(review));

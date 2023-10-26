@@ -14,28 +14,28 @@ public class ReviewService
         _unitOfWork = unitOfWork;
     }
     
-    public async Task<Review> Create(ReviewInputDto reviewInputDto)
+    public async Task<Review> Create(ReviewCreateInputDto reviewCreateInputDto)
     {
-        var book = await _unitOfWork.Books.GetById(reviewInputDto.BookId);
+        var book = await _unitOfWork.Books.GetById(reviewCreateInputDto.BookId);
         
         if (book == null)
         {
-            throw new EntityNotFoundException<Book>(reviewInputDto.BookId);
+            throw new EntityNotFoundException<Book>(reviewCreateInputDto.BookId);
         }
         
-        var user = await _unitOfWork.Users.GetById(reviewInputDto.UserId);
+        var user = await _unitOfWork.Users.GetById(reviewCreateInputDto.UserId);
         
         if (user == null)
         {
-            throw new EntityNotFoundException<User>(reviewInputDto.UserId);
+            throw new EntityNotFoundException<User>(reviewCreateInputDto.UserId);
         }
         
         var review = new Review
         {
             Book = book,
             User = user,
-            Rating = reviewInputDto.Rating,
-            Comment = reviewInputDto.Comment,          
+            Rating = reviewCreateInputDto.Rating,
+            Comment = reviewCreateInputDto.Comment,          
         };
         
         return review;

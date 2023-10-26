@@ -1,6 +1,6 @@
 ﻿namespace BookHub.API.DTO.Input;
 
-public class ReviewInputDto
+public class ReviewCreateInputDto
 {
     public int BookId { get; set; }
     public int UserId { get; set; }
