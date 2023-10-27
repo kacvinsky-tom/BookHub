@@ -70,4 +70,9 @@ public class BookService
         book.Author = author;
         book.Genres = genres.ToList();
     }
+
+    public void Remove(Book book)
+    {
+        book.IsDeleted = true;
+    }
 }
