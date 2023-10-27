@@ -15,11 +15,12 @@ public class Book : BaseEntity
 
     public int Quantity { get; set; }
 
-    public string Publisher { get; set; }
-
     public int ReleaseYear { get; set; }
     
     public bool IsDeleted { get; set; }
+    
+    public int PublisherId { get; set; }
+    public virtual Publisher Publisher { get; set; } = null!;
     
     public int AuthorId { get; set; }
     public virtual Author Author { get; set; } = null!;

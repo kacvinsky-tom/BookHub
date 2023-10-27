@@ -1,5 +1,4 @@
 @startuml
-
 entity User {
     *id
     --
@@ -23,7 +22,6 @@ entity Book {
     image
     *price
     *quantity
-    *publisher
     *release_year
     *deleted
     *created_at
@@ -43,6 +41,16 @@ entity Author {
     --
     *first_name
     *last_name
+    *created_at
+    updated_at
+}
+
+entity Publisher {
+    *id
+    --
+    *name
+    *state
+    *email
     *created_at
     updated_at
 }
@@ -120,6 +128,6 @@ WishList ||--o{ WishListItem
 Book ||--o{ WishListItem
 Book ||--o{ OrderItem
 Author }|--o{ Book
+Publisher }|--o{ Book
 Genre }|--o{ Book
-
 @enduml

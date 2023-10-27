@@ -13,4 +13,6 @@ public class BookFilterInput
     public IEnumerable<int>? GenreIds { get; set; }
     
     public string? AuthorName { get; set; }
+    
+    public string? PublisherName { get; set; }
 }

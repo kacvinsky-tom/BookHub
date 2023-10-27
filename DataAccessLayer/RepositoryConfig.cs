@@ -1,4 +1,5 @@
 ﻿using BookHub.DataAccessLayer.Repository;
+using BookHub.DataAccessLayer.Repository.Interfaces;
 
 namespace BookHub.DataAccessLayer;
 
@@ -10,6 +11,7 @@ public static class RepositoryConfig
         
         services.AddScoped<IBookRepository, BookRepository>();
         services.AddScoped<IAuthorRepository, AuthorRepository>();
+        services.AddScoped<IPublisherRepository, PublisherRepository>();
         services.AddScoped<IGenreRepository, GenreRepository>();
         services.AddScoped<IReviewRepository, ReviewRepository>();
         services.AddScoped<IUserRepository, UserRepository>();

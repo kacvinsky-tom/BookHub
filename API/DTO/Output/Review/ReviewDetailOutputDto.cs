@@ -1,4 +1,6 @@
-﻿namespace BookHub.API.DTO.Output;
+﻿using BookHub.API.DTO.Output.User;
+
+namespace BookHub.API.DTO.Output.Review;
 
 public class ReviewDetailOutputDto : OutputDtoBase
 {

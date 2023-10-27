@@ -1,4 +1,5 @@
 ﻿using BookHub.DataAccessLayer.Repository;
+using BookHub.DataAccessLayer.Repository.Interfaces;
 
 namespace BookHub.DataAccessLayer;
 
@@ -8,6 +9,7 @@ public class UnitOfWork
 
     public IBookRepository Books { get; }
     public IAuthorRepository Authors { get; }
+    public IPublisherRepository Publishers { get; }
     public IGenreRepository Genres { get; }
 
     public IUserRepository Users { get; }
@@ -23,6 +25,7 @@ public class UnitOfWork
         _context = context;
         
         Books = new BookRepository(_context);
+        Publishers = new PublisherRepository(_context);
         Authors = new AuthorRepository(_context);
         Genres = new GenreRepository(_context);
         Users = new UserRepository(_context);

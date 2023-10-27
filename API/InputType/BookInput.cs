@@ -14,11 +14,11 @@ public class BookInput
 
     public int Quantity { get; set; }
 
-    public string Publisher { get; set; }
-
     public int ReleaseYear { get; set; }
     
     public bool IsDeleted { get; set; }
+    
+    public int PublisherId { get; set; }
     
     public int AuthorId { get; set; }
     

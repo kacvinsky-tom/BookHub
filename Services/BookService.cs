@@ -17,12 +17,17 @@ public class BookService
     public async Task<Book> Create(BookInput bookCreateInput)
     {
         var author = await _unitOfWork.Authors.GetById(bookCreateInput.AuthorId);
+        var publisher = await _unitOfWork.Publishers.GetById(bookCreateInput.PublisherId);
         
         if (author == null)
         {
             throw new EntityNotFoundException<Author>(bookCreateInput.AuthorId);
         }
-
+        if (publisher == null)
+        {
+            throw new EntityNotFoundException<Publisher>(bookCreateInput.PublisherId);
+        }
+        
         var genres = await _unitOfWork.Genres
             .Find(genre => bookCreateInput.GenreIds.Contains(genre.Id));
 
@@ -34,7 +39,7 @@ public class BookService
             Image = bookCreateInput.Image,
             Price = bookCreateInput.Price,
             Quantity = bookCreateInput.Quantity,
-            Publisher = bookCreateInput.Publisher,
+            PublisherId = bookCreateInput.PublisherId,
             ReleaseYear = bookCreateInput.ReleaseYear,
             IsDeleted = false,
             AuthorId = bookCreateInput.AuthorId,
@@ -48,12 +53,17 @@ public class BookService
     public async Task Update(BookInput bookUpdateInput, Book book)
     {
         var author = await _unitOfWork.Authors.GetById(bookUpdateInput.AuthorId);
+        var publisher = await _unitOfWork.Publishers.GetById(bookUpdateInput.PublisherId);
         
         if (author == null)
         {
             throw new EntityNotFoundException<Author>(bookUpdateInput.AuthorId);
         }
-
+        if (publisher == null)
+        {
+            throw new EntityNotFoundException<Publisher>(bookUpdateInput.PublisherId);
+        }
+        
         var genres = await _unitOfWork.Genres
             .Find(genre => bookUpdateInput.GenreIds.Contains(genre.Id));
 
@@ -63,7 +73,7 @@ public class BookService
         book.Image = bookUpdateInput.Image;
         book.Price = bookUpdateInput.Price;
         book.Quantity = bookUpdateInput.Quantity;
-        book.Publisher = bookUpdateInput.Publisher;
+        book.PublisherId = bookUpdateInput.PublisherId;
         book.ReleaseYear = bookUpdateInput.ReleaseYear;
         book.IsDeleted = bookUpdateInput.IsDeleted;
         book.AuthorId = bookUpdateInput.AuthorId;

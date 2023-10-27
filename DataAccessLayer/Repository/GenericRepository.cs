@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using BookHub.DataAccessLayer.Entity;
+using BookHub.DataAccessLayer.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookHub.DataAccessLayer.Repository;

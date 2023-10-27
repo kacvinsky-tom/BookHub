@@ -1,5 +1,6 @@
 ﻿using BookHub.API.InputType.Filter;
 using BookHub.DataAccessLayer.Entity;
+using BookHub.DataAccessLayer.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookHub.DataAccessLayer.Repository;
@@ -17,6 +18,7 @@ public class BookRepository : GenericRepository<Book>, IBookRepository
             .Include(book => book.Reviews)
             .ThenInclude(review => review.User)
             .Include(book => book.Author)
+            .Include(book => book.Publisher)
             .Where(book => !book.IsDeleted);
 
         if (filterInput.Title != null)
@@ -52,6 +54,13 @@ public class BookRepository : GenericRepository<Book>, IBookRepository
                     book.Author.LastName.ToLower().Contains(filterInput.AuthorName.ToLower())
             );
         }
+        if (filterInput.PublisherName != null)
+        {
+            query = query.Where(
+                book =>
+                    book.Publisher.Name.ToLower().Contains(filterInput.PublisherName.ToLower())
+            );
+        }
 
         return await query.ToListAsync();
     }
@@ -63,6 +72,7 @@ public class BookRepository : GenericRepository<Book>, IBookRepository
             .Include(book => book.Reviews)
             .ThenInclude(review => review.User)
             .Include(book => book.Author)
+            .Include(book => book.Publisher)
             .Where(book => !book.IsDeleted)
             .FirstOrDefaultAsync(book => book.Id == id);
     }

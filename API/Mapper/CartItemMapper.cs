@@ -1,4 +1,4 @@
-﻿using BookHub.DataAccessLayer.Dtos;
+﻿using BookHub.API.DTO.Output.CartItem;
 using BookHub.DataAccessLayer.Entity;
 
 namespace BookHub.API.Mapper;

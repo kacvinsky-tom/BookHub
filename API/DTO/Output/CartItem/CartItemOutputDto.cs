@@ -1,6 +1,6 @@
-﻿using BookHub.API.DTO.Output;
+﻿using BookHub.API.DTO.Output.Book;
 
-namespace BookHub.DataAccessLayer.Dtos;
+namespace BookHub.API.DTO.Output.CartItem;
 
 public class CartItemOutputDto : OutputDtoBase
 {

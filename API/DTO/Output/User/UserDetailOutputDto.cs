@@ -1,6 +1,9 @@
-﻿using BookHub.DataAccessLayer.Dtos;
+﻿using BookHub.API.DTO.Output.CartItem;
+using BookHub.API.DTO.Output.Order;
+using BookHub.API.DTO.Output.Review;
+using BookHub.API.DTO.Output.WishList;
 
-namespace BookHub.API.DTO.Output;
+namespace BookHub.API.DTO.Output.User;
 
 public class UserDetailOutputDto : OutputDtoBase
 {
