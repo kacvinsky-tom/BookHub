@@ -63,23 +63,21 @@ in the `Logging:RequestLogging` section by setting `Detailed` to `true`.
 
 ### API authenticating
 
-TODO
+Authentication works by comparing a given Bearer token with a hardcoded Bearer token in the `appsettings.json` file int the 
+`APIAuthorization:BearerToken` section.
 
 ## Technical overview
 
 Our C# project is structured with a layered architecture, consisting of a Data Access layer, 
 Presentation layer and Business Layer. These layers work in tandem to deliver the core functionality of the application.
 
-**Data Access Layer**:
 - We use Entity Framework as our ORM (Object-Relational Mapping) framework to interact with the 
 underlying database. 
 - Currently, our database is implemented using SQLite, a lightweight, file-based relational 
 database management system. 
 - Database schema is visualized by a [Entity Relationship Diagram](#erd).
-**Business Layer**: TBA
 
-**Presentation Layer**: TBA
-
+![](Resources/Images/technicalOverview.drawio.png)
 
 ## Diagrams
 
