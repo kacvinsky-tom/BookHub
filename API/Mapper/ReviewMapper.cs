@@ -25,9 +25,8 @@ public class ReviewMapper
         return new ReviewDetailOutputDto()
         {
             Id = review.Id,
-            User = UserMapper.MapDetail(review.User),
-            // TODO uncomment after implementing book detail
-            //Book = BookMapper.MapDetail(review.Book),
+            User = UserMapper.MapList(review.User),
+            Book = BookMapper.MapList(review.Book),
             Comment = review.Comment,
             Rating = review.Rating,
             CreatedAt = review.CreatedAt
