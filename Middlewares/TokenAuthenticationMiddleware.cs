@@ -15,19 +15,24 @@ public class TokenAuthenticationMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
-        var hardcodedToken = _configuration.GetValue<string>("APIAuthorization:BearerToken");
+        var responseAuthorization = context.Request.Headers.Authorization
+            .ToString()
+            .Split(" ");
         
-        if (!context.Request.Headers.ContainsKey("Authorization"))
+        var responseAuthorizationScheme = responseAuthorization.FirstOrDefault();
+        var responseAuthorizationParam = responseAuthorization.LastOrDefault();
+        
+        if (responseAuthorizationScheme != "Bearer")
         {
             context.Response.StatusCode = 401;
             context.Response.ContentType = "text/plain";
-            await context.Response.WriteAsync("Unauthorized. Missing authorization token.");
+            await context.Response.WriteAsync("Unauthorized. Missing or unsupported authorization.");
             return;
         }
+        
+        var hardcodedToken = _configuration.GetValue<string>("APIAuthorization:BearerToken");
 
-        var requestToken = context.Request.Headers.Authorization.ToString();
-
-        if (requestToken != hardcodedToken)
+        if (responseAuthorizationParam != hardcodedToken)
         {
             context.Response.StatusCode = 401;
             context.Response.ContentType = "text/plain";

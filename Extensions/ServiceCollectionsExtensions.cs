@@ -12,10 +12,10 @@ public static class ServiceCollectionsExtensions
 
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
-                Description = "Enter the API key as follows: Bearer YourToken",
+                Description = "Enter the API key without the prefix \"Bearer\"!",
                 Name = "Authorization",
                 In = ParameterLocation.Header,
-                Type = SecuritySchemeType.ApiKey,
+                Type = SecuritySchemeType.Http,
                 Scheme = "Bearer"
             });
 
