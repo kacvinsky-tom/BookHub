@@ -15,6 +15,9 @@ public class ReviewRepository : GenericRepository<Review>, IReviewRepository
         return await _context.Reviews
             .Include(r => r.User)
             .Include(r => r.Book)
+            .ThenInclude(b => b.Authors )
+            .Include(r => r.Book)
+            .ThenInclude(b => b.Genres )
             .FirstOrDefaultAsync(r => r.Id == id);
     }
 

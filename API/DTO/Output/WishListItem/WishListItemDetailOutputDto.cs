@@ -8,9 +8,8 @@ public class WishListItemDetailOutputDto : OutputDtoBase
     public string BookDescription { get; set; }
     public string BookISBN { get; set; }
     public string BookImage { get; set; }
-    
 
-    // TODO uncomment after AuthorDto and GenreDto are implemented
-    // public IEnumerable<AuthorDto> Authors { get; set; }
-    // public IEnumerable<GenreDto> Genres { get; set; }
+    public IEnumerable<AuthorListOutputDto> Authors { get; set; }
+    
+    public IEnumerable<GenreListOutputDto> Genres { get; set; }
 }
