@@ -79,6 +79,19 @@ public class BookHubDbContext : DbContext
                     je.HasData(DataInitializer.BookGenreData());
                 });
 
+        modelBuilder.Entity<Book>()
+            .HasMany(b => b.Authors)
+            .WithMany(a => a.Books)
+            .UsingEntity<Dictionary<string, object>>(
+                "BookAuthor",
+                r => r.HasOne<Author>().WithMany().HasForeignKey("AuthorsId").OnDelete(DeleteBehavior.Restrict),
+                l => l.HasOne<Book>().WithMany().HasForeignKey("BooksId").OnDelete(DeleteBehavior.Cascade),
+                je =>
+                {
+                    je.HasKey("BooksId", "AuthorsId");
+                    je.HasData(DataInitializer.BookAuthorData());
+                });
+
         base.OnModelCreating(modelBuilder);
     }
 

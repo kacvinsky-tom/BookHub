@@ -20,7 +20,7 @@ public class BookInput
     
     public int PublisherId { get; set; }
     
-    public int AuthorId { get; set; }
+    public List<int> AuthorsIds { get; set; }
     
     public IEnumerable<int> GenreIds { get; set; } = new List<int>();
 }

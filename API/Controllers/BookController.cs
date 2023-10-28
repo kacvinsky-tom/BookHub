@@ -27,7 +27,7 @@ public class BookController : ControllerBase
     {
         var books = await _unitOfWork.Books.GetWithRelations(filterInput);
         
-        return Ok(books.Select(BookMapper.Map));
+        return Ok(books.Select(BookMapper.MapList));
     }
 
     [HttpGet("{id:int}")]
@@ -40,7 +40,7 @@ public class BookController : ControllerBase
             return NotFound();
         }
 
-        return Ok(BookMapper.Map(book));
+        return Ok(BookMapper.MapDetail(book));
     }
     
     [HttpPost]
@@ -54,7 +54,7 @@ public class BookController : ControllerBase
 
             await _unitOfWork.Complete();
 
-            return Ok(BookMapper.Map(book));
+            return Ok(BookMapper.MapDetail(book));
         }
         catch (EntityNotFoundException<Author> e)
         {
@@ -78,7 +78,7 @@ public class BookController : ControllerBase
             
             await _unitOfWork.Complete();
             
-            return Ok(BookMapper.Map(bookToUpdate));
+            return Ok(BookMapper.MapDetail(bookToUpdate));
         }
         catch (EntityNotFoundException<Author> e)
         {
@@ -95,8 +95,7 @@ public class BookController : ControllerBase
         {
             return NotFound();
         }
-
-        _bookService.Remove(book);
+        _bookService.Delete(book);
         await _unitOfWork.Complete();
 
         return Ok();

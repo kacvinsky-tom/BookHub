@@ -27,7 +27,7 @@ public class ReviewMapper
             Id = review.Id,
             User = UserMapper.MapDetail(review.User),
             // TODO uncomment after implementing book detail
-            //Book = BookMapper.MapList(review.Book),
+            //Book = BookMapper.MapDetail(review.Book),
             Comment = review.Comment,
             Rating = review.Rating,
             CreatedAt = review.CreatedAt

@@ -5,5 +5,7 @@ public class BookListOutputDto : OutputDtoBase
     public string Title { get; set; }
     public int Price { get; set; }
     public int ReleaseYear { get; set; }
-    // TODO Fill in AuthorDto and GenreDto collections after they are implemented
+    
+    public IEnumerable<AuthorListOutputDto> Authors { get; set; }
+    // TODO Fill in GenreDto collections after they are implemented
 }

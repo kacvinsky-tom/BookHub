@@ -33,7 +33,7 @@ public class WishListController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
-        var wishList = await _unitOfWork.WishLists.GetById(id);
+        var wishList = await _unitOfWork.WishLists.GetByIdWithRelations(id);
         
         if (wishList == null)
         {

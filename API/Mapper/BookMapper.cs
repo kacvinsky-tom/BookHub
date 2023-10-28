@@ -1,51 +1,50 @@
-﻿using BookHub.DataAccessLayer.Entity;
+﻿using BookHub.API.DTO.Output;
+using BookHub.API.DTO.Output.Book;
+using BookHub.DataAccessLayer.Entity;
 
 namespace BookHub.API.Mapper;
 
-public static class BookMapper
+public class BookMapper
 {
-    public static object Map(Book book)
+    public static BookListOutputDto MapList(Book book)
     {
-        return new
+        return new BookListOutputDto()
         {
-            book.Id,
-            book.Title,
-            book.ISBN,
-            book.Description,
-            book.Image, 
-            book.Price,
-            book.Quantity,
-            book.ReleaseYear,
-            Publisher = new
-            {
-                book.Publisher.Id,
-                book.Publisher.Name,
-                book.Publisher.State,
-                book.Publisher.Email
-            },
-            Author = new
-            {
-                book.Author.Id,
-                book.Author.FirstName,
-                book.Author.LastName
-            },
-            Genres = book.Genres.Select(genre => new
-            {
-                genre.Id, genre.Name
-            }),
-            Reviews = book.Reviews.Select(review => new
-            {
-                review.Id,
-                review.Rating,
-                review.Comment,
-                review.CreatedAt,
-                User = new
-                {
-                    review.User.Id,
-                    review.User.FirstName,
-                    review.User.LastName
-                }
-            })
+            Id = book.Id,
+            Title = book.Title,
+            Authors = book.Authors.Select(AuthorMapper.MapList).ToList(),
+            Price = book.Price,
+            ReleaseYear = book.ReleaseYear,
+        };
+    }
+
+    public static BookListWithoutAuthorOutputDto MapListWithoutAuthor(Book book)
+    {
+        return new BookListWithoutAuthorOutputDto()
+        {
+            Id = book.Id,
+            Title = book.Title,
+            Price = book.Price,
+            ReleaseYear = book.ReleaseYear,
+        };
+    }
+    
+    public static BookDetailOutputDto MapDetail(Book book)
+    {
+        return new BookDetailOutputDto()
+        {
+            Id = book.Id,
+            Title = book.Title,
+            ISBN = book.ISBN,
+            Description = book.Description,
+            Image = book.Image,
+            Price = book.Price,
+            Quantity = book.Quantity,
+            Publisher = PublisherMapper.MapDetail(book.Publisher),
+            ReleaseYear = book.ReleaseYear,
+            Authors = book.Authors.Select(AuthorMapper.MapList).ToList(),
+            //Genres = book.Genres.Select(GenreMapper)
+            Reviews = book.Reviews.Select(ReviewMapper.MapList).ToList()
         };
     }
 }

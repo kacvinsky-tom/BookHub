@@ -17,8 +17,8 @@ public class BookRepository : GenericRepository<Book>, IBookRepository
             .Include(book => book.Genres)
             .Include(book => book.Reviews)
             .ThenInclude(review => review.User)
-            .Include(book => book.Author)
             .Include(book => book.Publisher)
+            .Include(book => book.Authors)
             .Where(book => !book.IsDeleted);
 
         if (filterInput.Title != null)
@@ -50,9 +50,9 @@ public class BookRepository : GenericRepository<Book>, IBookRepository
         {
             query = query.Where(
                 book =>
-                    book.Author.FirstName.ToLower().Contains(filterInput.AuthorName.ToLower()) ||
-                    book.Author.LastName.ToLower().Contains(filterInput.AuthorName.ToLower())
-            );
+                    book.Authors.Any(afn=> afn.FirstName.ToLower().Contains(filterInput.AuthorName.ToLower()) ||
+                    book.Authors.Any(aln=> aln.LastName.ToLower().Contains(filterInput.AuthorName.ToLower()))
+            ));
         }
         if (filterInput.PublisherName != null)
         {
@@ -71,8 +71,8 @@ public class BookRepository : GenericRepository<Book>, IBookRepository
             .Include(book => book.Genres)
             .Include(book => book.Reviews)
             .ThenInclude(review => review.User)
-            .Include(book => book.Author)
             .Include(book => book.Publisher)
+            .Include(book => book.Authors)
             .Where(book => !book.IsDeleted)
             .FirstOrDefaultAsync(book => book.Id == id);
     }

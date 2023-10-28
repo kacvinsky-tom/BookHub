@@ -17,6 +17,148 @@ namespace BookHub.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.12");
 
+            modelBuilder.Entity("BookAuthor", b =>
+                {
+                    b.Property<int>("BooksId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AuthorsId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("BooksId", "AuthorsId");
+
+                    b.HasIndex("AuthorsId");
+
+                    b.ToTable("BookAuthor");
+
+                    b.HasData(
+                        new
+                        {
+                            BooksId = 1,
+                            AuthorsId = 1
+                        },
+                        new
+                        {
+                            BooksId = 1,
+                            AuthorsId = 2
+                        },
+                        new
+                        {
+                            BooksId = 2,
+                            AuthorsId = 3
+                        },
+                        new
+                        {
+                            BooksId = 2,
+                            AuthorsId = 4
+                        },
+                        new
+                        {
+                            BooksId = 3,
+                            AuthorsId = 1
+                        },
+                        new
+                        {
+                            BooksId = 3,
+                            AuthorsId = 2
+                        },
+                        new
+                        {
+                            BooksId = 3,
+                            AuthorsId = 3
+                        },
+                        new
+                        {
+                            BooksId = 4,
+                            AuthorsId = 4
+                        },
+                        new
+                        {
+                            BooksId = 4,
+                            AuthorsId = 1
+                        },
+                        new
+                        {
+                            BooksId = 4,
+                            AuthorsId = 2
+                        },
+                        new
+                        {
+                            BooksId = 4,
+                            AuthorsId = 3
+                        },
+                        new
+                        {
+                            BooksId = 5,
+                            AuthorsId = 4
+                        },
+                        new
+                        {
+                            BooksId = 5,
+                            AuthorsId = 1
+                        },
+                        new
+                        {
+                            BooksId = 6,
+                            AuthorsId = 2
+                        },
+                        new
+                        {
+                            BooksId = 6,
+                            AuthorsId = 3
+                        },
+                        new
+                        {
+                            BooksId = 7,
+                            AuthorsId = 4
+                        },
+                        new
+                        {
+                            BooksId = 7,
+                            AuthorsId = 1
+                        },
+                        new
+                        {
+                            BooksId = 8,
+                            AuthorsId = 2
+                        },
+                        new
+                        {
+                            BooksId = 8,
+                            AuthorsId = 3
+                        },
+                        new
+                        {
+                            BooksId = 9,
+                            AuthorsId = 4
+                        },
+                        new
+                        {
+                            BooksId = 9,
+                            AuthorsId = 1
+                        },
+                        new
+                        {
+                            BooksId = 10,
+                            AuthorsId = 2
+                        },
+                        new
+                        {
+                            BooksId = 10,
+                            AuthorsId = 3
+                        },
+                        new
+                        {
+                            BooksId = 11,
+                            AuthorsId = 4
+                        },
+                        new
+                        {
+                            BooksId = 11,
+                            AuthorsId = 1
+                        });
+                });
+
             modelBuilder.Entity("BookGenre", b =>
                 {
                     b.Property<int>("BooksId")
@@ -220,9 +362,6 @@ namespace BookHub.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
@@ -261,8 +400,6 @@ namespace BookHub.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
-
                     b.HasIndex("PublisherId");
 
                     b.ToTable("Books");
@@ -271,7 +408,6 @@ namespace BookHub.Migrations
                         new
                         {
                             Id = 1,
-                            AuthorId = 4,
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Ve světě, který leží na krunýři obrovské želvy, se vydává na cestu rozverná, temperamentní a neuvěřitelně výstřední výprava. Setkáte se s lakomým a naprosto neschopným čarodějem Mrakoplašem, naivním turistou Dvoukvítkem, jehož Zavazadlo za ním běhá jako pes na stovce malých nožiček, s draky, kteří existují, pokud na ně opravdu věříte, a samozřejmě dojdete až na okraj této podivné planety.",
                             ISBN = "978-80-7197-614-1",
@@ -285,7 +421,6 @@ namespace BookHub.Migrations
                         new
                         {
                             Id = 2,
-                            AuthorId = 2,
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Harry Potter je sirotek, který žije u svých příbuzných Dursleyových. Jeho rodiče byli mocní čarodějové, kteří zahynuli při souboji s nejtemnějším čarodějem všech dob, Lordem Voldemortem. Harryho rodiče zanechali svého syna v péči svého přítele, kouzelníka Albusa Brumbála, ředitele Školy čar a kouzel v Bradavicích. Harryho příbuzní o jeho magických schopnostech nevědí, protože se bojí, že by ho mohli zavděčit. Harryho život je plný ponižování a šikany, ale v den jeho jedenáctých narozenin se vše změní. Harry dostane dopis od Brumbála, který ho pozve na Školu čar a kouzel v Bradavicích. Harry se dozví, že je čaroděj a že jeho rodiče zemřeli při souboji s nejtemnějším čarodějem všech dob, Lordem Voldemortem. Harry se vydává do Bradavic, kde se seznámí s Ronem Weasleym a Hermionou Grangerovou, kteří se stanou jeho nejlepšími přáteli. Harry se také dozví, že Voldemort přežil a že se chystá získat Kámen mudrců, který mu pomůže znovu získat svou moc.",
                             ISBN = "978-80-7197-614-1",
@@ -299,7 +434,6 @@ namespace BookHub.Migrations
                         new
                         {
                             Id = 3,
-                            AuthorId = 3,
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Když král Robert rozhodne, že jeho nejstarší přítel Eddard Stark bude jeho pravou rukou, nevědomky odstartuje události, které otřesou celým kontinentem. Eddard se totiž snaží vyšetřit tajemnou smrt předchozího krájů a nastoupit na své nové místo, ale brzy zjistí, že je vše mnohem složitější, než se zdálo. Na jihu se totiž připravuje vzpoura a v záloze číhá starodávné zlo, které se probouzí.",
                             ISBN = "978-80-257-2891-5",
@@ -313,7 +447,6 @@ namespace BookHub.Migrations
                         new
                         {
                             Id = 4,
-                            AuthorId = 1,
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "V roce 1958 se sedmička přátel z Derry, malého městečka v americkém státě Maine, vydává do kanalizace, aby zničila zlého klauna Pennywaise, který se zde ukrývá. Sedmička však zjistí, že Pennywise je jen jedním z mnoha podob zla, které se ukrývá v Derry. Ze slibu se však stane kletba a sedmička se musí v roce 1985 vrátit do Derry, aby zlo zničila jednou provždy.",
                             ISBN = "978-80-7197-614-1",
@@ -327,7 +460,6 @@ namespace BookHub.Migrations
                         new
                         {
                             Id = 5,
-                            AuthorId = 2,
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Harry Potter, Ron Weasley a Hermiona Grangerová se vrací do Bradavic, kde se dozvědí o Tajemné komnatě, která je úzce spojena s Harrym. Harry se rozhodne najít Tajemnou komnatu a zjistit, co se tam skrývá. Harryho plán je však zmařen, když se objeví záhadný písař. Harryho přítel Ron je napaden a jeho sestra Ginny zmizí. Harry, Ron a Hermiona se tak vydávají do Tajemné komnaty, aby zjistili, co se tam skrývá a zachránili Ginny.",
                             ISBN = "978-80-7197-614-1",
@@ -341,7 +473,6 @@ namespace BookHub.Migrations
                         new
                         {
                             Id = 6,
-                            AuthorId = 2,
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Harry Potter se vrací do Bradavic, ale tentokrát se musí vyhýbat nebezpečnému vězni jménem Sirius Black, který utekl z Azkabanu. Harry se dozví, že Sirius byl vězněn kvůli tomu, že zradil jeho rodiče a že se chystá Harryho zabít. Harry se vydává na cestu, která ho zavede do minulosti, kde se dozví, že Sirius není tím, za koho se vydává.",
                             ISBN = "978-80-7197-614-1",
@@ -355,7 +486,6 @@ namespace BookHub.Migrations
                         new
                         {
                             Id = 7,
-                            AuthorId = 2,
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Harry Potter se vrací do Bradavic, kde se má konat Turnaj tří kouzelníků. Harry se však dozví, že se do turnaje dostal podvodem a že se musí zúčastnit tří nebezpečných úkolů. Harry se vydává na cestu, která ho zavede do minulosti, kde se dozví, že se do turnaje dostal podvodem a že se musí zúčastnit tří nebezpečných úkolů.",
                             ISBN = "978-80-7197-614-1",
@@ -369,7 +499,6 @@ namespace BookHub.Migrations
                         new
                         {
                             Id = 8,
-                            AuthorId = 2,
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Do Bradavic přišly temné časy. Po útoku mozkomorů na bratrance Dudleyho Harry ví, že Voldemort udělá cokoli, jen aby ho našel. Mnozí jeho návrat popírají, ale Harry přesto není sám: na Grimmauldově náměstí se schází tajný řád, který chce bojovat proti temným silám. Harry se musí od profesora Snapea naučit, jak se chránit před Voldemortovými útoky na jeho duši. Jenže Pán zla je den ode dne silnější a Harrymu dochází čas…",
                             ISBN = "978-80-7197-614-1",
@@ -383,7 +512,6 @@ namespace BookHub.Migrations
                         new
                         {
                             Id = 9,
-                            AuthorId = 2,
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Moc Lorda Voldemorta stále roste a smrtijedi působí spoušť ve světě mudlů i kouzelníků. Když Harry Potter objeví starou učebnici lektvarů patřící tajemnému princi dvojí krve, spoléhá na její kouzla i přes varování svých kamarádů. Profesor Brumbál poodhaluje Voldemortovu minulost a s Harryho pomocí se snaží odkrýt tajemství jeho nesmrtelnosti. Jenže zlo se dere k moci stále silněji, neštěstí se blíží a Bradavice už nikdy nebudou jako dřív.",
                             ISBN = "978-80-7197-614-1",
@@ -397,7 +525,6 @@ namespace BookHub.Migrations
                         new
                         {
                             Id = 10,
-                            AuthorId = 2,
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Harry Potter se vydává na nebezpečnou cestu, aby zničil poslední Voldemortovy viteály. Společně s Ronem a Hermionou hledá zbytek Voldemortovy duše, který se ukrývá v tělech jeho nejmocnějších stoupenců. Harry se musí vydat na nebezpečnou cestu, aby zničil poslední Voldemortovy viteály. Společně s Ronem a Hermionou hledá zbytek Voldemortovy duše, který se ukrývá v tělech jeho nejmocnějších stoupenců.",
                             ISBN = "978-80-7197-614-1",
@@ -411,7 +538,6 @@ namespace BookHub.Migrations
                         new
                         {
                             Id = 11,
-                            AuthorId = 2,
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Harry Potter je zaměstnán v Ministerstvu kouzel a má tři školáky. Jeho minulost ho však neustále pronásleduje. Harry Potter je zaměstnán v Ministerstvu kouzel a má tři školáky. Jeho minulost ho však neustále pronásleduje.",
                             ISBN = "978-80-7197-614-1",
@@ -1098,6 +1224,21 @@ namespace BookHub.Migrations
                         });
                 });
 
+            modelBuilder.Entity("BookAuthor", b =>
+                {
+                    b.HasOne("BookHub.DataAccessLayer.Entity.Author", null)
+                        .WithMany()
+                        .HasForeignKey("AuthorsId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BookHub.DataAccessLayer.Entity.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BooksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("BookGenre", b =>
                 {
                     b.HasOne("BookHub.DataAccessLayer.Entity.Book", null)
@@ -1115,19 +1256,11 @@ namespace BookHub.Migrations
 
             modelBuilder.Entity("BookHub.DataAccessLayer.Entity.Book", b =>
                 {
-                    b.HasOne("BookHub.DataAccessLayer.Entity.Author", "Author")
-                        .WithMany("Books")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("BookHub.DataAccessLayer.Entity.Publisher", "Publisher")
                         .WithMany()
                         .HasForeignKey("PublisherId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Author");
 
                     b.Navigation("Publisher");
                 });
@@ -1227,11 +1360,6 @@ namespace BookHub.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("WishList");
-                });
-
-            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.Author", b =>
-                {
-                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("BookHub.DataAccessLayer.Entity.Book", b =>
