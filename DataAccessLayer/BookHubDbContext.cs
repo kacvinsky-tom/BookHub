@@ -16,6 +16,9 @@ public class BookHubDbContext : DbContext
     public DbSet<Review> Reviews { get; set; } = null!;
     public DbSet<WishList> WishLists { get; set; } = null!;
     public DbSet<WishListItem> WishListItems { get; set; } = null!;
+    
+    public DbSet<Voucher> Vouchers { get; set; } = null!;
+    
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

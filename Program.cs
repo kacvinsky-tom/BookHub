@@ -25,6 +25,7 @@ builder.Services.AddScoped<WishListService>();
 builder.Services.AddScoped<ReviewService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<PublisherService>();
+builder.Services.AddScoped<VoucherService>();
 
 var app = builder.Build();
 

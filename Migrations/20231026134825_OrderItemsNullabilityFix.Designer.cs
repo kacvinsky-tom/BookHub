@@ -3,6 +3,7 @@ using System;
 using BookHub.DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,154 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookHub.Migrations
 {
     [DbContext(typeof(BookHubDbContext))]
-    partial class BookHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231026134825_OrderItemsNullabilityFix")]
+    partial class OrderItemsNullabilityFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.12");
-
-            modelBuilder.Entity("BookAuthor", b =>
-                {
-                    b.Property<int>("BooksId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("AuthorsId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("BooksId", "AuthorsId");
-
-                    b.HasIndex("AuthorsId");
-
-                    b.ToTable("BookAuthor");
-
-                    b.HasData(
-                        new
-                        {
-                            BooksId = 1,
-                            AuthorsId = 1
-                        },
-                        new
-                        {
-                            BooksId = 1,
-                            AuthorsId = 2
-                        },
-                        new
-                        {
-                            BooksId = 2,
-                            AuthorsId = 3
-                        },
-                        new
-                        {
-                            BooksId = 2,
-                            AuthorsId = 4
-                        },
-                        new
-                        {
-                            BooksId = 3,
-                            AuthorsId = 1
-                        },
-                        new
-                        {
-                            BooksId = 3,
-                            AuthorsId = 2
-                        },
-                        new
-                        {
-                            BooksId = 3,
-                            AuthorsId = 3
-                        },
-                        new
-                        {
-                            BooksId = 4,
-                            AuthorsId = 4
-                        },
-                        new
-                        {
-                            BooksId = 4,
-                            AuthorsId = 1
-                        },
-                        new
-                        {
-                            BooksId = 4,
-                            AuthorsId = 2
-                        },
-                        new
-                        {
-                            BooksId = 4,
-                            AuthorsId = 3
-                        },
-                        new
-                        {
-                            BooksId = 5,
-                            AuthorsId = 4
-                        },
-                        new
-                        {
-                            BooksId = 5,
-                            AuthorsId = 1
-                        },
-                        new
-                        {
-                            BooksId = 6,
-                            AuthorsId = 2
-                        },
-                        new
-                        {
-                            BooksId = 6,
-                            AuthorsId = 3
-                        },
-                        new
-                        {
-                            BooksId = 7,
-                            AuthorsId = 4
-                        },
-                        new
-                        {
-                            BooksId = 7,
-                            AuthorsId = 1
-                        },
-                        new
-                        {
-                            BooksId = 8,
-                            AuthorsId = 2
-                        },
-                        new
-                        {
-                            BooksId = 8,
-                            AuthorsId = 3
-                        },
-                        new
-                        {
-                            BooksId = 9,
-                            AuthorsId = 4
-                        },
-                        new
-                        {
-                            BooksId = 9,
-                            AuthorsId = 1
-                        },
-                        new
-                        {
-                            BooksId = 10,
-                            AuthorsId = 2
-                        },
-                        new
-                        {
-                            BooksId = 10,
-                            AuthorsId = 3
-                        },
-                        new
-                        {
-                            BooksId = 11,
-                            AuthorsId = 4
-                        },
-                        new
-                        {
-                            BooksId = 11,
-                            AuthorsId = 1
-                        });
-                });
 
             modelBuilder.Entity("BookGenre", b =>
                 {
@@ -362,6 +223,9 @@ namespace BookHub.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
@@ -382,8 +246,9 @@ namespace BookHub.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("PublisherId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Publisher")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("INTEGER");
@@ -400,7 +265,7 @@ namespace BookHub.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PublisherId");
+                    b.HasIndex("AuthorId");
 
                     b.ToTable("Books");
 
@@ -408,12 +273,13 @@ namespace BookHub.Migrations
                         new
                         {
                             Id = 1,
+                            AuthorId = 4,
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Ve světě, který leží na krunýři obrovské želvy, se vydává na cestu rozverná, temperamentní a neuvěřitelně výstřední výprava. Setkáte se s lakomým a naprosto neschopným čarodějem Mrakoplašem, naivním turistou Dvoukvítkem, jehož Zavazadlo za ním běhá jako pes na stovce malých nožiček, s draky, kteří existují, pokud na ně opravdu věříte, a samozřejmě dojdete až na okraj této podivné planety.",
                             ISBN = "978-80-7197-614-1",
                             IsDeleted = false,
                             Price = 399,
-                            PublisherId = 1,
+                            Publisher = "Talpress",
                             Quantity = 7,
                             ReleaseYear = 1993,
                             Title = "Barva kouzel"
@@ -421,12 +287,13 @@ namespace BookHub.Migrations
                         new
                         {
                             Id = 2,
+                            AuthorId = 2,
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Harry Potter je sirotek, který žije u svých příbuzných Dursleyových. Jeho rodiče byli mocní čarodějové, kteří zahynuli při souboji s nejtemnějším čarodějem všech dob, Lordem Voldemortem. Harryho rodiče zanechali svého syna v péči svého přítele, kouzelníka Albusa Brumbála, ředitele Školy čar a kouzel v Bradavicích. Harryho příbuzní o jeho magických schopnostech nevědí, protože se bojí, že by ho mohli zavděčit. Harryho život je plný ponižování a šikany, ale v den jeho jedenáctých narozenin se vše změní. Harry dostane dopis od Brumbála, který ho pozve na Školu čar a kouzel v Bradavicích. Harry se dozví, že je čaroděj a že jeho rodiče zemřeli při souboji s nejtemnějším čarodějem všech dob, Lordem Voldemortem. Harry se vydává do Bradavic, kde se seznámí s Ronem Weasleym a Hermionou Grangerovou, kteří se stanou jeho nejlepšími přáteli. Harry se také dozví, že Voldemort přežil a že se chystá získat Kámen mudrců, který mu pomůže znovu získat svou moc.",
                             ISBN = "978-80-7197-614-1",
                             IsDeleted = false,
                             Price = 399,
-                            PublisherId = 2,
+                            Publisher = "Albatros",
                             Quantity = 17,
                             ReleaseYear = 1997,
                             Title = "Harry Potter a Kámen mudrců"
@@ -434,12 +301,13 @@ namespace BookHub.Migrations
                         new
                         {
                             Id = 3,
+                            AuthorId = 3,
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Když král Robert rozhodne, že jeho nejstarší přítel Eddard Stark bude jeho pravou rukou, nevědomky odstartuje události, které otřesou celým kontinentem. Eddard se totiž snaží vyšetřit tajemnou smrt předchozího krájů a nastoupit na své nové místo, ale brzy zjistí, že je vše mnohem složitější, než se zdálo. Na jihu se totiž připravuje vzpoura a v záloze číhá starodávné zlo, které se probouzí.",
                             ISBN = "978-80-257-2891-5",
                             IsDeleted = false,
                             Price = 699,
-                            PublisherId = 3,
+                            Publisher = "Argo",
                             Quantity = 15,
                             ReleaseYear = 1996,
                             Title = "Hra o trůny"
@@ -447,12 +315,13 @@ namespace BookHub.Migrations
                         new
                         {
                             Id = 4,
+                            AuthorId = 1,
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "V roce 1958 se sedmička přátel z Derry, malého městečka v americkém státě Maine, vydává do kanalizace, aby zničila zlého klauna Pennywaise, který se zde ukrývá. Sedmička však zjistí, že Pennywise je jen jedním z mnoha podob zla, které se ukrývá v Derry. Ze slibu se však stane kletba a sedmička se musí v roce 1985 vrátit do Derry, aby zlo zničila jednou provždy.",
                             ISBN = "978-80-7197-614-1",
                             IsDeleted = false,
                             Price = 799,
-                            PublisherId = 1,
+                            Publisher = "Talpress",
                             Quantity = 2,
                             ReleaseYear = 1986,
                             Title = "To"
@@ -460,12 +329,13 @@ namespace BookHub.Migrations
                         new
                         {
                             Id = 5,
+                            AuthorId = 2,
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Harry Potter, Ron Weasley a Hermiona Grangerová se vrací do Bradavic, kde se dozvědí o Tajemné komnatě, která je úzce spojena s Harrym. Harry se rozhodne najít Tajemnou komnatu a zjistit, co se tam skrývá. Harryho plán je však zmařen, když se objeví záhadný písař. Harryho přítel Ron je napaden a jeho sestra Ginny zmizí. Harry, Ron a Hermiona se tak vydávají do Tajemné komnaty, aby zjistili, co se tam skrývá a zachránili Ginny.",
                             ISBN = "978-80-7197-614-1",
                             IsDeleted = false,
                             Price = 399,
-                            PublisherId = 2,
+                            Publisher = "Albatros",
                             Quantity = 9,
                             ReleaseYear = 1998,
                             Title = "Harry Potter a Tajemná komnata"
@@ -473,12 +343,13 @@ namespace BookHub.Migrations
                         new
                         {
                             Id = 6,
+                            AuthorId = 2,
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Harry Potter se vrací do Bradavic, ale tentokrát se musí vyhýbat nebezpečnému vězni jménem Sirius Black, který utekl z Azkabanu. Harry se dozví, že Sirius byl vězněn kvůli tomu, že zradil jeho rodiče a že se chystá Harryho zabít. Harry se vydává na cestu, která ho zavede do minulosti, kde se dozví, že Sirius není tím, za koho se vydává.",
                             ISBN = "978-80-7197-614-1",
                             IsDeleted = false,
                             Price = 399,
-                            PublisherId = 2,
+                            Publisher = "Albatros",
                             Quantity = 11,
                             ReleaseYear = 1999,
                             Title = "Harry Potter a vězeň z Azkabanu"
@@ -486,12 +357,13 @@ namespace BookHub.Migrations
                         new
                         {
                             Id = 7,
+                            AuthorId = 2,
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Harry Potter se vrací do Bradavic, kde se má konat Turnaj tří kouzelníků. Harry se však dozví, že se do turnaje dostal podvodem a že se musí zúčastnit tří nebezpečných úkolů. Harry se vydává na cestu, která ho zavede do minulosti, kde se dozví, že se do turnaje dostal podvodem a že se musí zúčastnit tří nebezpečných úkolů.",
                             ISBN = "978-80-7197-614-1",
                             IsDeleted = false,
                             Price = 399,
-                            PublisherId = 2,
+                            Publisher = "Albatros",
                             Quantity = 13,
                             ReleaseYear = 2000,
                             Title = "Harry Potter a Ohnivý pohár"
@@ -499,12 +371,13 @@ namespace BookHub.Migrations
                         new
                         {
                             Id = 8,
+                            AuthorId = 2,
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Do Bradavic přišly temné časy. Po útoku mozkomorů na bratrance Dudleyho Harry ví, že Voldemort udělá cokoli, jen aby ho našel. Mnozí jeho návrat popírají, ale Harry přesto není sám: na Grimmauldově náměstí se schází tajný řád, který chce bojovat proti temným silám. Harry se musí od profesora Snapea naučit, jak se chránit před Voldemortovými útoky na jeho duši. Jenže Pán zla je den ode dne silnější a Harrymu dochází čas…",
                             ISBN = "978-80-7197-614-1",
                             IsDeleted = false,
                             Price = 399,
-                            PublisherId = 2,
+                            Publisher = "Albatros",
                             Quantity = 13,
                             ReleaseYear = 2000,
                             Title = "Harry Potter a Fénixův řád"
@@ -512,12 +385,13 @@ namespace BookHub.Migrations
                         new
                         {
                             Id = 9,
+                            AuthorId = 2,
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Moc Lorda Voldemorta stále roste a smrtijedi působí spoušť ve světě mudlů i kouzelníků. Když Harry Potter objeví starou učebnici lektvarů patřící tajemnému princi dvojí krve, spoléhá na její kouzla i přes varování svých kamarádů. Profesor Brumbál poodhaluje Voldemortovu minulost a s Harryho pomocí se snaží odkrýt tajemství jeho nesmrtelnosti. Jenže zlo se dere k moci stále silněji, neštěstí se blíží a Bradavice už nikdy nebudou jako dřív.",
                             ISBN = "978-80-7197-614-1",
                             IsDeleted = false,
                             Price = 399,
-                            PublisherId = 2,
+                            Publisher = "Albatros",
                             Quantity = 13,
                             ReleaseYear = 2005,
                             Title = "Harry Potter a princ dvojí krve"
@@ -525,12 +399,13 @@ namespace BookHub.Migrations
                         new
                         {
                             Id = 10,
+                            AuthorId = 2,
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Harry Potter se vydává na nebezpečnou cestu, aby zničil poslední Voldemortovy viteály. Společně s Ronem a Hermionou hledá zbytek Voldemortovy duše, který se ukrývá v tělech jeho nejmocnějších stoupenců. Harry se musí vydat na nebezpečnou cestu, aby zničil poslední Voldemortovy viteály. Společně s Ronem a Hermionou hledá zbytek Voldemortovy duše, který se ukrývá v tělech jeho nejmocnějších stoupenců.",
                             ISBN = "978-80-7197-614-1",
                             IsDeleted = false,
                             Price = 399,
-                            PublisherId = 2,
+                            Publisher = "Albatros",
                             Quantity = 13,
                             ReleaseYear = 2007,
                             Title = "Harry Potter a Relikvie smrti"
@@ -538,12 +413,13 @@ namespace BookHub.Migrations
                         new
                         {
                             Id = 11,
+                            AuthorId = 2,
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Harry Potter je zaměstnán v Ministerstvu kouzel a má tři školáky. Jeho minulost ho však neustále pronásleduje. Harry Potter je zaměstnán v Ministerstvu kouzel a má tři školáky. Jeho minulost ho však neustále pronásleduje.",
                             ISBN = "978-80-7197-614-1",
                             IsDeleted = false,
                             Price = 399,
-                            PublisherId = 2,
+                            Publisher = "Albatros",
                             Quantity = 13,
                             ReleaseYear = 2016,
                             Title = "Harry Potter a prokleté dítě"
@@ -734,14 +610,9 @@ namespace BookHub.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("VoucherUsedId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("VoucherUsedId");
 
                     b.ToTable("Orders");
 
@@ -856,61 +727,6 @@ namespace BookHub.Migrations
                             Price = 399,
                             Quantity = 1,
                             Title = "Barva kouzel"
-                        });
-                });
-
-            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.Publisher", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Publishers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "eshop@talpress.cz",
-                            Name = "Talpress",
-                            State = "Czech Republic"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "albatros@albatrosmedia.cz",
-                            Name = "Albatros",
-                            State = "Czech Republic"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "argo@argo.cz",
-                            Name = "Argo",
-                            State = "Czech Republic"
                         });
                 });
 
@@ -1116,71 +932,6 @@ namespace BookHub.Migrations
                         });
                 });
 
-            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.Voucher", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Discount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("ExpirationDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Vouchers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Code = "VANOCE10",
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            Discount = 10,
-                            ExpirationDate = new DateTime(2023, 12, 24, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            Quantity = 0,
-                            Type = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Code = "KILODOLU",
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            Discount = 100,
-                            ExpirationDate = new DateTime(2023, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Quantity = 0,
-                            Type = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Code = "ZIMNISLEVA",
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            Discount = 20,
-                            ExpirationDate = new DateTime(2024, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Quantity = 0,
-                            Type = 0
-                        });
-                });
-
             modelBuilder.Entity("BookHub.DataAccessLayer.Entity.WishList", b =>
                 {
                     b.Property<int>("Id")
@@ -1294,21 +1045,6 @@ namespace BookHub.Migrations
                         });
                 });
 
-            modelBuilder.Entity("BookAuthor", b =>
-                {
-                    b.HasOne("BookHub.DataAccessLayer.Entity.Author", null)
-                        .WithMany()
-                        .HasForeignKey("AuthorsId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("BookHub.DataAccessLayer.Entity.Book", null)
-                        .WithMany()
-                        .HasForeignKey("BooksId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("BookGenre", b =>
                 {
                     b.HasOne("BookHub.DataAccessLayer.Entity.Book", null)
@@ -1326,13 +1062,13 @@ namespace BookHub.Migrations
 
             modelBuilder.Entity("BookHub.DataAccessLayer.Entity.Book", b =>
                 {
-                    b.HasOne("BookHub.DataAccessLayer.Entity.Publisher", "Publisher")
-                        .WithMany()
-                        .HasForeignKey("PublisherId")
+                    b.HasOne("BookHub.DataAccessLayer.Entity.Author", "Author")
+                        .WithMany("Books")
+                        .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Publisher");
+                    b.Navigation("Author");
                 });
 
             modelBuilder.Entity("BookHub.DataAccessLayer.Entity.CartItem", b =>
@@ -1362,14 +1098,7 @@ namespace BookHub.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BookHub.DataAccessLayer.Entity.Voucher", "VoucherUsed")
-                        .WithMany("Orders")
-                        .HasForeignKey("VoucherUsedId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.Navigation("User");
-
-                    b.Navigation("VoucherUsed");
                 });
 
             modelBuilder.Entity("BookHub.DataAccessLayer.Entity.OrderItem", b =>
@@ -1439,6 +1168,11 @@ namespace BookHub.Migrations
                     b.Navigation("WishList");
                 });
 
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.Author", b =>
+                {
+                    b.Navigation("Books");
+                });
+
             modelBuilder.Entity("BookHub.DataAccessLayer.Entity.Book", b =>
                 {
                     b.Navigation("CartItems");
@@ -1464,11 +1198,6 @@ namespace BookHub.Migrations
                     b.Navigation("Reviews");
 
                     b.Navigation("WishLists");
-                });
-
-            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.Voucher", b =>
-                {
-                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("BookHub.DataAccessLayer.Entity.WishList", b =>
