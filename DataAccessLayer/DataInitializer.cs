@@ -1,4 +1,5 @@
 ﻿using BookHub.DataAccessLayer.Entity;
+using BookHub.DataAccessLayer.Enum;
 using BookHub.Enum;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,7 @@ public static class DataInitializer
         var cartItems = PrepareCartItemModels();
         var orders = PrepareOrderModels();
         var orderItems = PrepareOrderItemModels();
+        var vouchers = PrepareVoucherModels();
         
         modelBuilder.Entity<User>()
             .HasData(users);
@@ -42,6 +44,8 @@ public static class DataInitializer
             .HasData(orders);
         modelBuilder.Entity<OrderItem>()
             .HasData(orderItems);
+        modelBuilder.Entity<Voucher>()
+            .HasData(vouchers);
     }
     
     public static object[] BookGenreData()
@@ -676,5 +680,38 @@ public static class DataInitializer
         };
         orderItems.ForEach(orderItem => orderItem.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00));
         return orderItems;
+    }
+
+    private static IEnumerable<Voucher> PrepareVoucherModels()
+    {
+        var vouchers = new List<Voucher>()
+        {
+            new()
+            {
+                Id = 1,
+                Code = "VANOCE10",
+                Discount = 10,
+                ExpirationDate = new DateTime(2023, 12, 24, 12, 00, 00),
+                Type = VoucherType.Percentage
+            },
+            new()
+            {
+                Id = 2,
+                Code = "KILODOLU",
+                Discount = 100,
+                ExpirationDate = new DateTime(2023, 11, 1, 0, 0, 0),
+                Type = VoucherType.FixedAmount
+            },
+            new()
+            {
+                Id = 3,
+                Code = "ZIMNISLEVA",
+                Discount = 20,
+                ExpirationDate = new DateTime(2024, 1, 31, 0, 0, 0),
+                Type = VoucherType.Percentage
+            },
+        };
+        vouchers.ForEach(v => v.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00));
+        return vouchers;
     }
 }

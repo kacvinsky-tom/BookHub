@@ -117,6 +117,19 @@ entity WishListItem {
     updated_at
 }
 
+entity Voucher {
+    *id
+    --
+    *code
+    *discount
+    *expiration_date
+    *quantity
+    *type
+    *created_at
+    updated_at
+}
+
+Voucher ||--o{ Order
 User ||--o{ Order
 Order ||--o{ OrderItem
 User ||--o{ CartItem

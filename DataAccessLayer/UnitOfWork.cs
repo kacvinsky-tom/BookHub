@@ -18,6 +18,8 @@ public class UnitOfWork
     public IWishListItemRepository WishListItems { get; }
 
     public IReviewRepository Reviews { get; }
+    
+    public IVoucherRepository Vouchers { get; }
 
 
     public UnitOfWork(BookHubDbContext context)
@@ -32,6 +34,7 @@ public class UnitOfWork
         WishLists = new WishListRepository(_context);
         WishListItems = new WishListItemRepository(_context);
         Reviews = new ReviewRepository(_context);
+        Vouchers = new VoucherRepository(_context);
     }
 
     public async Task Complete()

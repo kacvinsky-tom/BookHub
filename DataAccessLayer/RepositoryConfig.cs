@@ -17,5 +17,6 @@ public static class RepositoryConfig
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IWishListRepository, WishListRepository>();
         services.AddScoped<IWishListItemRepository, WishListItemRepository>();
+        services.AddScoped<IVoucherRepository, VoucherRepository>();
     }
 }
