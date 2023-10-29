@@ -7,7 +7,7 @@ public static class OrderItemMapper
 {
     public static OrderItemListOutputDto MapList(OrderItem orderItem)
     {
-        return new OrderItemListOutputDto()
+        return new OrderItemListOutputDto
         {
             Id = orderItem.Id,
             Quantity = orderItem.Quantity,
@@ -18,7 +18,7 @@ public static class OrderItemMapper
     }
     public static OrderItemDetailOutputDto MapDetail(OrderItem orderItem)
     {
-        return new OrderItemDetailOutputDto()
+        return new OrderItemDetailOutputDto
         {
             Id = orderItem.Id,
             Quantity = orderItem.Quantity,
@@ -30,7 +30,7 @@ public static class OrderItemMapper
     }
     public static OrderItemCreateOutputDto MapCreateDetail(OrderItem orderItem)
     {
-        return new OrderItemCreateOutputDto()
+        return new OrderItemCreateOutputDto
         {
             Id = orderItem.Id,
             Quantity = orderItem.Quantity,

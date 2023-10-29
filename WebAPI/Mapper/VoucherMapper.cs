@@ -22,7 +22,7 @@ public static class VoucherMapper
 
     public static VoucherDetailOutputDto MapDetail(Voucher voucher)
     {
-        return new VoucherDetailOutputDto()
+        return new VoucherDetailOutputDto
         {
             Id = voucher.Id,
             Code = voucher.Code,

@@ -7,7 +7,7 @@ public static class PublisherMapper
 {
     public static PublisherListOutputDto MapList(Publisher publisher)
     {
-        return new PublisherListOutputDto()
+        return new PublisherListOutputDto
         {
             Id = publisher.Id,
             Name = publisher.Name,
@@ -16,7 +16,7 @@ public static class PublisherMapper
     
     public static PublisherDetailOutputDto MapDetail(Publisher publisher)
     {
-        return new PublisherDetailOutputDto()
+        return new PublisherDetailOutputDto
         {
             Id = publisher.Id,
             Name = publisher.Name,

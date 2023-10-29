@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace WebAPI.Middlewares;
+﻿namespace WebAPI.Middlewares;
 
 public class TokenAuthenticationMiddleware
 {

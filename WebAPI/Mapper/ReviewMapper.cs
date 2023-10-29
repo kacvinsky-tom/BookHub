@@ -3,16 +3,16 @@ using WebAPI.DTO.Output.Review;
 
 namespace WebAPI.Mapper;
 
-public class ReviewMapper
+public static class ReviewMapper
 {
     public static ReviewListOutputDto MapList(Review review)
     {
-        return new ReviewListOutputDto()
+        return new ReviewListOutputDto
         {
             Id = review.Id,
-            UserFirstName = review.User?.FirstName,
-            UserLastName = review.User?.LastName,
-            BookTitle = review.Book?.Title,
+            UserFirstName = review.User.FirstName,
+            UserLastName = review.User.LastName,
+            BookTitle = review.Book.Title,
             Comment = review.Comment,
             Rating = review.Rating,
             CreatedAt = review.CreatedAt
@@ -21,7 +21,7 @@ public class ReviewMapper
     
     public static ReviewDetailOutputDto MapDetail(Review review)
     {
-        return new ReviewDetailOutputDto()
+        return new ReviewDetailOutputDto
         {
             Id = review.Id,
             User = UserMapper.MapDetail(review.User),

@@ -7,7 +7,7 @@ public static class UserMapper
 {
     public static UserListOutputDto MapList(User user)
     {
-        return new UserListOutputDto()
+        return new UserListOutputDto
         {
             Id = user.Id,
             Username = user.Username,
@@ -21,7 +21,7 @@ public static class UserMapper
     
     public static UserDetailOutputDto MapDetail(User user)
     {
-        return new UserDetailOutputDto()
+        return new UserDetailOutputDto
         {
             Id = user.Id,
             Username = user.Username,

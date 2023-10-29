@@ -7,7 +7,7 @@ public static class OrderMapper
 {
     public static OrderListOutputDto MapList(Order order)
     {
-        return new OrderListOutputDto()
+        return new OrderListOutputDto
         {
             Id = order.Id,
             TotalPrice = order.TotalPrice,
@@ -18,7 +18,7 @@ public static class OrderMapper
     }
     public static OrderDetailOutputDto MapDetail(Order order)
     {
-        return new OrderDetailOutputDto()
+        return new OrderDetailOutputDto
         {
             Id = order.Id,
             TotalPrice = order.TotalPrice,

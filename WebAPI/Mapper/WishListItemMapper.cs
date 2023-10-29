@@ -7,7 +7,7 @@ public static class WishListItemMapper
 {
     public static WishListItemListOutputDto MapList(WishListItem wishListItem)
     {
-        return new WishListItemListOutputDto()
+        return new WishListItemListOutputDto
         {
             Id = wishListItem.Id,
             BookTitle = wishListItem.Book?.Title,
@@ -20,7 +20,7 @@ public static class WishListItemMapper
     
     public static WishListItemDetailOutputDto MapDetail(WishListItem wishListItem)
     {
-        return new WishListItemDetailOutputDto()
+        return new WishListItemDetailOutputDto
         {
             Id = wishListItem.Id,
             BookTitle = wishListItem.Book.Title,

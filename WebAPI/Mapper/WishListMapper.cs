@@ -7,7 +7,7 @@ public static class WishListMapper
 {
     public static WishListListOutputDto MapList(WishList wishList)
     {
-        return new WishListListOutputDto()
+        return new WishListListOutputDto
         {
             Id = wishList.Id,
             UserId = wishList.UserId,
@@ -17,7 +17,7 @@ public static class WishListMapper
 
     public static WishListDetailOutputDto MapDetail(WishList wishList)
     {
-        return new WishListDetailOutputDto()
+        return new WishListDetailOutputDto
         {
             Id = wishList.Id,
             UserId = wishList.UserId,
@@ -28,7 +28,7 @@ public static class WishListMapper
 
     public static WishListListWithoutUserOutputDto MapListWithoutUser(WishList wishList)
     {
-        return new WishListListWithoutUserOutputDto()
+        return new WishListListWithoutUserOutputDto
         {
             Id = wishList.Id,
             Name = wishList.Name

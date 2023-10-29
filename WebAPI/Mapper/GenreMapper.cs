@@ -3,11 +3,11 @@ using WebAPI.DTO.Output.Genre;
 
 namespace WebAPI.Mapper;
 
-public class GenreMapper
+public static class GenreMapper
 {
     public static GenreListOutputDto MapList(Genre genre)
     {
-        return new GenreListOutputDto()
+        return new GenreListOutputDto
         {
             Id = genre.Id,
             Name = genre.Name,
@@ -16,7 +16,7 @@ public class GenreMapper
     
     public static GenreDetailOutputDto MapDetail(Genre genre)
     {
-        return new GenreDetailOutputDto()
+        return new GenreDetailOutputDto
         {
             Id = genre.Id,
             Name = genre.Name,

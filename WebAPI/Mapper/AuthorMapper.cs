@@ -3,11 +3,11 @@ using WebAPI.DTO.Output.Author;
 
 namespace WebAPI.Mapper;
 
-public class AuthorMapper
+public static class AuthorMapper
 {
     public static AuthorListOutputDto MapList(Author author)
     {
-        return new AuthorListOutputDto()
+        return new AuthorListOutputDto
         {
             Id = author.Id,
             FirstName = author.FirstName,
@@ -17,7 +17,7 @@ public class AuthorMapper
     
     public static AuthorDetailOutputDto MapDetail(Author author)
     {
-        return new AuthorDetailOutputDto()
+        return new AuthorDetailOutputDto
         {
             Id = author.Id,
             FirstName = author.FirstName,

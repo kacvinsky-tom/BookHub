@@ -7,7 +7,7 @@ public static class CartItemMapper
 {
     public static CartItemListOutputDto MapList(CartItem cartItem)
     {
-        return new CartItemListOutputDto()
+        return new CartItemListOutputDto
         {
             Id = cartItem.Id,
             UserFirstName = cartItem.User.FirstName,
@@ -20,7 +20,7 @@ public static class CartItemMapper
 
     public static CartItemListWithoutUserOutputDto MapListWithoutUser(CartItem cartItem)
     {
-        return new CartItemListWithoutUserOutputDto()
+        return new CartItemListWithoutUserOutputDto
         {
             Id = cartItem.Id,
             BookTitle = cartItem.Book.Title,
@@ -31,7 +31,7 @@ public static class CartItemMapper
 
     public static CartItemDetailOutputDto MapDetail(CartItem cartItem)
     {
-        return new CartItemDetailOutputDto()
+        return new CartItemDetailOutputDto
         {
             Id = cartItem.Id,
             User = UserMapper.MapList(cartItem.User),

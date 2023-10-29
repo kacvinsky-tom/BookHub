@@ -3,11 +3,11 @@ using WebAPI.DTO.Output.Book;
 
 namespace WebAPI.Mapper;
 
-public class BookMapper
+public static class BookMapper
 {
     public static BookListOutputDto MapList(Book book)
     {
-        return new BookListOutputDto()
+        return new BookListOutputDto
         {
             Id = book.Id,
             Title = book.Title,
@@ -20,7 +20,7 @@ public class BookMapper
 
     public static BookListWithoutAuthorOutputDto MapListWithoutAuthor(Book book)
     {
-        return new BookListWithoutAuthorOutputDto()
+        return new BookListWithoutAuthorOutputDto
         {
             Id = book.Id,
             Title = book.Title,
@@ -31,7 +31,7 @@ public class BookMapper
     
     public static BookDetailOutputDto MapDetail(Book book)
     {
-        return new BookDetailOutputDto()
+        return new BookDetailOutputDto
         {
             Id = book.Id,
             Title = book.Title,

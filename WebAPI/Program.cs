@@ -1,7 +1,7 @@
-using WebAPI.Services;
-using WebAPI.Middlewares;
-using WebAPI.Extensions;
 using DataAccessLayer;
+using WebAPI.Extensions;
+using WebAPI.Middlewares;
+using WebAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -50,7 +50,7 @@ public class OrderService
     {
         var status = orderUpdateInputDto.Status;
 
-        if (!System.Enum.IsDefined(typeof(OrderStatus), status))
+        if (!Enum.IsDefined(typeof(OrderStatus), status))
         {
             throw new InvalidEnumArgumentException("Invalid order status.");
         }
