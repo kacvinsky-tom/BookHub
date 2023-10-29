@@ -1,5 +1,5 @@
 ﻿
-namespace BookHub.DataAccessLayer.Entity;
+namespace DataAccessLayer.Entity;
 
 public class Book : BaseEntity
 {

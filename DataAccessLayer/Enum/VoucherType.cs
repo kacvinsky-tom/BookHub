@@ -1,4 +1,4 @@
-﻿namespace BookHub.DataAccessLayer.Enum;
+﻿namespace DataAccessLayer.Enum;
 
 public enum VoucherType
 {

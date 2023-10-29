@@ -1,7 +1,7 @@
-﻿using BookHub.DataAccessLayer.Entity;
+﻿using DataAccessLayer.Entity;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookHub.DataAccessLayer;
+namespace DataAccessLayer;
 
 public class BookHubDbContext : DbContext
 {

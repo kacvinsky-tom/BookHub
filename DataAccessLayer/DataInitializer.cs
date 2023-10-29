@@ -1,9 +1,8 @@
-﻿using BookHub.DataAccessLayer.Entity;
-using BookHub.DataAccessLayer.Enum;
-using BookHub.Enum;
+﻿using DataAccessLayer.Entity;
+using DataAccessLayer.Enum;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookHub.DataAccessLayer;
+namespace DataAccessLayer;
 
 public static class DataInitializer
 {

@@ -1,7 +1,8 @@
-﻿using BookHub.DataAccessLayer.Repository;
-using BookHub.DataAccessLayer.Repository.Interfaces;
+﻿using DataAccessLayer.Repository;
+using DataAccessLayer.Repository.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace BookHub.DataAccessLayer;
+namespace DataAccessLayer;
 
 public static class RepositoryConfig
 {

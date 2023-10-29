@@ -1,9 +1,9 @@
-﻿using BookHub.API.InputType.Filter;
-using BookHub.DataAccessLayer.Entity;
-using BookHub.DataAccessLayer.Repository.Interfaces;
+﻿using DataAccessLayer.Entity;
+using DataAccessLayer.Filter;
+using DataAccessLayer.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookHub.DataAccessLayer.Repository;
+namespace DataAccessLayer.Repository;
 
 public class BookRepository : GenericRepository<Book>, IBookRepository
 {
@@ -11,7 +11,7 @@ public class BookRepository : GenericRepository<Book>, IBookRepository
     {
     }
 
-    public async Task<IEnumerable<Book>> GetWithRelations(BookFilterInput filterInput)
+    public async Task<IEnumerable<Book>> GetWithRelations(BookFilter filterInput)
     {
         var query = _context.Books
             .Include(book => book.Genres)

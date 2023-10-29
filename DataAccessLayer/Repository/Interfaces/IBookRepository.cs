@@ -1,11 +1,11 @@
-﻿using BookHub.API.InputType.Filter;
-using BookHub.DataAccessLayer.Entity;
+﻿using DataAccessLayer.Entity;
+using DataAccessLayer.Filter;
 
-namespace BookHub.DataAccessLayer.Repository.Interfaces;
+namespace DataAccessLayer.Repository.Interfaces;
 
 public interface IBookRepository : IGenericRepository<Book>
 {
-    public Task<IEnumerable<Book>> GetWithRelations(BookFilterInput filterInput);
+    public Task<IEnumerable<Book>> GetWithRelations(BookFilter filterInput);
 
     public Task<Book?> GetByIdWithRelations(int id);
 }

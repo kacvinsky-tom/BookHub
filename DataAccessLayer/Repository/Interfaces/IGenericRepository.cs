@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace BookHub.DataAccessLayer.Repository.Interfaces;
+namespace DataAccessLayer.Repository.Interfaces;
 
 public interface IGenericRepository<T> where T : class
 {

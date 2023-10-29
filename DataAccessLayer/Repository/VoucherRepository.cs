@@ -1,7 +1,8 @@
-﻿using BookHub.DataAccessLayer.Entity;
+﻿using DataAccessLayer.Entity;
+using DataAccessLayer.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookHub.DataAccessLayer.Repository;
+namespace DataAccessLayer.Repository;
 
 public class VoucherRepository : GenericRepository<Voucher>, IVoucherRepository
 {

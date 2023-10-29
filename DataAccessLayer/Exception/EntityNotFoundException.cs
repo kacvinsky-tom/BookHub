@@ -1,4 +1,4 @@
-﻿namespace BookHub.DataAccessLayer.Exception;
+﻿namespace DataAccessLayer.Exception;
 
 public class EntityNotFoundException<TEntity> : System.Exception
 {

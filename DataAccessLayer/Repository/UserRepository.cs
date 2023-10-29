@@ -1,8 +1,8 @@
-﻿using BookHub.DataAccessLayer.Entity;
-using BookHub.DataAccessLayer.Repository.Interfaces;
+﻿using DataAccessLayer.Entity;
+using DataAccessLayer.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookHub.DataAccessLayer.Repository;
+namespace DataAccessLayer.Repository;
 
 public class UserRepository : GenericRepository<User>, IUserRepository
 {

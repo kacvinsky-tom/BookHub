@@ -1,6 +1,6 @@
-﻿using BookHub.DataAccessLayer.Entity;
+﻿using DataAccessLayer.Entity;
 
-namespace BookHub.DataAccessLayer.Repository.Interfaces;
+namespace DataAccessLayer.Repository.Interfaces;
 
 public interface ICartItemRepository : IGenericRepository<CartItem>
 {

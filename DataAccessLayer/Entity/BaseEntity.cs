@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BookHub.DataAccessLayer.Entity;
+namespace DataAccessLayer.Entity;
 
 public class BaseEntity
 {

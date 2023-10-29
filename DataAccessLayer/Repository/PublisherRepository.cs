@@ -1,6 +1,7 @@
-﻿using BookHub.DataAccessLayer.Entity;
+﻿using DataAccessLayer.Entity;
+using DataAccessLayer.Repository.Interfaces;
 
-namespace BookHub.DataAccessLayer.Repository;
+namespace DataAccessLayer.Repository;
 
 public class PublisherRepository : GenericRepository<Publisher>, IPublisherRepository
 {

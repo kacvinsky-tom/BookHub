@@ -1,4 +1,4 @@
-﻿namespace BookHub.DataAccessLayer.Entity;
+﻿namespace DataAccessLayer.Entity;
 
 public class WishList : BaseEntity
 {

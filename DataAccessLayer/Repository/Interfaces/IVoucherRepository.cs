@@ -1,7 +1,6 @@
-﻿using BookHub.DataAccessLayer.Entity;
-using BookHub.DataAccessLayer.Repository.Interfaces;
+﻿using DataAccessLayer.Entity;
 
-namespace BookHub.DataAccessLayer.Repository;
+namespace DataAccessLayer.Repository.Interfaces;
 
 public interface IVoucherRepository : IGenericRepository<Voucher>
 {

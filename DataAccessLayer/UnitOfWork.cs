@@ -1,7 +1,7 @@
-﻿using BookHub.DataAccessLayer.Repository;
-using BookHub.DataAccessLayer.Repository.Interfaces;
+﻿using DataAccessLayer.Repository;
+using DataAccessLayer.Repository.Interfaces;
 
-namespace BookHub.DataAccessLayer;
+namespace DataAccessLayer;
 
 public class UnitOfWork
 {
