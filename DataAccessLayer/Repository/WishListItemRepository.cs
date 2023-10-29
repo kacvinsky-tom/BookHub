@@ -14,6 +14,9 @@ public class WishListItemRepository : GenericRepository<WishListItem>, IWishList
     {
         return await _context.WishListItems
             .Include(w => w.Book)
+            .ThenInclude(b => b.Authors)
+            .Include(w => w.Book)
+            .ThenInclude(b => b.Genres)
             .FirstOrDefaultAsync(w => w.Id == id);
     }
 
@@ -21,6 +24,9 @@ public class WishListItemRepository : GenericRepository<WishListItem>, IWishList
     {
         return await _context.WishListItems
             .Include(w => w.Book)
+            .ThenInclude(b => b.Authors)
+            .Include(w => w.Book)
+            .ThenInclude(b => b.Genres)
             .ToListAsync();
     }
 }

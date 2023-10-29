@@ -24,10 +24,8 @@ public class BookDetailOutputDto : OutputDtoBase
     
     public IEnumerable<AuthorListOutputDto> Authors { get; set; }
     
-    public ICollection<Genre> Genres { get; set; }
+    public ICollection<GenreListOutputDto> Genres { get; set; }
     
     public IEnumerable<ReviewListOutputDto> Reviews { get; set; }
     
-    // TODO Move definition from BookMapper.cs and modify mapper to use this and List Dtos
-    // TODO Add AuthorDto and GenreDto collections after they are implemented
 }

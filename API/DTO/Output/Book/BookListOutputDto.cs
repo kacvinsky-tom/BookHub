@@ -1,4 +1,6 @@
-﻿namespace BookHub.API.DTO.Output.Book;
+﻿using BookHub.DataAccessLayer.Entity;
+
+namespace BookHub.API.DTO.Output.Book;
 
 public class BookListOutputDto : OutputDtoBase
 {
@@ -7,5 +9,5 @@ public class BookListOutputDto : OutputDtoBase
     public int ReleaseYear { get; set; }
     
     public IEnumerable<AuthorListOutputDto> Authors { get; set; }
-    // TODO Fill in GenreDto collections after they are implemented
+    public IEnumerable<GenreListOutputDto> Genres { get; set; }
 }

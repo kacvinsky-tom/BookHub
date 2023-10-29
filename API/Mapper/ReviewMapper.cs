@@ -25,7 +25,7 @@ public class ReviewMapper
         return new ReviewDetailOutputDto()
         {
             Id = review.Id,
-            User = UserMapper.MapList(review.User),
+            User = UserMapper.MapDetail(review.User),
             Book = BookMapper.MapList(review.Book),
             Comment = review.Comment,
             Rating = review.Rating,

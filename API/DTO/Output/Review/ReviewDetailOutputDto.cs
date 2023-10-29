@@ -5,8 +5,7 @@ namespace BookHub.API.DTO.Output.Review;
 
 public class ReviewDetailOutputDto : OutputDtoBase
 {
-
-    public UserListOutputDto User { get; set; }
+    public UserDetailOutputDto User { get; set; }
     public BookListOutputDto Book { get; set; }
     public string Comment { get; set; }
     public int Rating { get; set; }

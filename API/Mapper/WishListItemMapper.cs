@@ -14,9 +14,8 @@ public static class WishListItemMapper
             BookTitle = wishListItem.Book?.Title,
             BookPrice = wishListItem.Book?.Price ?? -1,
             BookReleaseYear = wishListItem.Book?.ReleaseYear ?? -1,
-            BookImage = wishListItem.Book?.Image ?? "/assets/images/404.png"
-            // TODO uncomment after AuthorMapper is implemented
-            // Authors = wishListItem.Book.Authors.Select(ba => AuthorMapper.MapList(ba.Author)).ToList(),
+            BookImage = wishListItem.Book?.Image ?? "/assets/images/404.png",
+            Authors = wishListItem.Book.Authors.Select(AuthorMapper.MapList).ToList(),
         };
     }
     
@@ -30,10 +29,9 @@ public static class WishListItemMapper
             BookReleaseYear = wishListItem.Book.ReleaseYear,
             BookDescription = wishListItem.Book.Description,
             BookISBN = wishListItem.Book.ISBN,
-            BookImage = wishListItem.Book.Image ?? "/assets/images/404.png"
-            // TODO uncomment after AuthorMapper and GenreMapper are implemented
-            // Authors = wishListItem.Book.Authors.Select(ba => AuthorMapper.MapList(ba.Author)).ToList(),
-            // Genres = wishListItem.Book.Genres.Select(bg => GenreMapper.MapList(bg.Genre)).ToList()
+            BookImage = wishListItem.Book.Image ?? "/assets/images/404.png",
+            Authors = wishListItem.Book.Authors.Select(AuthorMapper.MapList).ToList(),
+            Genres = wishListItem.Book.Genres.Select(GenreMapper.MapList).ToList()
         };
     }
 }

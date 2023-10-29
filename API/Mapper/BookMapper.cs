@@ -13,6 +13,7 @@ public class BookMapper
             Id = book.Id,
             Title = book.Title,
             Authors = book.Authors.Select(AuthorMapper.MapList).ToList(),
+            Genres = book.Genres.Select(GenreMapper.MapList).ToList(),
             Price = book.Price,
             ReleaseYear = book.ReleaseYear,
         };
@@ -43,7 +44,7 @@ public class BookMapper
             Publisher = PublisherMapper.MapDetail(book.Publisher),
             ReleaseYear = book.ReleaseYear,
             Authors = book.Authors.Select(AuthorMapper.MapList).ToList(),
-            //Genres = book.Genres.Select(GenreMapper)
+            Genres = book.Genres.Select(GenreMapper.MapList).ToList(),
             Reviews = book.Reviews.Select(ReviewMapper.MapList).ToList()
         };
     }

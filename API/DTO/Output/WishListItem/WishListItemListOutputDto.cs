@@ -6,9 +6,7 @@ public class WishListItemListOutputDto : OutputDtoBase
     public double BookPrice { get; set; }
     public int BookReleaseYear { get; set; }
     public string BookImage { get; set; }
-    
-    // TODO Uncomment this after AuthorDto is implemented
-    // public IEnumerable<AuthorDto> Authors { get; set; }
+    public IEnumerable<AuthorListOutputDto> Authors { get; set; }
 
     
 }
