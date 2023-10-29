@@ -33,7 +33,7 @@ public class UserController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
-        var user = await _unitOfWork.Users.GetById(id);
+        var user = await _unitOfWork.Users.GetByIdWithRelations(id);
         
         if (user == null)
         {

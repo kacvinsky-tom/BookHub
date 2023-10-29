@@ -31,8 +31,7 @@ public static class VoucherMapper
             Quantity = voucher.Quantity,
             UsedQuantity = voucher.UsedQuantity,
             Type = voucher.Type,
-            // TODO uncomment after OrderMapper is fully implemented
-            //Orders = voucher.Orders.Select(OrderMapper.MapList)
+            Orders = voucher.Orders.Select(OrderMapper.MapList)
         };
     }
 }

@@ -12,6 +12,7 @@ public class UnitOfWork
     public IPublisherRepository Publishers { get; }
     public IGenreRepository Genres { get; }
     public IUserRepository Users { get; }
+    public ICartItemRepository CartItems { get; }
     public IOrderRepository Orders { get; }
     public IOrderItemRepository OrderItems { get; }
     public IWishListRepository WishLists { get; }
@@ -33,6 +34,7 @@ public class UnitOfWork
         Orders = new OrderRepository(_context);
         OrderItems = new OrderItemRepository(_context);
         Users = new UserRepository(_context);
+        CartItems = new CartItemRepository(_context);
         WishLists = new WishListRepository(_context);
         WishListItems = new WishListItemRepository(_context);
         Reviews = new ReviewRepository(_context);

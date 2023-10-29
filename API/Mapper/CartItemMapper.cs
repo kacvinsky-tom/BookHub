@@ -5,11 +5,39 @@ namespace BookHub.API.Mapper;
 
 public static class CartItemMapper
 {
-    public static CartItemOutputDto Map(CartItem cartList)
+    public static CartItemListOutputDto MapList(CartItem cartItem)
     {
-        return new CartItemOutputDto()
+        return new CartItemListOutputDto()
         {
-            // TODO
+            Id = cartItem.Id,
+            UserFirstName = cartItem.User.FirstName,
+            UserLastName = cartItem.User.LastName,
+            BookTitle = cartItem.Book.Title,
+            BookId = cartItem.Book.Id,
+            Quantity = cartItem.Quantity
         };
-}
+    }
+
+    public static CartItemListWithoutUserOutputDto MapListWithoutUser(CartItem cartItem)
+    {
+        return new CartItemListWithoutUserOutputDto()
+        {
+            Id = cartItem.Id,
+            BookTitle = cartItem.Book.Title,
+            BookId = cartItem.Book.Id,
+            Quantity = cartItem.Quantity
+        };
+    }
+
+    public static CartItemDetailOutputDto MapDetail(CartItem cartItem)
+    {
+        return new CartItemDetailOutputDto()
+        {
+            Id = cartItem.Id,
+            User = UserMapper.MapList(cartItem.User),
+            Book = BookMapper.MapList(cartItem.Book),
+            Quantity = cartItem.Quantity
+        };
+    }
+
 }

@@ -1,6 +1,7 @@
 ﻿using BookHub.API.DTO.Output;
 using BookHub.API.DTO.Output.User;
 using BookHub.DataAccessLayer.Entity;
+using BookHub.Services;
 
 namespace BookHub.API.Mapper;
 
@@ -31,6 +32,10 @@ public static class UserMapper
             LastName = user.LastName,
             PhoneNumber = user.PhoneNumber,
             IsAdmin = user.IsAdmin,
+            Orders = user.Orders.Select(OrderMapper.MapList),
+            CartItems = user.CartItems.Select(CartItemMapper.MapListWithoutUser),
+            Reviews = user.Reviews.Select(ReviewMapper.MapList),
+            WishLists = user.WishLists.Select(WishListMapper.MapListWithoutUser)
         };
     }
 }

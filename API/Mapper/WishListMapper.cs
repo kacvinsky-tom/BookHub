@@ -26,4 +26,14 @@ public static class WishListMapper
             WishListItems = wishList.WishListItems.Select(WishListItemMapper.MapList)
         };
     }
+
+    public static WishListListWithoutUserOutputDto MapListWithoutUser(WishList wishList)
+    {
+        return new WishListListWithoutUserOutputDto()
+        {
+            Id = wishList.Id,
+            Name = wishList.Name
+        };
+    }
+
 }
