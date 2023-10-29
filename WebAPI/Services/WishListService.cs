@@ -1,5 +1,5 @@
-﻿using BookHub.API.DTO.Input;
-using BookHub.API.InputType;
+﻿using BookHub.DTO.Input.WishList;
+using BookHub.DTO.Input.WishListItem;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Exception;

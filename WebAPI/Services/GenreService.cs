@@ -1,4 +1,4 @@
-﻿using BookHub.API.DTO.Input;
+﻿using BookHub.DTO.Input.Genre;
 using DataAccessLayer.Entity;
 
 namespace BookHub.Services;

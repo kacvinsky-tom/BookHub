@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
-using BookHub.API.DTO.Input;
-using BookHub.API.InputType;
+using BookHub.DTO.Input.Order;
+using BookHub.DTO.Input.OrderItem;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Enum;

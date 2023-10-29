@@ -1,4 +1,4 @@
-﻿using BookHub.API.DTO.Input.Publisher;
+﻿using BookHub.DTO.Input.Publisher;
 using DataAccessLayer.Entity;
 
 namespace BookHub.Services;

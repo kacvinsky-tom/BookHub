@@ -1,4 +1,4 @@
-﻿using BookHub.API.DTO.Input;
+﻿using BookHub.DTO.Input.User;
 using DataAccessLayer.Entity;
 using Microsoft.AspNetCore.Identity;
 
