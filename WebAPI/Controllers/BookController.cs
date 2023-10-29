@@ -2,8 +2,7 @@
 using DataAccessLayer.Entity;
 using DataAccessLayer.Exception;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.InputType;
-using WebAPI.InputType.Filter;
+using WebAPI.DTO.Input.Book;
 using WebAPI.Mapper;
 using WebAPI.Services;
 
@@ -23,9 +22,9 @@ public class BookController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Fetch([FromQuery] BookFilterInput filterInput)
+    public async Task<IActionResult> Fetch([FromQuery] BookFilterInputDto filterInputDto)
     {
-        var books = await _unitOfWork.Books.GetWithRelations(filterInput.ToBookFilter());
+        var books = await _unitOfWork.Books.GetWithRelations(filterInputDto.ToBookFilter());
         
         return Ok(books.Select(BookMapper.MapList));
     }
@@ -44,11 +43,11 @@ public class BookController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] BookInput bookCreateInput)
+    public async Task<IActionResult> Create([FromBody] BookCreateInputDto bookCreateCreateInputDto)
     {
         try
         {
-            var book = await _bookService.Create(bookCreateInput);
+            var book = await _bookService.Create(bookCreateCreateInputDto);
             
             _unitOfWork.Books.Add(book);
 
@@ -63,7 +62,7 @@ public class BookController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    public async Task<IActionResult> Update([FromBody] BookInput bookUpdateInput, int id)
+    public async Task<IActionResult> Update([FromBody] BookCreateInputDto bookCreateUpdateInputDto, int id)
     {
         var bookToUpdate = await _unitOfWork.Books.GetById(id);
         
@@ -74,7 +73,7 @@ public class BookController : ControllerBase
 
         try
         {
-            await _bookService.Update(bookUpdateInput, bookToUpdate);
+            await _bookService.Update(bookCreateUpdateInputDto, bookToUpdate);
             
             await _unitOfWork.Complete();
             

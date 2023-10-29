@@ -35,7 +35,7 @@ public class ReviewService
             Book = book,
             User = user,
             Rating = reviewCreateInputDto.Rating,
-            Comment = reviewCreateInputDto.Comment,          
+            Comment = reviewCreateInputDto.Comment,
         };
         
         return review;

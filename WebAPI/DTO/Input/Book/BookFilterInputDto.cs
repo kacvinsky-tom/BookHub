@@ -1,8 +1,8 @@
 ﻿using DataAccessLayer.Filter;
 
-namespace WebAPI.InputType.Filter;
+namespace WebAPI.DTO.Input.Book;
 
-public class BookFilterInput
+public class BookFilterInputDto
 {
     public string? Title { get; set; }
     

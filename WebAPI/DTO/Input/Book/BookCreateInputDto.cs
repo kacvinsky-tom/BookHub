@@ -1,6 +1,6 @@
-﻿namespace WebAPI.InputType;
+﻿namespace WebAPI.DTO.Input.Book;
 
-public class BookInput
+public class BookCreateInputDto
 {
     public string Title { get; set; }
 
