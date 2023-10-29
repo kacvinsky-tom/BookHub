@@ -11,9 +11,9 @@ public class UnitOfWork
     public IAuthorRepository Authors { get; }
     public IPublisherRepository Publishers { get; }
     public IGenreRepository Genres { get; }
-
     public IUserRepository Users { get; }
-
+    public IOrderRepository Orders { get; }
+    public IOrderItemRepository OrderItems { get; }
     public IWishListRepository WishLists { get; }
     public IWishListItemRepository WishListItems { get; }
 
@@ -30,6 +30,8 @@ public class UnitOfWork
         Publishers = new PublisherRepository(_context);
         Authors = new AuthorRepository(_context);
         Genres = new GenreRepository(_context);
+        Orders = new OrderRepository(_context);
+        OrderItems = new OrderItemRepository(_context);
         Users = new UserRepository(_context);
         WishLists = new WishListRepository(_context);
         WishListItems = new WishListItemRepository(_context);

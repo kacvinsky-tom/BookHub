@@ -22,6 +22,7 @@ builder.Services.AddRepositories();
 builder.Services.AddScoped<AuthorService>();
 builder.Services.AddScoped<GenreService>();
 builder.Services.AddScoped<BookService>();
+builder.Services.AddScoped<OrderService>();
 builder.Services.AddScoped<WishListService>();
 builder.Services.AddScoped<ReviewService>();
 builder.Services.AddScoped<UserService>();
