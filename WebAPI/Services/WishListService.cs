@@ -1,10 +1,10 @@
-﻿using BookHub.DTO.Input.WishList;
-using BookHub.DTO.Input.WishListItem;
-using DataAccessLayer;
+﻿using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Exception;
+using WebAPI.DTO.Input.WishList;
+using WebAPI.DTO.Input.WishListItem;
 
-namespace BookHub.Services;
+namespace WebAPI.Services;
 
 public class WishListService
 {

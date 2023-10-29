@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel;
-using BookHub.DTO.Input.Order;
-using BookHub.DTO.Input.OrderItem;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Enum;
 using DataAccessLayer.Exception;
+using WebAPI.DTO.Input.Order;
+using WebAPI.DTO.Input.OrderItem;
 
-namespace BookHub.Services;
+namespace WebAPI.Services;
 
 public class OrderService
 {

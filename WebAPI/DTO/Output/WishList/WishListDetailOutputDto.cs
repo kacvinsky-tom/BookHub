@@ -1,7 +1,6 @@
-﻿
-using BookHub.DTO.Output.WishListItem;
+﻿using WebAPI.DTO.Output.WishListItem;
 
-namespace BookHub.DTO.Output.WishList;
+namespace WebAPI.DTO.Output.WishList;
 
 public class WishListDetailOutputDto : OutputDtoBase
 {

@@ -1,8 +1,8 @@
-﻿using BookHub.DTO.Input.Author;
-using DataAccessLayer;
+﻿using DataAccessLayer;
 using DataAccessLayer.Entity;
+using WebAPI.DTO.Input.Author;
 
-namespace BookHub.Services;
+namespace WebAPI.Services;
 
 public class AuthorService
 {

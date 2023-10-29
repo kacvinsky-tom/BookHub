@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BookHub.Migrations
+namespace WebAPI.Migrations
 {
     [DbContext(typeof(BookHubDbContext))]
     [Migration("20231022175738_BookGenre_relations_delete_behaviour")]

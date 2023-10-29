@@ -1,6 +1,6 @@
 ﻿using DataAccessLayer.Filter;
 
-namespace BookHub.InputType.Filter;
+namespace WebAPI.InputType.Filter;
 
 public class BookFilterInput
 {

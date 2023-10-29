@@ -1,4 +1,4 @@
-﻿namespace BookHub.DTO.Input.CartItem;
+﻿namespace WebAPI.DTO.Input.CartItem;
 
 public class CartItemUpdateInputDto
 {

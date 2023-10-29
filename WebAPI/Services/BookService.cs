@@ -1,9 +1,9 @@
-﻿using BookHub.InputType;
-using DataAccessLayer;
+﻿using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Exception;
+using WebAPI.InputType;
 
-namespace BookHub.Services;
+namespace WebAPI.Services;
 
 public class BookService
 {

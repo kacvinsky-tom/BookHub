@@ -1,4 +1,4 @@
-﻿namespace BookHub.DTO.Output.Genre;
+﻿namespace WebAPI.DTO.Output.Genre;
 
 public class GenreListOutputDto : OutputDtoBase
 {

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BookHub.Migrations
+namespace WebAPI.Migrations
 {
     [DbContext(typeof(BookHubDbContext))]
     [Migration("20231020194631_book_genre_seed")]

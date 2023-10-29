@@ -1,4 +1,4 @@
-﻿namespace BookHub.DTO.Input.Order;
+﻿namespace WebAPI.DTO.Input.Order;
 
 public class OrderCreateInputDto
 {

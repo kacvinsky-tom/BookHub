@@ -1,6 +1,6 @@
 ﻿using DataAccessLayer.Enum;
 
-namespace BookHub.DTO.Input.Voucher;
+namespace WebAPI.DTO.Input.Voucher;
 
 public class VoucherInputDto
 {

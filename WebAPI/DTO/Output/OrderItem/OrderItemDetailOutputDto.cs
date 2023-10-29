@@ -1,6 +1,6 @@
-﻿using BookHub.DTO.Output.Order;
+﻿using WebAPI.DTO.Output.Order;
 
-namespace BookHub.DTO.Output.OrderItem;
+namespace WebAPI.DTO.Output.OrderItem;
 
 public class OrderItemDetailOutputDto : OutputDtoBase
 {

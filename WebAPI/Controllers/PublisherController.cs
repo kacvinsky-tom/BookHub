@@ -1,10 +1,10 @@
-using BookHub.DTO.Input.Publisher;
-using BookHub.Mapper;
-using BookHub.Services;
 using DataAccessLayer;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI.DTO.Input.Publisher;
+using WebAPI.Mapper;
+using WebAPI.Services;
 
-namespace BookHub.Controllers;
+namespace WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]

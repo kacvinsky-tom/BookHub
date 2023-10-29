@@ -1,7 +1,7 @@
-﻿using BookHub.DTO.Output.Publisher;
-using DataAccessLayer.Entity;
+﻿using DataAccessLayer.Entity;
+using WebAPI.DTO.Output.Publisher;
 
-namespace BookHub.Mapper;
+namespace WebAPI.Mapper;
 
 public static class PublisherMapper
 {

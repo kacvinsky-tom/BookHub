@@ -1,4 +1,4 @@
-﻿namespace BookHub.DTO.Output.CartItem;
+﻿namespace WebAPI.DTO.Output.CartItem;
 
 public class CartItemListOutputDto : OutputDtoBase
 {

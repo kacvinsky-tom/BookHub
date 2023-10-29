@@ -1,7 +1,7 @@
-﻿using BookHub.DTO.Output.Genre;
-using DataAccessLayer.Entity;
+﻿using DataAccessLayer.Entity;
+using WebAPI.DTO.Output.Genre;
 
-namespace BookHub.Mapper;
+namespace WebAPI.Mapper;
 
 public class GenreMapper
 {

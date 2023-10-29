@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace BookHub.Migrations
+namespace WebAPI.Migrations
 {
     /// <inheritdoc />
     public partial class BookGenre_relations_delete_behaviour : Migration

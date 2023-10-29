@@ -1,9 +1,9 @@
-﻿using BookHub.DTO.Input.CartItem;
-using DataAccessLayer;
+﻿using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Exception;
+using WebAPI.DTO.Input.CartItem;
 
-namespace BookHub.Services;
+namespace WebAPI.Services;
 
 public class CartService
 {

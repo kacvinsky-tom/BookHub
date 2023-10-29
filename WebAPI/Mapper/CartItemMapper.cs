@@ -1,7 +1,7 @@
-﻿using BookHub.DTO.Output.CartItem;
-using DataAccessLayer.Entity;
+﻿using DataAccessLayer.Entity;
+using WebAPI.DTO.Output.CartItem;
 
-namespace BookHub.Mapper;
+namespace WebAPI.Mapper;
 
 public static class CartItemMapper
 {

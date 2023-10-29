@@ -1,4 +1,4 @@
-﻿namespace BookHub.DTO.Output.Author;
+﻿namespace WebAPI.DTO.Output.Author;
 
 public class AuthorListOutputDto : OutputDtoBase
 {

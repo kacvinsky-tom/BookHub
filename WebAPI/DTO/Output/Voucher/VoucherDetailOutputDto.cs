@@ -1,7 +1,7 @@
-﻿using BookHub.DTO.Output.Order;
-using DataAccessLayer.Enum;
+﻿using DataAccessLayer.Enum;
+using WebAPI.DTO.Output.Order;
 
-namespace BookHub.DTO.Output.Voucher;
+namespace WebAPI.DTO.Output.Voucher;
 
 public class VoucherDetailOutputDto : OutputDtoBase
 {

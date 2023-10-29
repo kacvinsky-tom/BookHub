@@ -1,6 +1,6 @@
-﻿using BookHub.DTO.Output.Book;
+﻿using WebAPI.DTO.Output.Book;
 
-namespace BookHub.DTO.Output.Genre;
+namespace WebAPI.DTO.Output.Genre;
 
 public class GenreDetailOutputDto : OutputDtoBase
 {

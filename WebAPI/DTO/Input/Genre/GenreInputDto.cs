@@ -1,4 +1,4 @@
-﻿namespace BookHub.DTO.Input.Genre;
+﻿namespace WebAPI.DTO.Input.Genre;
 
 public class GenreInputDto
 {

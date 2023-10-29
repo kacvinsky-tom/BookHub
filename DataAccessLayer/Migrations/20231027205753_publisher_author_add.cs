@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace BookHub.Migrations
+namespace WebAPI.Migrations
 {
     /// <inheritdoc />
     public partial class publisher_author_add : Migration

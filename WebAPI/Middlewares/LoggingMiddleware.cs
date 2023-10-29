@@ -1,4 +1,4 @@
-﻿namespace BookHub.Middlewares;
+﻿namespace WebAPI.Middlewares;
 
 public class LoggingMiddleware
 {

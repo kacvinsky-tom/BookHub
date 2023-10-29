@@ -1,7 +1,7 @@
-﻿using BookHub.DTO.Output.Author;
-using DataAccessLayer.Entity;
+﻿using DataAccessLayer.Entity;
+using WebAPI.DTO.Output.Author;
 
-namespace BookHub.Mapper;
+namespace WebAPI.Mapper;
 
 public class AuthorMapper
 {

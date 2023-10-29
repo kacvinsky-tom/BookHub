@@ -1,7 +1,7 @@
-﻿using BookHub.DTO.Output.Author;
-using BookHub.DTO.Output.Genre;
+﻿using WebAPI.DTO.Output.Author;
+using WebAPI.DTO.Output.Genre;
 
-namespace BookHub.DTO.Output.Book;
+namespace WebAPI.DTO.Output.Book;
 
 public class BookListOutputDto : OutputDtoBase
 {

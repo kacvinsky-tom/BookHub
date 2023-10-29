@@ -1,4 +1,4 @@
-﻿namespace BookHub.DTO.Input.WishList;
+﻿namespace WebAPI.DTO.Input.WishList;
 
 public class WishListInputDto
 {

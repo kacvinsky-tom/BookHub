@@ -1,4 +1,4 @@
-namespace BookHub.DTO.Output.Publisher;
+namespace WebAPI.DTO.Output.Publisher;
 
 public class PublisherListOutputDto : OutputDtoBase
 {

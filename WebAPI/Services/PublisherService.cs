@@ -1,7 +1,7 @@
-﻿using BookHub.DTO.Input.Publisher;
-using DataAccessLayer.Entity;
+﻿using DataAccessLayer.Entity;
+using WebAPI.DTO.Input.Publisher;
 
-namespace BookHub.Services;
+namespace WebAPI.Services;
 
 public class PublisherService
 {

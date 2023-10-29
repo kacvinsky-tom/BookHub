@@ -1,4 +1,4 @@
-﻿namespace BookHub.DTO.Input.Review;
+﻿namespace WebAPI.DTO.Input.Review;
 
 public class ReviewCreateInputDto
 {

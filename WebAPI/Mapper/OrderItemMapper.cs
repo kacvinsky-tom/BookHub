@@ -1,7 +1,7 @@
-﻿using BookHub.DTO.Output.OrderItem;
-using DataAccessLayer.Entity;
+﻿using DataAccessLayer.Entity;
+using WebAPI.DTO.Output.OrderItem;
 
-namespace BookHub.Mapper;
+namespace WebAPI.Mapper;
 
 public static class OrderItemMapper
 {

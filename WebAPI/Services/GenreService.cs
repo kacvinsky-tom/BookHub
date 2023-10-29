@@ -1,7 +1,7 @@
-﻿using BookHub.DTO.Input.Genre;
-using DataAccessLayer.Entity;
+﻿using DataAccessLayer.Entity;
+using WebAPI.DTO.Input.Genre;
 
-namespace BookHub.Services;
+namespace WebAPI.Services;
 
 public class GenreService
 {

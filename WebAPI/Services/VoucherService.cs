@@ -1,7 +1,7 @@
-﻿using BookHub.DTO.Input.Voucher;
-using DataAccessLayer.Entity;
+﻿using DataAccessLayer.Entity;
+using WebAPI.DTO.Input.Voucher;
 
-namespace BookHub.Services;
+namespace WebAPI.Services;
 
 public class VoucherService
 {

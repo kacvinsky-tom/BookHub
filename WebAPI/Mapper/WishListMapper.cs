@@ -1,7 +1,7 @@
-﻿using BookHub.DTO.Output.WishList;
-using DataAccessLayer.Entity;
+﻿using DataAccessLayer.Entity;
+using WebAPI.DTO.Output.WishList;
 
-namespace BookHub.Mapper;
+namespace WebAPI.Mapper;
 
 public static class WishListMapper
 {

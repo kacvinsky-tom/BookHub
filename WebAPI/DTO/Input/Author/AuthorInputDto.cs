@@ -1,4 +1,4 @@
-﻿namespace BookHub.DTO.Input.Author;
+﻿namespace WebAPI.DTO.Input.Author;
 
 public class AuthorInputDto
 {

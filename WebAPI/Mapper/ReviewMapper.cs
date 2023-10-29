@@ -1,7 +1,7 @@
-﻿using BookHub.DTO.Output.Review;
-using DataAccessLayer.Entity;
+﻿using DataAccessLayer.Entity;
+using WebAPI.DTO.Output.Review;
 
-namespace BookHub.Mapper;
+namespace WebAPI.Mapper;
 
 public class ReviewMapper
 {

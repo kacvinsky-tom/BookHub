@@ -1,7 +1,7 @@
-﻿using BookHub.DTO.Output.Book;
-using BookHub.DTO.Output.User;
+﻿using WebAPI.DTO.Output.Book;
+using WebAPI.DTO.Output.User;
 
-namespace BookHub.DTO.Output.Review;
+namespace WebAPI.DTO.Output.Review;
 
 public class ReviewDetailOutputDto : OutputDtoBase
 {

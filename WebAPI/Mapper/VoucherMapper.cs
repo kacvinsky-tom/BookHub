@@ -1,7 +1,7 @@
-﻿using BookHub.DTO.Output.Voucher;
-using DataAccessLayer.Entity;
+﻿using DataAccessLayer.Entity;
+using WebAPI.DTO.Output.Voucher;
 
-namespace BookHub.Mapper;
+namespace WebAPI.Mapper;
 
 public static class VoucherMapper
 {

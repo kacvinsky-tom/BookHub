@@ -1,6 +1,6 @@
 ﻿using DataAccessLayer.Enum;
 
-namespace BookHub.DTO.Output.Voucher;
+namespace WebAPI.DTO.Output.Voucher;
 
 public class VoucherListOutputDto : OutputDtoBase
 {

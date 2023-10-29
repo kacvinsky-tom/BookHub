@@ -1,4 +1,4 @@
-﻿namespace BookHub.DTO.Output.OrderItem;
+﻿namespace WebAPI.DTO.Output.OrderItem;
 
 public class OrderItemCreateOutputDto : OutputDtoBase
 {

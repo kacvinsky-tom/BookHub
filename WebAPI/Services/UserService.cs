@@ -1,8 +1,8 @@
-﻿using BookHub.DTO.Input.User;
-using DataAccessLayer.Entity;
+﻿using DataAccessLayer.Entity;
 using Microsoft.AspNetCore.Identity;
+using WebAPI.DTO.Input.User;
 
-namespace BookHub.Services;
+namespace WebAPI.Services;
 
 public class UserService
 {

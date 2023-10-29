@@ -1,4 +1,4 @@
-﻿namespace BookHub.DTO.Output.WishList;
+﻿namespace WebAPI.DTO.Output.WishList;
 
 public class WishListListOutputDto : OutputDtoBase
 {

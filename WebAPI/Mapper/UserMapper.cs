@@ -1,7 +1,7 @@
-﻿using BookHub.DTO.Output.User;
-using DataAccessLayer.Entity;
+﻿using DataAccessLayer.Entity;
+using WebAPI.DTO.Output.User;
 
-namespace BookHub.Mapper;
+namespace WebAPI.Mapper;
 
 public static class UserMapper
 {

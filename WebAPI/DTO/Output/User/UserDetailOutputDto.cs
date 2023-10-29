@@ -1,9 +1,9 @@
-﻿using BookHub.DTO.Output.CartItem;
-using BookHub.DTO.Output.Order;
-using BookHub.DTO.Output.Review;
-using BookHub.DTO.Output.WishList;
+﻿using WebAPI.DTO.Output.CartItem;
+using WebAPI.DTO.Output.Order;
+using WebAPI.DTO.Output.Review;
+using WebAPI.DTO.Output.WishList;
 
-namespace BookHub.DTO.Output.User;
+namespace WebAPI.DTO.Output.User;
 
 public class UserDetailOutputDto : OutputDtoBase
 {

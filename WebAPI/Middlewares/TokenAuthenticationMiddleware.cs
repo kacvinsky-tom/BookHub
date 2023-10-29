@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace BookHub.Middlewares;
+namespace WebAPI.Middlewares;
 
 public class TokenAuthenticationMiddleware
 {

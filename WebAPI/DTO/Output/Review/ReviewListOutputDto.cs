@@ -1,4 +1,4 @@
-﻿namespace BookHub.DTO.Output.Review;
+﻿namespace WebAPI.DTO.Output.Review;
 
 public class ReviewListOutputDto : OutputDtoBase
 {

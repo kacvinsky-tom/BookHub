@@ -1,8 +1,8 @@
-﻿using BookHub.DTO.Output.OrderItem;
-using BookHub.DTO.Output.User;
-using DataAccessLayer.Enum;
+﻿using DataAccessLayer.Enum;
+using WebAPI.DTO.Output.OrderItem;
+using WebAPI.DTO.Output.User;
 
-namespace BookHub.DTO.Output.Order;
+namespace WebAPI.DTO.Output.Order;
 
 public class OrderDetailOutputDto : OutputDtoBase
 {

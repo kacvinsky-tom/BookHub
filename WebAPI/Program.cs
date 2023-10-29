@@ -1,6 +1,6 @@
-using BookHub.Services;
-using BookHub.Middlewares;
-using BookHub.Extensions;
+using WebAPI.Services;
+using WebAPI.Middlewares;
+using WebAPI.Extensions;
 using DataAccessLayer;
 
 var builder = WebApplication.CreateBuilder(args);

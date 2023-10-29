@@ -1,4 +1,4 @@
-﻿namespace BookHub.InputType;
+﻿namespace WebAPI.InputType;
 
 public class PublisherInput
 {
