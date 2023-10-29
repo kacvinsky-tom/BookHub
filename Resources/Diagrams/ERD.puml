@@ -7,7 +7,7 @@ entity User {
     *password
     *first_name
     *last_name
-    *phone
+    *phone_number
     *is_admin
     *created_at
     updated_at
@@ -23,7 +23,7 @@ entity Book {
     *price
     *quantity
     *release_year
-    *deleted
+    *is_deleted
     *created_at
     updated_at
 }
