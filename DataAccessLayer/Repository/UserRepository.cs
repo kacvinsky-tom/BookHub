@@ -17,6 +17,7 @@ public class UserRepository : GenericRepository<User>, IUserRepository
             .Include(u => u.Reviews)
             .Include(u => u.Orders)
             .Include(u => u.CartItems)
+            .ThenInclude(ci => ci.Book)
             .Include(u => u.WishLists)
             .FirstOrDefaultAsync(u => u.Id == id);
     }

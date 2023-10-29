@@ -14,7 +14,7 @@ public class UserDetailOutputDto : OutputDtoBase
     public string PhoneNumber { get; set; }
     public bool IsAdmin { get; set; }
     public IEnumerable<OrderListOutputDto> Orders { get; set; }
-    public IEnumerable<CartItemOutputDto> CartItems { get; set; }
+    public IEnumerable<CartItemListWithoutUserOutputDto> CartItems { get; set; }
     public IEnumerable<ReviewListOutputDto> Reviews { get; set; }
-    public IEnumerable<WishListListOutputDto> WishLists { get; set; }
+    public IEnumerable<WishListListWithoutUserOutputDto> WishLists { get; set; }
 }
