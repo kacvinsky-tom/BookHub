@@ -1,6 +1,6 @@
 ﻿using BookHub.API.DTO.Output;
 using BookHub.API.DTO.Output.WishListItem;
-using BookHub.DataAccessLayer.Entity;
+using DataAccessLayer.Entity;
 
 namespace BookHub.API.Mapper;
 

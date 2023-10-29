@@ -1,6 +1,5 @@
 using BookHub.API.DTO.Output.Publisher;
 using BookHub.API.DTO.Output.Review;
-using BookHub.DataAccessLayer.Entity;
 
 namespace BookHub.API.DTO.Output;
 

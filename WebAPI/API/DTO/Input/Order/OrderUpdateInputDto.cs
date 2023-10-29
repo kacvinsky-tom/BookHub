@@ -1,5 +1,4 @@
-﻿using BookHub.DataAccessLayer.Entity;
-using BookHub.Enum;
+﻿using DataAccessLayer.Enum;
 
 namespace BookHub.API.DTO.Input;
 

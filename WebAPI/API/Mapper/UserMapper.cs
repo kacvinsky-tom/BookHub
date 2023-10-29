@@ -1,7 +1,7 @@
 ﻿using BookHub.API.DTO.Output;
 using BookHub.API.DTO.Output.User;
-using BookHub.DataAccessLayer.Entity;
 using BookHub.Services;
+using DataAccessLayer.Entity;
 
 namespace BookHub.API.Mapper;
 

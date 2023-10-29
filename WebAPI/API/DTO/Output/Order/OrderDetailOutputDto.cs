@@ -1,7 +1,7 @@
 ﻿using BookHub.API.DTO.Output.OrderItem;
 using BookHub.API.DTO.Output.User;
-using BookHub.Enum;
 using BookHub.Services;
+using DataAccessLayer.Enum;
 
 namespace BookHub.API.DTO.Output.Order;
 

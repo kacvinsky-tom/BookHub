@@ -1,7 +1,5 @@
 ﻿using BookHub.API.DTO.Output;
 using BookHub.API.DTO.Output.Order;
-using BookHub.DataAccessLayer.Entity;
-using BookHub.Enum;
 
 namespace BookHub.API.DTO.Input;
 

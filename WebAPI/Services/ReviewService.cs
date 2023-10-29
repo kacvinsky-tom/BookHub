@@ -1,7 +1,7 @@
 ﻿using BookHub.API.DTO.Input;
-using BookHub.DataAccessLayer;
-using BookHub.DataAccessLayer.Entity;
-using BookHub.DataAccessLayer.Exception;
+using DataAccessLayer;
+using DataAccessLayer.Entity;
+using DataAccessLayer.Exception;
 
 namespace BookHub.Services;
 

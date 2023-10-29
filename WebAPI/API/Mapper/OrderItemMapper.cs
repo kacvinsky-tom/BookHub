@@ -1,7 +1,7 @@
 ﻿using BookHub.API.DTO.Output;
 using BookHub.API.DTO.Output.Order;
 using BookHub.API.DTO.Output.OrderItem;
-using BookHub.DataAccessLayer.Entity;
+using DataAccessLayer.Entity;
 
 namespace BookHub.API.Mapper;
 

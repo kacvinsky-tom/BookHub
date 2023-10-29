@@ -1,4 +1,4 @@
-﻿using BookHub.DataAccessLayer.Enum;
+﻿using DataAccessLayer.Enum;
 
 namespace BookHub.API.DTO.Output;
 

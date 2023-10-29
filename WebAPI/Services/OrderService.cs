@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel;
 using BookHub.API.DTO.Input;
 using BookHub.API.InputType;
-using BookHub.DataAccessLayer;
-using BookHub.DataAccessLayer.Entity;
-using BookHub.DataAccessLayer.Exception;
-using BookHub.Enum;
+using DataAccessLayer;
+using DataAccessLayer.Entity;
+using DataAccessLayer.Enum;
+using DataAccessLayer.Exception;
 
 namespace BookHub.Services;
 

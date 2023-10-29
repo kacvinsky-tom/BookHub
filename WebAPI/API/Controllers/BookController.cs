@@ -1,10 +1,10 @@
 ﻿using BookHub.API.InputType;
 using BookHub.API.InputType.Filter;
 using BookHub.API.Mapper;
-using BookHub.DataAccessLayer;
-using BookHub.DataAccessLayer.Entity;
-using BookHub.DataAccessLayer.Exception;
 using BookHub.Services;
+using DataAccessLayer;
+using DataAccessLayer.Entity;
+using DataAccessLayer.Exception;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookHub.API.Controllers;
@@ -25,7 +25,7 @@ public class BookController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Fetch([FromQuery] BookFilterInput filterInput)
     {
-        var books = await _unitOfWork.Books.GetWithRelations(filterInput);
+        var books = await _unitOfWork.Books.GetWithRelations(filterInput.ToBookFilter());
         
         return Ok(books.Select(BookMapper.MapList));
     }

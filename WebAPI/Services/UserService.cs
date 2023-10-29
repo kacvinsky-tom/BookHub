@@ -1,5 +1,5 @@
 ﻿using BookHub.API.DTO.Input;
-using BookHub.DataAccessLayer.Entity;
+using DataAccessLayer.Entity;
 using Microsoft.AspNetCore.Identity;
 
 namespace BookHub.Services;

@@ -1,6 +1,5 @@
 ﻿using BookHub.API.DTO.Input;
-using BookHub.DataAccessLayer;
-using BookHub.DataAccessLayer.Entity;
+using DataAccessLayer.Entity;
 
 namespace BookHub.Services;
 

@@ -1,6 +1,4 @@
-﻿using BookHub.DataAccessLayer.Entity;
-
-namespace BookHub.API.DTO.Output.Book;
+﻿namespace BookHub.API.DTO.Output.Book;
 
 public class BookListOutputDto : OutputDtoBase
 {

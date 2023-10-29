@@ -1,9 +1,8 @@
 ﻿using BookHub.API.DTO.Input;
 using BookHub.API.InputType;
 using BookHub.API.Mapper;
-using BookHub.DataAccessLayer;
-using BookHub.DataAccessLayer.Entity;
 using BookHub.Services;
+using DataAccessLayer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

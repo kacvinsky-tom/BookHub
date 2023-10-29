@@ -1,5 +1,5 @@
 ﻿using BookHub.API.DTO.Output.Publisher;
-using BookHub.DataAccessLayer.Entity;
+using DataAccessLayer.Entity;
 
 namespace BookHub.API.Mapper;
 
