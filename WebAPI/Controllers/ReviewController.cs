@@ -1,9 +1,10 @@
-﻿using DataAccessLayer;
+﻿using AutoMapper;
+using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Exception;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.DTO.Input.Review;
-using WebAPI.Mapper;
+using WebAPI.DTO.Output.Review;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers;
@@ -14,11 +15,13 @@ public class ReviewController : ControllerBase
 {
     private readonly UnitOfWork _unitOfWork;
     private readonly ReviewService _reviewService;
-    
-    public ReviewController(UnitOfWork unitOfWork, ReviewService reviewService)
+    private readonly IMapper _mapper;
+
+    public ReviewController(UnitOfWork unitOfWork, ReviewService reviewService, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _reviewService = reviewService;
+        _mapper = mapper;
     }
     
     [HttpGet]
@@ -26,7 +29,7 @@ public class ReviewController : ControllerBase
     {
         var reviews = await _unitOfWork.Reviews.GetAllWithRelations();
         
-        return Ok(reviews.Select(ReviewMapper.MapList));
+        return Ok(reviews.Select(_mapper.Map<ReviewListOutputDto>));
     }
     
     [HttpGet("{id:int}")]
@@ -39,7 +42,7 @@ public class ReviewController : ControllerBase
             return NotFound();
         }
 
-        return Ok(ReviewMapper.MapDetail(review));
+        return Ok(_mapper.Map<ReviewDetailOutputDto>(review));
     }
     
     [HttpPost]
@@ -50,7 +53,7 @@ public class ReviewController : ControllerBase
             var review = await _reviewService.Create(reviewCreateInputDto);
             _unitOfWork.Reviews.Add(review);
             await _unitOfWork.Complete();
-            return Ok(ReviewMapper.MapDetail(review));
+            return Ok(_mapper.Map<ReviewDetailOutputDto>(review));
         }
         catch (EntityNotFoundException<User> e)
         {
@@ -73,7 +76,7 @@ public class ReviewController : ControllerBase
             review.Rating = reviewInputDto.Rating;
             review.Comment = reviewInputDto.Comment;
             await _unitOfWork.Complete();
-            return Ok(ReviewMapper.MapDetail(review));
+            return Ok(_mapper.Map<ReviewDetailOutputDto>(review));
         }
         catch (EntityNotFoundException<User> e)
         {

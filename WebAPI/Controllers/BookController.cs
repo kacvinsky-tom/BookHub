@@ -1,9 +1,10 @@
-﻿using DataAccessLayer;
+﻿using AutoMapper;
+using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Exception;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.DTO.Input.Book;
-using WebAPI.Mapper;
+using WebAPI.DTO.Output.Book;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers;
@@ -14,11 +15,13 @@ public class BookController : ControllerBase
 {
     private readonly UnitOfWork _unitOfWork;
     private readonly BookService _bookService;
+    private readonly IMapper _mapper;
     
-    public BookController(UnitOfWork unitOfWork, BookService bookService)
+    public BookController(UnitOfWork unitOfWork, BookService bookService, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _bookService = bookService;
+        _mapper = mapper;
     }
 
     [HttpGet]
@@ -26,7 +29,7 @@ public class BookController : ControllerBase
     {
         var books = await _unitOfWork.Books.GetWithRelations(filterInputDto.ToBookFilter());
         
-        return Ok(books.Select(BookMapper.MapList));
+        return Ok(books.Select(_mapper.Map<BookListOutputDto>));
     }
 
     [HttpGet("{id:int}")]
@@ -39,7 +42,7 @@ public class BookController : ControllerBase
             return NotFound();
         }
 
-        return Ok(BookMapper.MapDetail(book));
+        return Ok(_mapper.Map<BookDetailOutputDto>(book));
     }
     
     [HttpPost]
@@ -53,7 +56,7 @@ public class BookController : ControllerBase
 
             await _unitOfWork.Complete();
 
-            return Ok(BookMapper.MapDetail(book));
+            return Ok(_mapper.Map<BookDetailOutputDto>(book));
         }
         catch (EntityNotFoundException<Author> e)
         {
@@ -77,7 +80,7 @@ public class BookController : ControllerBase
             
             await _unitOfWork.Complete();
             
-            return Ok(BookMapper.MapDetail(bookToUpdate));
+            return Ok(_mapper.Map<BookDetailOutputDto>(bookToUpdate));
         }
         catch (EntityNotFoundException<Author> e)
         {

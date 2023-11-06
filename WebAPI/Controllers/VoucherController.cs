@@ -1,7 +1,8 @@
-﻿using DataAccessLayer;
+﻿using AutoMapper;
+using DataAccessLayer;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.DTO.Input.Voucher;
-using WebAPI.Mapper;
+using WebAPI.DTO.Output.Voucher;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers;
@@ -12,11 +13,13 @@ public class VoucherController : ControllerBase
 {
     private readonly UnitOfWork _unitOfWork;
     private readonly VoucherService _voucherService;
-    
-    public VoucherController(UnitOfWork unitOfWork, VoucherService voucherService)
+    private readonly IMapper _mapper;
+
+    public VoucherController(UnitOfWork unitOfWork, VoucherService voucherService, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _voucherService = voucherService;
+        _mapper = mapper;
     }
     
     [HttpGet]
@@ -24,7 +27,7 @@ public class VoucherController : ControllerBase
     {
         var vouchers = await _unitOfWork.Vouchers.GetAll();
         
-        return Ok(vouchers.Select(VoucherMapper.MapList));
+        return Ok(vouchers.Select(_mapper.Map<VoucherListOutputDto>));
     }
     
     [HttpGet("{id:int}")]
@@ -37,7 +40,7 @@ public class VoucherController : ControllerBase
             return NotFound();
         }
 
-        return Ok(VoucherMapper.MapDetail(voucher));
+        return Ok(_mapper.Map<VoucherDetailOutputDto>(voucher));
     }
     
     [HttpPost]
@@ -49,7 +52,7 @@ public class VoucherController : ControllerBase
 
         await _unitOfWork.Complete();
 
-        return Ok(VoucherMapper.MapDetail(voucher));
+        return Ok(_mapper.Map<VoucherDetailOutputDto>(voucher));
     }
     
     [HttpPut("{id:int}")]
@@ -66,7 +69,7 @@ public class VoucherController : ControllerBase
         
         await _unitOfWork.Complete();
 
-        return Ok(VoucherMapper.MapDetail(voucher));
+        return Ok(_mapper.Map<VoucherDetailOutputDto>(voucher));
     }
     
     [HttpDelete("{id:int}")]

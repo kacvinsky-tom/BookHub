@@ -1,7 +1,8 @@
-﻿using DataAccessLayer;
+﻿using AutoMapper;
+using DataAccessLayer;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.DTO.Input.User;
-using WebAPI.Mapper;
+using WebAPI.DTO.Output.User;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers;
@@ -12,11 +13,13 @@ public class UserController : ControllerBase
 {
     private readonly UnitOfWork _unitOfWork;
     private readonly UserService _userService;
+    private readonly IMapper _mapper;
 
-    public UserController(UnitOfWork unitOfWork, UserService userService)
+    public UserController(UnitOfWork unitOfWork, UserService userService, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _userService = userService;
+        _mapper = mapper;
     }
     
     [HttpGet]
@@ -24,7 +27,7 @@ public class UserController : ControllerBase
     {
         var users = await _unitOfWork.Users.GetAll();
         
-        return Ok(users.Select(UserMapper.MapList));
+        return Ok(users.Select(_mapper.Map<UserListOutputDto>));
     }
     
     [HttpGet("{id:int}")]
@@ -37,7 +40,7 @@ public class UserController : ControllerBase
             return NotFound();
         }
 
-        return Ok(UserMapper.MapDetail(user));
+        return Ok(_mapper.Map<UserDetailOutputDto>(user));
     }
     
     [HttpPost]
@@ -49,7 +52,7 @@ public class UserController : ControllerBase
 
         await _unitOfWork.Complete();
 
-        return Ok(UserMapper.MapDetail(user));
+        return Ok(_mapper.Map<UserDetailOutputDto>(user));
     }
     
     [HttpPut("{id:int}")]
@@ -66,7 +69,7 @@ public class UserController : ControllerBase
 
         await _unitOfWork.Complete();
 
-        return Ok(UserMapper.MapDetail(user));
+        return Ok(_mapper.Map<UserDetailOutputDto>(user));
     }
     
     [HttpDelete("{id:int}")]

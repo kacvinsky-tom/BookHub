@@ -1,9 +1,10 @@
-﻿using DataAccessLayer;
+﻿using AutoMapper;
+using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Exception;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.DTO.Input.WishListItem;
-using WebAPI.Mapper;
+using WebAPI.DTO.Output.WishListItem;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers;
@@ -14,11 +15,13 @@ public class WishListItemController : ControllerBase
 {
     private readonly UnitOfWork _unitOfWork;
     private readonly WishListService _wishListService;
+    private readonly IMapper _mapper;
 
-    public WishListItemController(UnitOfWork unitOfWork, WishListService wishListService)
+    public WishListItemController(UnitOfWork unitOfWork, WishListService wishListService, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _wishListService = wishListService;
+        _mapper = mapper;
     }
     
     [HttpGet]
@@ -26,7 +29,7 @@ public class WishListItemController : ControllerBase
     {
         var wishListItems = await _unitOfWork.WishListItems.GetAllWithRelations();
         
-        return Ok(wishListItems.Select(WishListItemMapper.MapList));
+        return Ok(wishListItems.Select(_mapper.Map<WishListItemListOutputDto>));
     }
     
     [HttpGet("{id:int}")]
@@ -39,7 +42,7 @@ public class WishListItemController : ControllerBase
             return NotFound();
         }
 
-        return Ok(WishListItemMapper.MapDetail(wishListItem));
+        return Ok(_mapper.Map<WishListItemDetailOutputDto>(wishListItem));
     }
     
     [HttpPost]
@@ -50,7 +53,7 @@ public class WishListItemController : ControllerBase
             var wishListItem = await _wishListService.CreateItemInWishlist(wishListItemInputDto);
             _unitOfWork.WishListItems.Add(wishListItem);
             await _unitOfWork.Complete();
-            return Ok(WishListItemMapper.MapDetail(wishListItem));
+            return Ok(_mapper.Map<WishListItemDetailOutputDto>(wishListItem));
         }
         catch (EntityNotFoundException<BaseEntity> e)
         {
@@ -72,7 +75,7 @@ public class WishListItemController : ControllerBase
         {
             await _wishListService.UpdateItemInWishlist(wishListItemInputDto, wishListItem);
             await _unitOfWork.Complete();
-            return Ok(WishListItemMapper.MapDetail(wishListItem));
+            return Ok(_mapper.Map<WishListItemDetailOutputDto>(wishListItem));
         }
         catch (EntityNotFoundException<BaseEntity> e)
         {

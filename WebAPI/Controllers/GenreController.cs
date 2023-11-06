@@ -1,7 +1,8 @@
-﻿using DataAccessLayer;
+﻿using AutoMapper;
+using DataAccessLayer;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.DTO.Input.Genre;
-using WebAPI.Mapper;
+using WebAPI.DTO.Output.Genre;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers;
@@ -12,11 +13,13 @@ public class GenreController : ControllerBase
 {
     private readonly UnitOfWork _unitOfWork;
     private readonly GenreService _genreService;
+    private readonly IMapper _mapper;
 
-    public GenreController(UnitOfWork unitOfWork, GenreService genreService)
+    public GenreController(UnitOfWork unitOfWork, GenreService genreService, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _genreService = genreService;
+        _mapper = mapper;
     }
 
     [HttpGet]
@@ -24,7 +27,7 @@ public class GenreController : ControllerBase
     {
         var genres = await _unitOfWork.Genres.GetAll();
 
-        return Ok(genres.Select(GenreMapper.MapList));
+        return Ok(genres.Select(_mapper.Map<GenreListOutputDto>));
     }
 
     [HttpGet("{id:int}")]
@@ -37,7 +40,7 @@ public class GenreController : ControllerBase
           return NotFound();
         }
 
-        return Ok(GenreMapper.MapDetail(genre));
+        return Ok(_mapper.Map<GenreDetailOutputDto>(genre));
     }
 
     [HttpPost]
@@ -46,7 +49,7 @@ public class GenreController : ControllerBase
         var genre = _genreService.Create(genreInputDto);
         _unitOfWork.Genres.Add(genre);
         await _unitOfWork.Complete();
-        return Ok(GenreMapper.MapDetail(genre));
+        return Ok(_mapper.Map<GenreDetailOutputDto>(genre));
     }
 
     [HttpPut("{id:int}")]
@@ -61,7 +64,7 @@ public class GenreController : ControllerBase
           
         _genreService.Update(genreInputDto, genre);
         await _unitOfWork.Complete();
-        return Ok(GenreMapper.MapDetail(genre));
+        return Ok(_mapper.Map<GenreDetailOutputDto>(genre));
     }
 
     [HttpDelete("{id:int}")]

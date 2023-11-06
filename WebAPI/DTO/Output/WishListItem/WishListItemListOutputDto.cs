@@ -8,7 +8,5 @@ public class WishListItemListOutputDto : OutputDtoBase
     public double BookPrice { get; set; }
     public int BookReleaseYear { get; set; }
     public string BookImage { get; set; }
-    public IEnumerable<AuthorListOutputDto> Authors { get; set; }
-
-    
+    public IEnumerable<AuthorListOutputDto> BookAuthors { get; set; }
 }

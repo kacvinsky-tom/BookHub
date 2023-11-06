@@ -1,7 +1,8 @@
-﻿using DataAccessLayer;
+﻿using AutoMapper;
+using DataAccessLayer;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.DTO.Input.Author;
-using WebAPI.Mapper;
+using WebAPI.DTO.Output.Author;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers;
@@ -12,11 +13,13 @@ public class AuthorController : ControllerBase
 {
     private readonly UnitOfWork _unitOfWork;
     private readonly AuthorService _authorService;
+    private readonly IMapper _mapper;
 
-    public AuthorController(UnitOfWork unitOfWork, AuthorService authorService)
+    public AuthorController(UnitOfWork unitOfWork, AuthorService authorService, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _authorService = authorService;
+        _mapper = mapper;
     }
 
     [HttpGet]
@@ -24,7 +27,7 @@ public class AuthorController : ControllerBase
     {
         var authors = await _unitOfWork.Authors.GetAll();
 
-        return Ok(authors.Select(AuthorMapper.MapList));
+        return Ok(authors.Select(_mapper.Map<AuthorListOutputDto>));
     }
 
     [HttpGet("{id:int}")]
@@ -37,7 +40,7 @@ public class AuthorController : ControllerBase
           return NotFound();
         }
 
-        return Ok(AuthorMapper.MapDetail(author));
+        return Ok(_mapper.Map<AuthorDetailOutputDto>(author));
     }
 
     [HttpPost]
@@ -46,7 +49,7 @@ public class AuthorController : ControllerBase
         var author = _authorService.Create(authorInputDto);
         _unitOfWork.Authors.Add(author);
         await _unitOfWork.Complete();
-        return Ok(AuthorMapper.MapDetail(author));
+        return Ok(_mapper.Map<AuthorDetailOutputDto>(author));
     }
 
     [HttpPut("{id:int}")]
@@ -61,7 +64,7 @@ public class AuthorController : ControllerBase
           
         _authorService.Update(authorInputDto, author);
         await _unitOfWork.Complete();
-        return Ok(AuthorMapper.MapDetail(author));
+        return Ok(_mapper.Map<AuthorDetailOutputDto>(author));
     }
 
     [HttpDelete("{id:int}")]

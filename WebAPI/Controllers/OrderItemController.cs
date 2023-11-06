@@ -1,9 +1,10 @@
-﻿using DataAccessLayer;
+﻿using AutoMapper;
+using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Exception;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.DTO.Input.OrderItem;
-using WebAPI.Mapper;
+using WebAPI.DTO.Output.OrderItem;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers;
@@ -14,11 +15,13 @@ public class OrderItemController : ControllerBase
 {
     private readonly UnitOfWork _unitOfWork;
     private readonly OrderService _orderService;
-    
-    public OrderItemController(UnitOfWork unitOfWork, OrderService orderService)
+    private readonly IMapper _mapper;
+
+    public OrderItemController(UnitOfWork unitOfWork, OrderService orderService, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _orderService = orderService;
+        _mapper = mapper;
     }
     
     [HttpGet]
@@ -26,7 +29,7 @@ public class OrderItemController : ControllerBase
     {
         var orderItems = await _unitOfWork.OrderItems.GetAllWithRelations();
         
-        return Ok(orderItems.Select(OrderItemMapper.MapList));
+        return Ok(orderItems.Select(_mapper.Map<OrderItemListOutputDto>));
     }
     
     [HttpGet("{id:int}")]
@@ -39,7 +42,7 @@ public class OrderItemController : ControllerBase
             return NotFound();
         }
 
-        return Ok(OrderItemMapper.MapDetail(orderItem));
+        return Ok(_mapper.Map<OrderItemDetailOutputDto>(orderItem));
     }
     
     [HttpPost]
@@ -50,7 +53,7 @@ public class OrderItemController : ControllerBase
             var orderItem = await _orderService.CreateItemInWishlist(orderCreateInputInputDto);
             _unitOfWork.OrderItems.Add(orderItem);
             await _unitOfWork.Complete();
-            return Ok(OrderItemMapper.MapCreateDetail(orderItem));
+            return Ok(_mapper.Map<OrderItemDetailOutputDto>(orderItem));
         }
         catch (EntityNotFoundException<User> e)
         {

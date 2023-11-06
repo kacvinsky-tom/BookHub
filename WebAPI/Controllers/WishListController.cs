@@ -1,9 +1,10 @@
-﻿using DataAccessLayer;
+﻿using AutoMapper;
+using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Exception;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.DTO.Input.WishList;
-using WebAPI.Mapper;
+using WebAPI.DTO.Output.WishList;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers;
@@ -14,11 +15,13 @@ public class WishListController : ControllerBase
 {
     private readonly UnitOfWork _unitOfWork;
     private readonly WishListService _wishListService;
-    
-    public WishListController(UnitOfWork unitOfWork, WishListService wishListService)
+    private readonly IMapper _mapper;
+
+    public WishListController(UnitOfWork unitOfWork, WishListService wishListService, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _wishListService = wishListService;
+        _mapper = mapper;
     }
     
     [HttpGet]
@@ -26,7 +29,7 @@ public class WishListController : ControllerBase
     {
         var wishLists = await _unitOfWork.WishLists.GetAll();
         
-        return Ok(wishLists.Select(WishListMapper.MapList));
+        return Ok(wishLists.Select(_mapper.Map<WishListListOutputDto>));
     }
     
     [HttpGet("{id:int}")]
@@ -39,7 +42,7 @@ public class WishListController : ControllerBase
             return NotFound();
         }
 
-        return Ok(WishListMapper.MapDetail(wishList));
+        return Ok(_mapper.Map<WishListDetailOutputDto>(wishList));
     }
     
     [HttpPost]
@@ -50,7 +53,7 @@ public class WishListController : ControllerBase
             var wishList = await _wishListService.Create(wishListInputDto);
             _unitOfWork.WishLists.Add(wishList);
             await _unitOfWork.Complete();
-            return Ok(WishListMapper.MapDetail(wishList));
+            return Ok(_mapper.Map<WishListDetailOutputDto>(wishList));
         }
         catch (EntityNotFoundException<User> e)
         {
@@ -72,7 +75,7 @@ public class WishListController : ControllerBase
         {
             await _wishListService.Update(wishListInputDto, wishList);
             await _unitOfWork.Complete();
-            return Ok(WishListMapper.MapDetail(wishList));
+            return Ok(_mapper.Map<WishListDetailOutputDto>(wishList));
         } 
         catch (EntityNotFoundException<User> e)
         {

@@ -1,9 +1,10 @@
-﻿using DataAccessLayer;
+﻿using AutoMapper;
+using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Exception;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.DTO.Input.Order;
-using WebAPI.Mapper;
+using WebAPI.DTO.Output.Order;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers;
@@ -14,11 +15,13 @@ public class OrderController : ControllerBase
 {
     private readonly UnitOfWork _unitOfWork;
     private readonly OrderService _orderService;
-    
-    public OrderController(UnitOfWork unitOfWork, OrderService orderService)
+    private readonly IMapper _mapper;
+
+    public OrderController(UnitOfWork unitOfWork, OrderService orderService, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _orderService = orderService;
+        _mapper = mapper;
     }
     
     [HttpGet]
@@ -26,7 +29,7 @@ public class OrderController : ControllerBase
     {
         var orders = await _unitOfWork.Orders.GetAllWithRelations();
         
-        return Ok(orders.Select(OrderMapper.MapList));
+        return Ok(orders.Select(_mapper.Map<OrderListOutputDto>));
     }
     
     [HttpGet("{id:int}")]
@@ -39,7 +42,7 @@ public class OrderController : ControllerBase
             return NotFound();
         }
 
-        return Ok(OrderMapper.MapDetail(order));
+        return Ok(_mapper.Map<OrderDetailOutputDto>(order));
     }
     
     [HttpPost]
@@ -50,7 +53,7 @@ public class OrderController : ControllerBase
             var order = await _orderService.Create(orderCreateInputDto);
             _unitOfWork.Orders.Add(order);
             await _unitOfWork.Complete();
-            return Ok(OrderMapper.MapDetail(order));
+            return Ok(_mapper.Map<OrderDetailOutputDto>(order));
         }
         catch (EntityNotFoundException<User> e)
         {
@@ -70,7 +73,7 @@ public class OrderController : ControllerBase
         
         _orderService.Update(orderUpdateInputDto, order);
         await _unitOfWork.Complete();
-        return Ok(OrderMapper.MapDetail(order));
+        return Ok(_mapper.Map<OrderDetailOutputDto>(order));
     }
     
     [HttpDelete("{id:int}")]

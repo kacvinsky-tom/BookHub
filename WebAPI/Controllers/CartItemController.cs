@@ -1,9 +1,10 @@
-﻿using DataAccessLayer;
+﻿using AutoMapper;
+using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Exception;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.DTO.Input.CartItem;
-using WebAPI.Mapper;
+using WebAPI.DTO.Output.CartItem;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers;
@@ -14,11 +15,13 @@ public class CartItemController : ControllerBase
 {
     private readonly UnitOfWork _unitOfWork;
     private readonly CartService _cartService;
+    private readonly IMapper _mapper;
 
-    public CartItemController(UnitOfWork unitOfWork, CartService cartService)
+    public CartItemController(UnitOfWork unitOfWork, CartService cartService, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _cartService = cartService;
+        _mapper = mapper;
     }
 
     [HttpGet]
@@ -26,7 +29,7 @@ public class CartItemController : ControllerBase
     {
         var cartItems = await _unitOfWork.CartItems.GetAllWithRelations();
 
-        return Ok(cartItems.Select(CartItemMapper.MapList));
+        return Ok(cartItems.Select(_mapper.Map<CartItemListOutputDto>));
     }
 
     [HttpGet("{id:int}")]
@@ -39,7 +42,7 @@ public class CartItemController : ControllerBase
             return NotFound();
         }
 
-        return Ok(CartItemMapper.MapDetail(cartItem));
+        return Ok(_mapper.Map<CartItemDetailOutputDto>(cartItem));
     }
 
     [HttpPost]
@@ -50,7 +53,7 @@ public class CartItemController : ControllerBase
             var cartItem = await _cartService.CreateCartItem(cartItemCreateInputDto);
             _unitOfWork.CartItems.Add(cartItem);
             await _unitOfWork.Complete();
-            return Ok(CartItemMapper.MapDetail(cartItem));
+            return Ok(_mapper.Map<CartItemDetailOutputDto>(cartItem));
         }
         catch (EntityNotFoundException<User> e)
         {
@@ -70,7 +73,7 @@ public class CartItemController : ControllerBase
 
         cartItem.Quantity = cartItemUpdateInputDto.Quantity;
         await _unitOfWork.Complete();
-        return Ok(CartItemMapper.MapList(cartItem));
+        return Ok(_mapper.Map<CartItemDetailOutputDto>(cartItem));
     }
 
     [HttpDelete("{id:int}")]
