@@ -1,0 +1,43 @@
+image: mcr.microsoft.com/dotnet/sdk:7.0
+
+variables:
+  solutionPath: .\\BookHub.sln
+  buildParams: >-
+    --property WarningLevel=0
+
+stages:
+  - build
+  - test
+
+default:
+  tags:
+    - shared-fi
+  artifacts:
+    expire_in: 10 minutes
+
+.custom_rules:
+  # Only trigger job when a merge request is created or updated
+  # and the target branch is either 'master' or 'milestone-*'
+  on_merge_on_master_or_milestone:
+    - if: >
+        $CI_PIPELINE_SOURCE == "merge_request_event" && 
+        (
+          $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master" || 
+          $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /milestone-*/
+        )
+
+build:
+  stage: build
+  script:
+    - dotnet build $solutionPath $buildParams
+  rules:
+    - !reference [.custom_rules, on_merge_on_master_or_milestone]
+
+test:
+  stage: test
+  script:
+    - dotnet test $solutionPath
+  rules:
+    - !reference [.custom_rules, on_merge_on_master_or_milestone]
+  needs:
+    - job: build
