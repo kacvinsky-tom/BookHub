@@ -16,7 +16,6 @@ builder.Services.AddSwaggerWithAuthentication();
 builder.Services.AddLogging();
 
 builder.Services.AddAutoMapper(typeof(BookHubProfile));
-
 builder.Services.AddDbContextFactoryWithConfiguration(builder.Configuration);
 builder.Services.AddScoped<UnitOfWork>();
 
