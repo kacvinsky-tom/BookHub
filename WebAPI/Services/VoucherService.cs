@@ -1,13 +1,32 @@
-﻿using DataAccessLayer.Entity;
+﻿using DataAccessLayer;
+using DataAccessLayer.Entity;
+using DataAccessLayer.Exception;
 using WebAPI.DTO.Input.Voucher;
 
 namespace WebAPI.Services;
 
 public class VoucherService
 {
-    public Voucher Create(VoucherInputDto voucherInputDto)
+    private readonly UnitOfWork _unitOfWork;
+    
+    public VoucherService(UnitOfWork unitOfWork)
     {
-        return new Voucher
+        _unitOfWork = unitOfWork;
+    }
+    
+    public async Task<IEnumerable<Voucher>> GetAll()
+    {
+        return await _unitOfWork.Vouchers.GetAll();
+    }
+
+    public async Task<Voucher?> GetById(int id)
+    {
+        return await _unitOfWork.Vouchers.GetByIdWithRelations(id);
+    }
+
+    public async Task<Voucher> Create(VoucherInputDto voucherInputDto)
+    {
+        var voucher = new Voucher
         {
             Code = voucherInputDto.Code,
             Discount = voucherInputDto.Discount,
@@ -15,14 +34,45 @@ public class VoucherService
             Quantity = voucherInputDto.Quantity,
             Type = voucherInputDto.Type,
         };
+
+        _unitOfWork.Vouchers.Add(voucher);
+
+        await _unitOfWork.Complete();
+        
+        return voucher;
     } 
     
-    public void Update(Voucher voucher, VoucherInputDto voucherInputDto)
+    public async Task<Voucher> Update(VoucherInputDto voucherInputDto, int voucherId)
     {
+        var voucher = await _unitOfWork.Vouchers.GetById(voucherId);
+        
+        if (voucher == null)
+        {
+            throw new EntityNotFoundException<Voucher>(voucherId);
+        }
+        
         voucher.Code = voucherInputDto.Code;
         voucher.Discount = voucherInputDto.Discount;
         voucher.ExpirationDate = voucherInputDto.ExpirationDate;
         voucher.Quantity = voucherInputDto.Quantity;
         voucher.Type = voucherInputDto.Type;
+        
+        await _unitOfWork.Complete();
+
+        return voucher;
+    }
+    
+    public async Task Delete(int voucherId)
+    {
+        var voucher = await _unitOfWork.Vouchers.GetById(voucherId);
+
+        if (voucher == null)
+        {
+            throw new EntityNotFoundException<Voucher>(voucherId);
+        }
+
+        _unitOfWork.Vouchers.Remove(voucher);
+
+        await _unitOfWork.Complete();
     }
 }

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Exception;
 using Microsoft.AspNetCore.Mvc;
@@ -13,29 +12,27 @@ namespace WebAPI.Controllers;
 [Route("[controller]")]
 public class OrderItemController : ControllerBase
 {
-    private readonly UnitOfWork _unitOfWork;
     private readonly OrderService _orderService;
     private readonly IMapper _mapper;
 
-    public OrderItemController(UnitOfWork unitOfWork, OrderService orderService, IMapper mapper)
+    public OrderItemController(OrderService orderService, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
         _orderService = orderService;
         _mapper = mapper;
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> Fetch()
     {
-        var orderItems = await _unitOfWork.OrderItems.GetAllWithRelations();
+        var orderItems = await _orderService.GetAllOrderItems();
         
         return Ok(orderItems.Select(_mapper.Map<OrderItemListOutputDto>));
     }
-    
+
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
-        var orderItem = await _unitOfWork.OrderItems.GetByIdWithRelations(id);
+        var orderItem = await _orderService.GetOrderItemById(id);
         
         if (orderItem == null)
         {
@@ -44,15 +41,14 @@ public class OrderItemController : ControllerBase
 
         return Ok(_mapper.Map<OrderItemDetailOutputDto>(orderItem));
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] OrderItemCreateInputDto orderCreateInputInputDto)
     {
         try
         {
-            var orderItem = await _orderService.CreateItemInWishlist(orderCreateInputInputDto);
-            _unitOfWork.OrderItems.Add(orderItem);
-            await _unitOfWork.Complete();
+            var orderItem = await _orderService.CreateOrderItem(orderCreateInputInputDto);
+
             return Ok(_mapper.Map<OrderItemDetailOutputDto>(orderItem));
         }
         catch (EntityNotFoundException<User> e)

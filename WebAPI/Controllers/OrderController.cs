@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Exception;
 using Microsoft.AspNetCore.Mvc;
@@ -13,13 +12,11 @@ namespace WebAPI.Controllers;
 [Route("[controller]")]
 public class OrderController : ControllerBase
 {
-    private readonly UnitOfWork _unitOfWork;
     private readonly OrderService _orderService;
     private readonly IMapper _mapper;
 
-    public OrderController(UnitOfWork unitOfWork, OrderService orderService, IMapper mapper)
+    public OrderController(OrderService orderService, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
         _orderService = orderService;
         _mapper = mapper;
     }
@@ -27,7 +24,7 @@ public class OrderController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Fetch()
     {
-        var orders = await _unitOfWork.Orders.GetAllWithRelations();
+        var orders = await _orderService.GetAll();
         
         return Ok(orders.Select(_mapper.Map<OrderListOutputDto>));
     }
@@ -35,7 +32,7 @@ public class OrderController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
-        var order = await _unitOfWork.Orders.GetByIdWithRelations(id);
+        var order = await _orderService.GetById(id);
         
         if (order == null)
         {
@@ -51,8 +48,7 @@ public class OrderController : ControllerBase
         try
         {
             var order = await _orderService.Create(orderCreateInputDto);
-            _unitOfWork.Orders.Add(order);
-            await _unitOfWork.Complete();
+
             return Ok(_mapper.Map<OrderDetailOutputDto>(order));
         }
         catch (EntityNotFoundException<User> e)
@@ -60,35 +56,19 @@ public class OrderController : ControllerBase
             return NotFound(e.Message);
         }
     }
-    
+
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] OrderUpdateInputDto orderUpdateInputDto)
     {
-        var order = await _unitOfWork.Orders.GetByIdWithRelations(id);
-        
-        if (order == null)
-        {
-            return NotFound();
-        }
-        
-        _orderService.Update(orderUpdateInputDto, order);
-        await _unitOfWork.Complete();
+        var order = await  _orderService.Update(orderUpdateInputDto, id);
+
         return Ok(_mapper.Map<OrderDetailOutputDto>(order));
     }
-    
+
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var order = await _unitOfWork.Orders.GetById(id);
-        
-        if (order == null)
-        {
-            return NotFound();
-        }
-
-        _unitOfWork.Orders.Remove(order);
-        
-        await _unitOfWork.Complete();
+        await _orderService.Delete(id);
 
         return Ok();
     }

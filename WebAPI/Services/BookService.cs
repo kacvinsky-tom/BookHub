@@ -14,6 +14,16 @@ public class BookService
         _unitOfWork = unitOfWork;
     }
 
+    public async Task<Book?> GetById(int id)
+    {
+        return await _unitOfWork.Books.GetByIdWithRelations(id);
+    }
+
+    public async Task<IEnumerable<Book>> GetAll(BookFilterInputDto filterInputDto)
+    {
+        return await _unitOfWork.Books.GetWithRelations(filterInputDto.ToBookFilter());
+    }
+
     public async Task<Book> Create(BookCreateInputDto bookCreateCreateInputDto)
     {
         var publisher = await _unitOfWork.Publishers.GetById(bookCreateCreateInputDto.PublisherId);
@@ -46,12 +56,23 @@ public class BookService
             Authors = authors.ToList(),
             Genres = genres.ToList(),
         };
+        
+        _unitOfWork.Books.Add(book);
+
+        await _unitOfWork.Complete();
 
         return book;
     }
 
-    public async Task Update(BookCreateInputDto bookCreateUpdateInputDto, Book book)
+    public async Task<Book> Update(BookCreateInputDto bookCreateUpdateInputDto, int id)
     {
+        var book = await _unitOfWork.Books.GetById(id);
+
+        if (book == null)
+        {
+            throw new EntityNotFoundException<Book>(id);
+        }
+
         var publisher = await _unitOfWork.Publishers.GetById(bookCreateUpdateInputDto.PublisherId);
         
         if (publisher == null)
@@ -85,7 +106,12 @@ public class BookService
         book.IsDeleted = bookCreateUpdateInputDto.IsDeleted;
         book.Authors = authors.ToList();
         book.Genres = genres.ToList();
+        
+        await _unitOfWork.Complete();
+
+        return book;
     }
+
     public void Delete(Book book)
     {
         book.IsDeleted = true;

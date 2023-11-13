@@ -27,7 +27,7 @@ public class BookController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Fetch([FromQuery] BookFilterInputDto filterInputDto)
     {
-        var books = await _unitOfWork.Books.GetWithRelations(filterInputDto.ToBookFilter());
+        var books = await _bookService.GetAll(filterInputDto);
         
         return Ok(books.Select(_mapper.Map<BookListOutputDto>));
     }
@@ -35,7 +35,7 @@ public class BookController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
-        var book = await _unitOfWork.Books.GetByIdWithRelations(id);
+        var book = await _bookService.GetById(id);
         
         if (book == null)
         {
@@ -44,17 +44,13 @@ public class BookController : ControllerBase
 
         return Ok(_mapper.Map<BookDetailOutputDto>(book));
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] BookCreateInputDto bookCreateCreateInputDto)
     {
         try
         {
             var book = await _bookService.Create(bookCreateCreateInputDto);
-            
-            _unitOfWork.Books.Add(book);
-
-            await _unitOfWork.Complete();
 
             return Ok(_mapper.Map<BookDetailOutputDto>(book));
         }
@@ -67,20 +63,11 @@ public class BookController : ControllerBase
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update([FromBody] BookCreateInputDto bookCreateUpdateInputDto, int id)
     {
-        var bookToUpdate = await _unitOfWork.Books.GetById(id);
-        
-        if (bookToUpdate == null)
-        {
-            return NotFound();
-        }
-
         try
         {
-            await _bookService.Update(bookCreateUpdateInputDto, bookToUpdate);
+            var book = await _bookService.Update(bookCreateUpdateInputDto, id);
             
-            await _unitOfWork.Complete();
-            
-            return Ok(_mapper.Map<BookDetailOutputDto>(bookToUpdate));
+            return Ok(_mapper.Map<BookDetailOutputDto>(book));
         }
         catch (EntityNotFoundException<Author> e)
         {
@@ -92,7 +79,7 @@ public class BookController : ControllerBase
     public async Task<IActionResult> Delete(int id)
     {
         var book = await _unitOfWork.Books.GetById(id);
-        
+
         if (book == null)
         {
             return NotFound();

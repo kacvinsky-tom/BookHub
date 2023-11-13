@@ -13,7 +13,17 @@ public class ReviewService
     {
         _unitOfWork = unitOfWork;
     }
-    
+
+    public async Task<IEnumerable<Review>> GetAll()
+    {
+        return await _unitOfWork.Reviews.GetAllWithRelations();
+    }
+
+    public async Task<Review?> GetById(int id)
+    {
+        return await _unitOfWork.Reviews.GetByIdWithRelations(id);
+    }
+
     public async Task<Review> Create(ReviewCreateInputDto reviewCreateInputDto)
     {
         var book = await _unitOfWork.Books.GetById(reviewCreateInputDto.BookId);
@@ -38,7 +48,41 @@ public class ReviewService
             Comment = reviewCreateInputDto.Comment,
         };
         
+        _unitOfWork.Reviews.Add(review);
+
+        await _unitOfWork.Complete();
+        
         return review;
     }
     
+    public async Task<Review> Update(ReviewUpdateInputDto reviewInputDto, int reviewId)
+    {
+        var review = await _unitOfWork.Reviews.GetById(reviewId);
+
+        if (review == null)
+        {
+            throw new EntityNotFoundException<Review>(reviewId);
+        }
+        
+        review.Rating = reviewInputDto.Rating;
+        review.Comment = reviewInputDto.Comment;
+
+        await _unitOfWork.Complete();
+
+        return review;
+    }
+
+    public async Task Delete(int reviewId)
+    {
+        var review = await _unitOfWork.Reviews.GetById(reviewId);
+
+        if (review == null)
+        {
+            throw new EntityNotFoundException<Review>(reviewId);
+        }
+
+        _unitOfWork.Reviews.Remove(review);
+
+        await _unitOfWork.Complete();
+    }
 }

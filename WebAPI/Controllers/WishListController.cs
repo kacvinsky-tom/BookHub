@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Exception;
 using Microsoft.AspNetCore.Mvc;
@@ -13,13 +12,11 @@ namespace WebAPI.Controllers;
 [Route("[controller]")]
 public class WishListController : ControllerBase
 {
-    private readonly UnitOfWork _unitOfWork;
     private readonly WishListService _wishListService;
     private readonly IMapper _mapper;
 
-    public WishListController(UnitOfWork unitOfWork, WishListService wishListService, IMapper mapper)
+    public WishListController(WishListService wishListService, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
         _wishListService = wishListService;
         _mapper = mapper;
     }
@@ -27,15 +24,15 @@ public class WishListController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Fetch()
     {
-        var wishLists = await _unitOfWork.WishLists.GetAll();
+        var wishLists = await _wishListService.GetAll();
         
         return Ok(wishLists.Select(_mapper.Map<WishListListOutputDto>));
     }
-    
+
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
-        var wishList = await _unitOfWork.WishLists.GetByIdWithRelations(id);
+        var wishList = await _wishListService.GetById(id);
         
         if (wishList == null)
         {
@@ -51,8 +48,7 @@ public class WishListController : ControllerBase
         try
         {
             var wishList = await _wishListService.Create(wishListInputDto);
-            _unitOfWork.WishLists.Add(wishList);
-            await _unitOfWork.Complete();
+
             return Ok(_mapper.Map<WishListDetailOutputDto>(wishList));
         }
         catch (EntityNotFoundException<User> e)
@@ -64,17 +60,10 @@ public class WishListController : ControllerBase
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] WishListInputDto wishListInputDto)
     {
-        var wishList = await _unitOfWork.WishLists.GetByIdWithRelations(id);
-        
-        if (wishList == null)
-        {
-            return NotFound();
-        }
-
         try
         {
-            await _wishListService.Update(wishListInputDto, wishList);
-            await _unitOfWork.Complete();
+            var wishList = await _wishListService.Update(wishListInputDto, id);
+
             return Ok(_mapper.Map<WishListDetailOutputDto>(wishList));
         } 
         catch (EntityNotFoundException<User> e)
@@ -82,20 +71,11 @@ public class WishListController : ControllerBase
             return NotFound(e.Message);
         }
     }
-    
+
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var wishList = await _unitOfWork.WishLists.GetById(id);
-        
-        if (wishList == null)
-        {
-            return NotFound();
-        }
-
-        _unitOfWork.WishLists.Remove(wishList);
-        
-        await _unitOfWork.Complete();
+        await _wishListService.Delete(id);
 
         return Ok();
     }

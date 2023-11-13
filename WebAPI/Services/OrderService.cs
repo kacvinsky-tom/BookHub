@@ -16,6 +16,26 @@ public class OrderService
     {
         _unitOfWork = unitOfWork;
     }
+    
+    public async Task<IEnumerable<Order>> GetAll()
+    {
+        return await _unitOfWork.Orders.GetAllWithRelations();
+    }
+    
+    public async Task<IEnumerable<OrderItem>> GetAllOrderItems()
+    {
+        return await _unitOfWork.OrderItems.GetAllWithRelations();
+    }
+    
+    public async Task<Order?> GetById(int id)
+    {
+        return await _unitOfWork.Orders.GetByIdWithRelations(id);
+    }
+    
+    public async Task<OrderItem?> GetOrderItemById(int id)
+    {
+        return await _unitOfWork.OrderItems.GetByIdWithRelations(id);
+    }
 
     public async Task<Order> Create(OrderCreateInputDto orderCreateInputDto)
     {
@@ -38,16 +58,29 @@ public class OrderService
                 VoucherUsedId = voucher.Id
             };
         }
-        
-        return new Order
+
+        var order =  new Order
         {
             UserId = orderCreateInputDto.UserId,
             User = user,
         };
+
+        _unitOfWork.Orders.Add(order);
+
+        await _unitOfWork.Complete();
+        
+        return order;
     }
 
-    public void Update(OrderUpdateInputDto orderUpdateInputDto, Order order)
+    public async Task<Order> Update(OrderUpdateInputDto orderUpdateInputDto, int orderId)
     {
+        var order = await _unitOfWork.Orders.GetByIdWithRelations(orderId);
+        
+        if (order == null)
+        {
+            throw new EntityNotFoundException<Order>(orderId);
+        }
+
         var status = orderUpdateInputDto.Status;
 
         if (!Enum.IsDefined(typeof(OrderStatus), status))
@@ -56,9 +89,13 @@ public class OrderService
         }
 
         order.Status = status;
+        
+        await _unitOfWork.Complete();
+
+        return order;
     }
-    
-    public async Task<OrderItem> CreateItemInWishlist(OrderItemCreateInputDto orderItemInputDto)
+
+    public async Task<OrderItem> CreateOrderItem(OrderItemCreateInputDto orderItemInputDto)
     {
         var order = await _unitOfWork.Orders.GetById(orderItemInputDto.OrderId);
 
@@ -88,6 +125,23 @@ public class OrderService
             Quantity = orderItemInputDto.Quantity
         };
 
+        _unitOfWork.OrderItems.Add(orderItem);
+        await _unitOfWork.Complete();
+
         return orderItem;
+    }
+
+    public async Task Delete(int orderId)
+    {
+        var order = await _unitOfWork.Orders.GetById(orderId);
+
+        if (order == null)
+        {
+            throw new EntityNotFoundException<Order>(orderId);
+        }
+
+        _unitOfWork.Orders.Remove(order);
+
+        await _unitOfWork.Complete();
     }
 }
