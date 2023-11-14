@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
-using DataAccessLayer;
-using DataAccessLayer.Entity;
-using DataAccessLayer.Exception;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.DTO.Input.Book;
 using WebAPI.DTO.Output.Book;
+using WebAPI.Exception;
+using WebAPI.Extensions;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers;
@@ -13,13 +12,11 @@ namespace WebAPI.Controllers;
 [Route("[controller]")]
 public class BookController : ControllerBase
 {
-    private readonly UnitOfWork _unitOfWork;
     private readonly BookService _bookService;
     private readonly IMapper _mapper;
     
-    public BookController(UnitOfWork unitOfWork, BookService bookService, IMapper mapper)
+    public BookController(BookService bookService, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
         _bookService = bookService;
         _mapper = mapper;
     }
@@ -54,9 +51,9 @@ public class BookController : ControllerBase
 
             return Ok(_mapper.Map<BookDetailOutputDto>(book));
         }
-        catch (EntityNotFoundException<Author> e)
+        catch (NotFoundException e)
         {
-            return NotFound(e.Message);
+            return NotFound(e.GetApiMessage());
         }
     }
 
@@ -69,24 +66,24 @@ public class BookController : ControllerBase
             
             return Ok(_mapper.Map<BookDetailOutputDto>(book));
         }
-        catch (EntityNotFoundException<Author> e)
+        catch (NotFoundException e)
         {
-            return NotFound(e.Message);
+            return NotFound(e.GetApiMessage());
         }
     }
 
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var book = await _unitOfWork.Books.GetById(id);
-
-        if (book == null)
+        try
         {
-            return NotFound();
+            await _bookService.Delete(id);
+            
+            return Ok();
         }
-        _bookService.Delete(book);
-        await _unitOfWork.Complete();
-
-        return Ok();
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 }

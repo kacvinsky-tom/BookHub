@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using DataAccessLayer.Entity;
-using DataAccessLayer.Exception;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.DTO.Input.Review;
 using WebAPI.DTO.Output.Review;
+using WebAPI.Exception;
+using WebAPI.Extensions;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers;
@@ -51,9 +51,9 @@ public class ReviewController : ControllerBase
 
             return Ok(_mapper.Map<ReviewDetailOutputDto>(review));
         }
-        catch (EntityNotFoundException<User> e)
+        catch (NotFoundException e)
         {
-            return NotFound(e.Message);
+            return NotFound(e.GetApiMessage());
         }
     }
 
@@ -66,17 +66,24 @@ public class ReviewController : ControllerBase
 
             return Ok(_mapper.Map<ReviewDetailOutputDto>(review));
         }
-        catch (EntityNotFoundException<User> e)
+        catch (NotFoundException e)
         {
-            return NotFound(e.Message);
+            return NotFound(e.GetApiMessage());
         }
     }
 
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        await _reviewService.Delete(id);
+        try
+        {
+            await _reviewService.Delete(id);
 
-        return Ok();
+            return Ok();
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 }

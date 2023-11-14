@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.DTO.Input.Genre;
 using WebAPI.DTO.Output.Genre;
+using WebAPI.Exception;
+using WebAPI.Extensions;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers;
@@ -51,16 +53,30 @@ public class GenreController : ControllerBase
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] GenreInputDto genreInputDto)
     {
-        var genre =  await _genreService.Update(genreInputDto, id);
+        try
+        {
+            var genre =  await _genreService.Update(genreInputDto, id);
 
-        return Ok(_mapper.Map<GenreDetailOutputDto>(genre));
+            return Ok(_mapper.Map<GenreDetailOutputDto>(genre));
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        await _genreService.Delete(id);
+        try
+        {
+            await _genreService.Delete(id);
 
-        return Ok();
+            return Ok();
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 }

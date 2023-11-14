@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using DataAccessLayer.Entity;
-using DataAccessLayer.Exception;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.DTO.Input.OrderItem;
 using WebAPI.DTO.Output.OrderItem;
+using WebAPI.Exception;
+using WebAPI.Extensions;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers;
@@ -51,9 +51,9 @@ public class OrderItemController : ControllerBase
 
             return Ok(_mapper.Map<OrderItemDetailOutputDto>(orderItem));
         }
-        catch (EntityNotFoundException<User> e)
+        catch (NotFoundException e)
         {
-            return NotFound(e.Message);
+            return NotFound(e.GetApiMessage());
         }
     }
 }

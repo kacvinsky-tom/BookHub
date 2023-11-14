@@ -1,7 +1,7 @@
 ﻿using DataAccessLayer;
 using DataAccessLayer.Entity;
-using DataAccessLayer.Exception;
 using WebAPI.DTO.Input.Genre;
+using WebAPI.Exception;
 
 namespace WebAPI.Services;
 

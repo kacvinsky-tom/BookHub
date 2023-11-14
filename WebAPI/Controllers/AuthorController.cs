@@ -2,6 +2,8 @@
 using AutoMapper;
 using WebAPI.DTO.Input.Author;
 using WebAPI.DTO.Output.Author;
+using WebAPI.Exception;
+using WebAPI.Extensions;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers;
@@ -51,17 +53,31 @@ public class AuthorController : ControllerBase
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] AuthorInputDto authorInputDto)
     {
-        var author = await _authorService.Update(authorInputDto, id);
+        try
+        {
+            var author = await _authorService.Update(authorInputDto, id);
 
-        return Ok(_mapper.Map<AuthorDetailOutputDto>(author));
+            return Ok(_mapper.Map<AuthorDetailOutputDto>(author));
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        await _authorService.Delete(id);
+        try
+        {
+            await _authorService.Delete(id);
 
-        return NoContent();
+            return NoContent();
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 
 }

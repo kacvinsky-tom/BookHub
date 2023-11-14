@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using DataAccessLayer.Entity;
-using DataAccessLayer.Exception;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.DTO.Input.Order;
 using WebAPI.DTO.Output.Order;
+using WebAPI.Exception;
+using WebAPI.Extensions;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers;
@@ -51,25 +51,39 @@ public class OrderController : ControllerBase
 
             return Ok(_mapper.Map<OrderDetailOutputDto>(order));
         }
-        catch (EntityNotFoundException<User> e)
+        catch (NotFoundException e)
         {
-            return NotFound(e.Message);
+            return NotFound(e.GetApiMessage());
         }
     }
 
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] OrderUpdateInputDto orderUpdateInputDto)
     {
-        var order = await  _orderService.Update(orderUpdateInputDto, id);
+        try
+        {
+            var order = await  _orderService.Update(orderUpdateInputDto, id);
 
-        return Ok(_mapper.Map<OrderDetailOutputDto>(order));
+            return Ok(_mapper.Map<OrderDetailOutputDto>(order));
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        await _orderService.Delete(id);
+        try
+        {
+            await _orderService.Delete(id);
 
-        return Ok();
+            return Ok();
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 }

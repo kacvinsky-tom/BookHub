@@ -1,7 +1,7 @@
 ﻿using DataAccessLayer;
 using DataAccessLayer.Entity;
-using DataAccessLayer.Exception;
 using WebAPI.DTO.Input.Book;
+using WebAPI.Exception;
 
 namespace WebAPI.Services;
 
@@ -112,9 +112,18 @@ public class BookService
         return book;
     }
 
-    public void Delete(Book book)
+    public async Task Delete(int bookId)
     {
+        var book = await _unitOfWork.Books.GetById(bookId);
+
+        if (book == null)
+        {
+            throw new EntityNotFoundException<Book>(bookId);
+        }
+
         book.IsDeleted = true;
+
+        await _unitOfWork.Complete();
     }
 
 }

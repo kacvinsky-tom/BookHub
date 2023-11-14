@@ -1,8 +1,8 @@
 ﻿using DataAccessLayer;
 using DataAccessLayer.Entity;
-using DataAccessLayer.Exception;
 using WebAPI.DTO.Input.WishList;
 using WebAPI.DTO.Input.WishListItem;
+using WebAPI.Exception;
 
 namespace WebAPI.Services;
 

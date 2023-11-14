@@ -2,6 +2,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.DTO.Input.Publisher;
 using WebAPI.DTO.Output.Publisher;
+using WebAPI.Exception;
+using WebAPI.Extensions;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers;
@@ -51,17 +53,31 @@ public class PublisherController : ControllerBase
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] PublisherInputDto publisherInputDto)
     {
-        var publisher =  await _publisherService.Update(publisherInputDto, id);
+        try
+        {
+            var publisher =  await _publisherService.Update(publisherInputDto, id);
 
-        return Ok(_mapper.Map<PublisherDetailOutputDto>(publisher));
+            return Ok(_mapper.Map<PublisherDetailOutputDto>(publisher));
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        await _publisherService.Delete(id);
+        try
+        {
+            await _publisherService.Delete(id);
 
-        return Ok();
+            return Ok();
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 
 }

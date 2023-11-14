@@ -1,8 +1,8 @@
 ﻿using DataAccessLayer;
 using DataAccessLayer.Entity;
-using DataAccessLayer.Exception;
 using Microsoft.AspNetCore.Identity;
 using WebAPI.DTO.Input.User;
+using WebAPI.Exception;
 
 namespace WebAPI.Services;
 

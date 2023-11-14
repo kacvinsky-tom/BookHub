@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using DataAccessLayer.Entity;
-using DataAccessLayer.Exception;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.DTO.Input.WishListItem;
 using WebAPI.DTO.Output.WishListItem;
+using WebAPI.Exception;
+using WebAPI.Extensions;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers;
@@ -51,9 +51,9 @@ public class WishListItemController : ControllerBase
 
             return Ok(_mapper.Map<WishListItemDetailOutputDto>(wishListItem));
         }
-        catch (EntityNotFoundException<BaseEntity> e)
+        catch (NotFoundException e)
         {
-            return NotFound(e.Message);
+            return NotFound(e.GetApiMessage());
         }
     }
     
@@ -66,17 +66,24 @@ public class WishListItemController : ControllerBase
 
             return Ok(_mapper.Map<WishListItemDetailOutputDto>(wishListItem));
         }
-        catch (EntityNotFoundException<BaseEntity> e)
+        catch (NotFoundException e)
         {
-            return NotFound(e.Message);
+            return NotFound(e.GetApiMessage());
         }
     }
 
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        await _wishListService.DeleteItem(id);
+        try
+        {
+            await _wishListService.DeleteItem(id);
         
-        return Ok();
+            return Ok();
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 }

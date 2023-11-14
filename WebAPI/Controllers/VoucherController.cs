@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.DTO.Input.Voucher;
 using WebAPI.DTO.Output.Voucher;
+using WebAPI.Exception;
+using WebAPI.Extensions;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers;
@@ -51,16 +53,30 @@ public class VoucherController : ControllerBase
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] VoucherInputDto voucherInputDto)
     {
-        var voucher = await _voucherService.Update(voucherInputDto, id);
+        try
+        {
+            var voucher = await _voucherService.Update(voucherInputDto, id);
         
-        return Ok(_mapper.Map<VoucherDetailOutputDto>(voucher));
+            return Ok(_mapper.Map<VoucherDetailOutputDto>(voucher));
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        await _voucherService.Delete(id);
+        try
+        {
+            await _voucherService.Delete(id);
 
-        return Ok();
+            return Ok();
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 }

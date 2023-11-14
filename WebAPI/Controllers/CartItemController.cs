@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using DataAccessLayer.Entity;
-using DataAccessLayer.Exception;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.DTO.Input.CartItem;
 using WebAPI.DTO.Output.CartItem;
+using WebAPI.Exception;
+using WebAPI.Extensions;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers;
@@ -51,25 +51,39 @@ public class CartItemController : ControllerBase
 
             return Ok(_mapper.Map<CartItemDetailOutputDto>(cartItem));
         }
-        catch (EntityNotFoundException<User> e)
+        catch (NotFoundException e)
         {
-            return NotFound(e.Message);
+            return NotFound(e.GetApiMessage());
         }
     }
 
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] CartItemUpdateInputDto cartItemUpdateInputDto)
     {
-        var cartItem = await _cartService.UpdateCartItem(cartItemUpdateInputDto, id);
-
-        return Ok(_mapper.Map<CartItemDetailOutputDto>(cartItem));
+        try
+        {
+            var cartItem = await _cartService.UpdateCartItem(cartItemUpdateInputDto, id);
+            
+            return Ok(_mapper.Map<CartItemDetailOutputDto>(cartItem));
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        await _cartService.RemoveCartItem(id);
+        try
+        {
+            await _cartService.RemoveCartItem(id);
         
-        return Ok();
+            return Ok();
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 }

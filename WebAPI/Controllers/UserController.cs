@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.DTO.Input.User;
 using WebAPI.DTO.Output.User;
+using WebAPI.Exception;
+using WebAPI.Extensions;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers;
@@ -51,16 +53,30 @@ public class UserController : ControllerBase
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update([FromBody] UserInputDto userInputDto, int id)
     {
-        var user = await _userService.Update(userInputDto, id);
+        try
+        {
+            var user = await _userService.Update(userInputDto, id);
 
-        return Ok(_mapper.Map<UserDetailOutputDto>(user));
+            return Ok(_mapper.Map<UserDetailOutputDto>(user));
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        await _userService.Delete(id);
+        try
+        {
+            await _userService.Delete(id);
 
-        return Ok();
+            return Ok();
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 }
