@@ -10,7 +10,6 @@ public class VoucherRepository : GenericRepository<Voucher>, IVoucherRepository
     {
     }
 
-
     public Task<Voucher?> GetByIdWithRelations(int id)
     {
         return _context.Vouchers
@@ -18,9 +17,9 @@ public class VoucherRepository : GenericRepository<Voucher>, IVoucherRepository
             .FirstOrDefaultAsync(v => v.Id == id);
     }
 
-    public Task<List<Voucher>> GetAllWithQuantities()
+    public async Task<IEnumerable<Voucher>> GetAllWithQuantities()
     {
-        return _context.Vouchers
+        return await _context.Vouchers
             .Include(v => v.UsedQuantity)
             .Include(v => v.IsUsable)
             .ToListAsync();

@@ -21,7 +21,7 @@ public class ReviewRepository : GenericRepository<Review>, IReviewRepository
             .FirstOrDefaultAsync(r => r.Id == id);
     }
 
-    public async Task<List<Review>> GetAllWithRelations()
+    public async Task<IEnumerable<Review>> GetAllWithRelations()
     {
         return await _context.Reviews
             .Include(r => r.User)

@@ -18,7 +18,7 @@ public class OrderItemRepository : GenericRepository<OrderItem>, IOrderItemRepos
             .Include(oi => oi.Book);
     }
 
-    public async Task<List<OrderItem>> GetAllWithRelations()
+    public async Task<IEnumerable<OrderItem>> GetAllWithRelations()
     {
         return await GetBasicQuery()
             .ToListAsync();

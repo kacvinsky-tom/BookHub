@@ -9,7 +9,7 @@ public class OrderRepository : GenericRepository<Order>, IOrderRepository
     public OrderRepository(BookHubDbContext context) : base(context)
     {
     }
-    public async Task<List<Order>> GetAllWithRelations()
+    public async Task<IEnumerable<Order>> GetAllWithRelations()
     {
         return await _context.Orders
             .Include(o => o.User)

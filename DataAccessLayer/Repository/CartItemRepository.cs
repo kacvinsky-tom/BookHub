@@ -21,7 +21,7 @@ public class CartItemRepository : GenericRepository<CartItem>, ICartItemReposito
             .FirstOrDefaultAsync(r => r.Id == id);
     }
 
-    public async Task<List<CartItem>> GetAllWithRelations()
+    public async Task<IEnumerable<CartItem>> GetAllWithRelations()
     {
         return await _context.CartItems
             .Include(r => r.User)
