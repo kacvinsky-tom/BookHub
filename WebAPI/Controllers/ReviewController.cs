@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
+using Core.DTO.Input.Review;
+using Core.DTO.Output.Review;
+using Core.Exception;
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.DTO.Input.Review;
-using WebAPI.DTO.Output.Review;
-using WebAPI.Exception;
 using WebAPI.Extensions;
-using WebAPI.Services;
 
 namespace WebAPI.Controllers;
 

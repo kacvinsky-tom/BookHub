@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
+using Core.DTO.Input.Order;
+using Core.DTO.Output.Order;
+using Core.Exception;
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.DTO.Input.Order;
-using WebAPI.DTO.Output.Order;
-using WebAPI.Exception;
 using WebAPI.Extensions;
-using WebAPI.Services;
 
 namespace WebAPI.Controllers;
 

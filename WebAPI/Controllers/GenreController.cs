@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
+using Core.DTO.Input.Genre;
+using Core.DTO.Output.Genre;
+using Core.Exception;
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.DTO.Input.Genre;
-using WebAPI.DTO.Output.Genre;
-using WebAPI.Exception;
 using WebAPI.Extensions;
-using WebAPI.Services;
 
 namespace WebAPI.Controllers;
 

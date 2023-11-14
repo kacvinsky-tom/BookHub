@@ -1,4 +1,4 @@
-﻿using WebAPI.Exception;
+﻿using Core.Exception;
 
 namespace WebAPI.Extensions;
 

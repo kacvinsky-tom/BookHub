@@ -1,10 +1,10 @@
 using AutoMapper;
+using Core.DTO.Input.Publisher;
+using Core.DTO.Output.Publisher;
+using Core.Exception;
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.DTO.Input.Publisher;
-using WebAPI.DTO.Output.Publisher;
-using WebAPI.Exception;
 using WebAPI.Extensions;
-using WebAPI.Services;
 
 namespace WebAPI.Controllers;
 

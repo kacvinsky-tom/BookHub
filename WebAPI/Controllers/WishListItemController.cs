@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
+using Core.DTO.Input.WishListItem;
+using Core.DTO.Output.WishListItem;
+using Core.Exception;
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.DTO.Input.WishListItem;
-using WebAPI.DTO.Output.WishListItem;
-using WebAPI.Exception;
 using WebAPI.Extensions;
-using WebAPI.Services;
 
 namespace WebAPI.Controllers;
 

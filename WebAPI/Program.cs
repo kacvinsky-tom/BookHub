@@ -1,8 +1,8 @@
+using Core.Services;
 using DataAccessLayer;
 using WebAPI;
 using WebAPI.Extensions;
 using WebAPI.Middlewares;
-using WebAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

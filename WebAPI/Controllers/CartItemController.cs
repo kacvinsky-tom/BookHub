@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
+using Core.DTO.Input.CartItem;
+using Core.DTO.Output.CartItem;
+using Core.Exception;
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.DTO.Input.CartItem;
-using WebAPI.DTO.Output.CartItem;
-using WebAPI.Exception;
 using WebAPI.Extensions;
-using WebAPI.Services;
 
 namespace WebAPI.Controllers;
 
