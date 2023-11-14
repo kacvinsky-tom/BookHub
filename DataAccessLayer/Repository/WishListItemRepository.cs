@@ -9,24 +9,25 @@ public class WishListItemRepository : GenericRepository<WishListItem>, IWishList
     public WishListItemRepository(BookHubDbContext context) : base(context)
     {
     }
-    
-    public async Task<WishListItem?> GetByIdWithRelations(int id)
+
+    private IQueryable<WishListItem> GetBasicQuery()
     {
-        return await _context.WishListItems
+        return _context.WishListItems
             .Include(w => w.Book)
             .ThenInclude(b => b.Authors)
             .Include(w => w.Book)
-            .ThenInclude(b => b.Genres)
+            .ThenInclude(b => b.Genres);
+    }
+
+    public async Task<WishListItem?> GetByIdWithRelations(int id)
+    {
+        return await GetBasicQuery()
             .FirstOrDefaultAsync(w => w.Id == id);
     }
 
     public async Task<IEnumerable<WishListItem>> GetAllWithRelations()
     {
-        return await _context.WishListItems
-            .Include(w => w.Book)
-            .ThenInclude(b => b.Authors)
-            .Include(w => w.Book)
-            .ThenInclude(b => b.Genres)
+        return await GetBasicQuery()
             .ToListAsync();
     }
 }
