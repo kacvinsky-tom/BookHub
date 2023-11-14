@@ -16,11 +16,11 @@ public class User : BaseEntity
 
     public bool IsAdmin { get; set; }
 
-    public ICollection<Order> Orders { get; } = new List<Order>();
+    public IEnumerable<Order> Orders { get; } = new List<Order>();
 
-    public ICollection<CartItem> CartItems { get; } = new List<CartItem>();
+    public IEnumerable<CartItem> CartItems { get; } = new List<CartItem>();
     
-    public ICollection<Review> Reviews { get; } = new List<Review>();
+    public IEnumerable<Review> Reviews { get; } = new List<Review>();
     
-    public ICollection<WishList> WishLists { get; } = new List<WishList>();
+    public IEnumerable<WishList> WishLists { get; } = new List<WishList>();
 }

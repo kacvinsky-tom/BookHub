@@ -7,5 +7,5 @@ public class WishList : BaseEntity
 
     public string Name { get; set; }
 
-    public ICollection<WishListItem> WishListItems { get; } = new List<WishListItem>();
+    public IEnumerable<WishListItem> WishListItems { get; } = new List<WishListItem>();
 }

@@ -4,5 +4,5 @@ public class Genre : BaseEntity
 {
     public string Name { get; set; }
 
-    public ICollection<Book> Books { get; } = new List<Book>();
+    public IEnumerable<Book> Books { get; } = new List<Book>();
 }

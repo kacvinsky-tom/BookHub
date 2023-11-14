@@ -6,5 +6,5 @@ public class Author: BaseEntity
 
     public string LastName { get; set; }
     
-    public ICollection<Book> Books { get; } = new List<Book>();
+    public IEnumerable<Book> Books { get; } = new List<Book>();
 }
