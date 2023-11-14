@@ -9,20 +9,24 @@ public class OrderItemRepository : GenericRepository<OrderItem>, IOrderItemRepos
     public OrderItemRepository(BookHubDbContext context) : base(context)
     {
     }
+
+    private IQueryable<OrderItem> GetBasicQuery()
+    {
+        return _context.OrderItems
+            .Include(oi => oi.Order)
+            .ThenInclude(o => o.User)
+            .Include(oi => oi.Book);
+    }
+
     public async Task<List<OrderItem>> GetAllWithRelations()
     {
-        return await _context.OrderItems
-            .Include(oi => oi.Order)
-            .ThenInclude(o => o.User)
-            .Include(oi => oi.Book)
+        return await GetBasicQuery()
             .ToListAsync();
     }
+
     public async Task<OrderItem?> GetByIdWithRelations(int id)
     {
-        return await _context.OrderItems
-            .Include(oi => oi.Order)
-            .ThenInclude(o => o.User)
-            .Include(oi => oi.Book)
+        return await GetBasicQuery()
             .FirstOrDefaultAsync(w => w.Id == id);
     }
 }
