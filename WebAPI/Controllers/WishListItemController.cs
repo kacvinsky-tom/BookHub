@@ -1,10 +1,10 @@
-﻿using DataAccessLayer;
-using DataAccessLayer.Entity;
-using DataAccessLayer.Exception;
+﻿using AutoMapper;
+using Core.DTO.Input.WishListItem;
+using Core.DTO.Output.WishListItem;
+using Core.Exception;
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.DTO.Input.WishListItem;
-using WebAPI.Mapper;
-using WebAPI.Services;
+using WebAPI.Extensions;
 
 namespace WebAPI.Controllers;
 
@@ -12,34 +12,34 @@ namespace WebAPI.Controllers;
 [Route("[controller]")]
 public class WishListItemController : ControllerBase
 {
-    private readonly UnitOfWork _unitOfWork;
     private readonly WishListService _wishListService;
+    private readonly IMapper _mapper;
 
-    public WishListItemController(UnitOfWork unitOfWork, WishListService wishListService)
+    public WishListItemController(WishListService wishListService, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
         _wishListService = wishListService;
+        _mapper = mapper;
     }
     
     [HttpGet]
     public async Task<IActionResult> Fetch()
     {
-        var wishListItems = await _unitOfWork.WishListItems.GetAllWithRelations();
+        var wishListItems = await _wishListService.GetAllItems();
         
-        return Ok(wishListItems.Select(WishListItemMapper.MapList));
+        return Ok(wishListItems.Select(_mapper.Map<WishListItemListOutputDto>));
     }
     
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
-        var wishListItem = await _unitOfWork.WishListItems.GetByIdWithRelations(id);
+        var wishListItem = await _wishListService.GetItemById(id);
         
         if (wishListItem == null)
         {
             return NotFound();
         }
 
-        return Ok(WishListItemMapper.MapDetail(wishListItem));
+        return Ok(_mapper.Map<WishListItemDetailOutputDto>(wishListItem));
     }
     
     [HttpPost]
@@ -48,51 +48,42 @@ public class WishListItemController : ControllerBase
         try
         {
             var wishListItem = await _wishListService.CreateItemInWishlist(wishListItemInputDto);
-            _unitOfWork.WishListItems.Add(wishListItem);
-            await _unitOfWork.Complete();
-            return Ok(WishListItemMapper.MapDetail(wishListItem));
+
+            return Ok(_mapper.Map<WishListItemDetailOutputDto>(wishListItem));
         }
-        catch (EntityNotFoundException<BaseEntity> e)
+        catch (NotFoundException e)
         {
-            return NotFound(e.Message);
+            return NotFound(e.GetApiMessage());
         }
     }
     
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] WishListItemInputDto wishListItemInputDto)
     {
-        var wishListItem = await _unitOfWork.WishListItems.GetById(id);
-        
-        if (wishListItem == null)
-        {
-            return NotFound();
-        }
-
         try
         {
-            await _wishListService.UpdateItemInWishlist(wishListItemInputDto, wishListItem);
-            await _unitOfWork.Complete();
-            return Ok(WishListItemMapper.MapDetail(wishListItem));
+            var wishListItem = await _wishListService.UpdateItemInWishlist(wishListItemInputDto, id);
+
+            return Ok(_mapper.Map<WishListItemDetailOutputDto>(wishListItem));
         }
-        catch (EntityNotFoundException<BaseEntity> e)
+        catch (NotFoundException e)
         {
-            return NotFound(e.Message);
+            return NotFound(e.GetApiMessage());
         }
     }
-    
+
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var wishListItem = await _unitOfWork.WishListItems.GetById(id);
-        
-        if (wishListItem == null)
+        try
         {
-            return NotFound();
-        }
-
-        _unitOfWork.WishListItems.Remove(wishListItem);
-        await _unitOfWork.Complete();
+            await _wishListService.DeleteItem(id);
         
-        return Ok();
+            return Ok();
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 }

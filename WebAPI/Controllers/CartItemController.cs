@@ -1,10 +1,10 @@
-﻿using DataAccessLayer;
-using DataAccessLayer.Entity;
-using DataAccessLayer.Exception;
+﻿using AutoMapper;
+using Core.DTO.Input.CartItem;
+using Core.DTO.Output.CartItem;
+using Core.Exception;
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.DTO.Input.CartItem;
-using WebAPI.Mapper;
-using WebAPI.Services;
+using WebAPI.Extensions;
 
 namespace WebAPI.Controllers;
 
@@ -12,34 +12,34 @@ namespace WebAPI.Controllers;
 [Route("[controller]")]
 public class CartItemController : ControllerBase
 {
-    private readonly UnitOfWork _unitOfWork;
     private readonly CartService _cartService;
+    private readonly IMapper _mapper;
 
-    public CartItemController(UnitOfWork unitOfWork, CartService cartService)
+    public CartItemController(CartService cartService, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
         _cartService = cartService;
+        _mapper = mapper;
     }
 
     [HttpGet]
     public async Task<IActionResult> Fetch()
     {
-        var cartItems = await _unitOfWork.CartItems.GetAllWithRelations();
+        var cartItems = await _cartService.GetAllCartItems();
 
-        return Ok(cartItems.Select(CartItemMapper.MapList));
+        return Ok(cartItems.Select(_mapper.Map<CartItemListOutputDto>));
     }
 
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
-        var cartItem = await _unitOfWork.CartItems.GetByIdWithRelations(id);
+        var cartItem = await _cartService.GetCartItemById(id);
 
         if (cartItem == null)
         {
             return NotFound();
         }
 
-        return Ok(CartItemMapper.MapDetail(cartItem));
+        return Ok(_mapper.Map<CartItemDetailOutputDto>(cartItem));
     }
 
     [HttpPost]
@@ -48,43 +48,42 @@ public class CartItemController : ControllerBase
         try
         {
             var cartItem = await _cartService.CreateCartItem(cartItemCreateInputDto);
-            _unitOfWork.CartItems.Add(cartItem);
-            await _unitOfWork.Complete();
-            return Ok(CartItemMapper.MapDetail(cartItem));
+
+            return Ok(_mapper.Map<CartItemDetailOutputDto>(cartItem));
         }
-        catch (EntityNotFoundException<User> e)
+        catch (NotFoundException e)
         {
-            return NotFound(e.Message);
+            return NotFound(e.GetApiMessage());
         }
     }
 
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] CartItemUpdateInputDto cartItemUpdateInputDto)
     {
-        var cartItem = await _unitOfWork.CartItems.GetByIdWithRelations(id);
-
-        if (cartItem == null)
+        try
         {
-            return NotFound();
+            var cartItem = await _cartService.UpdateCartItem(cartItemUpdateInputDto, id);
+            
+            return Ok(_mapper.Map<CartItemDetailOutputDto>(cartItem));
         }
-
-        cartItem.Quantity = cartItemUpdateInputDto.Quantity;
-        await _unitOfWork.Complete();
-        return Ok(CartItemMapper.MapList(cartItem));
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var cartItem = await _unitOfWork.CartItems.GetById(id);
-
-        if (cartItem == null)
+        try
         {
-            return NotFound();
+            await _cartService.RemoveCartItem(id);
+        
+            return Ok();
         }
-
-        _unitOfWork.CartItems.Remove(cartItem);
-        await _unitOfWork.Complete();
-        return Ok();
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 }

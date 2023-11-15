@@ -1,10 +1,10 @@
-﻿using DataAccessLayer;
-using DataAccessLayer.Entity;
-using DataAccessLayer.Exception;
+﻿using AutoMapper;
+using Core.DTO.Input.Book;
+using Core.DTO.Output.Book;
+using Core.Exception;
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.DTO.Input.Book;
-using WebAPI.Mapper;
-using WebAPI.Services;
+using WebAPI.Extensions;
 
 namespace WebAPI.Controllers;
 
@@ -12,91 +12,78 @@ namespace WebAPI.Controllers;
 [Route("[controller]")]
 public class BookController : ControllerBase
 {
-    private readonly UnitOfWork _unitOfWork;
     private readonly BookService _bookService;
+    private readonly IMapper _mapper;
     
-    public BookController(UnitOfWork unitOfWork, BookService bookService)
+    public BookController(BookService bookService, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
         _bookService = bookService;
+        _mapper = mapper;
     }
 
     [HttpGet]
     public async Task<IActionResult> Fetch([FromQuery] BookFilterInputDto filterInputDto)
     {
-        var books = await _unitOfWork.Books.GetWithRelations(filterInputDto.ToBookFilter());
+        var books = await _bookService.GetAll(filterInputDto);
         
-        return Ok(books.Select(BookMapper.MapList));
+        return Ok(books.Select(_mapper.Map<BookListOutputDto>));
     }
 
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
-        var book = await _unitOfWork.Books.GetByIdWithRelations(id);
+        var book = await _bookService.GetById(id);
         
         if (book == null)
         {
             return NotFound();
         }
 
-        return Ok(BookMapper.MapDetail(book));
+        return Ok(_mapper.Map<BookDetailOutputDto>(book));
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] BookCreateInputDto bookCreateCreateInputDto)
     {
         try
         {
             var book = await _bookService.Create(bookCreateCreateInputDto);
-            
-            _unitOfWork.Books.Add(book);
 
-            await _unitOfWork.Complete();
-
-            return Ok(BookMapper.MapDetail(book));
+            return Ok(_mapper.Map<BookDetailOutputDto>(book));
         }
-        catch (EntityNotFoundException<Author> e)
+        catch (NotFoundException e)
         {
-            return NotFound(e.Message);
+            return NotFound(e.GetApiMessage());
         }
     }
 
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update([FromBody] BookCreateInputDto bookCreateUpdateInputDto, int id)
     {
-        var bookToUpdate = await _unitOfWork.Books.GetById(id);
-        
-        if (bookToUpdate == null)
-        {
-            return NotFound();
-        }
-
         try
         {
-            await _bookService.Update(bookCreateUpdateInputDto, bookToUpdate);
+            var book = await _bookService.Update(bookCreateUpdateInputDto, id);
             
-            await _unitOfWork.Complete();
-            
-            return Ok(BookMapper.MapDetail(bookToUpdate));
+            return Ok(_mapper.Map<BookDetailOutputDto>(book));
         }
-        catch (EntityNotFoundException<Author> e)
+        catch (NotFoundException e)
         {
-            return NotFound(e.Message);
+            return NotFound(e.GetApiMessage());
         }
     }
 
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var book = await _unitOfWork.Books.GetById(id);
-        
-        if (book == null)
+        try
         {
-            return NotFound();
+            await _bookService.Delete(id);
+            
+            return Ok();
         }
-        _bookService.Delete(book);
-        await _unitOfWork.Complete();
-
-        return Ok();
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 }

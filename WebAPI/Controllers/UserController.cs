@@ -1,8 +1,10 @@
-﻿using DataAccessLayer;
+﻿using AutoMapper;
+using Core.DTO.Input.User;
+using Core.DTO.Output.User;
+using Core.Exception;
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.DTO.Input.User;
-using WebAPI.Mapper;
-using WebAPI.Services;
+using WebAPI.Extensions;
 
 namespace WebAPI.Controllers;
 
@@ -10,79 +12,71 @@ namespace WebAPI.Controllers;
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
-    private readonly UnitOfWork _unitOfWork;
     private readonly UserService _userService;
+    private readonly IMapper _mapper;
 
-    public UserController(UnitOfWork unitOfWork, UserService userService)
+    public UserController(UserService userService, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
         _userService = userService;
+        _mapper = mapper;
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> Fetch()
     {
-        var users = await _unitOfWork.Users.GetAll();
+        var users = await _userService.GetAll();
         
-        return Ok(users.Select(UserMapper.MapList));
+        return Ok(users.Select(_mapper.Map<UserListOutputDto>));
     }
-    
+
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
-        var user = await _unitOfWork.Users.GetByIdWithRelations(id);
+        var user = await _userService.GetById(id);
         
         if (user == null)
         {
             return NotFound();
         }
 
-        return Ok(UserMapper.MapDetail(user));
+        return Ok(_mapper.Map<UserDetailOutputDto>(user));
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] UserInputDto userInputDto)
     {
-        var user = _userService.Create(userInputDto);
-        
-        _unitOfWork.Users.Add(user);
+        var user = await _userService.Create(userInputDto);
 
-        await _unitOfWork.Complete();
-
-        return Ok(UserMapper.MapDetail(user));
+        return Ok(_mapper.Map<UserDetailOutputDto>(user));
     }
     
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update([FromBody] UserInputDto userInputDto, int id)
     {
-        var user = await _unitOfWork.Users.GetById(id);
-        
-        if (user == null)
+        try
         {
-            return NotFound();
+            var user = await _userService.Update(userInputDto, id);
+
+            return Ok(_mapper.Map<UserDetailOutputDto>(user));
         }
-
-        _userService.Update(user, userInputDto);
-
-        await _unitOfWork.Complete();
-
-        return Ok(UserMapper.MapDetail(user));
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
-    
+
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var user = await _unitOfWork.Users.GetById(id);
-        
-        if (user == null)
+        try
         {
-            return NotFound();
+            await _userService.Delete(id);
+
+            return Ok();
         }
-        
-        _unitOfWork.Users.Remove(user);
-
-        await _unitOfWork.Complete();
-
-        return Ok();
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 }

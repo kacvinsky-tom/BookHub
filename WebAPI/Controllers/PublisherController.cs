@@ -1,8 +1,10 @@
-using DataAccessLayer;
+using AutoMapper;
+using Core.DTO.Input.Publisher;
+using Core.DTO.Output.Publisher;
+using Core.Exception;
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.DTO.Input.Publisher;
-using WebAPI.Mapper;
-using WebAPI.Services;
+using WebAPI.Extensions;
 
 namespace WebAPI.Controllers;
 
@@ -10,75 +12,72 @@ namespace WebAPI.Controllers;
 [Route("[controller]")]
 public class PublisherController : ControllerBase
 {
-    private readonly UnitOfWork _unitOfWork;
     private readonly PublisherService _publisherService;
+    private readonly IMapper _mapper;
 
-    public PublisherController(UnitOfWork unitOfWork, PublisherService publisherService)
+    public PublisherController(PublisherService publisherService, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
         _publisherService = publisherService;
+        _mapper = mapper;
     }
 
     [HttpGet]
     public async Task<IActionResult> Fetch()
     {
-        var publishers = await _unitOfWork.Publishers.GetAll();
+        var publishers = await _publisherService.GetAll();
 
-        return Ok(publishers.Select(PublisherMapper.MapList));
+        return Ok(publishers.Select(_mapper.Map<PublisherListOutputDto>));
     }
 
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
-        var publisher = await _unitOfWork.Publishers.GetById(id);
+        var publisher = await _publisherService.GetById(id);
 
         if (publisher == null)
         {
           return NotFound();
         }
 
-        return Ok(PublisherMapper.MapDetail(publisher));
+        return Ok(_mapper.Map<PublisherDetailOutputDto>(publisher));
     }
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] PublisherInputDto publisherInputDto)
     {
-        var publisher = _publisherService.Create(publisherInputDto);
-        _unitOfWork.Publishers.Add(publisher);
-        await _unitOfWork.Complete();
-        return Ok(PublisherMapper.MapDetail(publisher));
+        var publisher = await _publisherService.Create(publisherInputDto);
+        
+        return Ok(_mapper.Map<PublisherDetailOutputDto>(publisher));
     }
 
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] PublisherInputDto publisherInputDto)
     {
-        var publisher = await _unitOfWork.Publishers.GetById(id);
-
-        if (publisher == null)
+        try
         {
-          return NotFound();
+            var publisher =  await _publisherService.Update(publisherInputDto, id);
+
+            return Ok(_mapper.Map<PublisherDetailOutputDto>(publisher));
         }
-          
-        _publisherService.Update(publisherInputDto, publisher);
-        await _unitOfWork.Complete();
-        return Ok(PublisherMapper.MapDetail(publisher));
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var publisher = await _unitOfWork.Publishers.GetById(id);
-
-        if (publisher == null)
+        try
         {
-          return NotFound();
+            await _publisherService.Delete(id);
+
+            return Ok();
         }
-
-        _unitOfWork.Publishers.Remove(publisher);
-
-        await _unitOfWork.Complete();
-
-        return Ok();
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 
 }

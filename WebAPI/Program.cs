@@ -1,7 +1,8 @@
+using Core.Services;
 using DataAccessLayer;
+using WebAPI;
 using WebAPI.Extensions;
 using WebAPI.Middlewares;
-using WebAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerWithAuthentication();
 
 builder.Services.AddLogging();
+
+builder.Services.AddAutoMapper(typeof(BookHubProfile));
 
 builder.Services.AddDbContext<BookHubDbContext>();
 builder.Services.AddScoped<UnitOfWork>();

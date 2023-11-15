@@ -1,10 +1,10 @@
-﻿using DataAccessLayer;
-using DataAccessLayer.Entity;
-using DataAccessLayer.Exception;
+﻿using AutoMapper;
+using Core.DTO.Input.Order;
+using Core.DTO.Output.Order;
+using Core.Exception;
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.DTO.Input.Order;
-using WebAPI.Mapper;
-using WebAPI.Services;
+using WebAPI.Extensions;
 
 namespace WebAPI.Controllers;
 
@@ -12,34 +12,34 @@ namespace WebAPI.Controllers;
 [Route("[controller]")]
 public class OrderController : ControllerBase
 {
-    private readonly UnitOfWork _unitOfWork;
     private readonly OrderService _orderService;
-    
-    public OrderController(UnitOfWork unitOfWork, OrderService orderService)
+    private readonly IMapper _mapper;
+
+    public OrderController(OrderService orderService, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
         _orderService = orderService;
+        _mapper = mapper;
     }
     
     [HttpGet]
     public async Task<IActionResult> Fetch()
     {
-        var orders = await _unitOfWork.Orders.GetAllWithRelations();
+        var orders = await _orderService.GetAll();
         
-        return Ok(orders.Select(OrderMapper.MapList));
+        return Ok(orders.Select(_mapper.Map<OrderListOutputDto>));
     }
     
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
-        var order = await _unitOfWork.Orders.GetByIdWithRelations(id);
+        var order = await _orderService.GetById(id);
         
         if (order == null)
         {
             return NotFound();
         }
 
-        return Ok(OrderMapper.MapDetail(order));
+        return Ok(_mapper.Map<OrderDetailOutputDto>(order));
     }
     
     [HttpPost]
@@ -48,45 +48,42 @@ public class OrderController : ControllerBase
         try
         {
             var order = await _orderService.Create(orderCreateInputDto);
-            _unitOfWork.Orders.Add(order);
-            await _unitOfWork.Complete();
-            return Ok(OrderMapper.MapDetail(order));
+
+            return Ok(_mapper.Map<OrderDetailOutputDto>(order));
         }
-        catch (EntityNotFoundException<User> e)
+        catch (NotFoundException e)
         {
-            return NotFound(e.Message);
+            return NotFound(e.GetApiMessage());
         }
     }
-    
+
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] OrderUpdateInputDto orderUpdateInputDto)
     {
-        var order = await _unitOfWork.Orders.GetByIdWithRelations(id);
-        
-        if (order == null)
+        try
         {
-            return NotFound();
+            var order = await  _orderService.Update(orderUpdateInputDto, id);
+
+            return Ok(_mapper.Map<OrderDetailOutputDto>(order));
         }
-        
-        _orderService.Update(orderUpdateInputDto, order);
-        await _unitOfWork.Complete();
-        return Ok(OrderMapper.MapDetail(order));
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
-    
+
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var order = await _unitOfWork.Orders.GetById(id);
-        
-        if (order == null)
+        try
         {
-            return NotFound();
+            await _orderService.Delete(id);
+
+            return Ok();
         }
-
-        _unitOfWork.Orders.Remove(order);
-        
-        await _unitOfWork.Complete();
-
-        return Ok();
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 }

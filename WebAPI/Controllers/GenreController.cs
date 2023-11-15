@@ -1,8 +1,10 @@
-﻿using DataAccessLayer;
+﻿using AutoMapper;
+using Core.DTO.Input.Genre;
+using Core.DTO.Output.Genre;
+using Core.Exception;
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.DTO.Input.Genre;
-using WebAPI.Mapper;
-using WebAPI.Services;
+using WebAPI.Extensions;
 
 namespace WebAPI.Controllers;
 
@@ -10,75 +12,71 @@ namespace WebAPI.Controllers;
 [Route("[controller]")]
 public class GenreController : ControllerBase
 {
-    private readonly UnitOfWork _unitOfWork;
     private readonly GenreService _genreService;
+    private readonly IMapper _mapper;
 
-    public GenreController(UnitOfWork unitOfWork, GenreService genreService)
+    public GenreController(GenreService genreService, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
         _genreService = genreService;
+        _mapper = mapper;
     }
 
     [HttpGet]
     public async Task<IActionResult> Fetch()
     {
-        var genres = await _unitOfWork.Genres.GetAll();
+        var genres = await _genreService.GetAll();
 
-        return Ok(genres.Select(GenreMapper.MapList));
+        return Ok(genres.Select(_mapper.Map<GenreListOutputDto>));
     }
 
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
-        var genre = await _unitOfWork.Genres.GetByIdWithRelations(id);
+        var genre = await _genreService.GetById(id);
 
         if (genre == null)
         {
           return NotFound();
         }
 
-        return Ok(GenreMapper.MapDetail(genre));
+        return Ok(_mapper.Map<GenreDetailOutputDto>(genre));
     }
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] GenreInputDto genreInputDto)
     {
-        var genre = _genreService.Create(genreInputDto);
-        _unitOfWork.Genres.Add(genre);
-        await _unitOfWork.Complete();
-        return Ok(GenreMapper.MapDetail(genre));
+        var genre = await _genreService.Create(genreInputDto);
+
+        return Ok(_mapper.Map<GenreDetailOutputDto>(genre));
     }
 
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] GenreInputDto genreInputDto)
     {
-        var genre = await _unitOfWork.Genres.GetById(id);
-
-        if (genre == null)
+        try
         {
-          return NotFound();
+            var genre =  await _genreService.Update(genreInputDto, id);
+
+            return Ok(_mapper.Map<GenreDetailOutputDto>(genre));
         }
-          
-        _genreService.Update(genreInputDto, genre);
-        await _unitOfWork.Complete();
-        return Ok(GenreMapper.MapDetail(genre));
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var genre = await _unitOfWork.Genres.GetById(id);
-
-        if (genre == null)
+        try
         {
-          return NotFound();
+            await _genreService.Delete(id);
+
+            return Ok();
         }
-
-        _unitOfWork.Genres.Remove(genre);
-
-        await _unitOfWork.Complete();
-
-        return Ok();
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
-
 }

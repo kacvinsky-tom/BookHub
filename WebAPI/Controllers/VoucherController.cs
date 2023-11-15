@@ -1,8 +1,10 @@
-﻿using DataAccessLayer;
+﻿using AutoMapper;
+using Core.DTO.Input.Voucher;
+using Core.DTO.Output.Voucher;
+using Core.Exception;
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.DTO.Input.Voucher;
-using WebAPI.Mapper;
-using WebAPI.Services;
+using WebAPI.Extensions;
 
 namespace WebAPI.Controllers;
 
@@ -10,79 +12,71 @@ namespace WebAPI.Controllers;
 [Route("[controller]")]
 public class VoucherController : ControllerBase
 {
-    private readonly UnitOfWork _unitOfWork;
     private readonly VoucherService _voucherService;
-    
-    public VoucherController(UnitOfWork unitOfWork, VoucherService voucherService)
+    private readonly IMapper _mapper;
+
+    public VoucherController(VoucherService voucherService, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
         _voucherService = voucherService;
+        _mapper = mapper;
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> Fetch()
     {
-        var vouchers = await _unitOfWork.Vouchers.GetAll();
-        
-        return Ok(vouchers.Select(VoucherMapper.MapList));
+        var vouchers = await _voucherService.GetAll();
+
+        return Ok(vouchers.Select(_mapper.Map<VoucherListOutputDto>));
     }
-    
+
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
-        var voucher = await _unitOfWork.Vouchers.GetById(id);
+        var voucher = await _voucherService.GetById(id);
         
         if (voucher == null)
         {
             return NotFound();
         }
 
-        return Ok(VoucherMapper.MapDetail(voucher));
+        return Ok(_mapper.Map<VoucherDetailOutputDto>(voucher));
     }
     
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] VoucherInputDto voucherInputDto)
     {
-        var voucher = _voucherService.Create(voucherInputDto);
-        
-        _unitOfWork.Vouchers.Add(voucher);
+        var voucher = await _voucherService.Create(voucherInputDto);
 
-        await _unitOfWork.Complete();
-
-        return Ok(VoucherMapper.MapDetail(voucher));
+        return Ok(_mapper.Map<VoucherDetailOutputDto>(voucher));
     }
     
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] VoucherInputDto voucherInputDto)
     {
-        var voucher = await _unitOfWork.Vouchers.GetById(id);
-        
-        if (voucher == null)
+        try
         {
-            return NotFound();
-        }
-
-        _voucherService.Update(voucher, voucherInputDto);
+            var voucher = await _voucherService.Update(voucherInputDto, id);
         
-        await _unitOfWork.Complete();
-
-        return Ok(VoucherMapper.MapDetail(voucher));
+            return Ok(_mapper.Map<VoucherDetailOutputDto>(voucher));
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
-    
+
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var voucher = await _unitOfWork.Vouchers.GetById(id);
-        
-        if (voucher == null)
+        try
         {
-            return NotFound();
+            await _voucherService.Delete(id);
+
+            return Ok();
         }
-
-        _unitOfWork.Vouchers.Remove(voucher);
-        
-        await _unitOfWork.Complete();
-
-        return Ok();
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
     }
 }
