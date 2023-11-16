@@ -6,13 +6,13 @@ namespace DataAccessLayer.Repository;
 
 public class WishListItemRepository : GenericRepository<WishListItem>, IWishListItemRepository
 {
-    public WishListItemRepository(BookHubDbContext context) : base(context)
-    {
-    }
+    public WishListItemRepository(BookHubDbContext context)
+        : base(context) { }
 
     private IQueryable<WishListItem> GetBasicQuery()
     {
-        return _context.WishListItems
+        return _context
+            .WishListItems
             .Include(w => w.Book)
             .ThenInclude(b => b.Authors)
             .Include(w => w.Book)
@@ -21,13 +21,11 @@ public class WishListItemRepository : GenericRepository<WishListItem>, IWishList
 
     public async Task<WishListItem?> GetByIdWithRelations(int id)
     {
-        return await GetBasicQuery()
-            .FirstOrDefaultAsync(w => w.Id == id);
+        return await GetBasicQuery().FirstOrDefaultAsync(w => w.Id == id);
     }
 
     public async Task<IEnumerable<WishListItem>> GetAllWithRelations()
     {
-        return await GetBasicQuery()
-            .ToListAsync();
+        return await GetBasicQuery().ToListAsync();
     }
 }

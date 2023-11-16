@@ -10,29 +10,23 @@ namespace WebAPI.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_CartItems_Users_UserId",
-                table: "CartItems");
+            migrationBuilder.DropForeignKey(name: "FK_CartItems_Users_UserId", table: "CartItems");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_OrderItems_Orders_OrderId",
-                table: "OrderItems");
+                table: "OrderItems"
+            );
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_Orders_Users_UserId",
-                table: "Orders");
+            migrationBuilder.DropForeignKey(name: "FK_Orders_Users_UserId", table: "Orders");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_Reviews_Users_UserId",
-                table: "Reviews");
+            migrationBuilder.DropForeignKey(name: "FK_Reviews_Users_UserId", table: "Reviews");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_WishListItems_WishLists_WishListId",
-                table: "WishListItems");
+                table: "WishListItems"
+            );
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_WishLists_Users_UserId",
-                table: "WishLists");
+            migrationBuilder.DropForeignKey(name: "FK_WishLists_Users_UserId", table: "WishLists");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_CartItems_Users_UserId",
@@ -40,7 +34,8 @@ namespace WebAPI.Migrations
                 column: "UserId",
                 principalTable: "Users",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_OrderItems_Orders_OrderId",
@@ -48,7 +43,8 @@ namespace WebAPI.Migrations
                 column: "OrderId",
                 principalTable: "Orders",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Orders_Users_UserId",
@@ -56,7 +52,8 @@ namespace WebAPI.Migrations
                 column: "UserId",
                 principalTable: "Users",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Reviews_Users_UserId",
@@ -64,7 +61,8 @@ namespace WebAPI.Migrations
                 column: "UserId",
                 principalTable: "Users",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_WishListItems_WishLists_WishListId",
@@ -72,7 +70,8 @@ namespace WebAPI.Migrations
                 column: "WishListId",
                 principalTable: "WishLists",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_WishLists_Users_UserId",
@@ -80,35 +79,30 @@ namespace WebAPI.Migrations
                 column: "UserId",
                 principalTable: "Users",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_CartItems_Users_UserId",
-                table: "CartItems");
+            migrationBuilder.DropForeignKey(name: "FK_CartItems_Users_UserId", table: "CartItems");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_OrderItems_Orders_OrderId",
-                table: "OrderItems");
+                table: "OrderItems"
+            );
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_Orders_Users_UserId",
-                table: "Orders");
+            migrationBuilder.DropForeignKey(name: "FK_Orders_Users_UserId", table: "Orders");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_Reviews_Users_UserId",
-                table: "Reviews");
+            migrationBuilder.DropForeignKey(name: "FK_Reviews_Users_UserId", table: "Reviews");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_WishListItems_WishLists_WishListId",
-                table: "WishListItems");
+                table: "WishListItems"
+            );
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_WishLists_Users_UserId",
-                table: "WishLists");
+            migrationBuilder.DropForeignKey(name: "FK_WishLists_Users_UserId", table: "WishLists");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_CartItems_Users_UserId",
@@ -116,7 +110,8 @@ namespace WebAPI.Migrations
                 column: "UserId",
                 principalTable: "Users",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.Restrict
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_OrderItems_Orders_OrderId",
@@ -124,7 +119,8 @@ namespace WebAPI.Migrations
                 column: "OrderId",
                 principalTable: "Orders",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.Restrict
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Orders_Users_UserId",
@@ -132,7 +128,8 @@ namespace WebAPI.Migrations
                 column: "UserId",
                 principalTable: "Users",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.Restrict
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Reviews_Users_UserId",
@@ -140,7 +137,8 @@ namespace WebAPI.Migrations
                 column: "UserId",
                 principalTable: "Users",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.Restrict
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_WishListItems_WishLists_WishListId",
@@ -148,7 +146,8 @@ namespace WebAPI.Migrations
                 column: "WishListId",
                 principalTable: "WishLists",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.Restrict
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_WishLists_Users_UserId",
@@ -156,7 +155,8 @@ namespace WebAPI.Migrations
                 column: "UserId",
                 principalTable: "Users",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.Restrict
+            );
         }
     }
 }

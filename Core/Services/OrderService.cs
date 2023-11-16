@@ -11,27 +11,27 @@ namespace Core.Services;
 public class OrderService
 {
     private readonly UnitOfWork _unitOfWork;
-    
+
     public OrderService(UnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
-    
+
     public async Task<IEnumerable<Order>> GetAll()
     {
         return await _unitOfWork.Orders.GetAllWithRelations();
     }
-    
+
     public async Task<IEnumerable<OrderItem>> GetAllOrderItems()
     {
         return await _unitOfWork.OrderItems.GetAllWithRelations();
     }
-    
+
     public async Task<Order?> GetById(int id)
     {
         return await _unitOfWork.Orders.GetByIdWithRelations(id);
     }
-    
+
     public async Task<OrderItem?> GetOrderItemById(int id)
     {
         return await _unitOfWork.OrderItems.GetByIdWithRelations(id);
@@ -46,7 +46,9 @@ public class OrderService
             throw new EntityNotFoundException<User>(orderCreateInputDto.UserId);
         }
 
-        var voucher = await _unitOfWork.Vouchers.GetById(orderCreateInputDto.VoucherUsedId.GetValueOrDefault());
+        var voucher = await _unitOfWork
+            .Vouchers
+            .GetById(orderCreateInputDto.VoucherUsedId.GetValueOrDefault());
 
         if (voucher != null)
         {
@@ -59,23 +61,19 @@ public class OrderService
             };
         }
 
-        var order =  new Order
-        {
-            UserId = orderCreateInputDto.UserId,
-            User = user,
-        };
+        var order = new Order { UserId = orderCreateInputDto.UserId, User = user, };
 
-        _unitOfWork.Orders.Add(order);
+        await _unitOfWork.Orders.Add(order);
 
         await _unitOfWork.Complete();
-        
+
         return order;
     }
 
     public async Task<Order> Update(OrderUpdateInputDto orderUpdateInputDto, int orderId)
     {
         var order = await _unitOfWork.Orders.GetByIdWithRelations(orderId);
-        
+
         if (order == null)
         {
             throw new EntityNotFoundException<Order>(orderId);
@@ -89,7 +87,7 @@ public class OrderService
         }
 
         order.Status = status;
-        
+
         await _unitOfWork.Complete();
 
         return order;
@@ -112,7 +110,7 @@ public class OrderService
         }
 
         order.TotalPrice += orderItemInputDto.Price;
-        
+
         var orderItem = new OrderItem
         {
             Order = order,

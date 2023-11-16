@@ -36,7 +36,7 @@ public class PublisherController : ControllerBase
 
         if (publisher == null)
         {
-          return NotFound();
+            return NotFound();
         }
 
         return Ok(_mapper.Map<PublisherDetailOutputDto>(publisher));
@@ -46,7 +46,7 @@ public class PublisherController : ControllerBase
     public async Task<IActionResult> Create([FromBody] PublisherInputDto publisherInputDto)
     {
         var publisher = await _publisherService.Create(publisherInputDto);
-        
+
         return Ok(_mapper.Map<PublisherDetailOutputDto>(publisher));
     }
 
@@ -55,7 +55,7 @@ public class PublisherController : ControllerBase
     {
         try
         {
-            var publisher =  await _publisherService.Update(publisherInputDto, id);
+            var publisher = await _publisherService.Update(publisherInputDto, id);
 
             return Ok(_mapper.Map<PublisherDetailOutputDto>(publisher));
         }
@@ -79,5 +79,4 @@ public class PublisherController : ControllerBase
             return NotFound(e.GetApiMessage());
         }
     }
-
 }

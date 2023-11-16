@@ -33,7 +33,7 @@ public class VoucherController : ControllerBase
     public async Task<IActionResult> Fetch(int id)
     {
         var voucher = await _voucherService.GetById(id);
-        
+
         if (voucher == null)
         {
             return NotFound();
@@ -41,7 +41,7 @@ public class VoucherController : ControllerBase
 
         return Ok(_mapper.Map<VoucherDetailOutputDto>(voucher));
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] VoucherInputDto voucherInputDto)
     {
@@ -49,14 +49,14 @@ public class VoucherController : ControllerBase
 
         return Ok(_mapper.Map<VoucherDetailOutputDto>(voucher));
     }
-    
+
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] VoucherInputDto voucherInputDto)
     {
         try
         {
             var voucher = await _voucherService.Update(voucherInputDto, id);
-        
+
             return Ok(_mapper.Map<VoucherDetailOutputDto>(voucher));
         }
         catch (NotFoundException e)

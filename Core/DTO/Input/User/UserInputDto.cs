@@ -9,5 +9,4 @@ public class UserInputDto
     public string LastName { get; set; }
     public string PhoneNumber { get; set; }
     public bool IsAdmin { get; set; }
-    
 }

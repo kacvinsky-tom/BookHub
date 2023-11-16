@@ -36,7 +36,7 @@ public class GenreController : ControllerBase
 
         if (genre == null)
         {
-          return NotFound();
+            return NotFound();
         }
 
         return Ok(_mapper.Map<GenreDetailOutputDto>(genre));
@@ -55,7 +55,7 @@ public class GenreController : ControllerBase
     {
         try
         {
-            var genre =  await _genreService.Update(genreInputDto, id);
+            var genre = await _genreService.Update(genreInputDto, id);
 
             return Ok(_mapper.Map<GenreDetailOutputDto>(genre));
         }

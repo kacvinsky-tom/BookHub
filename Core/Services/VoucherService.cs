@@ -8,12 +8,12 @@ namespace Core.Services;
 public class VoucherService
 {
     private readonly UnitOfWork _unitOfWork;
-    
+
     public VoucherService(UnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
-    
+
     public async Task<IEnumerable<Voucher>> GetAll()
     {
         return await _unitOfWork.Vouchers.GetAll();
@@ -35,33 +35,33 @@ public class VoucherService
             Type = voucherInputDto.Type,
         };
 
-        _unitOfWork.Vouchers.Add(voucher);
+        await _unitOfWork.Vouchers.Add(voucher);
 
         await _unitOfWork.Complete();
-        
+
         return voucher;
-    } 
-    
+    }
+
     public async Task<Voucher> Update(VoucherInputDto voucherInputDto, int voucherId)
     {
         var voucher = await _unitOfWork.Vouchers.GetById(voucherId);
-        
+
         if (voucher == null)
         {
             throw new EntityNotFoundException<Voucher>(voucherId);
         }
-        
+
         voucher.Code = voucherInputDto.Code;
         voucher.Discount = voucherInputDto.Discount;
         voucher.ExpirationDate = voucherInputDto.ExpirationDate;
         voucher.Quantity = voucherInputDto.Quantity;
         voucher.Type = voucherInputDto.Type;
-        
+
         await _unitOfWork.Complete();
 
         return voucher;
     }
-    
+
     public async Task Delete(int voucherId)
     {
         var voucher = await _unitOfWork.Vouchers.GetById(voucherId);

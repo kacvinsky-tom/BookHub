@@ -25,7 +25,7 @@ public class OrderItemController : ControllerBase
     public async Task<IActionResult> Fetch()
     {
         var orderItems = await _orderService.GetAllOrderItems();
-        
+
         return Ok(orderItems.Select(_mapper.Map<OrderItemListOutputDto>));
     }
 
@@ -33,7 +33,7 @@ public class OrderItemController : ControllerBase
     public async Task<IActionResult> Fetch(int id)
     {
         var orderItem = await _orderService.GetOrderItemById(id);
-        
+
         if (orderItem == null)
         {
             return NotFound();
@@ -43,7 +43,9 @@ public class OrderItemController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] OrderItemCreateInputDto orderCreateInputInputDto)
+    public async Task<IActionResult> Create(
+        [FromBody] OrderItemCreateInputDto orderCreateInputInputDto
+    )
     {
         try
         {

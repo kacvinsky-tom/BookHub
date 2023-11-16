@@ -8,8 +8,10 @@ public static class ApplicationBuilderExtensions
     {
         return builder.UseMiddleware<LoggingMiddleware>();
     }
-    
-    public static IApplicationBuilder UseTokenAuthenticationMiddleware(this IApplicationBuilder builder)
+
+    public static IApplicationBuilder UseTokenAuthenticationMiddleware(
+        this IApplicationBuilder builder
+    )
     {
         return builder.UseMiddleware<TokenAuthenticationMiddleware>();
     }

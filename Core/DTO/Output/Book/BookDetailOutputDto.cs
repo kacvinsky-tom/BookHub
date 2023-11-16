@@ -22,11 +22,10 @@ public class BookDetailOutputDto : OutputDtoBase
     public PublisherDetailOutputDto Publisher { get; set; }
 
     public int ReleaseYear { get; set; }
-    
+
     public IEnumerable<AuthorListOutputDto> Authors { get; set; }
-    
+
     public ICollection<GenreListOutputDto> Genres { get; set; }
-    
+
     public IEnumerable<ReviewListOutputDto> Reviews { get; set; }
-    
 }

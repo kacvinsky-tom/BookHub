@@ -20,12 +20,12 @@ public class WishListController : ControllerBase
         _wishListService = wishListService;
         _mapper = mapper;
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> Fetch()
     {
         var wishLists = await _wishListService.GetAll();
-        
+
         return Ok(wishLists.Select(_mapper.Map<WishListListOutputDto>));
     }
 
@@ -33,7 +33,7 @@ public class WishListController : ControllerBase
     public async Task<IActionResult> Fetch(int id)
     {
         var wishList = await _wishListService.GetById(id);
-        
+
         if (wishList == null)
         {
             return NotFound();
@@ -41,7 +41,7 @@ public class WishListController : ControllerBase
 
         return Ok(_mapper.Map<WishListDetailOutputDto>(wishList));
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] WishListInputDto wishListInputDto)
     {
@@ -56,7 +56,7 @@ public class WishListController : ControllerBase
             return NotFound(e.GetApiMessage());
         }
     }
-    
+
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] WishListInputDto wishListInputDto)
     {
@@ -65,7 +65,7 @@ public class WishListController : ControllerBase
             var wishList = await _wishListService.Update(wishListInputDto, id);
 
             return Ok(_mapper.Map<WishListDetailOutputDto>(wishList));
-        } 
+        }
         catch (NotFoundException e)
         {
             return NotFound(e.GetApiMessage());

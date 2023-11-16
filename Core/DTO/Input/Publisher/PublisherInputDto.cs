@@ -7,5 +7,4 @@ public class PublisherInputDto
     public string State { get; set; }
 
     public string Email { get; set; }
-
 }

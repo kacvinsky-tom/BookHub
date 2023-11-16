@@ -14,7 +14,7 @@ public class BookController : ControllerBase
 {
     private readonly BookService _bookService;
     private readonly IMapper _mapper;
-    
+
     public BookController(BookService bookService, IMapper mapper)
     {
         _bookService = bookService;
@@ -25,7 +25,7 @@ public class BookController : ControllerBase
     public async Task<IActionResult> Fetch([FromQuery] BookFilterInputDto filterInputDto)
     {
         var books = await _bookService.GetAll(filterInputDto);
-        
+
         return Ok(books.Select(_mapper.Map<BookListOutputDto>));
     }
 
@@ -33,7 +33,7 @@ public class BookController : ControllerBase
     public async Task<IActionResult> Fetch(int id)
     {
         var book = await _bookService.GetById(id);
-        
+
         if (book == null)
         {
             return NotFound();
@@ -58,12 +58,15 @@ public class BookController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    public async Task<IActionResult> Update([FromBody] BookCreateInputDto bookCreateUpdateInputDto, int id)
+    public async Task<IActionResult> Update(
+        [FromBody] BookCreateInputDto bookCreateUpdateInputDto,
+        int id
+    )
     {
         try
         {
             var book = await _bookService.Update(bookCreateUpdateInputDto, id);
-            
+
             return Ok(_mapper.Map<BookDetailOutputDto>(book));
         }
         catch (NotFoundException e)
@@ -78,7 +81,7 @@ public class BookController : ControllerBase
         try
         {
             await _bookService.Delete(id);
-            
+
             return Ok();
         }
         catch (NotFoundException e)

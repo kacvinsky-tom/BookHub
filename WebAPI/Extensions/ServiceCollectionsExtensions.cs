@@ -12,14 +12,17 @@ public static class ServiceCollectionsExtensions
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookHub API", Version = "v1" });
 
-            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-            {
-                Description = "Enter the API key without the prefix \"Bearer\"!",
-                Name = "Authorization",
-                In = ParameterLocation.Header,
-                Type = SecuritySchemeType.Http,
-                Scheme = "Bearer"
-            });
+            c.AddSecurityDefinition(
+                "Bearer",
+                new OpenApiSecurityScheme
+                {
+                    Description = "Enter the API key without the prefix \"Bearer\"!",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "Bearer"
+                }
+            );
 
             c.AddSecurityRequirement(
                 new OpenApiSecurityRequirement
@@ -35,11 +38,15 @@ public static class ServiceCollectionsExtensions
                         },
                         Array.Empty<string>()
                     }
-                });
+                }
+            );
         });
     }
-    
-    public static IServiceCollection AddDbContextFactoryWithConfiguration(this IServiceCollection services, IConfiguration configuration)
+
+    public static IServiceCollection AddDbContextFactoryWithConfiguration(
+        this IServiceCollection services,
+        IConfiguration configuration
+    )
     {
         return services.AddDbContextFactory<BookHubDbContext>(options =>
         {
@@ -50,5 +57,4 @@ public static class ServiceCollectionsExtensions
             options.UseSqlite($"Data Source={dbPath}");
         });
     }
-
 }

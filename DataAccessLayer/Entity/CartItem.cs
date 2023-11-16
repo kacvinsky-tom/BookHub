@@ -7,6 +7,6 @@ public class CartItem : BaseEntity
 
     public int UserId { get; set; }
     public virtual User User { get; set; } = null!;
-    
+
     public int Quantity { get; set; }
 }

@@ -79,5 +79,4 @@ public class BookHubProfile : Profile
         CreateMap<WishListItem, WishListItemDetailOutputDto>();
         CreateMap<WishListItem, WishListItemListOutputDto>();
     }
-
 }

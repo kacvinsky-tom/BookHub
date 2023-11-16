@@ -20,33 +20,21 @@ public static class DataInitializer
         var orders = PrepareOrderModels();
         var orderItems = PrepareOrderItemModels();
         var vouchers = PrepareVoucherModels();
-        
-        modelBuilder.Entity<User>()
-            .HasData(users);
-        modelBuilder.Entity<Genre>()
-            .HasData(genres);
-        modelBuilder.Entity<Author>()
-            .HasData(authors);
-        modelBuilder.Entity<Publisher>()
-            .HasData(publishers);
-        modelBuilder.Entity<Book>()
-            .HasData(books);
-        modelBuilder.Entity<WishList>()
-            .HasData(wishLists);
-        modelBuilder.Entity<WishListItem>()
-            .HasData(wishListItems);
-        modelBuilder.Entity<Review>()
-            .HasData(reviews);
-        modelBuilder.Entity<CartItem>()
-            .HasData(cartItems);
-        modelBuilder.Entity<Order>()
-            .HasData(orders);
-        modelBuilder.Entity<OrderItem>()
-            .HasData(orderItems);
-        modelBuilder.Entity<Voucher>()
-            .HasData(vouchers);
+
+        modelBuilder.Entity<User>().HasData(users);
+        modelBuilder.Entity<Genre>().HasData(genres);
+        modelBuilder.Entity<Author>().HasData(authors);
+        modelBuilder.Entity<Publisher>().HasData(publishers);
+        modelBuilder.Entity<Book>().HasData(books);
+        modelBuilder.Entity<WishList>().HasData(wishLists);
+        modelBuilder.Entity<WishListItem>().HasData(wishListItems);
+        modelBuilder.Entity<Review>().HasData(reviews);
+        modelBuilder.Entity<CartItem>().HasData(cartItems);
+        modelBuilder.Entity<Order>().HasData(orders);
+        modelBuilder.Entity<OrderItem>().HasData(orderItems);
+        modelBuilder.Entity<Voucher>().HasData(vouchers);
     }
-    
+
     public static object[] BookGenreData()
     {
         return new object[]
@@ -78,7 +66,7 @@ public static class DataInitializer
             new { BooksId = 11, GenresId = 8 },
         };
     }
-    
+
     public static object[] BookAuthorData()
     {
         return new object[]
@@ -169,76 +157,20 @@ public static class DataInitializer
     {
         var genres = new List<Genre>
         {
-            new()
-            {
-                Id = 1,
-                Name = "Horor",
-            },
-            new()
-            {
-                Id = 2,
-                Name = "Fantasy",
-            },
-            new()
-            {
-                Id = 3,
-                Name = "Sci-Fi",
-            },
-            new()
-            {
-                Id = 4,
-                Name = "Romantické",
-            },
-            new()
-            {
-                Id = 5,
-                Name = "Krimi",
-            },
-            new()
-            {
-                Id = 6,
-                Name = "Mysteriózní",
-            },
-            new()
-            {
-                Id = 7,
-                Name = "Thriller",
-            },
-            new()
-            {
-                Id = 8,
-                Name = "Dobrodružné",
-            },
-            new()
-            {
-                Id = 9,
-                Name = "Akční",
-            },
-            new()
-            {
-                Id = 10,
-                Name = "Komedie",
-            },
-            new()
-            {
-                Id = 11,
-                Name = "Drama",
-            },
-            new()
-            {
-                Id = 12,
-                Name = "Biografie",
-            },
-            new()
-            {
-                Id = 13,
-                Name = "Historické romány",
-            },
-            new()
-            {
-                Id = 14,
-                Name = "Poezie",
-            }
+            new() { Id = 1, Name = "Horor", },
+            new() { Id = 2, Name = "Fantasy", },
+            new() { Id = 3, Name = "Sci-Fi", },
+            new() { Id = 4, Name = "Romantické", },
+            new() { Id = 5, Name = "Krimi", },
+            new() { Id = 6, Name = "Mysteriózní", },
+            new() { Id = 7, Name = "Thriller", },
+            new() { Id = 8, Name = "Dobrodružné", },
+            new() { Id = 9, Name = "Akční", },
+            new() { Id = 10, Name = "Komedie", },
+            new() { Id = 11, Name = "Drama", },
+            new() { Id = 12, Name = "Biografie", },
+            new() { Id = 13, Name = "Historické romány", },
+            new() { Id = 14, Name = "Poezie", }
         };
         genres.ForEach(genre => genre.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00));
         return genres;
@@ -276,6 +208,7 @@ public static class DataInitializer
         authors.ForEach(author => author.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00));
         return authors;
     }
+
     private static IEnumerable<Publisher> PreparePublisherModels()
     {
         return new List<Publisher>
@@ -303,6 +236,7 @@ public static class DataInitializer
             }
         };
     }
+
     private static IEnumerable<Book> PrepareBookModels()
     {
         var books = new List<Book>
@@ -312,7 +246,8 @@ public static class DataInitializer
                 Id = 1,
                 Title = "Barva kouzel",
                 ISBN = "978-80-7197-614-1",
-                Description = "Ve světě, který leží na krunýři obrovské želvy, se vydává na cestu rozverná, temperamentní a neuvěřitelně výstřední výprava. Setkáte se s lakomým a naprosto neschopným čarodějem Mrakoplašem, naivním turistou Dvoukvítkem, jehož Zavazadlo za ním běhá jako pes na stovce malých nožiček, s draky, kteří existují, pokud na ně opravdu věříte, a samozřejmě dojdete až na okraj této podivné planety.",
+                Description =
+                    "Ve světě, který leží na krunýři obrovské želvy, se vydává na cestu rozverná, temperamentní a neuvěřitelně výstřední výprava. Setkáte se s lakomým a naprosto neschopným čarodějem Mrakoplašem, naivním turistou Dvoukvítkem, jehož Zavazadlo za ním běhá jako pes na stovce malých nožiček, s draky, kteří existují, pokud na ně opravdu věříte, a samozřejmě dojdete až na okraj této podivné planety.",
                 Price = 399,
                 Quantity = 7,
                 ReleaseYear = 1993,
@@ -323,7 +258,8 @@ public static class DataInitializer
                 Id = 2,
                 Title = "Harry Potter a Kámen mudrců",
                 ISBN = "978-80-7197-614-1",
-                Description = "Harry Potter je sirotek, který žije u svých příbuzných Dursleyových. Jeho rodiče byli mocní čarodějové, kteří zahynuli při souboji s nejtemnějším čarodějem všech dob, Lordem Voldemortem. Harryho rodiče zanechali svého syna v péči svého přítele, kouzelníka Albusa Brumbála, ředitele Školy čar a kouzel v Bradavicích. Harryho příbuzní o jeho magických schopnostech nevědí, protože se bojí, že by ho mohli zavděčit. Harryho život je plný ponižování a šikany, ale v den jeho jedenáctých narozenin se vše změní. Harry dostane dopis od Brumbála, který ho pozve na Školu čar a kouzel v Bradavicích. Harry se dozví, že je čaroděj a že jeho rodiče zemřeli při souboji s nejtemnějším čarodějem všech dob, Lordem Voldemortem. Harry se vydává do Bradavic, kde se seznámí s Ronem Weasleym a Hermionou Grangerovou, kteří se stanou jeho nejlepšími přáteli. Harry se také dozví, že Voldemort přežil a že se chystá získat Kámen mudrců, který mu pomůže znovu získat svou moc.",
+                Description =
+                    "Harry Potter je sirotek, který žije u svých příbuzných Dursleyových. Jeho rodiče byli mocní čarodějové, kteří zahynuli při souboji s nejtemnějším čarodějem všech dob, Lordem Voldemortem. Harryho rodiče zanechali svého syna v péči svého přítele, kouzelníka Albusa Brumbála, ředitele Školy čar a kouzel v Bradavicích. Harryho příbuzní o jeho magických schopnostech nevědí, protože se bojí, že by ho mohli zavděčit. Harryho život je plný ponižování a šikany, ale v den jeho jedenáctých narozenin se vše změní. Harry dostane dopis od Brumbála, který ho pozve na Školu čar a kouzel v Bradavicích. Harry se dozví, že je čaroděj a že jeho rodiče zemřeli při souboji s nejtemnějším čarodějem všech dob, Lordem Voldemortem. Harry se vydává do Bradavic, kde se seznámí s Ronem Weasleym a Hermionou Grangerovou, kteří se stanou jeho nejlepšími přáteli. Harry se také dozví, že Voldemort přežil a že se chystá získat Kámen mudrců, který mu pomůže znovu získat svou moc.",
                 Price = 399,
                 Quantity = 17,
                 ReleaseYear = 1997,
@@ -334,7 +270,8 @@ public static class DataInitializer
                 Id = 3,
                 Title = "Hra o trůny",
                 ISBN = "978-80-257-2891-5",
-                Description = "Když král Robert rozhodne, že jeho nejstarší přítel Eddard Stark bude jeho pravou rukou, nevědomky odstartuje události, které otřesou celým kontinentem. Eddard se totiž snaží vyšetřit tajemnou smrt předchozího krájů a nastoupit na své nové místo, ale brzy zjistí, že je vše mnohem složitější, než se zdálo. Na jihu se totiž připravuje vzpoura a v záloze číhá starodávné zlo, které se probouzí.",
+                Description =
+                    "Když král Robert rozhodne, že jeho nejstarší přítel Eddard Stark bude jeho pravou rukou, nevědomky odstartuje události, které otřesou celým kontinentem. Eddard se totiž snaží vyšetřit tajemnou smrt předchozího krájů a nastoupit na své nové místo, ale brzy zjistí, že je vše mnohem složitější, než se zdálo. Na jihu se totiž připravuje vzpoura a v záloze číhá starodávné zlo, které se probouzí.",
                 Price = 699,
                 Quantity = 15,
                 ReleaseYear = 1996,
@@ -345,7 +282,8 @@ public static class DataInitializer
                 Id = 4,
                 Title = "To",
                 ISBN = "978-80-7197-614-1",
-                Description = "V roce 1958 se sedmička přátel z Derry, malého městečka v americkém státě Maine, vydává do kanalizace, aby zničila zlého klauna Pennywaise, který se zde ukrývá. Sedmička však zjistí, že Pennywise je jen jedním z mnoha podob zla, které se ukrývá v Derry. Ze slibu se však stane kletba a sedmička se musí v roce 1985 vrátit do Derry, aby zlo zničila jednou provždy.",
+                Description =
+                    "V roce 1958 se sedmička přátel z Derry, malého městečka v americkém státě Maine, vydává do kanalizace, aby zničila zlého klauna Pennywaise, který se zde ukrývá. Sedmička však zjistí, že Pennywise je jen jedním z mnoha podob zla, které se ukrývá v Derry. Ze slibu se však stane kletba a sedmička se musí v roce 1985 vrátit do Derry, aby zlo zničila jednou provždy.",
                 Price = 799,
                 Quantity = 2,
                 ReleaseYear = 1986,
@@ -356,7 +294,8 @@ public static class DataInitializer
                 Id = 5,
                 Title = "Harry Potter a Tajemná komnata",
                 ISBN = "978-80-7197-614-1",
-                Description = "Harry Potter, Ron Weasley a Hermiona Grangerová se vrací do Bradavic, kde se dozvědí o Tajemné komnatě, která je úzce spojena s Harrym. Harry se rozhodne najít Tajemnou komnatu a zjistit, co se tam skrývá. Harryho plán je však zmařen, když se objeví záhadný písař. Harryho přítel Ron je napaden a jeho sestra Ginny zmizí. Harry, Ron a Hermiona se tak vydávají do Tajemné komnaty, aby zjistili, co se tam skrývá a zachránili Ginny.",
+                Description =
+                    "Harry Potter, Ron Weasley a Hermiona Grangerová se vrací do Bradavic, kde se dozvědí o Tajemné komnatě, která je úzce spojena s Harrym. Harry se rozhodne najít Tajemnou komnatu a zjistit, co se tam skrývá. Harryho plán je však zmařen, když se objeví záhadný písař. Harryho přítel Ron je napaden a jeho sestra Ginny zmizí. Harry, Ron a Hermiona se tak vydávají do Tajemné komnaty, aby zjistili, co se tam skrývá a zachránili Ginny.",
                 Price = 399,
                 Quantity = 9,
                 ReleaseYear = 1998,
@@ -367,7 +306,8 @@ public static class DataInitializer
                 Id = 6,
                 Title = "Harry Potter a vězeň z Azkabanu",
                 ISBN = "978-80-7197-614-1",
-                Description = "Harry Potter se vrací do Bradavic, ale tentokrát se musí vyhýbat nebezpečnému vězni jménem Sirius Black, který utekl z Azkabanu. Harry se dozví, že Sirius byl vězněn kvůli tomu, že zradil jeho rodiče a že se chystá Harryho zabít. Harry se vydává na cestu, která ho zavede do minulosti, kde se dozví, že Sirius není tím, za koho se vydává.",
+                Description =
+                    "Harry Potter se vrací do Bradavic, ale tentokrát se musí vyhýbat nebezpečnému vězni jménem Sirius Black, který utekl z Azkabanu. Harry se dozví, že Sirius byl vězněn kvůli tomu, že zradil jeho rodiče a že se chystá Harryho zabít. Harry se vydává na cestu, která ho zavede do minulosti, kde se dozví, že Sirius není tím, za koho se vydává.",
                 Price = 399,
                 Quantity = 11,
                 ReleaseYear = 1999,
@@ -378,7 +318,8 @@ public static class DataInitializer
                 Id = 7,
                 Title = "Harry Potter a Ohnivý pohár",
                 ISBN = "978-80-7197-614-1",
-                Description = "Harry Potter se vrací do Bradavic, kde se má konat Turnaj tří kouzelníků. Harry se však dozví, že se do turnaje dostal podvodem a že se musí zúčastnit tří nebezpečných úkolů. Harry se vydává na cestu, která ho zavede do minulosti, kde se dozví, že se do turnaje dostal podvodem a že se musí zúčastnit tří nebezpečných úkolů.",
+                Description =
+                    "Harry Potter se vrací do Bradavic, kde se má konat Turnaj tří kouzelníků. Harry se však dozví, že se do turnaje dostal podvodem a že se musí zúčastnit tří nebezpečných úkolů. Harry se vydává na cestu, která ho zavede do minulosti, kde se dozví, že se do turnaje dostal podvodem a že se musí zúčastnit tří nebezpečných úkolů.",
                 Price = 399,
                 Quantity = 13,
                 ReleaseYear = 2000,
@@ -389,7 +330,8 @@ public static class DataInitializer
                 Id = 8,
                 Title = "Harry Potter a Fénixův řád",
                 ISBN = "978-80-7197-614-1",
-                Description = "Do Bradavic přišly temné časy. Po útoku mozkomorů na bratrance Dudleyho Harry ví, že Voldemort udělá cokoli, jen aby ho našel. Mnozí jeho návrat popírají, ale Harry přesto není sám: na Grimmauldově náměstí se schází tajný řád, který chce bojovat proti temným silám. Harry se musí od profesora Snapea naučit, jak se chránit před Voldemortovými útoky na jeho duši. Jenže Pán zla je den ode dne silnější a Harrymu dochází čas…",
+                Description =
+                    "Do Bradavic přišly temné časy. Po útoku mozkomorů na bratrance Dudleyho Harry ví, že Voldemort udělá cokoli, jen aby ho našel. Mnozí jeho návrat popírají, ale Harry přesto není sám: na Grimmauldově náměstí se schází tajný řád, který chce bojovat proti temným silám. Harry se musí od profesora Snapea naučit, jak se chránit před Voldemortovými útoky na jeho duši. Jenže Pán zla je den ode dne silnější a Harrymu dochází čas…",
                 Price = 399,
                 Quantity = 13,
                 ReleaseYear = 2000,
@@ -400,7 +342,8 @@ public static class DataInitializer
                 Id = 9,
                 Title = "Harry Potter a princ dvojí krve",
                 ISBN = "978-80-7197-614-1",
-                Description = "Moc Lorda Voldemorta stále roste a smrtijedi působí spoušť ve světě mudlů i kouzelníků. Když Harry Potter objeví starou učebnici lektvarů patřící tajemnému princi dvojí krve, spoléhá na její kouzla i přes varování svých kamarádů. Profesor Brumbál poodhaluje Voldemortovu minulost a s Harryho pomocí se snaží odkrýt tajemství jeho nesmrtelnosti. Jenže zlo se dere k moci stále silněji, neštěstí se blíží a Bradavice už nikdy nebudou jako dřív.",
+                Description =
+                    "Moc Lorda Voldemorta stále roste a smrtijedi působí spoušť ve světě mudlů i kouzelníků. Když Harry Potter objeví starou učebnici lektvarů patřící tajemnému princi dvojí krve, spoléhá na její kouzla i přes varování svých kamarádů. Profesor Brumbál poodhaluje Voldemortovu minulost a s Harryho pomocí se snaží odkrýt tajemství jeho nesmrtelnosti. Jenže zlo se dere k moci stále silněji, neštěstí se blíží a Bradavice už nikdy nebudou jako dřív.",
                 Price = 399,
                 Quantity = 13,
                 ReleaseYear = 2005,
@@ -411,7 +354,8 @@ public static class DataInitializer
                 Id = 10,
                 Title = "Harry Potter a Relikvie smrti",
                 ISBN = "978-80-7197-614-1",
-                Description = "Harry Potter se vydává na nebezpečnou cestu, aby zničil poslední Voldemortovy viteály. Společně s Ronem a Hermionou hledá zbytek Voldemortovy duše, který se ukrývá v tělech jeho nejmocnějších stoupenců. Harry se musí vydat na nebezpečnou cestu, aby zničil poslední Voldemortovy viteály. Společně s Ronem a Hermionou hledá zbytek Voldemortovy duše, který se ukrývá v tělech jeho nejmocnějších stoupenců.",
+                Description =
+                    "Harry Potter se vydává na nebezpečnou cestu, aby zničil poslední Voldemortovy viteály. Společně s Ronem a Hermionou hledá zbytek Voldemortovy duše, který se ukrývá v tělech jeho nejmocnějších stoupenců. Harry se musí vydat na nebezpečnou cestu, aby zničil poslední Voldemortovy viteály. Společně s Ronem a Hermionou hledá zbytek Voldemortovy duše, který se ukrývá v tělech jeho nejmocnějších stoupenců.",
                 Price = 399,
                 Quantity = 13,
                 ReleaseYear = 2007,
@@ -422,7 +366,8 @@ public static class DataInitializer
                 Id = 11,
                 Title = "Harry Potter a prokleté dítě",
                 ISBN = "978-80-7197-614-1",
-                Description = "Harry Potter je zaměstnán v Ministerstvu kouzel a má tři školáky. Jeho minulost ho však neustále pronásleduje. Harry Potter je zaměstnán v Ministerstvu kouzel a má tři školáky. Jeho minulost ho však neustále pronásleduje.",
+                Description =
+                    "Harry Potter je zaměstnán v Ministerstvu kouzel a má tři školáky. Jeho minulost ho však neustále pronásleduje. Harry Potter je zaměstnán v Ministerstvu kouzel a má tři školáky. Jeho minulost ho však neustále pronásleduje.",
                 Price = 399,
                 Quantity = 13,
                 ReleaseYear = 2016,
@@ -495,7 +440,9 @@ public static class DataInitializer
                 BookId = 11,
             },
         };
-        wishlistItems.ForEach(wishlistItem => wishlistItem.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00));
+        wishlistItems.ForEach(
+            wishlistItem => wishlistItem.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00)
+        );
         return wishlistItems;
     }
 
@@ -509,7 +456,8 @@ public static class DataInitializer
                 BookId = 1,
                 UserId = 1,
                 Rating = 5,
-                Comment = "Barva kouzel od Terryho Pratchetta je brilantní kombinací fantasy a humoru. Pratchettova schopnost tvořit fantastické světy a vtipně komentovat naši skutečnost je prostě neuvěřitelná. Tato kniha je nesmírně zábavná a zároveň hluboká.",
+                Comment =
+                    "Barva kouzel od Terryho Pratchetta je brilantní kombinací fantasy a humoru. Pratchettova schopnost tvořit fantastické světy a vtipně komentovat naši skutečnost je prostě neuvěřitelná. Tato kniha je nesmírně zábavná a zároveň hluboká.",
             },
             new()
             {
@@ -517,7 +465,8 @@ public static class DataInitializer
                 BookId = 1,
                 UserId = 2,
                 Rating = 5,
-                Comment = "Když jsem poprvé četl Barvu kouzel, byl jsem ohromen Pratchettovým talentem. Jeho postavy jsou živé, zápletka je originální a humor je úžasný. V průběhu knihy jsem se smál na každé stránce.",
+                Comment =
+                    "Když jsem poprvé četl Barvu kouzel, byl jsem ohromen Pratchettovým talentem. Jeho postavy jsou živé, zápletka je originální a humor je úžasný. V průběhu knihy jsem se smál na každé stránce.",
             },
             new()
             {
@@ -525,7 +474,8 @@ public static class DataInitializer
                 BookId = 1,
                 UserId = 3,
                 Rating = 4,
-                Comment = "Barva kouzel je úžasným začátkem dlouhé série knih ze Zeměplochy od Terryho Pratchetta. Kniha je plná vtipných narážek, alegorií a skvělých postav. Pratchettova imaginace je prostě neomezená.",
+                Comment =
+                    "Barva kouzel je úžasným začátkem dlouhé série knih ze Zeměplochy od Terryho Pratchetta. Kniha je plná vtipných narážek, alegorií a skvělých postav. Pratchettova imaginace je prostě neomezená.",
             },
             new()
             {
@@ -533,7 +483,8 @@ public static class DataInitializer
                 BookId = 1,
                 UserId = 4,
                 Rating = 4,
-                Comment = "Terry Pratchett byl génius a Barva kouzel to dokazuje. Jeho schopnost kombinovat fantasy s komedií a zároveň skvěle komentovat různé aspekty naší společnosti je úžasná. Tato kniha je klenotem a musí pro všechny fanoušky fantasy a humoru.",
+                Comment =
+                    "Terry Pratchett byl génius a Barva kouzel to dokazuje. Jeho schopnost kombinovat fantasy s komedií a zároveň skvěle komentovat různé aspekty naší společnosti je úžasná. Tato kniha je klenotem a musí pro všechny fanoušky fantasy a humoru.",
             },
             new()
             {
@@ -541,7 +492,8 @@ public static class DataInitializer
                 BookId = 7,
                 UserId = 1,
                 Rating = 5,
-                Comment = "Harry Potter a Ohnivý pohár je zlomovým dílem v sérii. Rowlingova schopnost rozvíjet svět čarodějů a postavy je úžasná. Tato kniha je plná napětí, dobrodružství a emocí. Nemohl jsem se od ní odtrhnout.",
+                Comment =
+                    "Harry Potter a Ohnivý pohár je zlomovým dílem v sérii. Rowlingova schopnost rozvíjet svět čarodějů a postavy je úžasná. Tato kniha je plná napětí, dobrodružství a emocí. Nemohl jsem se od ní odtrhnout.",
             },
             new()
             {
@@ -549,7 +501,8 @@ public static class DataInitializer
                 BookId = 7,
                 UserId = 2,
                 Rating = 4,
-                Comment = "Kniha Harry Potter a Ohnivý pohár je nejen temnější než předchozí díly, ale také daleko složitější. Rowling zde ukazuje, že její příběh není určen jen pro děti. Děj je napínavý a postavy procházejí důležitými změnami.",
+                Comment =
+                    "Kniha Harry Potter a Ohnivý pohár je nejen temnější než předchozí díly, ale také daleko složitější. Rowling zde ukazuje, že její příběh není určen jen pro děti. Děj je napínavý a postavy procházejí důležitými změnami.",
             },
             new()
             {
@@ -557,7 +510,8 @@ public static class DataInitializer
                 BookId = 7,
                 UserId = 3,
                 Rating = 5,
-                Comment = "Harry Potterova čtvrtá dobrodružství v Ohnivém poháru jsou fantastická. Tato kniha se vyznačuje neuvěřitelným nasazením a soubojem na Turnaji tří kouzel. Rowlingova schopnost vytvořit komplexní a poutavý příběh zůstává nepřekonaná.",
+                Comment =
+                    "Harry Potterova čtvrtá dobrodružství v Ohnivém poháru jsou fantastická. Tato kniha se vyznačuje neuvěřitelným nasazením a soubojem na Turnaji tří kouzel. Rowlingova schopnost vytvořit komplexní a poutavý příběh zůstává nepřekonaná.",
             },
             new()
             {
@@ -565,7 +519,8 @@ public static class DataInitializer
                 BookId = 7,
                 UserId = 4,
                 Rating = 5,
-                Comment = "Harry Potter a Ohnivý pohár je dalším důkazem Rowlinginy brilantní schopnosti psát pro různé věkové kategorie. Tato kniha je poutavá, plná tajemství a emocí, a dokazuje, proč je série Harryho Pottera tak oblíbená po celém světě.",
+                Comment =
+                    "Harry Potter a Ohnivý pohár je dalším důkazem Rowlinginy brilantní schopnosti psát pro různé věkové kategorie. Tato kniha je poutavá, plná tajemství a emocí, a dokazuje, proč je série Harryho Pottera tak oblíbená po celém světě.",
             },
         };
         reviews.ForEach(review => review.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00));
@@ -677,7 +632,9 @@ public static class DataInitializer
                 ISBN = "978-80-7197-611-0",
             }
         };
-        orderItems.ForEach(orderItem => orderItem.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00));
+        orderItems.ForEach(
+            orderItem => orderItem.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00)
+        );
         return orderItems;
     }
 

@@ -15,12 +15,12 @@ public class BookCreateInputDto
     public int Quantity { get; set; }
 
     public int ReleaseYear { get; set; }
-    
+
     public bool IsDeleted { get; set; }
-    
+
     public int PublisherId { get; set; }
-    
+
     public List<int> AuthorsIds { get; set; }
-    
+
     public IEnumerable<int> GenreIds { get; set; } = new List<int>();
 }

@@ -8,13 +8,13 @@ namespace DataAccessLayer.Repository;
 
 public class BookRepository : GenericRepository<Book>, IBookRepository
 {
-    public BookRepository(BookHubDbContext context) : base(context)
-    {
-    }
+    public BookRepository(BookHubDbContext context)
+        : base(context) { }
 
     private IQueryable<Book> GetBasicQuery()
     {
-        return _context.Books
+        return _context
+            .Books
             .Include(book => book.Genres)
             .Include(book => book.Reviews)
             .ThenInclude(review => review.User)
@@ -38,7 +38,6 @@ public class BookRepository : GenericRepository<Book>, IBookRepository
 
     public async Task<Book?> GetByIdWithRelations(int id)
     {
-        return await GetBasicQuery()
-            .FirstOrDefaultAsync(book => book.Id == id);
+        return await GetBasicQuery().FirstOrDefaultAsync(book => book.Id == id);
     }
 }

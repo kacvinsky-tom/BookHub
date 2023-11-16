@@ -19,9 +19,8 @@ public class UnitOfWork
     public IWishListItemRepository WishListItems { get; }
 
     public IReviewRepository Reviews { get; }
-    
-    public IVoucherRepository Vouchers { get; }
 
+    public IVoucherRepository Vouchers { get; }
 
     public UnitOfWork(
         BookHubDbContext context,

@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using Core.DTO.Input.Author;
 using Core.DTO.Output.Author;
 using Core.Exception;
 using Core.Services;
+using Microsoft.AspNetCore.Mvc;
 using WebAPI.Extensions;
 
 namespace WebAPI.Controllers;
@@ -36,7 +36,7 @@ public class AuthorController : ControllerBase
 
         if (author == null)
         {
-          return NotFound();
+            return NotFound();
         }
 
         return Ok(_mapper.Map<AuthorDetailOutputDto>(author));
@@ -79,5 +79,4 @@ public class AuthorController : ControllerBase
             return NotFound(e.GetApiMessage());
         }
     }
-
 }
