@@ -100,7 +100,7 @@ public class WishListService
 
         var wishListItem = new WishListItem { WishList = wishlist, Book = book, };
 
-        _unitOfWork.WishListItems.Add(wishListItem);
+        await _unitOfWork.WishListItems.Add(wishListItem);
 
         await _unitOfWork.Complete();
 

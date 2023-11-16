@@ -111,7 +111,6 @@ public class BookService
         book.Quantity = bookCreateUpdateInputDto.Quantity;
         book.PublisherId = bookCreateUpdateInputDto.PublisherId;
         book.ReleaseYear = bookCreateUpdateInputDto.ReleaseYear;
-        book.IsDeleted = bookCreateUpdateInputDto.IsDeleted;
         book.Authors = authors.ToList();
         book.Genres = genres.ToList();
 

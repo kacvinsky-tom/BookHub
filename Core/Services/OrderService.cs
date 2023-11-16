@@ -123,7 +123,7 @@ public class OrderService
             Quantity = orderItemInputDto.Quantity
         };
 
-        _unitOfWork.OrderItems.Add(orderItem);
+        await _unitOfWork.OrderItems.Add(orderItem);
         await _unitOfWork.Complete();
 
         return orderItem;

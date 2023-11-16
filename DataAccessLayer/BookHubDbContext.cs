@@ -19,6 +19,9 @@ public class BookHubDbContext : DbContext
 
     public DbSet<Voucher> Vouchers { get; set; } = null!;
 
+    public BookHubDbContext(DbContextOptions<BookHubDbContext> options)
+        : base(options) { }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         foreach (
