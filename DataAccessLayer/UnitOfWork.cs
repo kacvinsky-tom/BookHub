@@ -23,22 +23,35 @@ public class UnitOfWork
     public IVoucherRepository Vouchers { get; }
 
 
-    public UnitOfWork(BookHubDbContext context)
+    public UnitOfWork(
+        BookHubDbContext context,
+        IBookRepository bookRepository,
+        IAuthorRepository authorRepository,
+        IPublisherRepository publisherRepository,
+        IGenreRepository genreRepository,
+        ICartItemRepository cartItemRepository,
+        IOrderRepository orderRepository,
+        IOrderItemRepository orderItemRepository,
+        IUserRepository userRepository,
+        IWishListRepository wishListRepository,
+        IWishListItemRepository wishListItemRepository,
+        IReviewRepository reviewRepository,
+        IVoucherRepository voucherRepository
+    )
     {
         _context = context;
-        
-        Books = new BookRepository(_context);
-        Publishers = new PublisherRepository(_context);
-        Authors = new AuthorRepository(_context);
-        Genres = new GenreRepository(_context);
-        Orders = new OrderRepository(_context);
-        OrderItems = new OrderItemRepository(_context);
-        Users = new UserRepository(_context);
-        CartItems = new CartItemRepository(_context);
-        WishLists = new WishListRepository(_context);
-        WishListItems = new WishListItemRepository(_context);
-        Reviews = new ReviewRepository(_context);
-        Vouchers = new VoucherRepository(_context);
+        Books = bookRepository;
+        Publishers = publisherRepository;
+        Authors = authorRepository;
+        Genres = genreRepository;
+        Orders = orderRepository;
+        OrderItems = orderItemRepository;
+        Users = userRepository;
+        CartItems = cartItemRepository;
+        WishLists = wishListRepository;
+        WishListItems = wishListItemRepository;
+        Reviews = reviewRepository;
+        Vouchers = voucherRepository;
     }
 
     public async Task Complete()
