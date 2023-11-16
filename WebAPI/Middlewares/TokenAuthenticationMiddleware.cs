@@ -42,11 +42,3 @@ public class TokenAuthenticationMiddleware
     }
     
 }
-
-public static class TokenAuthenticationMiddlewareExtensions
-{
-    public static IApplicationBuilder UseTokenAuthenticationMiddleware(this IApplicationBuilder builder)
-    {
-        return builder.UseMiddleware<TokenAuthenticationMiddleware>();
-    }
-}

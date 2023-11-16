@@ -39,9 +39,9 @@ public static class ServiceCollectionsExtensions
         });
     }
     
-    public static void AddDbContextFactoryWithConfiguration(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddDbContextFactoryWithConfiguration(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContextFactory<BookHubDbContext>(options =>
+        return services.AddDbContextFactory<BookHubDbContext>(options =>
         {
             const Environment.SpecialFolder folder = Environment.SpecialFolder.LocalApplicationData;
             var dbFileName = configuration.GetValue<string>("ConnectionStrings:SQLiteFileName");

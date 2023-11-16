@@ -37,11 +37,3 @@ public class LoggingMiddleware
             $" | {string.Join(";", context.Request.Headers.Select(header => $"{header.Key} : {header.Value}"))}"; 
     }
 }
-
-public static class LoggingMiddlewareExtensions
-{
-    public static IApplicationBuilder UseLoggingMiddleware(this IApplicationBuilder builder)
-    {
-        return builder.UseMiddleware<LoggingMiddleware>();
-    }
-}
