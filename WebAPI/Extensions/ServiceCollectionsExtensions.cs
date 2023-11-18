@@ -6,9 +6,9 @@ namespace WebAPI.Extensions;
 
 public static class ServiceCollectionsExtensions
 {
-    public static IServiceCollection AddSwaggerWithAuthentication(this IServiceCollection services)
+    public static void AddSwaggerWithAuthentication(this IServiceCollection services)
     {
-        return services.AddSwaggerGen(c =>
+        services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookHub API", Version = "v1" });
 
@@ -42,19 +42,12 @@ public static class ServiceCollectionsExtensions
             );
         });
     }
-
-    public static IServiceCollection AddDbContextFactoryWithConfiguration(
-        this IServiceCollection services,
-        IConfiguration configuration
-    )
+    public static void AddDbContextFactoryWithConfiguration(this IServiceCollection services, IConfiguration configuration)
     {
-        return services.AddDbContextFactory<BookHubDbContext>(options =>
+        services.AddDbContextFactory<BookHubDbContext>(options =>
         {
-            const Environment.SpecialFolder folder = Environment.SpecialFolder.LocalApplicationData;
-            var dbFileName = configuration.GetValue<string>("ConnectionStrings:SQLiteFileName");
-            var dbPath = Path.Join(Environment.GetFolderPath(folder), dbFileName);
-
-            options.UseSqlite($"Data Source={dbPath}");
+            var connectionString = configuration.GetValue<string>("ConnectionStrings:LocalPostgresConnection");
+            options.UseNpgsql(connectionString);
         });
     }
 }

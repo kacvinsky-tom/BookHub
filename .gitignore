@@ -5,3 +5,4 @@ obj
 bin
 /.vs
 /BookHub.csproj.user
+/BookHub.sln.DotSettings.user
