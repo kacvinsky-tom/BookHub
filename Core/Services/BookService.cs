@@ -29,12 +29,12 @@ public class BookService
         var publisher = await _unitOfWork.Publishers.GetById(bookCreateCreateInputDto.PublisherId);
         var authors = await _unitOfWork
             .Authors
-            .Find(author => bookCreateCreateInputDto.AuthorsIds.Contains(author.Id));
+            .Find(author => bookCreateCreateInputDto.AuthorIds.Contains(author.Id));
 
         if (authors == null)
         {
             throw new EntityNotFoundException<Author>(
-                bookCreateCreateInputDto.AuthorsIds.FirstOrDefault()
+                bookCreateCreateInputDto.AuthorIds.FirstOrDefault()
             );
         }
         if (publisher == null)
@@ -86,12 +86,12 @@ public class BookService
 
         var authors = await _unitOfWork
             .Authors
-            .Find(author => bookCreateUpdateInputDto.AuthorsIds.Contains(author.Id));
+            .Find(author => bookCreateUpdateInputDto.AuthorIds.Contains(author.Id));
 
         if (authors == null)
         {
             throw new EntityNotFoundException<Author>(
-                bookCreateUpdateInputDto.AuthorsIds.FirstOrDefault()
+                bookCreateUpdateInputDto.AuthorIds.FirstOrDefault()
             );
         }
         if (publisher == null)

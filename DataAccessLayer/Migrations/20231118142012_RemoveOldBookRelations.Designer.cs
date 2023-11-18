@@ -3,6 +3,7 @@ using System;
 using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,12 +11,44 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(BookHubDbContext))]
-    partial class BookHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231118142012_RemoveOldBookRelations")]
+    partial class RemoveOldBookRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
+
+            modelBuilder.Entity("AuthorBook", b =>
+                {
+                    b.Property<int>("AuthorsId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("BooksId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("AuthorsId", "BooksId");
+
+                    b.HasIndex("BooksId");
+
+                    b.ToTable("AuthorBook");
+                });
+
+            modelBuilder.Entity("BookGenre", b =>
+                {
+                    b.Property<int>("BooksId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("GenresId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("BooksId", "GenresId");
+
+                    b.HasIndex("GenresId");
+
+                    b.ToTable("BookGenre");
+                });
 
             modelBuilder.Entity("DataAccessLayer.Entity.Author", b =>
                 {
@@ -263,290 +296,6 @@ namespace WebAPI.Migrations
                             Quantity = 13,
                             ReleaseYear = 2016,
                             Title = "Harry Potter a prokleté dítě"
-                        });
-                });
-
-            modelBuilder.Entity("DataAccessLayer.Entity.BookAuthor", b =>
-                {
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("AuthorId", "BookId");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("BookAuthor");
-
-                    b.HasData(
-                        new
-                        {
-                            AuthorId = 1,
-                            BookId = 1
-                        },
-                        new
-                        {
-                            AuthorId = 2,
-                            BookId = 1
-                        },
-                        new
-                        {
-                            AuthorId = 3,
-                            BookId = 2
-                        },
-                        new
-                        {
-                            AuthorId = 4,
-                            BookId = 2
-                        },
-                        new
-                        {
-                            AuthorId = 1,
-                            BookId = 3
-                        },
-                        new
-                        {
-                            AuthorId = 2,
-                            BookId = 3
-                        },
-                        new
-                        {
-                            AuthorId = 3,
-                            BookId = 3
-                        },
-                        new
-                        {
-                            AuthorId = 4,
-                            BookId = 4
-                        },
-                        new
-                        {
-                            AuthorId = 1,
-                            BookId = 4
-                        },
-                        new
-                        {
-                            AuthorId = 2,
-                            BookId = 4
-                        },
-                        new
-                        {
-                            AuthorId = 3,
-                            BookId = 4
-                        },
-                        new
-                        {
-                            AuthorId = 4,
-                            BookId = 5
-                        },
-                        new
-                        {
-                            AuthorId = 1,
-                            BookId = 5
-                        },
-                        new
-                        {
-                            AuthorId = 2,
-                            BookId = 6
-                        },
-                        new
-                        {
-                            AuthorId = 3,
-                            BookId = 6
-                        },
-                        new
-                        {
-                            AuthorId = 4,
-                            BookId = 7
-                        },
-                        new
-                        {
-                            AuthorId = 1,
-                            BookId = 7
-                        },
-                        new
-                        {
-                            AuthorId = 2,
-                            BookId = 8
-                        },
-                        new
-                        {
-                            AuthorId = 3,
-                            BookId = 8
-                        },
-                        new
-                        {
-                            AuthorId = 4,
-                            BookId = 9
-                        },
-                        new
-                        {
-                            AuthorId = 1,
-                            BookId = 9
-                        },
-                        new
-                        {
-                            AuthorId = 2,
-                            BookId = 10
-                        },
-                        new
-                        {
-                            AuthorId = 3,
-                            BookId = 10
-                        },
-                        new
-                        {
-                            AuthorId = 4,
-                            BookId = 11
-                        },
-                        new
-                        {
-                            AuthorId = 1,
-                            BookId = 11
-                        });
-                });
-
-            modelBuilder.Entity("DataAccessLayer.Entity.BookGenre", b =>
-                {
-                    b.Property<int>("BookId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("GenreId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("BookId", "GenreId");
-
-                    b.HasIndex("GenreId");
-
-                    b.ToTable("BookGenre");
-
-                    b.HasData(
-                        new
-                        {
-                            BookId = 1,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            BookId = 1,
-                            GenreId = 8
-                        },
-                        new
-                        {
-                            BookId = 2,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            BookId = 2,
-                            GenreId = 8
-                        },
-                        new
-                        {
-                            BookId = 3,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            BookId = 3,
-                            GenreId = 8
-                        },
-                        new
-                        {
-                            BookId = 3,
-                            GenreId = 9
-                        },
-                        new
-                        {
-                            BookId = 4,
-                            GenreId = 1
-                        },
-                        new
-                        {
-                            BookId = 4,
-                            GenreId = 5
-                        },
-                        new
-                        {
-                            BookId = 4,
-                            GenreId = 6
-                        },
-                        new
-                        {
-                            BookId = 4,
-                            GenreId = 7
-                        },
-                        new
-                        {
-                            BookId = 5,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            BookId = 5,
-                            GenreId = 8
-                        },
-                        new
-                        {
-                            BookId = 6,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            BookId = 6,
-                            GenreId = 8
-                        },
-                        new
-                        {
-                            BookId = 7,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            BookId = 7,
-                            GenreId = 8
-                        },
-                        new
-                        {
-                            BookId = 8,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            BookId = 8,
-                            GenreId = 8
-                        },
-                        new
-                        {
-                            BookId = 9,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            BookId = 9,
-                            GenreId = 8
-                        },
-                        new
-                        {
-                            BookId = 10,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            BookId = 10,
-                            GenreId = 8
-                        },
-                        new
-                        {
-                            BookId = 11,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            BookId = 11,
-                            GenreId = 8
                         });
                 });
 
@@ -1294,6 +1043,36 @@ namespace WebAPI.Migrations
                         });
                 });
 
+            modelBuilder.Entity("AuthorBook", b =>
+                {
+                    b.HasOne("DataAccessLayer.Entity.Author", null)
+                        .WithMany()
+                        .HasForeignKey("AuthorsId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DataAccessLayer.Entity.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BooksId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BookGenre", b =>
+                {
+                    b.HasOne("DataAccessLayer.Entity.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BooksId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DataAccessLayer.Entity.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenresId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("DataAccessLayer.Entity.Book", b =>
                 {
                     b.HasOne("DataAccessLayer.Entity.Publisher", "Publisher")
@@ -1303,44 +1082,6 @@ namespace WebAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Publisher");
-                });
-
-            modelBuilder.Entity("DataAccessLayer.Entity.BookAuthor", b =>
-                {
-                    b.HasOne("DataAccessLayer.Entity.Author", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DataAccessLayer.Entity.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Book");
-                });
-
-            modelBuilder.Entity("DataAccessLayer.Entity.BookGenre", b =>
-                {
-                    b.HasOne("DataAccessLayer.Entity.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DataAccessLayer.Entity.Genre", "Genre")
-                        .WithMany()
-                        .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-
-                    b.Navigation("Genre");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entity.CartItem", b =>

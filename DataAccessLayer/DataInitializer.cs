@@ -20,6 +20,8 @@ public static class DataInitializer
         var orders = PrepareOrderModels();
         var orderItems = PrepareOrderItemModels();
         var vouchers = PrepareVoucherModels();
+        var bookGenres = PrepareBookGenreRelations();
+        var bookAuthors = PrepareBookAuthorRelations();
 
         modelBuilder.Entity<User>().HasData(users);
         modelBuilder.Entity<Genre>().HasData(genres);
@@ -33,69 +35,71 @@ public static class DataInitializer
         modelBuilder.Entity<Order>().HasData(orders);
         modelBuilder.Entity<OrderItem>().HasData(orderItems);
         modelBuilder.Entity<Voucher>().HasData(vouchers);
+        modelBuilder.Entity<BookGenre>().HasData(bookGenres);
+        modelBuilder.Entity<BookAuthor>().HasData(bookAuthors);
     }
 
-    public static object[] BookGenreData()
+    private static IEnumerable<BookGenre> PrepareBookGenreRelations()
     {
-        return new object[]
+        return new List<BookGenre>
         {
-            new { BooksId = 1, GenresId = 2 },
-            new { BooksId = 1, GenresId = 8 },
-            new { BooksId = 2, GenresId = 2 },
-            new { BooksId = 2, GenresId = 8 },
-            new { BooksId = 3, GenresId = 2 },
-            new { BooksId = 3, GenresId = 8 },
-            new { BooksId = 3, GenresId = 9 },
-            new { BooksId = 4, GenresId = 1 },
-            new { BooksId = 4, GenresId = 5 },
-            new { BooksId = 4, GenresId = 6 },
-            new { BooksId = 4, GenresId = 7 },
-            new { BooksId = 5, GenresId = 2 },
-            new { BooksId = 5, GenresId = 8 },
-            new { BooksId = 6, GenresId = 2 },
-            new { BooksId = 6, GenresId = 8 },
-            new { BooksId = 7, GenresId = 2 },
-            new { BooksId = 7, GenresId = 8 },
-            new { BooksId = 8, GenresId = 2 },
-            new { BooksId = 8, GenresId = 8 },
-            new { BooksId = 9, GenresId = 2 },
-            new { BooksId = 9, GenresId = 8 },
-            new { BooksId = 10, GenresId = 2 },
-            new { BooksId = 10, GenresId = 8 },
-            new { BooksId = 11, GenresId = 2 },
-            new { BooksId = 11, GenresId = 8 },
+            new() { BookId = 1, GenreId = 2 },
+            new() { BookId = 1, GenreId = 8 },
+            new() { BookId = 2, GenreId = 2 },
+            new() { BookId = 2, GenreId = 8 },
+            new() { BookId = 3, GenreId = 2 },
+            new() { BookId = 3, GenreId = 8 },
+            new() { BookId = 3, GenreId = 9 },
+            new() { BookId = 4, GenreId = 1 },
+            new() { BookId = 4, GenreId = 5 },
+            new() { BookId = 4, GenreId = 6 },
+            new() { BookId = 4, GenreId = 7 },
+            new() { BookId = 5, GenreId = 2 },
+            new() { BookId = 5, GenreId = 8 },
+            new() { BookId = 6, GenreId = 2 },
+            new() { BookId = 6, GenreId = 8 },
+            new() { BookId = 7, GenreId = 2 },
+            new() { BookId = 7, GenreId = 8 },
+            new() { BookId = 8, GenreId = 2 },
+            new() { BookId = 8, GenreId = 8 },
+            new() { BookId = 9, GenreId = 2 },
+            new() { BookId = 9, GenreId = 8 },
+            new() { BookId = 10, GenreId = 2 },
+            new() { BookId = 10, GenreId = 8 },
+            new() { BookId = 11, GenreId = 2 },
+            new() { BookId = 11, GenreId = 8 },
         };
     }
 
-    public static object[] BookAuthorData()
+    private static IEnumerable<BookAuthor> PrepareBookAuthorRelations()
     {
-        return new object[]
+        return new List<BookAuthor>
         {
-            new { BooksId = 1, AuthorsId = 1 },
-            new { BooksId = 1, AuthorsId = 2 },
-            new { BooksId = 2, AuthorsId = 3 },
-            new { BooksId = 2, AuthorsId = 4 },
-            new { BooksId = 3, AuthorsId = 1 },
-            new { BooksId = 3, AuthorsId = 2 },
-            new { BooksId = 3, AuthorsId = 3 },
-            new { BooksId = 4, AuthorsId = 4 },
-            new { BooksId = 4, AuthorsId = 1 },
-            new { BooksId = 4, AuthorsId = 2 },
-            new { BooksId = 4, AuthorsId = 3 },
-            new { BooksId = 5, AuthorsId = 4 },
-            new { BooksId = 5, AuthorsId = 1 },
-            new { BooksId = 6, AuthorsId = 2 },
-            new { BooksId = 6, AuthorsId = 3 },
-            new { BooksId = 7, AuthorsId = 4 },
-            new { BooksId = 7, AuthorsId = 1 },
-            new { BooksId = 8, AuthorsId = 2 },
-            new { BooksId = 8, AuthorsId = 3 },
-            new { BooksId = 9, AuthorsId = 4 },
-            new { BooksId = 9, AuthorsId = 1 },
-            new { BooksId = 10, AuthorsId = 2 },
-            new { BooksId = 10, AuthorsId = 3 },
-            new { BooksId = 11, AuthorsId = 4 },
-            new { BooksId = 11, AuthorsId = 1 },
+            new() { BookId = 1, AuthorId = 1 },
+            new() { BookId = 1, AuthorId = 2 },
+            new() { BookId = 2, AuthorId = 3 },
+            new() { BookId = 2, AuthorId = 4 },
+            new() { BookId = 3, AuthorId = 1 },
+            new() { BookId = 3, AuthorId = 2 },
+            new() { BookId = 3, AuthorId = 3 },
+            new() { BookId = 4, AuthorId = 4 },
+            new() { BookId = 4, AuthorId = 1 },
+            new() { BookId = 4, AuthorId = 2 },
+            new() { BookId = 4, AuthorId = 3 },
+            new() { BookId = 5, AuthorId = 4 },
+            new() { BookId = 5, AuthorId = 1 },
+            new() { BookId = 6, AuthorId = 2 },
+            new() { BookId = 6, AuthorId = 3 },
+            new() { BookId = 7, AuthorId = 4 },
+            new() { BookId = 7, AuthorId = 1 },
+            new() { BookId = 8, AuthorId = 2 },
+            new() { BookId = 8, AuthorId = 3 },
+            new() { BookId = 9, AuthorId = 4 },
+            new() { BookId = 9, AuthorId = 1 },
+            new() { BookId = 10, AuthorId = 2 },
+            new() { BookId = 10, AuthorId = 3 },
+            new() { BookId = 11, AuthorId = 4 },
+            new() { BookId = 11, AuthorId = 1 },
         };
     }
 

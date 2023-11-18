@@ -69,55 +69,30 @@ public class BookHubDbContext : DbContext
             .HasMany(u => u.WishLists)
             .WithOne(wl => wl.User)
             .OnDelete(DeleteBehavior.Cascade);
-
-        modelBuilder.Seed();
-
+        
         modelBuilder
             .Entity<Book>()
             .HasMany(b => b.Genres)
             .WithMany(g => g.Books)
-            .UsingEntity<Dictionary<string, object>>(
-                "BookGenre",
-                r =>
-                    r.HasOne<Genre>()
-                        .WithMany()
-                        .HasForeignKey("GenresId")
-                        .OnDelete(DeleteBehavior.Restrict),
-                l =>
-                    l.HasOne<Book>()
-                        .WithMany()
-                        .HasForeignKey("BooksId")
-                        .OnDelete(DeleteBehavior.Cascade),
-                je =>
-                {
-                    je.HasKey("BooksId", "GenresId");
-                    je.HasData(DataInitializer.BookGenreData());
-                }
+            .UsingEntity<BookGenre>(
+                r => r.HasOne(bg => bg.Genre).WithMany().HasForeignKey(e => e.GenreId),
+                l => l.HasOne(bg => bg.Book).WithMany().HasForeignKey(e => e.BookId)
             );
-
+        
         modelBuilder
             .Entity<Book>()
             .HasMany(b => b.Authors)
             .WithMany(a => a.Books)
-            .UsingEntity<Dictionary<string, object>>(
-                "BookAuthor",
-                r =>
-                    r.HasOne<Author>()
-                        .WithMany()
-                        .HasForeignKey("AuthorsId")
-                        .OnDelete(DeleteBehavior.Restrict),
-                l =>
-                    l.HasOne<Book>()
-                        .WithMany()
-                        .HasForeignKey("BooksId")
-                        .OnDelete(DeleteBehavior.Cascade),
-                je =>
-                {
-                    je.HasKey("BooksId", "AuthorsId");
-                    je.HasData(DataInitializer.BookAuthorData());
-                }
+            .UsingEntity<BookAuthor>(
+                r => r.HasOne(bg => bg.Author).WithMany().HasForeignKey(e => e.AuthorId),
+                l => l.HasOne(bg => bg.Book).WithMany().HasForeignKey(e => e.BookId)
             );
 
+        modelBuilder.Seed();
+
+        
+        
+        
         base.OnModelCreating(modelBuilder);
     }
 

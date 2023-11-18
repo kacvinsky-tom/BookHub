@@ -18,7 +18,7 @@ public class BookCreateInputDto
 
     public int PublisherId { get; set; }
 
-    public IEnumerable<int> AuthorsIds { get; set; } = new List<int>();
+    public IEnumerable<int> AuthorIds { get; set; } = new List<int>();
 
     public IEnumerable<int> GenreIds { get; set; } = new List<int>();
 }
