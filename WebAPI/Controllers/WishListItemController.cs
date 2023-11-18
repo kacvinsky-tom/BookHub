@@ -20,20 +20,20 @@ public class WishListItemController : ControllerBase
         _wishListService = wishListService;
         _mapper = mapper;
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> Fetch()
     {
         var wishListItems = await _wishListService.GetAllItems();
-        
+
         return Ok(wishListItems.Select(_mapper.Map<WishListItemListOutputDto>));
     }
-    
+
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
         var wishListItem = await _wishListService.GetItemById(id);
-        
+
         if (wishListItem == null)
         {
             return NotFound();
@@ -41,7 +41,7 @@ public class WishListItemController : ControllerBase
 
         return Ok(_mapper.Map<WishListItemDetailOutputDto>(wishListItem));
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] WishListItemInputDto wishListItemInputDto)
     {
@@ -56,13 +56,19 @@ public class WishListItemController : ControllerBase
             return NotFound(e.GetApiMessage());
         }
     }
-    
+
     [HttpPut("{id:int}")]
-    public async Task<IActionResult> Update(int id, [FromBody] WishListItemInputDto wishListItemInputDto)
+    public async Task<IActionResult> Update(
+        int id,
+        [FromBody] WishListItemInputDto wishListItemInputDto
+    )
     {
         try
         {
-            var wishListItem = await _wishListService.UpdateItemInWishlist(wishListItemInputDto, id);
+            var wishListItem = await _wishListService.UpdateItemInWishlist(
+                wishListItemInputDto,
+                id
+            );
 
             return Ok(_mapper.Map<WishListItemDetailOutputDto>(wishListItem));
         }
@@ -78,7 +84,7 @@ public class WishListItemController : ControllerBase
         try
         {
             await _wishListService.DeleteItem(id);
-        
+
             return Ok();
         }
         catch (NotFoundException e)

@@ -8,7 +8,7 @@ namespace Core.Services;
 public class ReviewService
 {
     private readonly UnitOfWork _unitOfWork;
-    
+
     public ReviewService(UnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
@@ -27,19 +27,19 @@ public class ReviewService
     public async Task<Review> Create(ReviewCreateInputDto reviewCreateInputDto)
     {
         var book = await _unitOfWork.Books.GetById(reviewCreateInputDto.BookId);
-        
+
         if (book == null)
         {
             throw new EntityNotFoundException<Book>(reviewCreateInputDto.BookId);
         }
-        
+
         var user = await _unitOfWork.Users.GetById(reviewCreateInputDto.UserId);
-        
+
         if (user == null)
         {
             throw new EntityNotFoundException<User>(reviewCreateInputDto.UserId);
         }
-        
+
         var review = new Review
         {
             Book = book,
@@ -47,14 +47,14 @@ public class ReviewService
             Rating = reviewCreateInputDto.Rating,
             Comment = reviewCreateInputDto.Comment,
         };
-        
-        _unitOfWork.Reviews.Add(review);
+
+        await _unitOfWork.Reviews.Add(review);
 
         await _unitOfWork.Complete();
-        
+
         return review;
     }
-    
+
     public async Task<Review> Update(ReviewUpdateInputDto reviewInputDto, int reviewId)
     {
         var review = await _unitOfWork.Reviews.GetById(reviewId);
@@ -63,7 +63,7 @@ public class ReviewService
         {
             throw new EntityNotFoundException<Review>(reviewId);
         }
-        
+
         review.Rating = reviewInputDto.Rating;
         review.Comment = reviewInputDto.Comment;
 

@@ -31,18 +31,18 @@ public class AuthorService
             FirstName = authorInputDto.FirstName,
             LastName = authorInputDto.LastName,
         };
-        
-        _unitOfWork.Authors.Add(author);
-        
+
+        await _unitOfWork.Authors.Add(author);
+
         await _unitOfWork.Complete();
-        
+
         return author;
     }
 
     public async Task<Author> Update(AuthorInputDto authorInputDto, int authorId)
     {
         var author = await _unitOfWork.Authors.GetById(authorId);
-        
+
         if (author == null)
         {
             throw new EntityNotFoundException<Author>(authorId);

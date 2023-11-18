@@ -33,7 +33,7 @@ public class ReviewController : ControllerBase
     public async Task<IActionResult> Fetch(int id)
     {
         var review = await _reviewService.GetById(id);
-        
+
         if (review == null)
         {
             return NotFound();

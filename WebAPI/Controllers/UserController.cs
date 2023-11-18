@@ -25,7 +25,7 @@ public class UserController : ControllerBase
     public async Task<IActionResult> Fetch()
     {
         var users = await _userService.GetAll();
-        
+
         return Ok(users.Select(_mapper.Map<UserListOutputDto>));
     }
 
@@ -33,7 +33,7 @@ public class UserController : ControllerBase
     public async Task<IActionResult> Fetch(int id)
     {
         var user = await _userService.GetById(id);
-        
+
         if (user == null)
         {
             return NotFound();
@@ -49,7 +49,7 @@ public class UserController : ControllerBase
 
         return Ok(_mapper.Map<UserDetailOutputDto>(user));
     }
-    
+
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update([FromBody] UserInputDto userInputDto, int id)
     {

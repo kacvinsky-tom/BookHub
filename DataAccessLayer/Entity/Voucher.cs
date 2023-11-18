@@ -12,7 +12,6 @@ public class Voucher : BaseEntity
     public IEnumerable<Order> Orders { get; set; } = null!;
 
     public int UsedQuantity => Orders?.Count() ?? 0;
-    public bool IsUsable => (Quantity == 0 || UsedQuantity < Quantity) && ExpirationDate > DateTime.Now;
-
-    
+    public bool IsUsable =>
+        (Quantity == 0 || UsedQuantity < Quantity) && ExpirationDate > DateTime.Now;
 }

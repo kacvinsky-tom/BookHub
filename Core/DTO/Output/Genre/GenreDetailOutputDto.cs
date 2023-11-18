@@ -4,6 +4,7 @@ namespace Core.DTO.Output.Genre;
 
 public class GenreDetailOutputDto : OutputDtoBase
 {
-    public string Name { get; set; }
-    public IEnumerable<BookListWithoutAuthorOutputDto> Books { get; set; }
+    public string Name { get; set; } = "";
+    public IEnumerable<BookListWithoutAuthorOutputDto> Books { get; set; } =
+        new List<BookListWithoutAuthorOutputDto>();
 }

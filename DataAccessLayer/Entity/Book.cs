@@ -1,13 +1,12 @@
-﻿
-namespace DataAccessLayer.Entity;
+﻿namespace DataAccessLayer.Entity;
 
 public class Book : BaseEntity
 {
-    public string Title { get; set; }
+    public string Title { get; set; } = "";
 
-    public string ISBN { get; set; }
+    public string ISBN { get; set; } = "";
 
-    public string Description { get; set; }
+    public string Description { get; set; } = "";
 
     public string? Image { get; set; }
 
@@ -16,17 +15,17 @@ public class Book : BaseEntity
     public int Quantity { get; set; }
 
     public int ReleaseYear { get; set; }
-    
+
     public bool IsDeleted { get; set; }
     public int PublisherId { get; set; }
     public virtual Publisher Publisher { get; set; } = null!;
-    public ICollection<Author> Authors { get; set; } = new List<Author>();
-    public ICollection<Genre> Genres { get; set; } = new List<Genre>();
-    
-    public ICollection<OrderItem> OrderItems { get; } = new List<OrderItem>();
-    
-    public ICollection<CartItem> CartItems { get; } = new List<CartItem>();
-    public ICollection<Review> Reviews { get; } = new List<Review>();
-    
-    public ICollection<WishListItem> WishListItems { get; } = new List<WishListItem>();
+    public IEnumerable<Author> Authors { get; set; } = new List<Author>();
+    public IEnumerable<Genre> Genres { get; set; } = new List<Genre>();
+
+    public IEnumerable<OrderItem> OrderItems { get; } = new List<OrderItem>();
+
+    public IEnumerable<CartItem> CartItems { get; } = new List<CartItem>();
+    public IEnumerable<Review> Reviews { get; } = new List<Review>();
+
+    public IEnumerable<WishListItem> WishListItems { get; } = new List<WishListItem>();
 }

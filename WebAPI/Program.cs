@@ -17,7 +17,7 @@ builder.Services.AddLogging();
 
 builder.Services.AddAutoMapper(typeof(BookHubProfile));
 
-builder.Services.AddDbContext<BookHubDbContext>();
+builder.Services.AddDbContextFactoryWithConfiguration(builder.Configuration);
 builder.Services.AddScoped<UnitOfWork>();
 
 builder.Services.AddRepositories();

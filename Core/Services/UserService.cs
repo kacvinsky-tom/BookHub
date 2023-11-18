@@ -19,7 +19,7 @@ public class UserService
     {
         return await _unitOfWork.Users.GetAll();
     }
-    
+
     public async Task<User?> GetById(int id)
     {
         return await _unitOfWork.Users.GetByIdWithRelations(id);
@@ -40,8 +40,8 @@ public class UserService
         };
 
         user.Password = passwordHasher.HashPassword(user, userInputDto.Password);
-        
-        _unitOfWork.Users.Add(user);
+
+        await _unitOfWork.Users.Add(user);
 
         await _unitOfWork.Complete();
 
@@ -51,12 +51,12 @@ public class UserService
     public async Task<User> Update(UserInputDto userInputDto, int userId)
     {
         var user = await _unitOfWork.Users.GetById(userId);
-        
+
         if (user == null)
         {
             throw new EntityNotFoundException<User>(userId);
         }
-        
+
         var passwordHasher = new PasswordHasher<User>();
 
         user.Username = userInputDto.Username;
@@ -70,10 +70,10 @@ public class UserService
         user.Password = passwordHasher.HashPassword(user, userInputDto.Password);
 
         await _unitOfWork.Complete();
-        
+
         return user;
     }
-    
+
     public async Task Delete(int userId)
     {
         var user = await _unitOfWork.Users.GetById(userId);

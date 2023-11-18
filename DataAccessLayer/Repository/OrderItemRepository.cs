@@ -6,23 +6,25 @@ namespace DataAccessLayer.Repository;
 
 public class OrderItemRepository : GenericRepository<OrderItem>, IOrderItemRepository
 {
-    public OrderItemRepository(BookHubDbContext context) : base(context)
+    public OrderItemRepository(BookHubDbContext context)
+        : base(context) { }
+
+    private IQueryable<OrderItem> GetBasicQuery()
     {
-    }
-    public async Task<List<OrderItem>> GetAllWithRelations()
-    {
-        return await _context.OrderItems
+        return _context
+            .OrderItems
             .Include(oi => oi.Order)
             .ThenInclude(o => o.User)
-            .Include(oi => oi.Book)
-            .ToListAsync();
+            .Include(oi => oi.Book);
     }
+
+    public async Task<IEnumerable<OrderItem>> GetAllWithRelations()
+    {
+        return await GetBasicQuery().ToListAsync();
+    }
+
     public async Task<OrderItem?> GetByIdWithRelations(int id)
     {
-        return await _context.OrderItems
-            .Include(oi => oi.Order)
-            .ThenInclude(o => o.User)
-            .Include(oi => oi.Book)
-            .FirstOrDefaultAsync(w => w.Id == id);
+        return await GetBasicQuery().FirstOrDefaultAsync(w => w.Id == id);
     }
 }

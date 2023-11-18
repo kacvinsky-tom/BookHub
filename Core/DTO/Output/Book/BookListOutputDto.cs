@@ -5,10 +5,11 @@ namespace Core.DTO.Output.Book;
 
 public class BookListOutputDto : OutputDtoBase
 {
-    public string Title { get; set; }
+    public string Title { get; set; } = "";
     public int Price { get; set; }
     public int ReleaseYear { get; set; }
-    
-    public IEnumerable<AuthorListOutputDto> Authors { get; set; }
-    public IEnumerable<GenreListOutputDto> Genres { get; set; }
+    public string PublisherName { get; set; } = "";
+
+    public IEnumerable<AuthorListOutputDto> Authors { get; set; } = new List<AuthorListOutputDto>();
+    public IEnumerable<GenreListOutputDto> Genres { get; set; } = new List<GenreListOutputDto>();
 }

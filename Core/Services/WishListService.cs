@@ -9,12 +9,12 @@ namespace Core.Services;
 public class WishListService
 {
     private readonly UnitOfWork _unitOfWork;
-    
+
     public WishListService(UnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
-    
+
     public async Task<IEnumerable<WishList>> GetAll()
     {
         return await _unitOfWork.WishLists.GetAll();
@@ -43,16 +43,16 @@ public class WishListService
         {
             throw new EntityNotFoundException<User>(wishListInputDto.UserId);
         }
-        
+
         var wishList = new WishList
         {
             UserId = wishListInputDto.UserId,
             Name = wishListInputDto.Name,
             User = user,
         };
-        
-        _unitOfWork.WishLists.Add(wishList);
-        
+
+        await _unitOfWork.WishLists.Add(wishList);
+
         await _unitOfWork.Complete();
 
         return wishList;
@@ -66,19 +66,19 @@ public class WishListService
         {
             throw new EntityNotFoundException<WishList>(wishListId);
         }
-        
+
         var user = await _unitOfWork.Users.GetById(wishListInputDto.UserId);
 
         if (user == null)
         {
             throw new EntityNotFoundException<User>(wishListInputDto.UserId);
         }
-        
+
         wishList.Name = wishListInputDto.Name;
         wishList.User = user;
 
         await _unitOfWork.Complete();
-        
+
         return wishList;
     }
 
@@ -97,29 +97,28 @@ public class WishListService
         {
             throw new EntityNotFoundException<Book>(wishListItemInputDto.BookId);
         }
-        
-        var wishListItem = new WishListItem
-        {
-            WishList = wishlist,
-            Book = book,
-        };
-        
-        _unitOfWork.WishListItems.Add(wishListItem);
+
+        var wishListItem = new WishListItem { WishList = wishlist, Book = book, };
+
+        await _unitOfWork.WishListItems.Add(wishListItem);
 
         await _unitOfWork.Complete();
 
         return wishListItem;
     }
-    
-    public async Task<WishListItem> UpdateItemInWishlist(WishListItemInputDto wishListItemInputDto, int wishListItemId)
+
+    public async Task<WishListItem> UpdateItemInWishlist(
+        WishListItemInputDto wishListItemInputDto,
+        int wishListItemId
+    )
     {
         var wishListItem = await _unitOfWork.WishListItems.GetById(wishListItemId);
-        
+
         if (wishListItem == null)
         {
             throw new EntityNotFoundException<WishListItem>(wishListItemId);
         }
-        
+
         var wishlist = await _unitOfWork.WishLists.GetById(wishListItemInputDto.WishListId);
 
         if (wishlist == null)
@@ -133,12 +132,12 @@ public class WishListService
         {
             throw new EntityNotFoundException<Book>(wishListItemInputDto.BookId);
         }
-        
+
         wishListItem.WishList = wishlist;
         wishListItem.Book = book;
-        
+
         await _unitOfWork.Complete();
-        
+
         return wishListItem;
     }
 
@@ -155,7 +154,7 @@ public class WishListService
 
         await _unitOfWork.Complete();
     }
-    
+
     public async Task DeleteItem(int wishListItemId)
     {
         var wishListItem = await _unitOfWork.WishListItems.GetById(wishListItemId);

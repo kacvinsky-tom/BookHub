@@ -5,5 +5,5 @@ namespace DataAccessLayer.Repository.Interfaces;
 public interface IReviewRepository : IGenericRepository<Review>
 {
     public Task<Review?> GetByIdWithRelations(int id);
-    public Task<List<Review>> GetAllWithRelations();
+    public Task<IEnumerable<Review>> GetAllWithRelations();
 }

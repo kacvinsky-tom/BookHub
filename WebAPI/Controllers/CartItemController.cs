@@ -43,7 +43,9 @@ public class CartItemController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CartItemCreateInputDto cartItemCreateInputDto)
+    public async Task<IActionResult> Create(
+        [FromBody] CartItemCreateInputDto cartItemCreateInputDto
+    )
     {
         try
         {
@@ -58,12 +60,15 @@ public class CartItemController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    public async Task<IActionResult> Update(int id, [FromBody] CartItemUpdateInputDto cartItemUpdateInputDto)
+    public async Task<IActionResult> Update(
+        int id,
+        [FromBody] CartItemUpdateInputDto cartItemUpdateInputDto
+    )
     {
         try
         {
             var cartItem = await _cartService.UpdateCartItem(cartItemUpdateInputDto, id);
-            
+
             return Ok(_mapper.Map<CartItemDetailOutputDto>(cartItem));
         }
         catch (NotFoundException e)
@@ -78,7 +83,7 @@ public class CartItemController : ControllerBase
         try
         {
             await _cartService.RemoveCartItem(id);
-        
+
             return Ok();
         }
         catch (NotFoundException e)

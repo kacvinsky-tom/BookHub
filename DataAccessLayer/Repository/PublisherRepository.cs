@@ -5,7 +5,6 @@ namespace DataAccessLayer.Repository;
 
 public class PublisherRepository : GenericRepository<Publisher>, IPublisherRepository
 {
-    public PublisherRepository(BookHubDbContext context) : base(context)
-    {
-    }
+    public PublisherRepository(BookHubDbContext context)
+        : base(context) { }
 }

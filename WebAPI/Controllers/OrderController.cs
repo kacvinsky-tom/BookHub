@@ -20,20 +20,20 @@ public class OrderController : ControllerBase
         _orderService = orderService;
         _mapper = mapper;
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> Fetch()
     {
         var orders = await _orderService.GetAll();
-        
+
         return Ok(orders.Select(_mapper.Map<OrderListOutputDto>));
     }
-    
+
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
         var order = await _orderService.GetById(id);
-        
+
         if (order == null)
         {
             return NotFound();
@@ -41,7 +41,7 @@ public class OrderController : ControllerBase
 
         return Ok(_mapper.Map<OrderDetailOutputDto>(order));
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] OrderCreateInputDto orderCreateInputDto)
     {
@@ -58,11 +58,14 @@ public class OrderController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    public async Task<IActionResult> Update(int id, [FromBody] OrderUpdateInputDto orderUpdateInputDto)
+    public async Task<IActionResult> Update(
+        int id,
+        [FromBody] OrderUpdateInputDto orderUpdateInputDto
+    )
     {
         try
         {
-            var order = await  _orderService.Update(orderUpdateInputDto, id);
+            var order = await _orderService.Update(orderUpdateInputDto, id);
 
             return Ok(_mapper.Map<OrderDetailOutputDto>(order));
         }

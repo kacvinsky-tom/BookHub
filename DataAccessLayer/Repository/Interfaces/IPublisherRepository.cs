@@ -2,7 +2,4 @@
 
 namespace DataAccessLayer.Repository.Interfaces;
 
-public interface IPublisherRepository : IGenericRepository<Publisher>
-{
-    
-}
+public interface IPublisherRepository : IGenericRepository<Publisher> { }

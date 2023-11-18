@@ -2,5 +2,5 @@
 
 public class WishListListWithoutUserOutputDto : OutputDtoBase
 {
-    public string Name { get; set; }
+    public string Name { get; set; } = "";
 }

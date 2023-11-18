@@ -27,19 +27,23 @@ public class BookService
     public async Task<Book> Create(BookCreateInputDto bookCreateCreateInputDto)
     {
         var publisher = await _unitOfWork.Publishers.GetById(bookCreateCreateInputDto.PublisherId);
-        var authors = await _unitOfWork.Authors
-            .Find(author => bookCreateCreateInputDto.AuthorsIds.Contains(author.Id));
+        var authors = await _unitOfWork
+            .Authors
+            .Find(author => bookCreateCreateInputDto.AuthorIds.Contains(author.Id));
 
         if (authors == null)
         {
-            throw new EntityNotFoundException<Author>(bookCreateCreateInputDto.AuthorsIds.FirstOrDefault());
+            throw new EntityNotFoundException<Author>(
+                bookCreateCreateInputDto.AuthorIds.FirstOrDefault()
+            );
         }
         if (publisher == null)
         {
             throw new EntityNotFoundException<Publisher>(bookCreateCreateInputDto.PublisherId);
         }
-        
-        var genres = await _unitOfWork.Genres
+
+        var genres = await _unitOfWork
+            .Genres
             .Find(genre => bookCreateCreateInputDto.GenreIds.Contains(genre.Id));
 
         var book = new Book
@@ -56,8 +60,8 @@ public class BookService
             Authors = authors.ToList(),
             Genres = genres.ToList(),
         };
-        
-        _unitOfWork.Books.Add(book);
+
+        await _unitOfWork.Books.Add(book);
 
         await _unitOfWork.Complete();
 
@@ -74,25 +78,29 @@ public class BookService
         }
 
         var publisher = await _unitOfWork.Publishers.GetById(bookCreateUpdateInputDto.PublisherId);
-        
+
         if (publisher == null)
         {
             throw new EntityNotFoundException<Publisher>(bookCreateUpdateInputDto.PublisherId);
         }
-        
-        var authors = await _unitOfWork.Authors
-            .Find(author => bookCreateUpdateInputDto.AuthorsIds.Contains(author.Id));
+
+        var authors = await _unitOfWork
+            .Authors
+            .Find(author => bookCreateUpdateInputDto.AuthorIds.Contains(author.Id));
 
         if (authors == null)
         {
-            throw new EntityNotFoundException<Author>(bookCreateUpdateInputDto.AuthorsIds.FirstOrDefault());
+            throw new EntityNotFoundException<Author>(
+                bookCreateUpdateInputDto.AuthorIds.FirstOrDefault()
+            );
         }
         if (publisher == null)
         {
             throw new EntityNotFoundException<Publisher>(bookCreateUpdateInputDto.PublisherId);
         }
-        
-        var genres = await _unitOfWork.Genres
+
+        var genres = await _unitOfWork
+            .Genres
             .Find(genre => bookCreateUpdateInputDto.GenreIds.Contains(genre.Id));
 
         book.Title = bookCreateUpdateInputDto.Title;
@@ -103,10 +111,9 @@ public class BookService
         book.Quantity = bookCreateUpdateInputDto.Quantity;
         book.PublisherId = bookCreateUpdateInputDto.PublisherId;
         book.ReleaseYear = bookCreateUpdateInputDto.ReleaseYear;
-        book.IsDeleted = bookCreateUpdateInputDto.IsDeleted;
         book.Authors = authors.ToList();
         book.Genres = genres.ToList();
-        
+
         await _unitOfWork.Complete();
 
         return book;
@@ -125,5 +132,4 @@ public class BookService
 
         await _unitOfWork.Complete();
     }
-
 }

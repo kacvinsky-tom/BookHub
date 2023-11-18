@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repository;
 
-public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
+public class GenericRepository<T> : IGenericRepository<T>
+    where T : BaseEntity
 {
     protected readonly BookHubDbContext _context;
 
@@ -14,12 +15,12 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         _context = context;
     }
 
-    public async void Add(T entity)
+    public async Task Add(T entity)
     {
         await _context.Set<T>().AddAsync(entity);
     }
 
-    public async void AddRange(IEnumerable<T> entities)
+    public async Task AddRange(IEnumerable<T> entities)
     {
         await _context.Set<T>().AddRangeAsync(entities);
     }

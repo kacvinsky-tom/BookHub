@@ -1,5 +1,5 @@
 ﻿# PV179 - BookHub
-This GitLab repository contains the code and documentation for the PV179 project. 
+This GitLab repository contains the code and documentation for the PV179 project.
 
 The project's goal is to develop a digital platform for the company called "BookHub", a company that sells 
 books of various genres. 
@@ -10,6 +10,11 @@ their purchase history, rate books, and make wishlists. Administrators should ha
 details, manage user accounts, and regulate book prices.
 
 <img src="Resources/Images/logotype.png"  width="130" height="130">
+
+### Authors
+- Pavel Kraus (UČO 540455) - *Team Lead*
+- Jakub Hlava (UČO 540477)
+- Tomáš Kacvinský (UČO 485397)
 
 ### Prerequisites
 
