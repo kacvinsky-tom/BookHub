@@ -1,0 +1,7 @@
+﻿<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Launch API and MVC https" type="CompoundRunConfigurationType">
+    <toRun name="WebAPI: https" type="LaunchSettings" />
+    <toRun name="WebMVC: https" type="LaunchSettings" />
+    <method v="2" />
+  </configuration>
+</component>

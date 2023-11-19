@@ -1,0 +1,7 @@
+﻿<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Launch API and MVC http" type="CompoundRunConfigurationType">
+    <toRun name="WebAPI: http" type="LaunchSettings" />
+    <toRun name="WebMVC: http" type="LaunchSettings" />
+    <method v="2" />
+  </configuration>
+</component>
