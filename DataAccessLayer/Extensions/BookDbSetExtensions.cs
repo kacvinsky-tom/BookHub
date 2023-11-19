@@ -1,8 +1,8 @@
 ﻿using DataAccessLayer.Entity;
 
-namespace DataAccessLayer.Extension;
+namespace DataAccessLayer.Extensions;
 
-public static class BookDbSetExtension
+public static class BookDbSetExtensions
 {
     public static IQueryable<Book> WhereTitle(this IQueryable<Book> query, string? title)
     {

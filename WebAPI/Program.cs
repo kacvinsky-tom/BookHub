@@ -1,3 +1,4 @@
+using Core.Extensions;
 using Core.Services;
 using DataAccessLayer;
 using WebAPI;
@@ -20,17 +21,7 @@ builder.Services.AddDbContextFactoryWithConfiguration(builder.Configuration);
 builder.Services.AddScoped<UnitOfWork>();
 
 builder.Services.AddRepositories();
-
-builder.Services.AddScoped<AuthorService>();
-builder.Services.AddScoped<GenreService>();
-builder.Services.AddScoped<BookService>();
-builder.Services.AddScoped<CartService>();
-builder.Services.AddScoped<OrderService>();
-builder.Services.AddScoped<WishListService>();
-builder.Services.AddScoped<ReviewService>();
-builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<PublisherService>();
-builder.Services.AddScoped<VoucherService>();
+builder.Services.AddBLServices();
 
 var app = builder.Build();
 

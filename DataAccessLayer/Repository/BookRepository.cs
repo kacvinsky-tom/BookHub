@@ -1,5 +1,5 @@
 ﻿using DataAccessLayer.Entity;
-using DataAccessLayer.Extension;
+using DataAccessLayer.Extensions;
 using DataAccessLayer.Filter;
 using DataAccessLayer.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;

@@ -19,6 +19,8 @@ public class BookHubDbContext : DbContext
 
     public DbSet<Voucher> Vouchers { get; set; } = null!;
 
+    public DbSet<LocalIdentityUser> LocalIdentityUsers { get; set; } = null!;
+
     public BookHubDbContext(DbContextOptions<BookHubDbContext> options)
         : base(options) { }
 
