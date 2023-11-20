@@ -1,0 +1,78 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model WebMVC.ViewModels.RegisterViewModel
+
+<div class="h-full w-full flex justify-center align-center">
+    <div class="card bg-base-200 shadow-lg rounded-2xl lg:max-w-5xl">
+        <div class="card-body">
+            <h2 class="font-bold text-xl">Register</h2>
+            <form asp-action="Register" method="post" class="grid gap-y-2 gap-x-4 grid-cols-1 lg:grid-cols-2">
+                <div class="form-control lg:col-span-2">
+                    <label class="label">
+                        <label class="label-text" asp-for="Username"></label>
+                    </label>
+                    <input class="input input-bordered" asp-for="Username"/>
+                    <label class="label">
+                        <span class="label-text text-red-500" asp-validation-for="Username"></span>
+                    </label>
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        <label class="label-text" asp-for="Password"></label>
+                    </label>
+                    <input class="input input-bordered" asp-for="Password" type="password"/>
+                    <label class="label">
+                        <span class="label-text text-red-500" asp-validation-for="Password"></span>
+                    </label>
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        <label class="label-text" asp-for="ConfirmPassword"></label>
+                    </label>
+                    <input class="input input-bordered" asp-for="ConfirmPassword" type="password"/>
+                    <label class="label">
+                        <span class="label-text text-red-500" asp-validation-for="ConfirmPassword"></span>
+                    </label>
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        <label class="label-text" asp-for="FirstName"></label>
+                    </label>
+                    <input class="input input-bordered" asp-for="FirstName"/>
+                    <label class="label">
+                        <span class="label-text text-red-500" asp-validation-for="FirstName"></span>
+                    </label>
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        <label class="label-text" asp-for="LastName"></label>
+                    </label>
+                    <input class="input input-bordered" asp-for="LastName"/>
+                    <label class="label">
+                        <span class="label-text text-red-500" asp-validation-for="LastName"></span>
+                    </label>
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        <label class="label-text" asp-for="PhoneNumber"></label>
+                    </label>
+                    <input class="input input-bordered" asp-for="PhoneNumber"/>
+                    <label class="label">
+                        <span class="label-text text-red-500" asp-validation-for="PhoneNumber"></span>
+                    </label>
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        <label class="label-text" asp-for="Email"></label>
+                    </label>
+                    <input class="input input-bordered" asp-for="Email"/>
+                    <label class="label">
+                        <span class="label-text text-red-500" asp-validation-for="Email"></span>
+                    </label>
+                </div>
+                <button class="btn btn-success col-span-2" type="submit">Register</button>
+                @Html.ValidationSummary(false, "", new { @class = "text-red-500" })
+            </form>
+        </div>
+    </div>
+</div>
+

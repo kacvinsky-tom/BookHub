@@ -16,7 +16,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder
     .Services
-    .AddIdentity<LocalIdentityUser, IdentityRole>()
+    .AddIdentity<LocalIdentityUser, LocalIdentityRole>()
     .AddEntityFrameworkStores<BookHubDbContext>()
     .AddDefaultTokenProviders();
 
@@ -40,7 +40,7 @@ builder
     });
 
 builder.Services.AddRazorPages();
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 var app = builder.Build();
 

@@ -22,6 +22,7 @@ public static class DataInitializer
         var vouchers = PrepareVoucherModels();
         var bookGenres = PrepareBookGenreRelations();
         var bookAuthors = PrepareBookAuthorRelations();
+        var roleModels = PrepareRoles();
 
         modelBuilder.Entity<User>().HasData(users);
         modelBuilder.Entity<Genre>().HasData(genres);
@@ -37,6 +38,16 @@ public static class DataInitializer
         modelBuilder.Entity<Voucher>().HasData(vouchers);
         modelBuilder.Entity<BookGenre>().HasData(bookGenres);
         modelBuilder.Entity<BookAuthor>().HasData(bookAuthors);
+        modelBuilder.Entity<LocalIdentityRole>().HasData(roleModels);
+    }
+
+    private static IEnumerable<LocalIdentityRole> PrepareRoles()
+    {
+        return new List<LocalIdentityRole>
+        {
+            new() { Name = "Admin", NormalizedName = "ADMIN", },
+            new() { Name = "User", NormalizedName = "USER", }
+        };
     }
 
     private static IEnumerable<BookGenre> PrepareBookGenreRelations()
@@ -152,8 +163,9 @@ public static class DataInitializer
                 IsAdmin = false,
             }
         };
-        users.ForEach(user => user.CreatedAt = 
-            new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc));
+        users.ForEach(
+            user => user.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc)
+        );
 
         return users;
     }
@@ -177,8 +189,9 @@ public static class DataInitializer
             new() { Id = 13, Name = "Historické romány", },
             new() { Id = 14, Name = "Poezie", }
         };
-        genres.ForEach(genre => genre.CreatedAt = 
-            new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc));
+        genres.ForEach(
+            genre => genre.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc)
+        );
         return genres;
     }
 
@@ -211,8 +224,9 @@ public static class DataInitializer
                 LastName = "Pratchett",
             }
         };
-        authors.ForEach(author => author.CreatedAt = 
-            new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc));
+        authors.ForEach(
+            author => author.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc)
+        );
         return authors;
     }
 
@@ -242,11 +256,13 @@ public static class DataInitializer
                 Email = "argo@argo.cz"
             }
         };
-        publishers.ForEach(publisher => publisher.CreatedAt = 
-            new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc));
+        publishers.ForEach(
+            publisher =>
+                publisher.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc)
+        );
         return publishers;
     }
-    
+
     private static IEnumerable<Book> PrepareBookModels()
     {
         var books = new List<Book>
@@ -384,8 +400,9 @@ public static class DataInitializer
                 PublisherId = 2,
             },
         };
-        books.ForEach(book => book.CreatedAt = 
-            new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc));
+        books.ForEach(
+            book => book.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc)
+        );
         return books;
     }
 
@@ -406,8 +423,9 @@ public static class DataInitializer
                 UserId = 2,
             },
         };
-        wishlists.ForEach(wishlist => wishlist.CreatedAt = 
-            new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc));
+        wishlists.ForEach(
+            wishlist => wishlist.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc)
+        );
         return wishlists;
     }
 
@@ -452,8 +470,10 @@ public static class DataInitializer
                 BookId = 11,
             },
         };
-        wishlistItems.ForEach(wishlistItem => wishlistItem.CreatedAt = 
-            new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc));
+        wishlistItems.ForEach(
+            wishlistItem =>
+                wishlistItem.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc)
+        );
         return wishlistItems;
     }
 
@@ -534,8 +554,9 @@ public static class DataInitializer
                     "Harry Potter a Ohnivý pohár je dalším důkazem Rowlinginy brilantní schopnosti psát pro různé věkové kategorie. Tato kniha je poutavá, plná tajemství a emocí, a dokazuje, proč je série Harryho Pottera tak oblíbená po celém světě.",
             },
         };
-        reviews.ForEach(review => review.CreatedAt = 
-            new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc));
+        reviews.ForEach(
+            review => review.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc)
+        );
         return reviews;
     }
 
@@ -565,8 +586,9 @@ public static class DataInitializer
                 Quantity = 1,
             }
         };
-        cartItems.ForEach(cartItem => cartItem.CreatedAt = 
-            new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc));
+        cartItems.ForEach(
+            cartItem => cartItem.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc)
+        );
         return cartItems;
     }
 
@@ -596,8 +618,9 @@ public static class DataInitializer
                 TotalPrice = 399
             }
         };
-        orders.ForEach(order => order.CreatedAt = 
-            new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc));
+        orders.ForEach(
+            order => order.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc)
+        );
         return orders;
     }
 
@@ -646,8 +669,10 @@ public static class DataInitializer
                 ISBN = "978-80-7197-611-0",
             }
         };
-        orderItems.ForEach(orderItem => orderItem.CreatedAt = 
-            new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc));
+        orderItems.ForEach(
+            orderItem =>
+                orderItem.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc)
+        );
         return orderItems;
     }
 
@@ -680,8 +705,9 @@ public static class DataInitializer
                 Type = VoucherType.Percentage
             },
         };
-        vouchers.ForEach(v => v.CreatedAt = 
-            new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc));
+        vouchers.ForEach(
+            v => v.CreatedAt = new DateTime(2023, 10, 1, 12, 00, 00, DateTimeKind.Utc)
+        );
         return vouchers;
     }
 }
