@@ -22,6 +22,7 @@ public static class DataInitializer
         var vouchers = PrepareVoucherModels();
         var bookGenres = PrepareBookGenreRelations();
         var bookAuthors = PrepareBookAuthorRelations();
+        var roleModels = PrepareRoles();
 
         modelBuilder.Entity<User>().HasData(users);
         modelBuilder.Entity<Genre>().HasData(genres);
@@ -37,6 +38,16 @@ public static class DataInitializer
         modelBuilder.Entity<Voucher>().HasData(vouchers);
         modelBuilder.Entity<BookGenre>().HasData(bookGenres);
         modelBuilder.Entity<BookAuthor>().HasData(bookAuthors);
+        modelBuilder.Entity<LocalIdentityRole>().HasData(roleModels);
+    }
+
+    private static IEnumerable<LocalIdentityRole> PrepareRoles()
+    {
+        return new List<LocalIdentityRole>
+        {
+            new() { Name = "Admin", NormalizedName = "ADMIN", },
+            new() { Name = "User", NormalizedName = "USER", }
+        };
     }
 
     private static IEnumerable<BookGenre> PrepareBookGenreRelations()

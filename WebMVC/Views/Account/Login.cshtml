@@ -1,0 +1,42 @@
+﻿@model WebMVC.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="w-full h-full flex justify-center align-center">
+    <div class="card bg-base-200 shadow-lg rounded-2xl">
+        <div class="card-body">
+            <h2 class="font-bold text-xl">BookHub</h2>
+            <form asp-action="Login" method="post" class="flex flex-col gap-2">
+                <div class="form-control">
+                    <label class="label">
+                        <label class="label-text" asp-for="Username"></label>
+                    </label>
+                    <input class="input input-bordered" asp-for="Username" />
+                    <label class="label">
+                        <span class="label-text text-red-500" asp-validation-for="Username"></span>
+                    </label>
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        <label class="label-text" asp-for="Password"></label>
+                    </label>
+                    <input class="input input-bordered" asp-for="Password" type="password"/>
+                    <label class="label">
+                        <span class="label-text text-red-500" asp-validation-for="Password"></span>
+                    </label>
+                </div>
+                <div class="form-control">
+                    <label class="label cursor-pointer">
+                        <input class="checkbox" asp-for="RememberMe" type="checkbox"/>
+                        <label class="label-text" asp-for="RememberMe"></label>
+                    </label>
+                </div>
+                <button class="btn btn-primary" type="submit">Login</button>
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            </form>
+
+        </div>
+    </div>
+</div>

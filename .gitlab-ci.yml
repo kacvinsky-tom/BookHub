@@ -9,6 +9,11 @@ stages:
   - format
   - build
   - test
+    
+before_script: 
+  - "curl -sL https://deb.nodesource.com/setup_20.x | bash -"
+  - apt-get install -y nodejs
+  - cd WebMVC && npm install && cd ..
 
 default:
   tags:

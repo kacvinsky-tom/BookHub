@@ -4,7 +4,7 @@ using Microsoft.OpenApi.Models;
 
 namespace WebAPI.Extensions;
 
-public static class ServiceCollectionsExtensions
+public static class ServiceCollectionExtensions
 {
     public static void AddSwaggerWithAuthentication(this IServiceCollection services)
     {
