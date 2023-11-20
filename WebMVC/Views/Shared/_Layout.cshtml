@@ -1,7 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity;
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @using DataAccessLayer.Entity
-@using System.Net.Security
 @using Microsoft.EntityFrameworkCore
 @inject SignInManager<LocalIdentityUser> SignInManager
 @inject UserManager<LocalIdentityUser> UserManager
@@ -13,73 +12,103 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] | BookHub</title>
-    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true"/>
 </head>
 <body>
 <header>
     <div class="navbar bg-base-200 text-white">
-      <div class="navbar-start">
-        <div class="dropdown">
-          <label tabindex="0" class="btn btn-ghost lg:hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
-          </label>
-          <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-            <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-            <li>
-              <a>Placeholder_dropdown</a>
-              <ul class="p-2">
-                <li><a>Submenu 1</a></li>
-                <li><a>Submenu 2</a></li>
-              </ul>
-            </li>
-            <li><a>Placeholder</a></li>
-          </ul>
-        </div>
-        <a class="btn btn-ghost text-xl">BookHub</a>
-      </div>
-      <div class="navbar-center hidden lg:flex">
-        <ul class="menu menu-horizontal px-1">
-          <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-          <li tabindex="0">
-            <details>
-              <summary>Placeholder_dropdown</summary>
-              <ul class="p-2">
-                <li><a>Submenu 1</a></li>
-                <li><a>Submenu 2</a></li>
-              </ul>
-            </details>
-          </li>
-          <li><a>Placeholder</a></li>
-        </ul>
-      </div>
-      <div class="navbar-end">
-        @if (SignInManager.IsSignedIn(User))
-        {
-          var user = await UserManager
-            .Users
-            .Include(u => u.User)
-            .FirstAsync(u => u.Id == UserManager.GetUserId(User));
-          <div class="flex items-stretch">
-            <div class="dropdown dropdown-end">
-              <label tabindex="0" class="btn btn-ghost rounded-btn">@user.User?.FirstName @user.User?.LastName <i class="bi bi-chevron-down"></i></label>
-              <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
-                <li><a>Purchase history</a></li>
-                <li><a>Settings</a></li>
-                <li><a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
-              </ul>
+        <div class="navbar-start">
+            <div class="dropdown">
+                <label tabindex="0" class="btn btn-ghost lg:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16"/>
+                    </svg>
+                </label>
+                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li>
+                        <a>Placeholder_dropdown</a>
+                        <ul class="p-2">
+                            <li>
+                                <a>Submenu 1</a>
+                            </li>
+                            <li>
+                                <a>Submenu 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a>Placeholder</a>
+                    </li>
+                </ul>
             </div>
-          </div>
-        }
-        else
-        {
-          <a class="btn btn-primary" asp-area="" asp-controller="Account" asp-action="Login">Log in</a>
-        }
-        
-      </div>
+            <a class="btn btn-ghost text-xl">BookHub</a>
+        </div>
+        <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1">
+                <li>
+                    <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                <li tabindex="0">
+                    <details>
+                        <summary>Placeholder_dropdown</summary>
+                        <ul class="p-2">
+                            <li>
+                                <a>Submenu 1</a>
+                            </li>
+                            <li>
+                                <a>Submenu 2</a>
+                            </li>
+                        </ul>
+                    </details>
+                </li>
+                <li>
+                    <a>Placeholder</a>
+                </li>
+            </ul>
+        </div>
+        <div class="navbar-end">
+            @if (SignInManager.IsSignedIn(User))
+            {
+                var user = await UserManager
+                    .Users
+                    .Include(u => u.User)
+                    .FirstAsync(u => u.Id == UserManager.GetUserId(User));
+                <div class="flex items-stretch">
+                    <div class="dropdown dropdown-end">
+                        <label tabindex="0" class="btn btn-ghost rounded-btn">
+                            @user.User?.FirstName @user.User?.LastName <i class="bi bi-chevron-down"></i>
+                        </label>
+                        <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
+                            <li>
+                                <a>Purchase history</a>
+                            </li>
+                            <li>
+                                <a>Settings</a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="flex gap-2">
+                    <a class="btn btn-ghost" asp-area="" asp-controller="Account" asp-action="Register">Sign up</a>
+                    <a class="btn btn-primary" asp-area="" asp-controller="Account" asp-action="Login">Log in</a>
+                </div>
+                
+            }
+
+        </div>
     </div>
 </header>
 <main role="main" class="p-2">
-        @RenderBody()
+    @RenderBody()
 </main>
 
 <footer class="border-top footer text-muted">
@@ -87,7 +116,5 @@
         &copy; 2023 - BookHub
     </div>
 </footer>
-<script src="~/js/site.js" asp-append-version="true"></script>
-@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
