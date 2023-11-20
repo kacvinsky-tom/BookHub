@@ -42,11 +42,17 @@ public static class ServiceCollectionExtensions
             );
         });
     }
-    public static void AddDbContextFactoryWithConfiguration(this IServiceCollection services, IConfiguration configuration)
+
+    public static void AddDbContextFactoryWithConfiguration(
+        this IServiceCollection services,
+        IConfiguration configuration
+    )
     {
         services.AddDbContextFactory<BookHubDbContext>(options =>
         {
-            var connectionString = configuration.GetValue<string>("ConnectionStrings:LocalPostgresConnection");
+            var connectionString = configuration.GetValue<string>(
+                "ConnectionStrings:LocalPostgresConnection"
+            );
             options.UseNpgsql(connectionString);
         });
     }

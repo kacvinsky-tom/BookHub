@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests.BusinessLayer.Services;
+
 [TestClass]
 public class BookServiceTests
 {
@@ -9,5 +10,4 @@ public class BookServiceTests
     {
         Assert.IsTrue(true);
     }
-
 }
