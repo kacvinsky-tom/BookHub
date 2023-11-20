@@ -6,12 +6,12 @@ public class LoginViewModel
 {
     [Required]
     [DataType(DataType.Text)]
-    public string Username { get; set; }
+    public string Username { get; set; } = "";
 
     [Required]
     [DataType(DataType.Password)]
-    public string Password { get; set; }
+    public string Password { get; set; } = "";
 
     [Display(Name = "Remember me?")]
-    public bool RememberMe { get; set; }
+    public bool RememberMe { get; set; } = false;
 }
