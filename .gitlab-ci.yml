@@ -6,6 +6,7 @@ variables:
     --property WarningLevel=0
 
 stages:
+  - format
   - build
   - test
 
@@ -25,6 +26,15 @@ default:
           $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master" || 
           $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /milestone-*/
         )
+        
+check_formatting:
+  stage: build
+  script:
+    - dotnet tool install csharpier -g
+    - export PATH="$PATH:/root/.dotnet/tools"
+    - dotnet csharpier --check .
+  rules:
+    - !reference [ .custom_rules, on_merge_on_master_or_milestone ]
 
 build:
   stage: build
@@ -32,7 +42,9 @@ build:
     - dotnet build $solutionPath $buildParams
   rules:
     - !reference [.custom_rules, on_merge_on_master_or_milestone]
-
+  needs:
+    - job: check_formatting
+      
 test:
   stage: test
   script:
