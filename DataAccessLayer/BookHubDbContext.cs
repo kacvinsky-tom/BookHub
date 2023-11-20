@@ -69,7 +69,7 @@ public class BookHubDbContext : DbContext
             .HasMany(u => u.WishLists)
             .WithOne(wl => wl.User)
             .OnDelete(DeleteBehavior.Cascade);
-        
+
         modelBuilder
             .Entity<Book>()
             .HasMany(b => b.Genres)
@@ -78,7 +78,7 @@ public class BookHubDbContext : DbContext
                 r => r.HasOne(bg => bg.Genre).WithMany().HasForeignKey(e => e.GenreId),
                 l => l.HasOne(bg => bg.Book).WithMany().HasForeignKey(e => e.BookId)
             );
-        
+
         modelBuilder
             .Entity<Book>()
             .HasMany(b => b.Authors)
@@ -90,9 +90,6 @@ public class BookHubDbContext : DbContext
 
         modelBuilder.Seed();
 
-        
-        
-        
         base.OnModelCreating(modelBuilder);
     }
 
