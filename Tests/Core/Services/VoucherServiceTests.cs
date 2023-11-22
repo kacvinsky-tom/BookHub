@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices.JavaScript;
 using Core.DTO.Input.Voucher;
 using Core.Services;
 using DataAccessLayer;
@@ -17,30 +16,26 @@ public class VoucherServiceTests
     private readonly MockedDependencyInjectionBuilder _serviceProviderBuilder;
     private readonly BookHubDbContext _mockedContext;
 
-    public VoucherServiceTests(){
+    public VoucherServiceTests()
+    {
         var options = MockedDbContext.GenerateNewInMemoryDbContextOptions();
         _mockedContext = MockedDbContext.CreateFromOptions(options);
         _serviceProviderBuilder = new MockedDependencyInjectionBuilder()
-                .AddUnitOfWork()
-                .AddAutoMapper()
-                .AddRepositories()
-                .AddServices()
-                .AddMockedDbContext()
-            ;
+            .AddUnitOfWork()
+            .AddAutoMapper()
+            .AddRepositories()
+            .AddServices()
+            .AddMockedDbContext();
     }
-    
+
     [Fact]
     public async Task GetAll_NonEmptyVouchers_ReturnsVoucherDTOs()
     {
         // Arrange
         var vouchers = VouchersTestData.GetFakeVouchers();
-        var vouchersIds = vouchers
-            .Select(v => v.Id)
-            .ToList();
+        var vouchersIds = vouchers.Select(v => v.Id).ToList();
 
-        var serviceProvider = _serviceProviderBuilder
-            .AddScoped(_mockedContext)
-            .Create();
+        var serviceProvider = CreateServiceProvider();
 
         using var scope = serviceProvider.CreateScope();
         var voucherService = scope.ServiceProvider.GetRequiredService<VoucherService>();
@@ -53,19 +48,14 @@ public class VoucherServiceTests
         Assert.Equal(vouchers.Count, result.Count());
         Assert.All(result, voucherSummary => Assert.Contains(voucherSummary.Id, vouchersIds));
     }
-    
+
     [Fact]
     public async Task GetById_ExistingVoucherId_ReturnsVoucherDTO()
     {
         // Arrange
-        var existingVoucherId = VouchersTestData
-            .GetFakeVouchers()
-            .First()
-            .Id;
+        var existingVoucherId = VouchersTestData.GetFakeVouchers().First().Id;
 
-        var serviceProvider = _serviceProviderBuilder
-            .AddScoped(_mockedContext)
-            .Create();
+        var serviceProvider = CreateServiceProvider();
 
         using var scope = serviceProvider.CreateScope();
         var voucherService = scope.ServiceProvider.GetRequiredService<VoucherService>();
@@ -77,20 +67,15 @@ public class VoucherServiceTests
         Assert.NotNull(result);
         Assert.Equal(existingVoucherId, result.Id);
     }
-    
+
     [Fact]
     public async Task GetById_NonExistingVoucherId_ReturnsNull()
     {
-        
         // Arrange
-        var fakeVouchers = VouchersTestData
-            .GetFakeVouchers();
-        
+        var fakeVouchers = VouchersTestData.GetFakeVouchers();
+
         var nonExistingVoucherId = FindNonExistingVoucherId(fakeVouchers);
-        
-        var serviceProvider = _serviceProviderBuilder
-            .AddScoped(_mockedContext)
-            .Create();
+        var serviceProvider = CreateServiceProvider();
 
         using var scope = serviceProvider.CreateScope();
         var voucherService = scope.ServiceProvider.GetRequiredService<VoucherService>();
@@ -102,7 +87,7 @@ public class VoucherServiceTests
         Assert.Null(result);
     }
 
-    private static int FindNonExistingVoucherId(List<Voucher> fakeVouchers)
+    private static int FindNonExistingVoucherId(IReadOnlyCollection<Voucher> fakeVouchers)
     {
         var nonExistingVoucherId = new Random().Next(int.MinValue, int.MaxValue);
 
@@ -118,9 +103,7 @@ public class VoucherServiceTests
     public async Task Create_ValidInput_ReturnsVoucher()
     {
         // Arrange
-        var serviceProvider = _serviceProviderBuilder
-            .AddScoped(_mockedContext)
-            .Create();
+        var serviceProvider = CreateServiceProvider();
         var uniqueCode = $"Test_{Guid.NewGuid()}";
         var inputDto = new VoucherInputDto
         {
@@ -144,17 +127,14 @@ public class VoucherServiceTests
         Assert.NotNull(resultDb);
         Assert.Equal(result.Id, resultDb.Id);
     }
-    
+
     [Fact]
     public async Task Delete_ValidVoucherId_DeletesVoucher()
     {
         // Arrange
-        var serviceProvider = _serviceProviderBuilder
-            .AddScoped(_mockedContext)
-            .Create();
-
+        var serviceProvider = CreateServiceProvider();
         var voucherDb = _mockedContext.Vouchers.FirstOrDefaultAsync();
-        
+
         using var scope = serviceProvider.CreateScope();
         var voucherService = scope.ServiceProvider.GetRequiredService<VoucherService>();
 
@@ -162,43 +142,45 @@ public class VoucherServiceTests
         await voucherService.Delete(voucherDb.Id);
 
         // Assert
-        var resultDb = await _mockedContext.Vouchers
-            .FirstOrDefaultAsync(v => v.Id == voucherDb.Id);
-        
+        var resultDb = await _mockedContext.Vouchers.FirstOrDefaultAsync(v => v.Id == voucherDb.Id);
+
         Assert.Null(resultDb);
     }
-    
+
     [Fact]
     public async Task Update_ValidInput_ReturnsVoucher()
     {
         // Arrange
-        var serviceProvider = _serviceProviderBuilder
-            .AddScoped(_mockedContext)
-            .Create();
+        var serviceProvider = CreateServiceProvider();
 
         var voucherBeforeUpdate = _mockedContext.Vouchers.First();
-        
         var uniqueCode = $"Test_{Guid.NewGuid()}";
         var inputDto = new VoucherInputDto
         {
             Code = uniqueCode,
-            Discount = 20,
-            ExpirationDate = DateTime.Now,
-            Quantity = 20,
-            Type = VoucherType.FixedAmount
+            Discount = voucherBeforeUpdate.Discount,
+            ExpirationDate = voucherBeforeUpdate.ExpirationDate,
+            Quantity = voucherBeforeUpdate.Quantity,
+            Type = voucherBeforeUpdate.Type
         };
 
         using var scope = serviceProvider.CreateScope();
         var voucherService = scope.ServiceProvider.GetRequiredService<VoucherService>();
 
         // Act
-        var result = await voucherService.Create(inputDto);
+        await voucherService.Update(inputDto, voucherBeforeUpdate.Id);
 
         // Assert
-        Assert.Equal(uniqueCode, result.Code);
+        var updatedVoucher = await _mockedContext
+            .Vouchers
+            .FirstOrDefaultAsync(v => v.Code == uniqueCode);
 
-        var resultDb = await _mockedContext.Vouchers.FirstOrDefaultAsync(v => v.Code == uniqueCode);
-        Assert.NotNull(resultDb);
-        Assert.Equal(result.Id, resultDb.Id);
+        Assert.NotNull(updatedVoucher);
+        Assert.Equal(voucherBeforeUpdate.Id, updatedVoucher.Id);
+    }
+
+    private ServiceProvider CreateServiceProvider()
+    {
+        return _serviceProviderBuilder.AddScoped(_mockedContext).Create();
     }
 }

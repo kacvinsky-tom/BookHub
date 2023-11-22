@@ -1,6 +1,5 @@
 ﻿using Core.Services;
 using DataAccessLayer;
-using DataAccessLayer.Entity;
 using DataAccessLayer.Repository;
 using DataAccessLayer.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -15,9 +14,9 @@ public class MockedDependencyInjectionBuilder
 
     public MockedDependencyInjectionBuilder AddMockedDbContext()
     {
-        _serviceCollection = _serviceCollection
-            .AddDbContext<BookHubDbContext>(options => options
-                .UseInMemoryDatabase(MockedDbContext.RandomDbName));
+        _serviceCollection = _serviceCollection.AddDbContext<BookHubDbContext>(
+            options => options.UseInMemoryDatabase(MockedDbContext.RandomDbName)
+        );
 
         return this;
     }
@@ -25,8 +24,7 @@ public class MockedDependencyInjectionBuilder
     public MockedDependencyInjectionBuilder AddScoped<T>(T objectToRegister)
         where T : class
     {
-        _serviceCollection = _serviceCollection
-            .AddScoped<T>(_ => objectToRegister);
+        _serviceCollection = _serviceCollection.AddScoped<T>(_ => objectToRegister);
 
         return this;
     }
@@ -50,34 +48,30 @@ public class MockedDependencyInjectionBuilder
 
         return this;
     }
+
     public MockedDependencyInjectionBuilder AddServices()
     {
-        _serviceCollection = _serviceCollection
-            .AddScoped<VoucherService>();
+        _serviceCollection = _serviceCollection.AddScoped<VoucherService>();
 
         return this;
     }
 
     public MockedDependencyInjectionBuilder AddUnitOfWork()
     {
-        _serviceCollection = _serviceCollection
-            .AddScoped<UnitOfWork>();
+        _serviceCollection = _serviceCollection.AddScoped<UnitOfWork>();
 
         return this;
     }
-    
+
     public MockedDependencyInjectionBuilder AddAutoMapper()
     {
-        _serviceCollection = _serviceCollection
-            .AddAutoMapper(typeof(BookHubProfile));
+        _serviceCollection = _serviceCollection.AddAutoMapper(typeof(BookHubProfile));
 
         return this;
     }
-    
+
     public ServiceProvider Create()
     {
-       return _serviceCollection.BuildServiceProvider();
+        return _serviceCollection.BuildServiceProvider();
     }
-
 }
-

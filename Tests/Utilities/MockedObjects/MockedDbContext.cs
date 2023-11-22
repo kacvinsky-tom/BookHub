@@ -1,11 +1,10 @@
 ﻿using DataAccessLayer;
-using DataAccessLayer.Entity;
 using EntityFrameworkCore.Testing.NSubstitute.Helpers;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using Tests.Utilities.Data;
 
 namespace Tests.Utilities.MockedObjects;
+
 public static class MockedDbContext
 {
     public static string RandomDbName => Guid.NewGuid().ToString();
@@ -39,5 +38,4 @@ public static class MockedDbContext
 
         dbContext.SaveChanges();
     }
-    
 }

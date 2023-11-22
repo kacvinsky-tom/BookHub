@@ -2,6 +2,7 @@
 using DataAccessLayer.Enum;
 
 namespace Tests.Utilities.Data;
+
 public static class VouchersTestData
 {
     public static List<Voucher> GetFakeVouchers()

@@ -55,7 +55,7 @@ public class VoucherController : ControllerBase
     {
         try
         {
-            var voucher = await _voucherService.dUpdate(voucherInputDto, id);
+            var voucher = await _voucherService.Update(voucherInputDto, id);
 
             return Ok(_mapper.Map<VoucherDetailOutputDto>(voucher));
         }
