@@ -1,0 +1,54 @@
+﻿@startuml
+left to right direction
+
+:Customer: as Customer
+:Admin: as Admin
+:Guest: as Guest
+
+Guest --> (Create an account)
+Guest --> (Login)
+ 
+(List books) as (List)
+(Sort, filter, search books) as (Search)
+(View book detail) as (View)
+(Read book reviews) as (ViewReviews)
+(Add, remove from cart) as (Cart)
+(Place order) as (Order)
+(Review purchase history) as (History)
+(Create, remove wishlist) as (Wishlist)
+(Add/remove from wishlist) as (AddWishlist)
+(Rate book) as (Rate)
+(Update book information, e.g. price) as (ChangePrice)
+(Add, remove, change customers) as (ManageCustomer)
+(Add, remove genres) as (ManageGenre)
+(Add, remove authors) as (ManageAuthor)
+(Add, remove publishers) as (ManagePublisher)
+(Add, remove books) as (ManageBook)
+(Manage reviews) as (ManageReview)
+
+Search ..> List :extends
+ViewReviews ..> View :extends
+Rate ..> View :extends
+Order .> Cart :include
+
+Customer --> (List)
+Customer --> (View)
+
+Customer --> (Cart)
+Customer --> (Order)
+Customer --> (History)
+Customer --> (Wishlist)
+Customer --> (AddWishlist)
+
+Admin --> (ChangePrice)
+Admin --> (ManageCustomer)
+Admin --> (ManageGenre)
+Admin --> (ManageAuthor)
+Admin --> (ManagePublisher)
+Admin --> (ManageBook)
+Admin --> (ManageReview)
+
+
+
+Customer <|-- Admin
+@enduml
