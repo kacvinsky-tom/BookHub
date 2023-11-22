@@ -65,11 +65,3 @@ public class XmlResponseMiddleware
         return xml;
     }
 }
-
-public static class XmlResponseMiddlewareExtensions
-{
-    public static void UseXmlResponseMiddleware(this IApplicationBuilder builder)
-    {
-        builder.UseMiddleware<XmlResponseMiddleware>();
-    }
-}
