@@ -6,18 +6,18 @@ namespace DataAccessLayer;
 
 public class BookHubDbContext : IdentityDbContext<LocalIdentityUser, LocalIdentityRole, string>
 {
-    public DbSet<User> Users { get; set; } = null!;
-    public DbSet<Author> Authors { get; set; } = null!;
-    public DbSet<Publisher> Publishers { get; set; } = null!;
-    public DbSet<Book> Books { get; set; } = null!;
-    public DbSet<Genre> Genres { get; set; } = null!;
-    public DbSet<Order> Orders { get; set; } = null!;
-    public DbSet<OrderItem> OrderItems { get; set; } = null!;
-    public DbSet<CartItem> CartItems { get; set; } = null!;
-    public DbSet<Review> Reviews { get; set; } = null!;
-    public DbSet<WishList> WishLists { get; set; } = null!;
-    public DbSet<WishListItem> WishListItems { get; set; } = null!;
-    public DbSet<Voucher> Vouchers { get; set; } = null!;
+    public virtual DbSet<User> Users { get; set; } = null!;
+    public virtual DbSet<Author> Authors { get; set; } = null!;
+    public virtual DbSet<Publisher> Publishers { get; set; } = null!;
+    public virtual DbSet<Book> Books { get; set; } = null!;
+    public virtual DbSet<Genre> Genres { get; set; } = null!;
+    public virtual DbSet<Order> Orders { get; set; } = null!;
+    public virtual DbSet<OrderItem> OrderItems { get; set; } = null!;
+    public virtual DbSet<CartItem> CartItems { get; set; } = null!;
+    public virtual DbSet<Review> Reviews { get; set; } = null!;
+    public virtual DbSet<WishList> WishLists { get; set; } = null!;
+    public virtual DbSet<WishListItem> WishListItems { get; set; } = null!;
+    public virtual DbSet<Voucher> Vouchers { get; set; } = null!;
 
     public BookHubDbContext(DbContextOptions<BookHubDbContext> options)
         : base(options) { }
