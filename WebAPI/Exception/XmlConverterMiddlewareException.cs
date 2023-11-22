@@ -2,7 +2,6 @@
 
 public class XmlConverterMiddlewareException : System.Exception
 {
-    public XmlConverterMiddlewareException(string message) : base(message)
-    {
-    }
+    public XmlConverterMiddlewareException(string message)
+        : base(message) { }
 }

@@ -16,7 +16,10 @@ public class XmlResponseMiddleware
     {
         var queryParameters = context.Request.Query;
 
-        if (!queryParameters.ContainsKey("responseFormat") || queryParameters["responseFormat"] != "xml")
+        if (
+            !queryParameters.ContainsKey("responseFormat")
+            || queryParameters["responseFormat"] != "xml"
+        )
         {
             await _next(context);
             return;
@@ -53,7 +56,7 @@ public class XmlResponseMiddleware
     private string ModifyResponseString(string originalResponse)
     {
         var xml = XmlService.ConvertJsonToXml(originalResponse);
-        
+
         if (xml == null)
         {
             throw new XmlConverterMiddlewareException("Unable to convert JSON response to XML.");

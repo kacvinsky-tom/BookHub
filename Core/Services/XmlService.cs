@@ -13,7 +13,7 @@ public static class XmlService
             var token = JToken.Parse(jsonString);
 
             var rootElementName = "Object";
-        
+
             if (token is JArray)
             {
                 jsonString = "{\"Object\":" + jsonString + "}";
@@ -21,9 +21,9 @@ public static class XmlService
             }
 
             XNode? node = JsonConvert.DeserializeXNode(jsonString, rootElementName);
-        
+
             var response = node?.ToString(SaveOptions.DisableFormatting);
-        
+
             return response;
         }
         catch (JsonReaderException)
