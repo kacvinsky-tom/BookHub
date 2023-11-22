@@ -1,5 +1,7 @@
 image: mcr.microsoft.com/dotnet/sdk:7.0
 
+include: 'ci-templates/custom-variables.yml'
+
 variables:
   solutionPath: .\\BookHub.sln
   buildParams: >-
@@ -9,11 +11,6 @@ stages:
   - format
   - build
   - test
-    
-before_script: 
-  - "curl -sL https://deb.nodesource.com/setup_20.x | bash -"
-  - apt-get install -y nodejs
-  - cd WebMVC && npm install && cd ..
 
 default:
   tags:
@@ -21,18 +18,7 @@ default:
   artifacts:
     expire_in: 10 minutes
 
-.custom_rules:
-  # Only trigger job when a merge request is created or updated
-  # and the target branch is either 'master' or 'milestone-*'
-  on_merge_on_master_or_milestone:
-    - if: >
-        $CI_PIPELINE_SOURCE == "merge_request_event" && 
-        (
-          $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master" || 
-          $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /milestone-*/
-        )
-        
-check_formatting:
+check-formatting:
   stage: build
   script:
     - dotnet tool install csharpier -g
@@ -44,12 +30,14 @@ check_formatting:
 build:
   stage: build
   script:
+    - !reference [ .install_dependencies, nodejs ]
+    - npm install ./WebMVC
     - dotnet build $solutionPath $buildParams
   rules:
     - !reference [.custom_rules, on_merge_on_master_or_milestone]
   needs:
-    - job: check_formatting
-      
+    - job: check-formatting
+
 test:
   stage: test
   script:
