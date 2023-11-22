@@ -1,5 +1,4 @@
 using Core.Extensions;
-using Core.Services;
 using DataAccessLayer;
 using WebAPI;
 using WebAPI.Extensions;
@@ -37,6 +36,8 @@ app.UseLoggingMiddleware();
 app.UseHttpsRedirection();
 
 app.UseTokenAuthenticationMiddleware();
+
+app.UseXmlResponseMiddleware();
 
 app.UseAuthorization();
 
