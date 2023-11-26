@@ -51,7 +51,12 @@ public class MockedDependencyInjectionBuilder
 
     public MockedDependencyInjectionBuilder AddServices()
     {
-        _serviceCollection = _serviceCollection.AddScoped<VoucherService>();
+        _serviceCollection = _serviceCollection
+            .AddScoped<BookService>()
+            .AddScoped<VoucherService>()
+            .AddScoped<GenreService>()
+            .AddScoped<CartService>()
+            .AddScoped<AuthorService>();
 
         return this;
     }
