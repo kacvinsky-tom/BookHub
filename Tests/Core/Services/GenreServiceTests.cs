@@ -1,7 +1,6 @@
 ﻿using Core.DTO.Input.Genre;
 using Core.Exception;
 using Core.Services;
-using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Repository.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,13 +14,9 @@ namespace Tests.Core.Services;
 public class GenreServiceTests
 {
     private readonly MockedDependencyInjectionBuilder _serviceProviderBuilder;
-    private readonly BookHubDbContext _mockedContext;
 
     public GenreServiceTests()
     {
-        var options = MockedDbContext.GenerateNewInMemoryDbContextOptions();
-        _mockedContext = MockedDbContext.CreateFromOptions(options);
-
         var genreRepositoryMock = Substitute.For<IGenreRepository>();
 
         genreRepositoryMock.GetAll().Returns(GenreTestData.GetFakeGenres());
@@ -32,7 +27,7 @@ public class GenreServiceTests
             .AddUnitOfWork()
             .AddAutoMapper()
             .AddRepositories()
-            .AddScoped<IGenreRepository>(genreRepositoryMock)
+            .AddScoped(genreRepositoryMock)
             .AddServices()
             .AddMockedDbContext();
     }
