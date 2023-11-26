@@ -28,7 +28,7 @@ public class UserServiceTest
             .AddServices()
             .AddMockedDbContext();
     }
-    
+
     [Fact]
     public async Task GetAllUsers_ReturnsUsers()
     {
@@ -49,7 +49,7 @@ public class UserServiceTest
         Assert.Equal(users.Count, result.Count);
         Assert.All(result, userSummary => Assert.Contains(userSummary.Id, usersIds));
     }
-    
+
     [Fact]
     public async Task GetUserById_ReturnsUser()
     {
@@ -68,7 +68,7 @@ public class UserServiceTest
         Assert.NotNull(result);
         Assert.Equal(user.Id, result.Id);
     }
-    
+
     [Fact]
     public async Task CreateUser_ReturnsUser()
     {
@@ -87,7 +87,7 @@ public class UserServiceTest
         Assert.NotNull(result);
         Assert.Equal(user.Email, result.Email);
     }
-    
+
     [Fact]
     public async Task UpdateUser_ReturnsUser()
     {
@@ -106,7 +106,7 @@ public class UserServiceTest
         Assert.NotNull(result);
         Assert.Equal(user.Email, result.Email);
     }
-    
+
     [Fact]
     public async Task DeleteUser_Success()
     {

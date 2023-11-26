@@ -21,7 +21,7 @@ public class OrderServiceTest
         orderRepositoryMock.GetAllWithRelations().Returns(OrderTestData.GetFakeOrders());
         orderRepositoryMock.GetById(1).Returns(OrderTestData.GetFakeOrders().First());
         orderRepositoryMock.GetByIdWithRelations(1).Returns(OrderTestData.GetFakeOrders().First());
-        
+
         var userRepositoryMock = Substitute.For<IUserRepository>();
         userRepositoryMock.GetById(1).Returns(OrderTestData.GetFakeOrders().First().User);
 
@@ -40,14 +40,14 @@ public class OrderServiceTest
     {
         var orders = OrderTestData.GetFakeOrders().ToList();
         var ordersIds = orders.Select(o => o.Id).ToList();
-        
+
         var serviceProvider = _serviceProviderBuilder.Create();
-        
+
         using var scope = serviceProvider.CreateScope();
         var orderService = scope.ServiceProvider.GetRequiredService<OrderService>();
-        
+
         var result = (await orderService.GetAll()).ToList();
-        
+
         Assert.NotNull(result);
         Assert.Equal(orders.Count, result.Count);
         Assert.All(result, genreSummary => Assert.Contains(genreSummary.Id, ordersIds));
@@ -57,14 +57,14 @@ public class OrderServiceTest
     public async Task GetOrderById_ReturnsOrder()
     {
         var order = OrderTestData.GetFakeOrders().First();
-        
+
         var serviceProvider = _serviceProviderBuilder.Create();
-        
+
         using var scope = serviceProvider.CreateScope();
         var orderService = scope.ServiceProvider.GetRequiredService<OrderService>();
-        
+
         var result = await orderService.GetById(order.Id);
-        
+
         Assert.NotNull(result);
         Assert.Equal(order.Id, result.Id);
     }

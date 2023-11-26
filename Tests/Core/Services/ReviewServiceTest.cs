@@ -11,7 +11,7 @@ namespace Tests.Core.Services;
 public class ReviewServiceTest
 {
     private readonly MockedDependencyInjectionBuilder _serviceProviderBuilder;
-    
+
     public ReviewServiceTest()
     {
         var reviewRepositoryMock = Substitute.For<IReviewRepository>();
@@ -19,10 +19,12 @@ public class ReviewServiceTest
         reviewRepositoryMock.GetAll().Returns(ReviewTestData.GetFakeReviews());
         reviewRepositoryMock.GetAllWithRelations().Returns(ReviewTestData.GetFakeReviews());
         reviewRepositoryMock.GetById(1).Returns(ReviewTestData.GetFakeReviews().First());
-        reviewRepositoryMock.GetByIdWithRelations(1).Returns(ReviewTestData.GetFakeReviews().First());
-        
+        reviewRepositoryMock
+            .GetByIdWithRelations(1)
+            .Returns(ReviewTestData.GetFakeReviews().First());
+
         var bookRepositoryMock = Substitute.For<IBookRepository>();
-        
+
         bookRepositoryMock.GetById(1).Returns(BookTestData.GetFakeBooks().First());
 
         var userRepositoryMock = Substitute.For<IUserRepository>();
@@ -39,7 +41,7 @@ public class ReviewServiceTest
             .AddServices()
             .AddMockedDbContext();
     }
-    
+
     [Fact]
     public async Task GetAllReviews_ReturnsReviews()
     {
@@ -60,7 +62,7 @@ public class ReviewServiceTest
         Assert.Equal(reviews.Count, result.Count);
         Assert.All(result, reviewSummary => Assert.Contains(reviewSummary.Id, reviewsIds));
     }
-    
+
     [Fact]
     public async Task GetReviewById_ReturnsReview()
     {
@@ -79,7 +81,7 @@ public class ReviewServiceTest
         Assert.NotNull(result);
         Assert.Equal(review.Id, result.Id);
     }
-    
+
     [Fact]
     public async Task GetReviewByIdWithRelations_ReturnsReview()
     {
@@ -98,7 +100,7 @@ public class ReviewServiceTest
         Assert.NotNull(result);
         Assert.Equal(review.Id, result.Id);
     }
-    
+
     [Fact]
     public async Task CreateReview_ReturnsReview()
     {
@@ -117,7 +119,7 @@ public class ReviewServiceTest
         Assert.NotNull(result);
         Assert.Equal(review.Comment, result.Comment);
     }
-    
+
     [Fact]
     public async Task UpdateReview_ReturnsReview()
     {

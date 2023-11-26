@@ -15,12 +15,9 @@ public class PublisherTestData
             new() { Id = 4, Name = "Publisher 4", },
         };
     }
-    
+
     public static PublisherInputDto GetFakePublisherInputDto()
     {
-        return new()
-        {
-            Name = "Publisher 1",
-        };
+        return new() { Name = "Publisher 1", };
     }
 }

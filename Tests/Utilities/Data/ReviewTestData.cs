@@ -29,7 +29,7 @@ public static class ReviewTestData
             },
         };
     }
-    
+
     public static ReviewCreateInputDto GetFakeReviewCreateInputDto()
     {
         return new()
@@ -40,13 +40,9 @@ public static class ReviewTestData
             UserId = 1,
         };
     }
-    
+
     public static ReviewUpdateInputDto GetFakeReviewUpdateInputDto()
     {
-        return new()
-        {
-            Rating = 5,
-            Comment = "Review 1",
-        };
+        return new() { Rating = 5, Comment = "Review 1", };
     }
 }
