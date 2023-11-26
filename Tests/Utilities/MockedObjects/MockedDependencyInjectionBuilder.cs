@@ -56,7 +56,8 @@ public class MockedDependencyInjectionBuilder
             .AddScoped<VoucherService>()
             .AddScoped<GenreService>()
             .AddScoped<CartService>()
-            .AddScoped<AuthorService>();
+            .AddScoped<AuthorService>()
+            .AddScoped<PublisherService>();
 
         return this;
     }

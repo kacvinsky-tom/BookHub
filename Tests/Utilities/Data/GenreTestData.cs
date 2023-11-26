@@ -6,7 +6,7 @@ public static class GenreTestData
 {
     public static IEnumerable<Genre> GetFakeGenres()
     {
-        return new List<Genre>()
+        return new List<Genre>
         {
             new() { Id = 1, Name = "Comedy", },
             new() { Id = 2, Name = "Tragedy", },
