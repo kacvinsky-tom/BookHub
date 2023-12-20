@@ -77,6 +77,11 @@ public class BookService
 
         await _unitOfWork.Complete();
 
+        if (bookCreateCreateInputDto.PrimaryGenreId != null)
+        {
+            await SetPrimaryGenre(book.Id, bookCreateCreateInputDto.PrimaryGenreId.Value);
+        }
+
         return book;
     }
 
