@@ -39,6 +39,7 @@ public class BookService
                 bookCreateCreateInputDto.AuthorIds.FirstOrDefault()
             );
         }
+
         if (publisher == null)
         {
             throw new EntityNotFoundException<Publisher>(bookCreateCreateInputDto.PublisherId);
@@ -107,6 +108,7 @@ public class BookService
                 bookCreateUpdateInputDto.AuthorIds.FirstOrDefault()
             );
         }
+
         if (publisher == null)
         {
             throw new EntityNotFoundException<Publisher>(bookCreateUpdateInputDto.PublisherId);
@@ -135,6 +137,35 @@ public class BookService
         book.ReleaseYear = bookCreateUpdateInputDto.ReleaseYear;
         book.Authors = authors;
         book.Genres = genres;
+
+        if (bookCreateUpdateInputDto.PrimaryGenreId != null)
+        {
+            await SetPrimaryGenre(book.Id, bookCreateUpdateInputDto.PrimaryGenreId.Value);
+        }
+
+        await _unitOfWork.Complete();
+
+        return book;
+    }
+
+    public async Task<Book> SetPrimaryGenre(int bookId, int genreId)
+    {
+        var book = await _unitOfWork.Books.GetByIdWithRelations(bookId);
+
+        if (book == null)
+        {
+            throw new EntityNotFoundException<Book>(bookId);
+        }
+
+        var genre = book.BookGenres.FirstOrDefault(bg => bg.GenreId == genreId);
+
+        if (genre == null)
+        {
+            throw new EntityNotFoundException<BookGenre>(genreId);
+        }
+
+        book.BookGenres.ToList().ForEach(bg => bg.IsPrimary = false);
+        genre.IsPrimary = true;
 
         await _unitOfWork.Complete();
 

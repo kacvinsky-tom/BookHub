@@ -22,6 +22,8 @@ public class Book : BaseEntity
     public IEnumerable<Author> Authors { get; set; } = new List<Author>();
     public IEnumerable<Genre> Genres { get; set; } = new List<Genre>();
 
+    public IEnumerable<BookGenre> BookGenres { get; set; } = new List<BookGenre>();
+
     public IEnumerable<OrderItem> OrderItems { get; } = new List<OrderItem>();
 
     public IEnumerable<CartItem> CartItems { get; } = new List<CartItem>();
