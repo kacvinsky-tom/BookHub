@@ -93,6 +93,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <AdditionalFiles Include="Areas\Admin\Views\Home\Index.cshtml" />
       <AdditionalFiles Include="Views\Account\Login.cshtml" />
     </ItemGroup>
 
