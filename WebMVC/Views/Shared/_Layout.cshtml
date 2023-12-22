@@ -39,9 +39,12 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a>Placeholder</a>
-                    </li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>
+                            <a asp-area="Admin" asp-controller="Home" asp-action="Index">Admin Panel</a>
+                        </li>
+                    }
                 </ul>
             </div>
             <a class="btn btn-ghost text-xl">BookHub</a>
@@ -64,9 +67,12 @@
                         </ul>
                     </details>
                 </li>
-                <li>
-                    <a>Placeholder</a>
-                </li>
+                @if (User.IsInRole("Admin"))
+                {
+                    <li>
+                        <a  asp-area="Admin" asp-controller="Home" asp-action="Index">Admin Panel</a>
+                    </li>
+                }
             </ul>
         </div>
         <div class="navbar-end">
@@ -107,8 +113,10 @@
         </div>
     </div>
 </header>
-<main role="main" class="p-2">
-    @RenderBody()
+<main role="main" class="flex w-full justify-center p-2">
+    <div class="flex flex-col items-center gap-4 w-full max-w-screen-2xl">
+        @RenderBody()
+    </div>
 </main>
 
 <footer class="border-top footer text-muted">
