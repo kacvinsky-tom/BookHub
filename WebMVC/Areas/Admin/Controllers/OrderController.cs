@@ -6,19 +6,18 @@ namespace WebMVC.Areas.Admin.Controllers;
 
 [Area("Admin")]
 [Authorize(Roles = "Admin")]
-public class UserController : Controller
+public class OrderController : Controller
 {
-    private readonly UserService _userService;
+    private readonly OrderService _orderService;
 
-    public UserController(UserService userService)
+    public OrderController(OrderService orderService)
     {
-        _userService = userService;
+        _orderService = orderService;
     }
 
     public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
     {
-        // TODO: Make it, so this page returns LocalIdentityUser instead of User
-        return View(await _userService.GetAllPaginated(page, pageSize));
+        return View(await _orderService.GetAllPaginated(page, pageSize));
     }
 
     public IActionResult Create()
@@ -27,11 +26,6 @@ public class UserController : Controller
     }
 
     public IActionResult Edit()
-    {
-        return View();
-    }
-
-    public IActionResult ResetPassword()
     {
         return View();
     }

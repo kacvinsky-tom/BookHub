@@ -2,6 +2,7 @@
 using Core.Exception;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
+using DataAccessLayer.Helpers;
 
 namespace Core.Services;
 
@@ -22,6 +23,11 @@ public class GenreService
     public async Task<Genre?> GetById(int id)
     {
         return await _unitOfWork.Genres.GetByIdWithRelations(id);
+    }
+
+    public async Task<PaginationObject<Genre>> GetAllPaginated(int page, int pageSize)
+    {
+        return await _unitOfWork.Genres.GetPaginated(page, pageSize);
     }
 
     public async Task<Genre> Create(GenreInputDto genreInputDto)

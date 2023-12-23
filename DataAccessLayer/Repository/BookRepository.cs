@@ -11,7 +11,7 @@ public class BookRepository : GenericRepository<Book>, IBookRepository
     public BookRepository(BookHubDbContext context)
         : base(context) { }
 
-    private IQueryable<Book> GetBasicQuery()
+    public override IQueryable<Book> GetBasicQuery()
     {
         return _context
             .Books

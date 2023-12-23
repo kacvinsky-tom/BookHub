@@ -2,6 +2,7 @@
 using Core.Exception;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
+using DataAccessLayer.Helpers;
 
 namespace Core.Services;
 
@@ -17,6 +18,11 @@ public class AuthorService
     public async Task<IEnumerable<Author>> GetAll()
     {
         return await _unitOfWork.Authors.GetAll();
+    }
+
+    public async Task<PaginationObject<Author>> GetAllPaginated(int page, int pageSize)
+    {
+        return await _unitOfWork.Authors.GetPaginated(page, pageSize);
     }
 
     public async Task<Author?> GetById(int id)
