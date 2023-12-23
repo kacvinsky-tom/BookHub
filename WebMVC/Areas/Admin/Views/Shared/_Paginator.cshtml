@@ -1,0 +1,16 @@
+﻿@model WebMVC.Areas.Admin.Views.Shared.PaginatorData
+
+<div class="join">
+    @if (Model.Page > 1)
+    {
+        <a href="/Admin/@Model.ModelName/?page=@(Model.Page-1)" class="join-item btn"><i class="bi bi-chevron-left"></i></a>
+    }
+    @for (int i = Math.Max(1, Model.Page - 3); i <= Math.Min(Model.TotalPages, Model.Page + 3); i++)
+    {
+        <a href="/Admin/@Model.ModelName/?page=@i" class="join-item btn @((i == Model.Page) ? "btn-primary" : "")">@i</a>
+    }
+    @if (Model.Page < Model.TotalPages)
+    {
+        <a href="/Admin/@Model.ModelName/?page=@(Model.Page+1)" class="join-item btn"><i class="bi bi-chevron-right"></i></a>
+    }
+</div>

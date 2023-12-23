@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebMVC.Areas.Admin.Controllers;
@@ -7,9 +8,16 @@ namespace WebMVC.Areas.Admin.Controllers;
 [Authorize(Roles = "Admin")]
 public class BookController : Controller
 {
-    public IActionResult Index()
+    private readonly BookService _bookService;
+
+    public BookController(BookService bookService)
     {
-        return View();
+        _bookService = bookService;
+    }
+
+    public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
+    {
+        return View(await _bookService.GetAllPaginated(page, pageSize));
     }
 
     public IActionResult Create()

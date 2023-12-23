@@ -9,17 +9,22 @@ public class OrderRepository : GenericRepository<Order>, IOrderRepository
     public OrderRepository(BookHubDbContext context)
         : base(context) { }
 
+    public override IQueryable<Order> GetBasicQuery()
+    {
+        return _context
+            .Orders
+            .Include(o => o.User)
+            .Include(o => o.OrderItems)
+            .Include(o => o.VoucherUsed);
+    }
+
     public async Task<IEnumerable<Order>> GetAllWithRelations()
     {
-        return await _context.Orders.Include(o => o.User).ToListAsync();
+        return await GetBasicQuery().ToListAsync();
     }
 
     public async Task<Order?> GetByIdWithRelations(int id)
     {
-        return await _context
-            .Orders.Include(o => o.User)
-            .Include(o => o.OrderItems)
-            .Include(o => o.VoucherUsed)
-            .FirstOrDefaultAsync(w => w.Id == id);
+        return await GetBasicQuery().FirstOrDefaultAsync(w => w.Id == id);
     }
 }

@@ -15,9 +15,9 @@ public class GenreController : Controller
         _genreService = genreService;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
     {
-        return View(await _genreService.GetAll());
+        return View(await _genreService.GetAllPaginated(page, pageSize));
     }
 
     public IActionResult Create()

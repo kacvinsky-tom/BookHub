@@ -2,6 +2,7 @@
 using Core.Exception;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
+using DataAccessLayer.Helpers;
 
 namespace Core.Services;
 
@@ -22,6 +23,22 @@ public class BookService
     public async Task<IEnumerable<Book>> GetAll(BookFilterInputDto filterInputDto)
     {
         return await _unitOfWork.Books.GetWithRelations(filterInputDto.ToBookFilter());
+    }
+
+    public async Task<PaginationObject<Book>> GetAllPaginated(int page, int pageSize)
+    {
+        return await _unitOfWork.Books.GetPaginated(page, pageSize);
+    }
+
+    public async Task<PaginationObject<Book>> GetAllPaginatedFiltered(
+        BookFilterInputDto filterInputDto,
+        int page,
+        int pageSize
+    )
+    {
+        return await _unitOfWork
+            .Books
+            .GetPaginatedFiltered(filterInputDto.ToBookFilter(), page, pageSize);
     }
 
     public async Task<Book> Create(BookCreateInputDto bookCreateCreateInputDto)

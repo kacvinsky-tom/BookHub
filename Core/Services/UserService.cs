@@ -2,6 +2,7 @@
 using Core.Exception;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
+using DataAccessLayer.Helpers;
 using Microsoft.AspNetCore.Identity;
 
 namespace Core.Services;
@@ -18,6 +19,11 @@ public class UserService
     public async Task<IEnumerable<User>> GetAll()
     {
         return await _unitOfWork.Users.GetAll();
+    }
+
+    public async Task<PaginationObject<User>> GetAllPaginated(int page, int pageSize)
+    {
+        return await _unitOfWork.Users.GetPaginated(page, pageSize);
     }
 
     public async Task<User?> GetById(int id)

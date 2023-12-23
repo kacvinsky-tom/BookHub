@@ -2,6 +2,7 @@
 using Core.Exception;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
+using DataAccessLayer.Helpers;
 
 namespace Core.Services;
 
@@ -22,6 +23,11 @@ public class PublisherService
     public async Task<Publisher?> GetById(int id)
     {
         return await _unitOfWork.Publishers.GetById(id);
+    }
+
+    public async Task<PaginationObject<Publisher>> GetAllPaginated(int page, int pageSize)
+    {
+        return await _unitOfWork.Publishers.GetPaginated(page, pageSize);
     }
 
     public async Task<Publisher> Create(PublisherInputDto publisherCreateInput)

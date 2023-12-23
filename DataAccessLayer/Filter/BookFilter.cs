@@ -1,6 +1,6 @@
 ﻿namespace DataAccessLayer.Filter;
 
-public class BookFilter
+public class BookFilter : IFilter
 {
     public string? Title { get; set; }
 

@@ -5,6 +5,7 @@ using Core.Exception;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Enum;
+using DataAccessLayer.Helpers;
 
 namespace Core.Services;
 
@@ -25,6 +26,11 @@ public class OrderService
     public async Task<IEnumerable<OrderItem>> GetAllOrderItems()
     {
         return await _unitOfWork.OrderItems.GetAllWithRelations();
+    }
+
+    public async Task<PaginationObject<Order>> GetAllPaginated(int page, int pageSize)
+    {
+        return await _unitOfWork.Orders.GetPaginated(page, pageSize);
     }
 
     public async Task<Order?> GetById(int id)
