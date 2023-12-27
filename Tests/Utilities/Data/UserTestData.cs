@@ -15,7 +15,6 @@ public class UserTestData
                 FirstName = "John",
                 LastName = "Doe",
                 Email = "test@example.org",
-                Password = "password",
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
             },
@@ -25,7 +24,6 @@ public class UserTestData
                 FirstName = "Jane",
                 LastName = "Doe",
                 Email = "test@example.org",
-                Password = "password",
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
             },
@@ -39,7 +37,6 @@ public class UserTestData
             FirstName = "John",
             LastName = "Doe",
             Email = "test@eamil.com",
-            Password = "password"
         };
     }
 }

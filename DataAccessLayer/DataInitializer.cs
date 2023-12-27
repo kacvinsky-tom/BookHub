@@ -123,44 +123,36 @@ public static class DataInitializer
                 Id = 1,
                 Username = "john.doe",
                 Email = "john.doe@gmail.com",
-                Password = "$2a$12$9NC8nfoll0NYTn40Jc79gu7BL9sXfrZTtuhHvuT9O0uDT0/rTCOJi", //heslo1234
                 FirstName = "John",
                 LastName = "Doe",
                 PhoneNumber = "752 685 143",
-                IsAdmin = true,
             },
             new()
             {
                 Id = 2,
                 Username = "jane.doe",
                 Email = "jane.doe@gmai.com",
-                Password = "$2a$12$9NC8nfoll0NYTn40Jc79gu7BL9sXfrZTtuhHvuT9O0uDT0/rTCOJi", //heslo1234
                 FirstName = "Jane",
                 LastName = "Doe",
                 PhoneNumber = "746 692 352",
-                IsAdmin = false,
             },
             new()
             {
                 Id = 3,
                 Username = "pavel.kraus",
                 Email = "pavel.kraus@gmail.com",
-                Password = "$2a$12$9NC8nfoll0NYTn40Jc79gu7BL9sXfrZTtuhHvuT9O0uDT0/rTCOJi", //heslo1234
                 FirstName = "Pavel",
                 LastName = "Kraus",
                 PhoneNumber = "748 242 562",
-                IsAdmin = false,
             },
             new()
             {
                 Id = 4,
                 Username = "jarda.novak",
                 Email = "jarda@novak.cz",
-                Password = "$2a$12$9NC8nfoll0NYTn40Jc79gu7BL9sXfrZTtuhHvuT9O0uDT0/rTCOJi", //heslo1234
                 FirstName = "Jarda",
                 LastName = "Novák",
                 PhoneNumber = "742 942 934",
-                IsAdmin = false,
             }
         };
         users.ForEach(

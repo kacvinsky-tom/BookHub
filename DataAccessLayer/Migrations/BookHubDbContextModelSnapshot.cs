@@ -782,13 +782,13 @@ namespace DataAccessLayer.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4d57a697-d25b-4990-a2d2-a22096849a83",
+                            Id = "51132739-e370-4fc2-88fa-cae0afaaf6b8",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "6acacba3-c4d5-4be8-9d79-4c0aaba0735b",
+                            Id = "0cd0b4d6-355c-4016-ade3-fd4ae514eded",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -1199,14 +1199,7 @@ namespace DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -1232,9 +1225,7 @@ namespace DataAccessLayer.Migrations
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
                             Email = "john.doe@gmail.com",
                             FirstName = "John",
-                            IsAdmin = true,
                             LastName = "Doe",
-                            Password = "$2a$12$9NC8nfoll0NYTn40Jc79gu7BL9sXfrZTtuhHvuT9O0uDT0/rTCOJi",
                             PhoneNumber = "752 685 143",
                             Username = "john.doe"
                         },
@@ -1244,9 +1235,7 @@ namespace DataAccessLayer.Migrations
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
                             Email = "jane.doe@gmai.com",
                             FirstName = "Jane",
-                            IsAdmin = false,
                             LastName = "Doe",
-                            Password = "$2a$12$9NC8nfoll0NYTn40Jc79gu7BL9sXfrZTtuhHvuT9O0uDT0/rTCOJi",
                             PhoneNumber = "746 692 352",
                             Username = "jane.doe"
                         },
@@ -1256,9 +1245,7 @@ namespace DataAccessLayer.Migrations
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
                             Email = "pavel.kraus@gmail.com",
                             FirstName = "Pavel",
-                            IsAdmin = false,
                             LastName = "Kraus",
-                            Password = "$2a$12$9NC8nfoll0NYTn40Jc79gu7BL9sXfrZTtuhHvuT9O0uDT0/rTCOJi",
                             PhoneNumber = "748 242 562",
                             Username = "pavel.kraus"
                         },
@@ -1268,9 +1255,7 @@ namespace DataAccessLayer.Migrations
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
                             Email = "jarda@novak.cz",
                             FirstName = "Jarda",
-                            IsAdmin = false,
                             LastName = "Novák",
-                            Password = "$2a$12$9NC8nfoll0NYTn40Jc79gu7BL9sXfrZTtuhHvuT9O0uDT0/rTCOJi",
                             PhoneNumber = "742 942 934",
                             Username = "jarda.novak"
                         });

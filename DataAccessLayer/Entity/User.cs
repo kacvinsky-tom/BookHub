@@ -6,15 +6,11 @@ public class User : BaseEntity
 
     public string Email { get; set; } = "";
 
-    public string Password { get; set; } = "";
-
     public string FirstName { get; set; } = "";
 
     public string LastName { get; set; } = "";
 
     public string PhoneNumber { get; set; } = "";
-
-    public bool IsAdmin { get; set; }
 
     public IEnumerable<Order> Orders { get; } = new List<Order>();
 
