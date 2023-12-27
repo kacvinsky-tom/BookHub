@@ -17,8 +17,7 @@ public class OrderRepository : GenericRepository<Order>, IOrderRepository
     public async Task<Order?> GetByIdWithRelations(int id)
     {
         return await _context
-            .Orders
-            .Include(o => o.User)
+            .Orders.Include(o => o.User)
             .Include(o => o.OrderItems)
             .Include(o => o.VoucherUsed)
             .FirstOrDefaultAsync(w => w.Id == id);

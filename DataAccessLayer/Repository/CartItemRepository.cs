@@ -12,8 +12,7 @@ public class CartItemRepository : GenericRepository<CartItem>, ICartItemReposito
     public async Task<CartItem?> GetByIdWithRelations(int id)
     {
         return await _context
-            .CartItems
-            .Include(r => r.User)
+            .CartItems.Include(r => r.User)
             .Include(r => r.Book)
             .ThenInclude(b => b.Authors)
             .Include(r => r.Book)

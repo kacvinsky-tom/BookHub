@@ -26,8 +26,7 @@ public class BookHubDbContext : IdentityDbContext<LocalIdentityUser, LocalIdenti
     {
         foreach (
             var relationship in modelBuilder
-                .Model
-                .GetEntityTypes()
+                .Model.GetEntityTypes()
                 .SelectMany(e => e.GetForeignKeys())
         )
         {

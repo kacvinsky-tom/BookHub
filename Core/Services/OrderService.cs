@@ -46,9 +46,9 @@ public class OrderService
             throw new EntityNotFoundException<User>(orderCreateInputDto.UserId);
         }
 
-        var voucher = await _unitOfWork
-            .Vouchers
-            .GetById(orderCreateInputDto.VoucherUsedId.GetValueOrDefault());
+        var voucher = await _unitOfWork.Vouchers.GetById(
+            orderCreateInputDto.VoucherUsedId.GetValueOrDefault()
+        );
 
         if (voucher != null)
         {

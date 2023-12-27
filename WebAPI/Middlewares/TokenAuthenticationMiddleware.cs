@@ -22,9 +22,9 @@ public class TokenAuthenticationMiddleware
         {
             context.Response.StatusCode = 401;
             context.Response.ContentType = "text/plain";
-            await context
-                .Response
-                .WriteAsync("Unauthorized. Missing or unsupported authorization.");
+            await context.Response.WriteAsync(
+                "Unauthorized. Missing or unsupported authorization."
+            );
             return;
         }
 
@@ -34,9 +34,9 @@ public class TokenAuthenticationMiddleware
         {
             context.Response.StatusCode = 401;
             context.Response.ContentType = "text/plain";
-            await context
-                .Response
-                .WriteAsync("Unauthorized. Invalid or expired authorization token.");
+            await context.Response.WriteAsync(
+                "Unauthorized. Invalid or expired authorization token."
+            );
             return;
         }
 
