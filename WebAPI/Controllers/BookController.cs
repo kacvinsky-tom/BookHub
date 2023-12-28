@@ -4,6 +4,7 @@ using Core.DTO.Output.Book;
 using Core.Exception;
 using Core.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using WebAPI.Extensions;
 
 namespace WebAPI.Controllers;
@@ -14,11 +15,13 @@ public class BookController : ControllerBase
 {
     private readonly BookService _bookService;
     private readonly IMapper _mapper;
+    private readonly IMemoryCache _memoryCache;
 
-    public BookController(BookService bookService, IMapper mapper)
+    public BookController(BookService bookService, IMapper mapper, IMemoryCache memoryCache)
     {
         _bookService = bookService;
         _mapper = mapper;
+        _memoryCache = memoryCache;
     }
 
     [HttpGet]
@@ -32,6 +35,11 @@ public class BookController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
+        if (_memoryCache.TryGetValue("book-" + id, out var cachedBook))
+        {
+            return Ok(cachedBook);
+        }
+
         var book = await _bookService.GetById(id);
 
         if (book == null)
@@ -39,7 +47,11 @@ public class BookController : ControllerBase
             return NotFound();
         }
 
-        return Ok(_mapper.Map<BookDetailOutputDto>(book));
+        var bookDetailDto = _mapper.Map<BookDetailOutputDto>(book);
+
+        _memoryCache.Set("book-" + id, bookDetailDto);
+
+        return Ok(bookDetailDto);
     }
 
     [HttpPost]
@@ -67,7 +79,11 @@ public class BookController : ControllerBase
         {
             var book = await _bookService.Update(bookCreateUpdateInputDto, id);
 
-            return Ok(_mapper.Map<BookDetailOutputDto>(book));
+            var bookDetailDto = _mapper.Map<BookDetailOutputDto>(book);
+
+            _memoryCache.Set("book-" + id, bookDetailDto);
+
+            return Ok(bookDetailDto);
         }
         catch (NotFoundException e)
         {
@@ -81,6 +97,8 @@ public class BookController : ControllerBase
         try
         {
             await _bookService.Delete(id);
+
+            _memoryCache.Remove("book-" + id);
 
             return Ok();
         }
