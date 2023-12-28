@@ -15,7 +15,9 @@ public class BookRepository : GenericRepository<Book>, IBookRepository
     {
         return _context
             .Books
-            .Include(book => book.Genres)
+            // .Include(book => book.Genres)
+            .Include(book => book.BookGenres)
+            .ThenInclude(bg => bg.Genre)
             .Include(book => book.Reviews)
             .ThenInclude(review => review.User)
             .Include(book => book.Publisher)

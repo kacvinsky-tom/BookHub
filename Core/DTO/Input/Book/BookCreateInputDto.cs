@@ -21,4 +21,6 @@ public class BookCreateInputDto
     public IEnumerable<int> AuthorIds { get; set; } = new List<int>();
 
     public IEnumerable<int> GenreIds { get; set; } = new List<int>();
+
+    public int? PrimaryGenreId { get; set; } = null;
 }

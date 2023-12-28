@@ -12,8 +12,7 @@ public class ReviewRepository : GenericRepository<Review>, IReviewRepository
     public async Task<Review?> GetByIdWithRelations(int id)
     {
         return await _context
-            .Reviews
-            .Include(r => r.User)
+            .Reviews.Include(r => r.User)
             .Include(r => r.Book)
             .ThenInclude(b => b.Authors)
             .Include(r => r.Book)

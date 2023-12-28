@@ -12,8 +12,7 @@ public class UserRepository : GenericRepository<User>, IUserRepository
     public async Task<User?> GetByIdWithRelations(int id)
     {
         return await _context
-            .Users
-            .Include(u => u.Reviews)
+            .Users.Include(u => u.Reviews)
             .Include(u => u.Orders)
             .Include(u => u.CartItems)
             .ThenInclude(ci => ci.Book)

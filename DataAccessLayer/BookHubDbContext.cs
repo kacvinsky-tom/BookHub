@@ -26,8 +26,7 @@ public class BookHubDbContext : IdentityDbContext<LocalIdentityUser, LocalIdenti
     {
         foreach (
             var relationship in modelBuilder
-                .Model
-                .GetEntityTypes()
+                .Model.GetEntityTypes()
                 .SelectMany(e => e.GetForeignKeys())
         )
         {
@@ -70,13 +69,19 @@ public class BookHubDbContext : IdentityDbContext<LocalIdentityUser, LocalIdenti
             .WithOne(wl => wl.User)
             .OnDelete(DeleteBehavior.Cascade);
 
+        modelBuilder.Entity<BookGenre>().HasKey(bg => new { bg.BookId, bg.GenreId });
+
         modelBuilder
             .Entity<Book>()
             .HasMany(b => b.Genres)
             .WithMany(g => g.Books)
             .UsingEntity<BookGenre>(
-                r => r.HasOne(bg => bg.Genre).WithMany().HasForeignKey(e => e.GenreId),
-                l => l.HasOne(bg => bg.Book).WithMany().HasForeignKey(e => e.BookId)
+                r =>
+                    r.HasOne(bg => bg.Genre)
+                        .WithMany(x => x.BookGenres)
+                        .HasForeignKey(e => e.GenreId),
+                l =>
+                    l.HasOne(bg => bg.Book).WithMany(x => x.BookGenres).HasForeignKey(e => e.BookId)
             );
 
         modelBuilder

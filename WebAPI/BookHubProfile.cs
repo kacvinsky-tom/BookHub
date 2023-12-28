@@ -59,7 +59,7 @@ public class BookHubProfile : Profile
         CreateMap<CartItem, CartItemListOutputDto>();
         CreateMap<CartItem, CartItemListWithoutUserOutputDto>();
         CreateMap<Genre, GenreDetailOutputDto>();
-        CreateMap<Genre, GenreListOutputDto>();
+        CreateMap<BookGenre, BookGenreListOutputDto>();
         CreateMap<Order, OrderDetailOutputDto>();
         CreateMap<Order, OrderListOutputDto>();
         CreateMap<OrderItem, OrderItemCreateInputDto>();

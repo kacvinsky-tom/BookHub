@@ -17,8 +17,7 @@ public class VoucherRepository : GenericRepository<Voucher>, IVoucherRepository
     public async Task<IEnumerable<Voucher>> GetAllWithQuantities()
     {
         return await _context
-            .Vouchers
-            .Include(v => v.UsedQuantity)
+            .Vouchers.Include(v => v.UsedQuantity)
             .Include(v => v.IsUsable)
             .ToListAsync();
     }

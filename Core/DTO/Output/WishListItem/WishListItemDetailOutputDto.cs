@@ -13,5 +13,6 @@ public class WishListItemDetailOutputDto : OutputDtoBase
     public string BookImage { get; set; } = "";
     public IEnumerable<AuthorListOutputDto> BookAuthors { get; set; } =
         new List<AuthorListOutputDto>();
-    public IEnumerable<GenreListOutputDto> Genres { get; set; } = new List<GenreListOutputDto>();
+    public IEnumerable<BookGenreListOutputDto> BookBookGenres { get; set; } =
+        new List<BookGenreListOutputDto>();
 }

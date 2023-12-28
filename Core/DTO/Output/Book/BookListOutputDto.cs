@@ -11,5 +11,6 @@ public class BookListOutputDto : OutputDtoBase
     public string PublisherName { get; set; } = "";
 
     public IEnumerable<AuthorListOutputDto> Authors { get; set; } = new List<AuthorListOutputDto>();
-    public IEnumerable<GenreListOutputDto> Genres { get; set; } = new List<GenreListOutputDto>();
+    public IEnumerable<BookGenreListOutputDto> Genres { get; set; } =
+        new List<BookGenreListOutputDto>();
 }
