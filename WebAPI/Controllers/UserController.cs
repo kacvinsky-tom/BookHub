@@ -4,6 +4,7 @@ using Core.DTO.Output.User;
 using Core.Exception;
 using Core.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using WebAPI.Extensions;
 
 namespace WebAPI.Controllers;
@@ -14,11 +15,13 @@ public class UserController : ControllerBase
 {
     private readonly UserService _userService;
     private readonly IMapper _mapper;
+    private readonly IMemoryCache _memoryCache;
 
-    public UserController(UserService userService, IMapper mapper)
+    public UserController(UserService userService, IMapper mapper, IMemoryCache memoryCache)
     {
         _userService = userService;
         _mapper = mapper;
+        _memoryCache = memoryCache;
     }
 
     [HttpGet]
@@ -32,6 +35,11 @@ public class UserController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
+        if (_memoryCache.TryGetValue("user-" + id, out var cachedUser))
+        {
+            return Ok(cachedUser);
+        }
+
         var user = await _userService.GetById(id);
 
         if (user == null)
@@ -39,7 +47,11 @@ public class UserController : ControllerBase
             return NotFound();
         }
 
-        return Ok(_mapper.Map<UserDetailOutputDto>(user));
+        var userDetailDto = _mapper.Map<UserDetailOutputDto>(user);
+
+        _memoryCache.Set("user-" + id, userDetailDto);
+
+        return Ok(userDetailDto);
     }
 
     [HttpPost]
@@ -57,7 +69,11 @@ public class UserController : ControllerBase
         {
             var user = await _userService.Update(userInputDto, id);
 
-            return Ok(_mapper.Map<UserDetailOutputDto>(user));
+            var userDetailDto = _mapper.Map<UserDetailOutputDto>(user);
+
+            _memoryCache.Set("user-" + id, userDetailDto);
+
+            return Ok(userDetailDto);
         }
         catch (NotFoundException e)
         {
@@ -71,6 +87,8 @@ public class UserController : ControllerBase
         try
         {
             await _userService.Delete(id);
+
+            _memoryCache.Remove("user-" + id);
 
             return Ok();
         }
