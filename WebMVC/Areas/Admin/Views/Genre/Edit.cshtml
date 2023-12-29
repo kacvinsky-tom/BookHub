@@ -1,15 +1,15 @@
 ﻿@model DataAccessLayer.Entity.Genre
 
 @{
-    ViewBag.Title = "Edit genre";
+    ViewBag.Title = "Edit genre " + Model.Name;
     Layout = "_Layout";
 }
 
 <div class="h-full w-full flex justify-center align-center">
     <div class="card bg-base-200 shadow-lg rounded-2xl lg:max-w-5xl w-full">
         <div class="card-body">
-            <h2 class="font-bold text-xl">Create genre</h2>
-            <form asp-action="Create" method="post" class="grid gap-y-2 gap-x-4 grid-cols-1">
+            <h2 class="font-bold text-xl">Edit genre @Model.Name</h2>
+            <form asp-action="Edit" method="post" class="grid gap-y-2 gap-x-4 grid-cols-1">
                 <div class="form-control">
                     <label class="label">
                         @Html.LabelFor(g => g.Name, new { @class = "label-text" })

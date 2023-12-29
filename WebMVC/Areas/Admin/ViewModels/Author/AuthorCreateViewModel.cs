@@ -2,7 +2,7 @@
 
 namespace WebMVC.Areas.Admin.ViewModels.Author;
 
-public class AuthorCreateEditViewModel
+public class AuthorCreateViewModel
 {
     [Required]
     [DataType(DataType.Text)]

@@ -1,6 +1,9 @@
-﻿using Core.Services;
+﻿using Core.DTO.Input.Author;
+using Core.Services;
+using DataAccessLayer.Entity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebMVC.Areas.Admin.ViewModels.Author;
 
 namespace WebMVC.Areas.Admin.Controllers;
 
@@ -25,8 +28,91 @@ public class AuthorController : Controller
         return View();
     }
 
-    public IActionResult Edit()
+    [HttpPost]
+    public async Task<IActionResult> Create(AuthorCreateViewModel model)
     {
-        return View();
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                await _authorService.Create(
+                    new AuthorInputDto() { FirstName = model.FirstName, LastName = model.LastName }
+                );
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(model);
+            }
+
+            return RedirectToAction(
+                nameof(Index),
+                nameof(AuthorController).Replace("Controller", "")
+            );
+        }
+
+        return View(model);
+    }
+
+    public async Task<IActionResult> Edit(int id)
+    {
+        var author = await _authorService.GetById(id);
+
+        if (author == null)
+        {
+            return NotFound();
+        }
+
+        return View(author);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(Author updated)
+    {
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                await _authorService.Update(
+                    new AuthorInputDto()
+                    {
+                        FirstName = updated.FirstName,
+                        LastName = updated.LastName
+                    },
+                    updated.Id
+                );
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(updated);
+            }
+
+            return RedirectToAction(
+                nameof(Index),
+                nameof(AuthorController).Replace("Controller", "")
+            );
+        }
+
+        return View(updated);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Delete(int id)
+    {
+        try
+        {
+            await _authorService.Delete(id);
+        }
+        catch (Exception e)
+        {
+            ModelState.AddModelError(string.Empty, e.Message);
+            return RedirectToAction(
+                nameof(Index),
+                nameof(AuthorController).Replace("Controller", "")
+            );
+        }
+
+        return RedirectToAction(nameof(Index), nameof(AuthorController).Replace("Controller", ""));
     }
 }

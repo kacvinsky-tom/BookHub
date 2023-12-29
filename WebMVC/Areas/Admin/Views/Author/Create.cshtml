@@ -1,8 +1,33 @@
-﻿@model WebMVC.Areas.Admin.ViewModels.Author.AuthorCreateEditViewModel
+﻿@model WebMVC.Areas.Admin.ViewModels.Author.AuthorCreateViewModel
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Create author";
     Layout = "_Layout";
 }
 
-<h2>title</h2>
+<div class="h-full w-full flex justify-center align-center">
+    <div class="card bg-base-200 shadow-lg rounded-2xl lg:max-w-5xl w-full">
+        <div class="card-body">
+            <h2 class="font-bold text-xl">Create author</h2>
+            <form asp-action="Create" method="post" class="grid gap-y-2 gap-x-4 grid-cols-1">
+                <div class="form-control">
+                    <label class="label">
+                        @Html.LabelFor(a => a.FirstName, new { @class = "label-text" })
+                    </label>
+                    @Html.TextBoxFor(a => a.FirstName, new { @class = "input input-bordered" })
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        @Html.LabelFor(a => a.LastName, new { @class = "label-text" })
+                    </label>
+                    @Html.TextBoxFor(a => a.LastName, new { @class = "input input-bordered" })
+                </div>
+                <button class="btn btn-success">
+                    <i class="bi bi-plus-circle"></i>
+                    Create
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
