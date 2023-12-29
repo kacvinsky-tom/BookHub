@@ -14,6 +14,11 @@ public class OrderRepository : GenericRepository<Order>, IOrderRepository
         return await _context.Orders.Include(o => o.User).ToListAsync();
     }
 
+    public async Task<IEnumerable<Order>> GetAllByUserId(int id)
+    {
+        return await _context.Orders.Where(o => o.User.Id == id).ToListAsync();
+    }
+
     public async Task<Order?> GetByIdWithRelations(int id)
     {
         return await _context

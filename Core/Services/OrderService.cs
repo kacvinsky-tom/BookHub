@@ -22,6 +22,11 @@ public class OrderService
         return await _unitOfWork.Orders.GetAllWithRelations();
     }
 
+    public async Task<IEnumerable<Order>> GetAllByUserId(int id)
+    {
+        return await _unitOfWork.Orders.GetAllByUserId(id);
+    }
+
     public async Task<IEnumerable<OrderItem>> GetAllOrderItems()
     {
         return await _unitOfWork.OrderItems.GetAllWithRelations();

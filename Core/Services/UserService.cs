@@ -25,6 +25,11 @@ public class UserService
         return await _unitOfWork.Users.GetByIdWithRelations(id);
     }
 
+    public async Task<User?> GetByUsername(string username)
+    {
+        return await _unitOfWork.Users.GetByUsername(username);
+    }
+
     public async Task<User> Create(UserInputDto userInputDto)
     {
         var passwordHasher = new PasswordHasher<User>();

@@ -19,4 +19,9 @@ public class UserRepository : GenericRepository<User>, IUserRepository
             .Include(u => u.WishLists)
             .FirstOrDefaultAsync(u => u.Id == id);
     }
+
+    public async Task<User?> GetByUsername(string username)
+    {
+        return await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+    }
 }
