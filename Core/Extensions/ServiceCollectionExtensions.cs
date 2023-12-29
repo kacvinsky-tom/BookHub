@@ -16,6 +16,7 @@ public static class ServiceCollectionExtensions
             .AddScoped<WishListService>()
             .AddScoped<ReviewService>()
             .AddScoped<UserService>()
+            .AddScoped<LocalIdentityUserService>()
             .AddScoped<PublisherService>()
             .AddScoped<VoucherService>();
     }

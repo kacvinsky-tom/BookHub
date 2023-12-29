@@ -2,7 +2,7 @@
 
 namespace WebMVC.Areas.Admin.ViewModels.Genre;
 
-public class GenreCreateEditViewModel
+public class GenreCreateViewModel
 {
     [Microsoft.Build.Framework.Required]
     [DataType(DataType.Text)]

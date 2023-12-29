@@ -27,7 +27,7 @@ public class GenreService
 
     public async Task<PaginationObject<Genre>> GetAllPaginated(int page, int pageSize)
     {
-        return await _unitOfWork.Genres.GetPaginated(page, pageSize);
+        return await _unitOfWork.Genres.GetPaginated(page, pageSize, g => g.Name);
     }
 
     public async Task<Genre> Create(GenreInputDto genreInputDto)

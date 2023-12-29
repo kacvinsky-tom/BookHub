@@ -30,7 +30,7 @@ public class GenericRepository<T> : IGenericRepository<T>
     public async Task<PaginationObject<T>> GetPaginated(
         int page,
         int pageSize,
-        Expression<Func<T, bool>>? orderingExpression = null,
+        Expression<Func<T, IComparable>>? orderingExpression = null,
         bool reverseOrder = false
     )
     {
