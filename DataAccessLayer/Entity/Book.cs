@@ -19,6 +19,8 @@ public class Book : BaseEntity
     public bool IsDeleted { get; set; }
     public int PublisherId { get; set; }
     public virtual Publisher Publisher { get; set; } = null!;
+
+    public IEnumerable<BookAuthor> BookAuthors { get; set; } = new List<BookAuthor>();
     public IEnumerable<Author> Authors { get; set; } = new List<Author>();
     public IEnumerable<Genre> Genres { get; set; } = new List<Genre>();
 

@@ -21,6 +21,7 @@ public class BookRepository : GenericRepository<Book>, IBookRepository
             .Include(book => book.Reviews)
             .ThenInclude(review => review.User)
             .Include(book => book.Publisher)
+            .Include(book => book.BookAuthors)
             .Include(book => book.Authors)
             .Where(book => !book.IsDeleted);
     }

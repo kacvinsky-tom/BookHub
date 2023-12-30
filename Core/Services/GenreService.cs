@@ -1,6 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Core.DTO.Input.Genre;
 using Core.Exception;
+using Core.Helpers;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Helpers;
@@ -16,8 +17,14 @@ public class GenreService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<IEnumerable<Genre>> GetAll()
+    public async Task<IEnumerable<Genre>> GetAll(
+        IEnumerable<Ordering<Genre>>? orderingExpressions = null
+    )
     {
+        if (orderingExpressions != null)
+        {
+            return await _unitOfWork.Genres.GetAllOrdered(orderingExpressions);
+        }
         return await _unitOfWork.Genres.GetAll();
     }
 

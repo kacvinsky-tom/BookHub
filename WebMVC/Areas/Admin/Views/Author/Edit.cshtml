@@ -15,17 +15,24 @@
                         @Html.LabelFor(a => a.FirstName, new { @class = "label-text" })
                     </label>
                     @Html.TextBoxFor(a => a.FirstName, new { @class = "input input-bordered" })
+                    <label class="label">
+                        @Html.ValidationMessageFor(a => a.FirstName, "", new { @class = "label-text text-red-500"})
+                    </label>
                 </div>
                 <div class="form-control">
                     <label class="label">
                         @Html.LabelFor(a => a.LastName, new { @class = "label-text" })
                     </label>
                     @Html.TextBoxFor(a => a.LastName, new { @class = "input input-bordered" })
+                    <label class="label">
+                        @Html.ValidationMessageFor(a => a.LastName, "", new { @class = "label-text text-red-500"})
+                    </label>
                 </div>
                 <button class="btn btn-success">
                     <i class="bi bi-check-circle"></i>
                     Save
                 </button>
+                @Html.ValidationSummary(false, "", new { @class = "text-red-500" })
             </form>
         </div>
     </div>

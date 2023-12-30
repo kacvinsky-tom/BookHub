@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using Core.Helpers;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Filter;
 using DataAccessLayer.Helpers;
@@ -58,6 +59,10 @@ public class GenericRepository<T> : IGenericRepository<T>
         int pageSize,
         Expression<Func<T, bool>>? orderingExpression = null,
         bool reverseOrder = false
+    /* TODO:
+     * toto by chtelo v ramci vypracovavani Issue #31 "Develop a Search feature for Products, Categories, Manufacturers"
+     * refaktorovat, funkcionalitu sjednotit s GetAllOrdered, potencialne vsechny Get* metody sjednotit
+     */
     )
     {
         var query = GetFilteredQuery(filter);
@@ -81,6 +86,27 @@ public class GenericRepository<T> : IGenericRepository<T>
     public async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> expression)
     {
         return await _context.Set<T>().Where(expression).ToListAsync();
+    }
+
+    public async Task<IEnumerable<T>> GetAllOrdered(IEnumerable<Ordering<T>> orderingExpressions)
+    {
+        var exprEnumerated = orderingExpressions.ToList();
+        var first = exprEnumerated.First();
+        var query = first.Reverse
+            ? GetBasicQuery().OrderByDescending(first.Expression)
+            : GetBasicQuery().OrderBy(first.Expression);
+
+        query = exprEnumerated
+            .Skip(1)
+            .Aggregate(
+                query,
+                (current, expression) =>
+                    expression.Reverse
+                        ? current.ThenByDescending(expression.Expression)
+                        : current.ThenBy(expression.Expression)
+            );
+
+        return await query.ToListAsync();
     }
 
     public async Task<IEnumerable<T>> GetAll()

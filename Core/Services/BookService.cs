@@ -1,4 +1,5 @@
-﻿using Core.DTO.Input.Book;
+﻿using System.Linq.Expressions;
+using Core.DTO.Input.Book;
 using Core.Exception;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
@@ -25,9 +26,19 @@ public class BookService
         return await _unitOfWork.Books.GetWithRelations(filterInputDto.ToBookFilter());
     }
 
-    public async Task<PaginationObject<Book>> GetAllPaginated(int page, int pageSize)
+    public async Task<PaginationObject<Book>> GetAllPaginated(
+        int page,
+        int pageSize,
+        Expression<Func<Book, IComparable>>? orderingExpression = null,
+        bool reverseOrder = false
+    )
     {
-        return await _unitOfWork.Books.GetPaginated(page, pageSize);
+        return await _unitOfWork.Books.GetPaginated(
+            page,
+            pageSize,
+            orderingExpression ?? (b => b.Title),
+            reverseOrder
+        );
     }
 
     public async Task<PaginationObject<Book>> GetAllPaginatedFiltered(
@@ -36,9 +47,11 @@ public class BookService
         int pageSize
     )
     {
-        return await _unitOfWork
-            .Books
-            .GetPaginatedFiltered(filterInputDto.ToBookFilter(), page, pageSize);
+        return await _unitOfWork.Books.GetPaginatedFiltered(
+            filterInputDto.ToBookFilter(),
+            page,
+            pageSize
+        );
     }
 
     public async Task<Book> Create(BookCreateInputDto bookCreateCreateInputDto)
@@ -123,7 +136,7 @@ public class BookService
                 author => bookCreateUpdateInputDto.AuthorIds.Contains(author.Id)
             )
         ).ToList();
-
+        
         if (!authors.Any())
         {
             throw new EntityNotFoundException<Author>(
@@ -141,7 +154,7 @@ public class BookService
                 genre => bookCreateUpdateInputDto.GenreIds.Contains(genre.Id)
             )
         ).ToList();
-
+        
         if (!genres.Any())
         {
             throw new EntityNotFoundException<Genre>(

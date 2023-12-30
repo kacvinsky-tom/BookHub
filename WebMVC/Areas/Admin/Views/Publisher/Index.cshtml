@@ -20,7 +20,9 @@
             </div>
             <div class="flex gap-4">
                 <a class="btn btn-secondary btn-sm" href="/Admin/Publisher/Edit/@publisher.Id">Edit</a>
-                <a class="btn btn-error btn-sm" href="/Admin/Publisher/Delete/@publisher.Id"><i class="bi bi-trash"></i></a>
+                <form action="/Admin/Publisher/Delete/@publisher.Id" method="post">
+                    <button onclick="return confirm('Really delete publisher @publisher.Name?')" class="btn btn-error btn-sm"><i class="bi bi-trash"></i></button>
+                </form>
             </div>
         </div>
     }

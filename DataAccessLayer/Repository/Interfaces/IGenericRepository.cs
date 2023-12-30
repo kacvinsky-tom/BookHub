@@ -1,17 +1,22 @@
 ﻿using System.Linq.Expressions;
+using Core.Helpers;
+using DataAccessLayer.Entity;
 using DataAccessLayer.Filter;
 using DataAccessLayer.Helpers;
 
 namespace DataAccessLayer.Repository.Interfaces;
 
 public interface IGenericRepository<T>
-    where T : class
+    where T : BaseEntity
 {
     public IQueryable<T> GetBasicQuery();
     public IQueryable<T> GetFilteredQuery(IFilter filter);
 
     public Task<T?> GetById(int id);
     public Task<IEnumerable<T>> GetAll();
+
+    public Task<IEnumerable<T>> GetAllOrdered(IEnumerable<Ordering<T>> orderingExpressions);
+
     public Task<PaginationObject<T>> GetPaginated(
         int page,
         int pageSize,

@@ -16,11 +16,15 @@
                         @Html.LabelFor(g => g.Name, new { @class = "label-text" })
                     </label>
                     @Html.TextBoxFor(g => g.Name, new { @class = "input input-bordered" })
+                    <label class="label">
+                        @Html.ValidationMessageFor(g => g.Name, "", new { @class = "label-text text-red-500"})
+                    </label>
                 </div>
                 <button class="btn btn-success">
                     <i class="bi bi-plus-circle"></i>
                     Create
                 </button>
+                @Html.ValidationSummary(false, "", new { @class = "text-red-500" })
             </form>
         </div>
     </div>

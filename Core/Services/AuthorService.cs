@@ -1,6 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Core.DTO.Input.Author;
 using Core.Exception;
+using Core.Helpers;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Helpers;
@@ -16,8 +17,14 @@ public class AuthorService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<IEnumerable<Author>> GetAll()
+    public async Task<IEnumerable<Author>> GetAll(
+        IEnumerable<Ordering<Author>>? orderingExpressions = null
+    )
     {
+        if (orderingExpressions != null)
+        {
+            return await _unitOfWork.Authors.GetAllOrdered(orderingExpressions);
+        }
         return await _unitOfWork.Authors.GetAll();
     }
 

@@ -2,8 +2,11 @@
 
 namespace WebMVC.Areas.Admin.ViewModels.Book;
 
-public class BookCreateEditViewModel
+public class BookUpdateViewModel
 {
+    [Required]
+    public int Id { get; set; }
+
     [Required]
     [DataType(DataType.Text)]
     public string Title { get; set; } = "";
@@ -17,13 +20,15 @@ public class BookCreateEditViewModel
     public string Description { get; set; } = "";
 
     [DataType(DataType.Url)]
+    [Display(Name = "Image URL (optional)")]
     public string? Image { get; set; }
 
     [Required]
     [DataType(DataType.Currency)]
-    public decimal Price { get; set; }
+    public int Price { get; set; }
 
     [Required]
+    [Display(Name = "Initial quantity in stock")]
     public int Quantity { get; set; }
 
     [Required]
@@ -31,13 +36,11 @@ public class BookCreateEditViewModel
     public int ReleaseYear { get; set; }
 
     [Required]
-    public DataAccessLayer.Entity.Publisher Publisher { get; set; } = new();
+    public int PublisherId { get; set; }
 
     [Required]
-    public IEnumerable<DataAccessLayer.Entity.Author> Authors { get; set; } =
-        new List<DataAccessLayer.Entity.Author>();
+    public List<int> AuthorIds { get; set; } = new();
 
     [Required]
-    public IEnumerable<DataAccessLayer.Entity.Genre> Genres { get; set; } =
-        new List<DataAccessLayer.Entity.Genre>();
+    public List<int> GenreIds { get; set; } = new();
 }
