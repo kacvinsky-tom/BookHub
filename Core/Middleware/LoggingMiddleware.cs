@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace LoggingMiddleware;
+namespace Core.Middleware;
 
 public class LoggingMiddleware
 {
