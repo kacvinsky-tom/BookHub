@@ -1,5 +1,6 @@
 using Core.Extensions;
 using DataAccessLayer;
+using LoggingMiddleware.Extensions;
 using WebAPI;
 using WebAPI.Extensions;
 
@@ -31,7 +32,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseLoggingMiddleware();
+app.UseLoggingMiddleware("WebAPI");
 
 app.UseHttpsRedirection();
 
