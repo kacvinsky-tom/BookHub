@@ -2,10 +2,14 @@
 
 namespace WebMVC.Areas.Admin.ViewModels.Order;
 
-public class OrderItemCreateEditViewModel
+public class OrderItemCreateViewModel
 {
     [Required]
-    public DataAccessLayer.Entity.Book Book { get; set; } = null!;
+    public int OrderId { get; set; }
+
+    [Required]
+    [Display(Name = "Book")]
+    public int BookId { get; set; }
 
     [Required]
     public int Quantity { get; set; }

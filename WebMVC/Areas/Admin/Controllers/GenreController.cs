@@ -100,6 +100,7 @@ public class GenreController : Controller
             ModelState.AddModelError(string.Empty, e.Message);
         }
 
+        TempData["Success"] = "Genre deleted successfully";
         return RedirectToAction(nameof(Index), nameof(GenreController).Replace("Controller", ""));
     }
 }

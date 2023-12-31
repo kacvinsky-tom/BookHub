@@ -1,8 +1,48 @@
-﻿@model WebMVC.Areas.Admin.ViewModels.Order.OrderCreateEditViewModel
+﻿@using Core.Services
+@using DataAccessLayer.Enum
+@model WebMVC.Areas.Admin.ViewModels.Order.OrderCreateViewModel
+@inject UserService UserService
+
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Create order";
     Layout = "_Layout";
+    var users = (await UserService.GetAll()).ToList().Select(u => new SelectListItem(){Text = $"{u.FirstName} {u.LastName} ({u.Username})", Value = u.Id.ToString()});
+    var orderStatuses = Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>().Select(s => new SelectListItem(){Text = s.ToString(), Value = s.ToString()});
 }
 
-<h2>title</h2>
+<div class="h-full w-full flex justify-center align-center">
+    <div class="card bg-base-200 shadow-lg rounded-2xl lg:max-w-5xl w-full">
+        <div class="card-body">
+            <h2 class="font-bold text-xl">Create order</h2>
+            <p>
+                Note: In Admin Panel enviroment, first you have to create empty order, then you can add order items in "edit" environment.
+            </p>
+            <form asp-action="Create" method="post" class="grid gap-y-2 gap-x-4 grid-cols-1">
+                @Html.ValidationSummary(false, "", new { @class = "text-red-500" })
+                <div class="form-control">
+                    <label class="label">
+                        @Html.LabelFor(o => o.UserId, new { @class = "label-text" })
+                    </label>
+                    @Html.DropDownListFor(o => o.UserId, users, new { @class = "input input-bordered" })
+                    <label class="label">
+                        @Html.ValidationMessageFor(o => o.UserId, "", new { @class = "label-text text-red-500" })
+                    </label>
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        @Html.LabelFor(o => o.Status, new { @class = "label-text" })
+                    </label>
+                    @Html.DropDownListFor(o => o.Status, orderStatuses, new { @class = "input input-bordered" })
+                    <label class="label">
+                        @Html.ValidationMessageFor(o => o.UserId, "", new { @class = "label-text text-red-500" })
+                    </label>
+                </div>
+                <button class="btn btn-success">
+                    <i class="bi bi-plus-circle"></i>
+                    Create
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

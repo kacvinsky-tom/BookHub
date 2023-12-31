@@ -113,6 +113,7 @@ public class AuthorController : Controller
             );
         }
 
+        TempData["Success"] = "Author deleted successfully";
         return RedirectToAction(nameof(Index), nameof(AuthorController).Replace("Controller", ""));
     }
 }

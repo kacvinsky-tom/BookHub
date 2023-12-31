@@ -1,8 +1,88 @@
-﻿@model WebMVC.Areas.Admin.ViewModels.Order.OrderCreateEditViewModel
+﻿@using DataAccessLayer.Enum
+@model WebMVC.Areas.Admin.ViewModels.Order.OrderEditViewModel
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Edit order " + Model.Id;
     Layout = "_Layout";
+    var orderStatuses = Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>().Select(s => new SelectListItem(){Text = s.ToString(), Value = s.ToString()});
 }
 
-<h2>title</h2>
+<div class="h-full w-full flex justify-center align-center">
+    <div class="grid 2xl:grid-cols-2 gap-4 lg:max-w-6xl w-full">
+        <div class="card bg-base-200 shadow-lg rounded-2xl">
+                <div class="card-body">
+                    <h2 class="font-bold text-xl">Edit order</h2>
+                    <p>
+                        Note: Order editing is saved separately from order items editing.
+                    </p>
+                    <form asp-action="Create" method="post" class="grid gap-y-2 gap-x-4 grid-cols-1">
+                        @Html.ValidationSummary(false, "", new { @class = "text-red-500" })
+                        <div class="form-control">
+                            <label class="label">
+                                @Html.LabelFor(o => o.Status, new { @class = "label-text" })
+                            </label>
+                            @Html.DropDownListFor(o => o.Status, orderStatuses, new { @class = "input input-bordered" })
+                            <label class="label">
+                                @Html.ValidationMessageFor(o => o.UserId, "", new { @class = "label-text text-red-500" })
+                            </label>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="btn btn-ghost">
+                                <i class="bi bi-chevron-left"></i>
+                                Back to list
+                            </a>
+                            <button class="btn btn-success">
+                                <i class="bi bi-check-circle"></i>
+                                Save
+                            </button>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        
+            <div class="card bg-base-200 shadow-lg rounded-2xl lg:max-w-5xl w-full">
+                <div class="card-body">
+                    <h2 class="font-bold text-xl">Manage order items</h2>
+                    <table class="table table-zebra table-sm">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var orderItem in Model.OrderItems)
+                        {
+                            <tr>
+                                <td>@orderItem.Title</td>
+                                <td>@orderItem.Price</td>
+                                <td>@orderItem.Quantity</td>
+                                <td class="flex gap-2">
+                                    <a href="/Admin/Order/EditOrderItem/@orderItem.Id" class="btn btn-secondary btn-sm">
+                                        <i class="bi bi-pencil"></i>
+                                        Edit
+                                    </a>
+                                    <form action="/Admin/Order/DeleteOrderItem/@orderItem.Id" method="POST">
+                                        <button onclick="return confirm('Really remove order item @orderItem.Id?')" class="btn btn-sm btn-error" type="submit">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                        <div class="flex justify-center w-full">
+                            <a class="btn btn-success" href="/Admin/Order/@Model.Id/AddOrderItem">
+                                <i class="bi bi-plus-circle"></i>
+                                Add order item
+                            </a>
+                        </div>
+                </div>
+            </div>
+    </div>
+    
+</div>

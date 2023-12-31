@@ -27,7 +27,7 @@ public class PublisherController : Controller
     {
         return View();
     }
-    
+
     public async Task<IActionResult> Edit(int id)
     {
         var publisher = await _publisherService.GetById(id);
@@ -115,6 +115,7 @@ public class PublisherController : Controller
             ModelState.AddModelError(string.Empty, e.Message);
         }
 
+        TempData["Success"] = "Publisher deleted successfully";
         return RedirectToAction(
             nameof(Index),
             nameof(PublisherController).Replace("Controller", "")

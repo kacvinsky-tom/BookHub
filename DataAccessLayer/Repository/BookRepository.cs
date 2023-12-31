@@ -26,8 +26,13 @@ public class BookRepository : GenericRepository<Book>, IBookRepository
             .Where(book => !book.IsDeleted);
     }
 
-    public async Task<IEnumerable<Book>> GetWithRelations(BookFilter filterInput)
+    public async Task<IEnumerable<Book>> GetWithRelations(BookFilter? filterInput = null)
     {
+        if (filterInput == null)
+        {
+            return await GetBasicQuery().ToListAsync();
+        }
+
         var query = GetBasicQuery()
             .WhereTitle(filterInput.Title)
             .WhereDescription(filterInput.Description)

@@ -147,6 +147,7 @@ public class BookController : Controller
             );
         }
 
+        TempData["Success"] = "Book deleted successfully";
         return RedirectToAction(nameof(Index), nameof(BookController).Replace("Controller", ""));
     }
 }

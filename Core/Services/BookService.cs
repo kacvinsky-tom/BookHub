@@ -21,9 +21,9 @@ public class BookService
         return await _unitOfWork.Books.GetByIdWithRelations(id);
     }
 
-    public async Task<IEnumerable<Book>> GetAll(BookFilterInputDto filterInputDto)
+    public async Task<IEnumerable<Book>> GetAll(BookFilterInputDto? filterInputDto = null)
     {
-        return await _unitOfWork.Books.GetWithRelations(filterInputDto.ToBookFilter());
+        return await _unitOfWork.Books.GetWithRelations(filterInputDto?.ToBookFilter());
     }
 
     public async Task<PaginationObject<Book>> GetAllPaginated(

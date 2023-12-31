@@ -136,6 +136,7 @@ public class UserController : Controller
 
         await _localIdentityUserService.Delete(id);
 
+        TempData["Success"] = "User deleted successfully!";
         return RedirectToAction(nameof(Index));
     }
 
