@@ -12,8 +12,7 @@ public class OrderRepository : GenericRepository<Order>, IOrderRepository
     public override IQueryable<Order> GetBasicQuery()
     {
         return _context
-            .Orders
-            .Include(o => o.User)
+            .Orders.Include(o => o.User)
             .Include(o => o.OrderItems)
             .Include(o => o.VoucherUsed);
     }

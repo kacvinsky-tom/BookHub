@@ -1,6 +1,3 @@
 ﻿namespace DataAccessLayer.Filter;
 
-public interface IFilter
-{
-    
-}
+public interface IFilter { }

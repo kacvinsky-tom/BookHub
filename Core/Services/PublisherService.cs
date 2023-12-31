@@ -18,8 +18,7 @@ public class PublisherService
     }
 
     public async Task<IEnumerable<Publisher>> GetAll(
-        IEnumerable<Ordering<Publisher>>? orderingExpressions =
-            null
+        IEnumerable<Ordering<Publisher>>? orderingExpressions = null
     )
     {
         if (orderingExpressions != null)
