@@ -130,4 +130,23 @@ public class BookController : Controller
 
         return View(updated);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Delete(int id)
+    {
+        try
+        {
+            await _bookService.Delete(id);
+        }
+        catch (Exception e)
+        {
+            ModelState.AddModelError(string.Empty, e.Message);
+            return RedirectToAction(
+                nameof(Index),
+                nameof(BookController).Replace("Controller", "")
+            );
+        }
+
+        return RedirectToAction(nameof(Index), nameof(BookController).Replace("Controller", ""));
+    }
 }

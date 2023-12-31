@@ -117,7 +117,7 @@ public class BookService
 
     public async Task<Book> Update(BookCreateInputDto bookCreateUpdateInputDto, int id)
     {
-        var book = await _unitOfWork.Books.GetById(id);
+        var book = await _unitOfWork.Books.GetByIdWithRelations(id);
 
         if (book == null)
         {
@@ -136,7 +136,7 @@ public class BookService
                 author => bookCreateUpdateInputDto.AuthorIds.Contains(author.Id)
             )
         ).ToList();
-        
+
         if (!authors.Any())
         {
             throw new EntityNotFoundException<Author>(
@@ -154,7 +154,7 @@ public class BookService
                 genre => bookCreateUpdateInputDto.GenreIds.Contains(genre.Id)
             )
         ).ToList();
-        
+
         if (!genres.Any())
         {
             throw new EntityNotFoundException<Genre>(
@@ -170,8 +170,14 @@ public class BookService
         book.Quantity = bookCreateUpdateInputDto.Quantity;
         book.PublisherId = bookCreateUpdateInputDto.PublisherId;
         book.ReleaseYear = bookCreateUpdateInputDto.ReleaseYear;
-        book.Authors = authors;
-        book.Genres = genres;
+        // book.Authors = authors;
+        // book.Genres = genres;
+
+        book.Genres.Where(g => !genres.Contains(g)).ToList().ForEach(g => book.Genres.Remove(g));
+        genres.Where(g => !book.Genres.Contains(g)).ToList().ForEach(g => book.Genres.Add(g));
+
+        book.Authors.Where(a => !authors.Contains(a)).ToList().ForEach(a => book.Authors.Remove(a));
+        authors.Where(a => !book.Authors.Contains(a)).ToList().ForEach(a => book.Authors.Add(a));
 
         if (bookCreateUpdateInputDto.PrimaryGenreId != null)
         {
