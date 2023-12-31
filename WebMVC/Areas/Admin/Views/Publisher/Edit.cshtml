@@ -10,13 +10,14 @@
         <div class="card-body">
             <h2 class="font-bold text-xl">Edit publisher @Model.Name</h2>
             <form asp-action="Create" method="post" class="grid gap-y-2 gap-x-4 grid-cols-1">
+                @Html.ValidationSummary(false, "", new { @class = "text-red-500" })
                 <div class="form-control">
                     <label class="label">
                         @Html.LabelFor(p => p.Name, new { @class = "label-text" })
                     </label>
                     @Html.TextBoxFor(p => p.Name, new { @class = "input input-bordered" })
                     <label class="label">
-                        @Html.ValidationMessageFor(p => p.Name, "", new { @class = "label-text text-red-500"})
+                        @Html.ValidationMessageFor(p => p.Name, "", new { @class = "label-text text-red-500" })
                     </label>
                 </div>
                 <div class="form-control">
@@ -25,7 +26,7 @@
                     </label>
                     @Html.TextBoxFor(p => p.Email, new { @class = "input input-bordered" })
                     <label class="label">
-                        @Html.ValidationMessageFor(p => p.Email, "", new { @class = "label-text text-red-500"})
+                        @Html.ValidationMessageFor(p => p.Email, "", new { @class = "label-text text-red-500" })
                     </label>
                 </div>
                 <div class="form-control">
@@ -34,14 +35,13 @@
                     </label>
                     @Html.TextBoxFor(p => p.State, new { @class = "input input-bordered" })
                     <label class="label">
-                        @Html.ValidationMessageFor(p => p.State, "", new { @class = "label-text text-red-500"})
+                        @Html.ValidationMessageFor(p => p.State, "", new { @class = "label-text text-red-500" })
                     </label>
                 </div>
                 <button class="btn btn-success">
                     <i class="bi bi-check-circle"></i>
                     Save
                 </button>
-                @Html.ValidationSummary(false, "", new { @class = "text-red-500" })
             </form>
         </div>
     </div>

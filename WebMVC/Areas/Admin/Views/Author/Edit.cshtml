@@ -10,6 +10,7 @@
         <div class="card-body">
             <h2 class="font-bold text-xl">Edit author @Model.FirstName @Model.LastName</h2>
             <form asp-action="Edit" method="post" class="grid gap-y-2 gap-x-4 grid-cols-1">
+                @Html.ValidationSummary(false, "", new { @class = "text-red-500" })
                 <div class="form-control">
                     <label class="label">
                         @Html.LabelFor(a => a.FirstName, new { @class = "label-text" })
@@ -32,7 +33,6 @@
                     <i class="bi bi-check-circle"></i>
                     Save
                 </button>
-                @Html.ValidationSummary(false, "", new { @class = "text-red-500" })
             </form>
         </div>
     </div>

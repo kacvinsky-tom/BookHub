@@ -39,9 +39,9 @@ public class AccountController : Controller
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     PhoneNumber = model.PhoneNumber,
-                    Password = model.Password
+                    Password = model.Password,
+                    Role = "User"
                 },
-                "User",
                 true
             );
 

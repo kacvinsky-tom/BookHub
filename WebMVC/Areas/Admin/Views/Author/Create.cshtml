@@ -10,13 +10,14 @@
         <div class="card-body">
             <h2 class="font-bold text-xl">Create author</h2>
             <form asp-action="Create" method="post" class="grid gap-y-2 gap-x-4 grid-cols-1">
+                 @Html.ValidationSummary(false, "", new { @class = "text-red-500" })
                 <div class="form-control">
                     <label class="label">
                         @Html.LabelFor(a => a.FirstName, new { @class = "label-text" })
                     </label>
                     @Html.TextBoxFor(a => a.FirstName, new { @class = "input input-bordered" })
                     <label class="label">
-                        @Html.ValidationMessageFor(a => a.FirstName, "", new { @class = "label-text text-red-500"})
+                        @Html.ValidationMessageFor(a => a.FirstName, "", new { @class = "label-text text-red-500" })
                     </label>
                 </div>
                 <div class="form-control">
@@ -25,14 +26,14 @@
                     </label>
                     @Html.TextBoxFor(a => a.LastName, new { @class = "input input-bordered" })
                     <label class="label">
-                        @Html.ValidationMessageFor(a => a.LastName, "", new { @class = "label-text text-red-500"})
+                        @Html.ValidationMessageFor(a => a.LastName, "", new { @class = "label-text text-red-500" })
                     </label>
                 </div>
                 <button class="btn btn-success">
                     <i class="bi bi-plus-circle"></i>
                     Create
                 </button>
-                @Html.ValidationSummary(false, "", new { @class = "text-red-500" })
+
             </form>
         </div>
     </div>

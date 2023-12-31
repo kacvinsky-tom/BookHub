@@ -10,20 +10,20 @@
         <div class="card-body">
             <h2 class="font-bold text-xl">Edit genre @Model.Name</h2>
             <form asp-action="Edit" method="post" class="grid gap-y-2 gap-x-4 grid-cols-1">
+                @Html.ValidationSummary(false, "", new { @class = "text-red-500" })
                 <div class="form-control">
                     <label class="label">
                         @Html.LabelFor(g => g.Name, new { @class = "label-text" })
                     </label>
                     @Html.TextBoxFor(g => g.Name, new { @class = "input input-bordered" })
                     <label class="label">
-                        @Html.ValidationMessageFor(g => g.Name, "", new { @class = "label-text text-red-500"})
+                        @Html.ValidationMessageFor(g => g.Name, "", new { @class = "label-text text-red-500" })
                     </label>
                 </div>
                 <button class="btn btn-success">
                     <i class="bi bi-plus-check"></i>
                     Save
                 </button>
-                @Html.ValidationSummary(false, "", new { @class = "text-red-500" })
             </form>
         </div>
     </div>

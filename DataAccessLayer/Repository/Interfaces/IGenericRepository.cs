@@ -3,11 +3,12 @@ using Core.Helpers;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Filter;
 using DataAccessLayer.Helpers;
+using Microsoft.AspNetCore.Identity;
 
 namespace DataAccessLayer.Repository.Interfaces;
 
 public interface IGenericRepository<T>
-    where T : BaseEntity
+    where T : class
 {
     public IQueryable<T> GetBasicQuery();
     public IQueryable<T> GetFilteredQuery(IFilter filter);

@@ -11,6 +11,7 @@ public class UnitOfWork
     public IPublisherRepository Publishers { get; }
     public IGenreRepository Genres { get; }
     public IUserRepository Users { get; }
+    public ILocalIdentityUserRepository LocalIdentityUsers { get; }
     public ICartItemRepository CartItems { get; }
     public IOrderRepository Orders { get; }
     public IOrderItemRepository OrderItems { get; }
@@ -34,7 +35,8 @@ public class UnitOfWork
         IWishListRepository wishListRepository,
         IWishListItemRepository wishListItemRepository,
         IReviewRepository reviewRepository,
-        IVoucherRepository voucherRepository
+        IVoucherRepository voucherRepository,
+        ILocalIdentityUserRepository localIdentityUsers
     )
     {
         _context = context;
@@ -50,6 +52,7 @@ public class UnitOfWork
         WishListItems = wishListItemRepository;
         Reviews = reviewRepository;
         Vouchers = voucherRepository;
+        LocalIdentityUsers = localIdentityUsers;
     }
 
     public async Task Complete()

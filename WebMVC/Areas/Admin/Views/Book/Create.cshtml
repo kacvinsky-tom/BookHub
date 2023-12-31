@@ -20,13 +20,14 @@
         <div class="card-body">
             <h2 class="font-bold text-xl">Create book</h2>
             <form asp-action="Create" method="post" class="grid gap-y-2 gap-x-4 grid-cols-1">
+                @Html.ValidationSummary(false, "", new { @class = "text-red-500" })
                 <div class="form-control">
                     <label class="label">
                         @Html.LabelFor(b => b.Title, new { @class = "label-text" })
                     </label>
                     @Html.TextBoxFor(b => b.Title, new { @class = "input input-bordered" })
                     <label class="label">
-                        @Html.ValidationMessageFor(b => b.Title, "", new { @class = "label-text text-red-500"})
+                        @Html.ValidationMessageFor(b => b.Title, "", new { @class = "label-text text-red-500" })
                     </label>
                 </div>
                 <div class="form-control">
@@ -35,7 +36,7 @@
                     </label>
                     @Html.TextBoxFor(b => b.ISBN, new { @class = "input input-bordered" })
                     <label class="label">
-                        @Html.ValidationMessageFor(b => b.ISBN, "", new { @class = "label-text text-red-500"})
+                        @Html.ValidationMessageFor(b => b.ISBN, "", new { @class = "label-text text-red-500" })
                     </label>
                 </div>
                 <div class="form-control">
@@ -44,7 +45,7 @@
                     </label>
                     @Html.TextAreaFor(b => b.Description, new { @class = "textarea textarea-bordered", rows = 3 })
                     <label class="label">
-                        @Html.ValidationMessageFor(b => b.Description, "", new { @class = "label-text text-red-500"})
+                        @Html.ValidationMessageFor(b => b.Description, "", new { @class = "label-text text-red-500" })
                     </label>
                 </div>
                 <div class="form-control">
@@ -53,7 +54,7 @@
                     </label>
                     @Html.TextBoxFor(b => b.Image, new { @class = "input input-bordered" })
                     <label class="label">
-                        @Html.ValidationMessageFor(b => b.Image, "", new { @class = "label-text text-red-500"})
+                        @Html.ValidationMessageFor(b => b.Image, "", new { @class = "label-text text-red-500" })
                     </label>
                 </div>
                 <div class="form-control">
@@ -62,7 +63,7 @@
                     </label>
                     @Html.TextBoxFor(b => b.Price, new { @class = "input input-bordered" })
                     <label class="label">
-                        @Html.ValidationMessageFor(b => b.Price, "", new { @class = "label-text text-red-500"})
+                        @Html.ValidationMessageFor(b => b.Price, "", new { @class = "label-text text-red-500" })
                     </label>
                 </div>
                 <div class="form-control">
@@ -71,7 +72,7 @@
                     </label>
                     @Html.TextBoxFor(b => b.Quantity, new { @class = "input input-bordered" })
                     <label class="label">
-                        @Html.ValidationMessageFor(b => b.Quantity, "", new { @class = "label-text text-red-500"})
+                        @Html.ValidationMessageFor(b => b.Quantity, "", new { @class = "label-text text-red-500" })
                     </label>
                 </div>
                 <div class="form-control">
@@ -80,7 +81,7 @@
                     </label>
                     @Html.TextBoxFor(b => b.ReleaseYear, new { @class = "input input-bordered" })
                     <label class="label">
-                        @Html.ValidationMessageFor(b => b.ReleaseYear, "", new { @class = "label-text text-red-500"})
+                        @Html.ValidationMessageFor(b => b.ReleaseYear, "", new { @class = "label-text text-red-500" })
                     </label>
                 </div>
                 <div class="form-control">
@@ -89,7 +90,7 @@
                     </label>
                     @Html.DropDownListFor(b => b.PublisherId, publisherList, new { @class = "select select-bordered" })
                     <label class="label">
-                        @Html.ValidationMessageFor(b => b.PublisherId, "", new { @class = "label-text text-red-500"})
+                        @Html.ValidationMessageFor(b => b.PublisherId, "", new { @class = "label-text text-red-500" })
                     </label>
                 </div>
                 <div class="form-control">
@@ -98,7 +99,7 @@
                     </label>
                     @Html.ListBoxFor(b => b.AuthorIds, authorList, new { @class = "input input-bordered h-48" })
                     <label class="label">
-                        @Html.ValidationMessageFor(b => b.AuthorIds, "", new { @class = "label-text text-red-500"})
+                        @Html.ValidationMessageFor(b => b.AuthorIds, "", new { @class = "label-text text-red-500" })
                     </label>
                 </div>
                 <div class="form-control">
@@ -107,14 +108,13 @@
                     </label>
                     @Html.ListBoxFor(b => b.GenreIds, genreList, new { @class = "input input-bordered h-48" })
                     <label class="label">
-                        @Html.ValidationMessageFor(b => b.GenreIds, "", new { @class = "label-text text-red-500"})
+                        @Html.ValidationMessageFor(b => b.GenreIds, "", new { @class = "label-text text-red-500" })
                     </label>
                 </div>
                 <button class="btn btn-success">
                     <i class="bi bi-plus-circle"></i>
                     Create
                 </button>
-                @Html.ValidationSummary(false, "", new { @class = "text-red-500" })
             </form>
         </div>
     </div>

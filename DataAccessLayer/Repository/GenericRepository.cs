@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DataAccessLayer.Repository;
 
 public class GenericRepository<T> : IGenericRepository<T>
-    where T : BaseEntity
+    where T : class
 {
     protected readonly BookHubDbContext _context;
 
