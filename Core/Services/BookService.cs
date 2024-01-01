@@ -170,8 +170,6 @@ public class BookService
         book.Quantity = bookCreateUpdateInputDto.Quantity;
         book.PublisherId = bookCreateUpdateInputDto.PublisherId;
         book.ReleaseYear = bookCreateUpdateInputDto.ReleaseYear;
-        // book.Authors = authors;
-        // book.Genres = genres;
 
         book.Genres.Where(g => !genres.Contains(g)).ToList().ForEach(g => book.Genres.Remove(g));
         genres.Where(g => !book.Genres.Contains(g)).ToList().ForEach(g => book.Genres.Add(g));
@@ -179,12 +177,12 @@ public class BookService
         book.Authors.Where(a => !authors.Contains(a)).ToList().ForEach(a => book.Authors.Remove(a));
         authors.Where(a => !book.Authors.Contains(a)).ToList().ForEach(a => book.Authors.Add(a));
 
+        await _unitOfWork.Complete();
+
         if (bookCreateUpdateInputDto.PrimaryGenreId != null)
         {
             await SetPrimaryGenre(book.Id, bookCreateUpdateInputDto.PrimaryGenreId.Value);
         }
-
-        await _unitOfWork.Complete();
 
         return book;
     }
@@ -198,15 +196,30 @@ public class BookService
             throw new EntityNotFoundException<Book>(bookId);
         }
 
-        var genre = book.BookGenres.FirstOrDefault(bg => bg.GenreId == genreId);
+        var bookGenre = book.BookGenres.FirstOrDefault(bg => bg.GenreId == genreId);
 
-        if (genre == null)
+        if (bookGenre == null)
         {
-            throw new EntityNotFoundException<BookGenre>(genreId);
+            var genre = await _unitOfWork.Genres.GetById(genreId);
+            if (genre == null)
+            {
+                throw new EntityNotFoundException<Genre>(genreId);
+            }
+
+            bookGenre = new BookGenre
+            {
+                BookId = book.Id,
+                GenreId = genre.Id,
+                IsPrimary = true,
+            };
+            book.BookGenres.Add(bookGenre);
+
+            await _unitOfWork.Complete();
+            return book;
         }
 
         book.BookGenres.ToList().ForEach(bg => bg.IsPrimary = false);
-        genre.IsPrimary = true;
+        bookGenre.IsPrimary = true;
 
         await _unitOfWork.Complete();
 
