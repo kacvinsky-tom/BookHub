@@ -36,11 +36,18 @@ public class BookUpdateViewModel
     public int ReleaseYear { get; set; }
 
     [Required]
+    [Display(Name = "Publisher")]
     public int PublisherId { get; set; }
 
     [Required]
+    [Display(Name = "Authors")]
     public List<int> AuthorIds { get; set; } = new();
 
     [Required]
+    [Display(Name = "Genres")]
     public List<int> GenreIds { get; set; } = new();
+
+    [Required]
+    [Display(Name = "Primary genre")]
+    public int PrimaryGenreId { get; set; }
 }

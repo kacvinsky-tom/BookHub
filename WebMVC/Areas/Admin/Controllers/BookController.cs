@@ -48,6 +48,7 @@ public class BookController : Controller
                         ReleaseYear = model.ReleaseYear,
                         AuthorIds = model.AuthorIds,
                         GenreIds = model.GenreIds,
+                        PrimaryGenreId = model.PrimaryGenreId
                     }
                 );
             }
@@ -88,6 +89,7 @@ public class BookController : Controller
                 ReleaseYear = book.ReleaseYear,
                 AuthorIds = book.Authors.Select(a => a.Id).ToList(),
                 GenreIds = book.Genres.Select(g => g.Id).ToList(),
+                PrimaryGenreId = book.BookGenres.First(bg => bg.IsPrimary).Genre.Id,
             }
         );
     }
@@ -112,6 +114,7 @@ public class BookController : Controller
                         ReleaseYear = updated.ReleaseYear,
                         AuthorIds = updated.AuthorIds,
                         GenreIds = updated.GenreIds,
+                        PrimaryGenreId = updated.PrimaryGenreId
                     },
                     updated.Id
                 );

@@ -10,7 +10,7 @@
 @{
     ViewBag.Title = "Create book";
     Layout = "_Layout";
-    var genreList = (await GenreService.GetAll(new []{new Ordering<Genre>{Expression = g => g.Name}})).Select(g => new SelectListItem(g.Name, g.Id.ToString()));
+    var genreList = (await GenreService.GetAll(new []{new Ordering<Genre>{Expression = g => g.Name}})).Select(g => new SelectListItem(g.Name, g.Id.ToString())).ToList();
     var authorList = (await AuthorService.GetAll(new []{new Ordering<Author>{Expression = a => a.LastName}, new Ordering<Author>(){Expression = a => a.FirstName}})).Select(a => new SelectListItem($"{a.FirstName} {a.LastName}", a.Id.ToString()));
     var publisherList = (await PublisherService.GetAll(new []{new Ordering<Publisher>{Expression = p => p.Name}})).Select(p => new SelectListItem(p.Name, p.Id.ToString()));
 }
@@ -109,6 +109,15 @@
                     @Html.ListBoxFor(b => b.GenreIds, genreList, new { @class = "input input-bordered h-48" })
                     <label class="label">
                         @Html.ValidationMessageFor(b => b.GenreIds, "", new { @class = "label-text text-red-500" })
+                    </label>
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        @Html.LabelFor(b => b.PrimaryGenreId, new { @class = "label-text" })
+                    </label>
+                    @Html.DropDownListFor(b => b.PrimaryGenreId, genreList, new { @class = "select select-bordered" })
+                    <label class="label">
+                        @Html.ValidationMessageFor(b => b.PrimaryGenreId, "", new { @class = "label-text text-red-500" })
                     </label>
                 </div>
                 <button class="btn btn-success">
