@@ -1,7 +1,10 @@
-﻿using Core.DTO.Input.Publisher;
+﻿using System.Linq.Expressions;
+using Core.DTO.Input.Publisher;
 using Core.Exception;
+using Core.Helpers;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
+using DataAccessLayer.Helpers;
 
 namespace Core.Services;
 
@@ -14,14 +17,35 @@ public class PublisherService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<IEnumerable<Publisher>> GetAll()
+    public async Task<IEnumerable<Publisher>> GetAll(
+        IEnumerable<Ordering<Publisher>>? orderingExpressions = null
+    )
     {
+        if (orderingExpressions != null)
+        {
+            return await _unitOfWork.Publishers.GetAllOrdered(orderingExpressions);
+        }
         return await _unitOfWork.Publishers.GetAll();
     }
 
     public async Task<Publisher?> GetById(int id)
     {
         return await _unitOfWork.Publishers.GetById(id);
+    }
+
+    public async Task<PaginationObject<Publisher>> GetAllPaginated(
+        int page,
+        int pageSize,
+        Expression<Func<Publisher, IComparable>>? orderingExpression = null,
+        bool reverseOrder = false
+    )
+    {
+        return await _unitOfWork.Publishers.GetPaginated(
+            page,
+            pageSize,
+            orderingExpression ?? (p => p.Name),
+            reverseOrder
+        );
     }
 
     public async Task<Publisher> Create(PublisherInputDto publisherCreateInput)

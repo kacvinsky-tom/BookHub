@@ -1,14 +1,20 @@
 ﻿namespace Core.Exception;
 
-public class NotFoundException : System.Exception
+public class NotFoundException<TId> : System.Exception
 {
-    public readonly int Id;
+    public readonly TId Id;
 
     public readonly string EntityName;
 
-    protected NotFoundException(int id, string entityName)
+    protected NotFoundException(TId id, string entityName)
     {
         Id = id;
         EntityName = entityName;
     }
+}
+
+public class NotFoundException : NotFoundException<int>
+{
+    public NotFoundException(int id, string entityName)
+        : base(id, entityName) { }
 }

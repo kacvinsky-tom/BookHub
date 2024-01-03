@@ -1,4 +1,6 @@
-﻿using DataAccessLayer.Entity;
+﻿using Core.DTO.Input.LocalIdentityUser;
+using Core.Services;
+using DataAccessLayer.Entity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.ViewModels;
@@ -7,15 +9,15 @@ namespace WebMVC.Controllers;
 
 public class AccountController : Controller
 {
-    private readonly UserManager<LocalIdentityUser> _userManager;
     private readonly SignInManager<LocalIdentityUser> _signInManager;
+    private readonly LocalIdentityUserService _localIdentityUserService;
 
     public AccountController(
-        UserManager<LocalIdentityUser> userManager,
+        LocalIdentityUserService localIdentityUserService,
         SignInManager<LocalIdentityUser> signInManager
     )
     {
-        _userManager = userManager;
+        _localIdentityUserService = localIdentityUserService;
         _signInManager = signInManager;
     }
 
@@ -29,25 +31,22 @@ public class AccountController : Controller
     {
         if (ModelState.IsValid)
         {
-            var user = new LocalIdentityUser
-            {
-                UserName = model.Username,
-                Email = model.Email,
-                User = new User
+            var result = await _localIdentityUserService.Create(
+                new LocalIdentityUserInputDto()
                 {
+                    Email = model.Email,
                     Username = model.Username,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     PhoneNumber = model.PhoneNumber,
-                    Email = model.Email
-                }
-            };
-            var result = await _userManager.CreateAsync(user, model.Password);
+                    Password = model.Password,
+                    Role = "User"
+                },
+                true
+            );
 
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, "User");
-                await _signInManager.SignInAsync(user, false);
                 return RedirectToAction(
                     nameof(Login),
                     nameof(AccountController).Replace("Controller", "")
@@ -104,6 +103,11 @@ public class AccountController : Controller
     }
 
     public IActionResult LoginSuccess()
+    {
+        return View();
+    }
+
+    public IActionResult AccessDenied()
     {
         return View();
     }

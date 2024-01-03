@@ -1,7 +1,10 @@
-﻿using Core.DTO.Input.Genre;
+﻿using System.Linq.Expressions;
+using Core.DTO.Input.Genre;
 using Core.Exception;
+using Core.Helpers;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
+using DataAccessLayer.Helpers;
 
 namespace Core.Services;
 
@@ -14,14 +17,35 @@ public class GenreService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<IEnumerable<Genre>> GetAll()
+    public async Task<IEnumerable<Genre>> GetAll(
+        IEnumerable<Ordering<Genre>>? orderingExpressions = null
+    )
     {
+        if (orderingExpressions != null)
+        {
+            return await _unitOfWork.Genres.GetAllOrdered(orderingExpressions);
+        }
         return await _unitOfWork.Genres.GetAll();
     }
 
     public async Task<Genre?> GetById(int id)
     {
         return await _unitOfWork.Genres.GetByIdWithRelations(id);
+    }
+
+    public async Task<PaginationObject<Genre>> GetAllPaginated(
+        int page,
+        int pageSize,
+        Expression<Func<Genre, IComparable>>? orderingExpression = null,
+        bool reverseOrder = false
+    )
+    {
+        return await _unitOfWork.Genres.GetPaginated(
+            page,
+            pageSize,
+            orderingExpression ?? (g => g.Name),
+            reverseOrder
+        );
     }
 
     public async Task<Genre> Create(GenreInputDto genreInputDto)

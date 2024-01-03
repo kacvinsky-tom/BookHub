@@ -4,3 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
+.btn-adminpanel-menu {
+    @apply flex flex-col justify-center items-center text-xl bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] rounded-xl transition-all duration-300 gap-2 h-40 uppercase font-bold text-white;
+}

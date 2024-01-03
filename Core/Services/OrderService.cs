@@ -5,6 +5,7 @@ using Core.Exception;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Enum;
+using DataAccessLayer.Helpers;
 
 namespace Core.Services;
 
@@ -30,6 +31,11 @@ public class OrderService
     public async Task<IEnumerable<OrderItem>> GetAllOrderItems()
     {
         return await _unitOfWork.OrderItems.GetAllWithRelations();
+    }
+
+    public async Task<PaginationObject<Order>> GetAllPaginated(int page, int pageSize)
+    {
+        return await _unitOfWork.Orders.GetPaginated(page, pageSize);
     }
 
     public async Task<Order?> GetById(int id)
@@ -124,7 +130,7 @@ public class OrderService
             BookId = book.Id,
             ISBN = book.ISBN,
             Title = book.Title,
-            Price = orderItemInputDto.Price,
+            Price = orderItemInputDto.Quantity * book.Price,
             Quantity = orderItemInputDto.Quantity
         };
 
@@ -132,6 +138,71 @@ public class OrderService
         await _unitOfWork.Complete();
 
         return orderItem;
+    }
+
+    public async Task<OrderItem> UpdateOrderItem(
+        OrderItemUpdateInputDto orderItemUpdateInputDto,
+        int orderItemId
+    )
+    {
+        var orderItem = await _unitOfWork.OrderItems.GetById(orderItemId);
+
+        if (orderItem == null)
+        {
+            throw new EntityNotFoundException<OrderItem>(orderItemId);
+        }
+
+        var order = await _unitOfWork.Orders.GetById(orderItem.OrderId);
+
+        if (order == null)
+        {
+            throw new EntityNotFoundException<Order>(orderItem.OrderId);
+        }
+
+        var book = await _unitOfWork.Books.GetById(orderItemUpdateInputDto.BookId);
+
+        if (book == null)
+        {
+            throw new EntityNotFoundException<Book>(orderItemUpdateInputDto.BookId);
+        }
+
+        order.TotalPrice -= orderItem.Price;
+
+        orderItem.Book = book;
+        orderItem.BookId = book.Id;
+        orderItem.ISBN = book.ISBN;
+        orderItem.Title = book.Title;
+        orderItem.Price = orderItemUpdateInputDto.Quantity * book.Price;
+        orderItem.Quantity = orderItemUpdateInputDto.Quantity;
+
+        order.TotalPrice += orderItem.Price;
+
+        await _unitOfWork.Complete();
+
+        return orderItem;
+    }
+
+    public async Task DeleteOrderItem(int orderItemId)
+    {
+        var orderItem = await _unitOfWork.OrderItems.GetById(orderItemId);
+
+        if (orderItem == null)
+        {
+            throw new EntityNotFoundException<OrderItem>(orderItemId);
+        }
+
+        var order = await _unitOfWork.Orders.GetById(orderItem.OrderId);
+
+        if (order == null)
+        {
+            throw new EntityNotFoundException<Order>(orderItem.OrderId);
+        }
+
+        order.TotalPrice -= orderItem.Price;
+
+        _unitOfWork.OrderItems.Remove(orderItem);
+
+        await _unitOfWork.Complete();
     }
 
     public async Task Delete(int orderId)

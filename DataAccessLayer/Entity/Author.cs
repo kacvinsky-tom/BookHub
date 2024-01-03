@@ -7,4 +7,6 @@ public class Author : BaseEntity
     public string LastName { get; set; } = "";
 
     public IEnumerable<Book> Books { get; } = new List<Book>();
+
+    public IEnumerable<BookAuthor> BookAuthors { get; } = new List<BookAuthor>();
 }

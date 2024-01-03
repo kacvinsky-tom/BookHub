@@ -20,11 +20,9 @@ public class OrderTestData
                     Id = 1,
                     Username = "user1",
                     Email = "test@example.org",
-                    Password = "password",
                     FirstName = "John",
                     LastName = "Doe",
                     PhoneNumber = "123456789",
-                    IsAdmin = false,
                 }
             },
             new()
@@ -38,11 +36,9 @@ public class OrderTestData
                     Id = 2,
                     Username = "user2",
                     Email = "test@example.org",
-                    Password = "password",
                     FirstName = "John",
                     LastName = "Doe",
                     PhoneNumber = "123456789",
-                    IsAdmin = false,
                 }
             },
         };

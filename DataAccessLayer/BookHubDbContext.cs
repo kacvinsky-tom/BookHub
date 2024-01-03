@@ -89,8 +89,14 @@ public class BookHubDbContext : IdentityDbContext<LocalIdentityUser, LocalIdenti
             .HasMany(b => b.Authors)
             .WithMany(a => a.Books)
             .UsingEntity<BookAuthor>(
-                r => r.HasOne(bg => bg.Author).WithMany().HasForeignKey(e => e.AuthorId),
-                l => l.HasOne(bg => bg.Book).WithMany().HasForeignKey(e => e.BookId)
+                r =>
+                    r.HasOne(bg => bg.Author)
+                        .WithMany(a => a.BookAuthors)
+                        .HasForeignKey(e => e.AuthorId),
+                l =>
+                    l.HasOne(bg => bg.Book)
+                        .WithMany(b => b.BookAuthors)
+                        .HasForeignKey(e => e.BookId)
             );
 
         modelBuilder.Seed();

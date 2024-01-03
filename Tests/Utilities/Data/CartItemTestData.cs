@@ -72,11 +72,9 @@ public static class CartItemTestData
                 Id = 1,
                 Username = "johndoe",
                 Email = "john@do.ee",
-                Password = "123456",
                 FirstName = "John",
                 LastName = "Doe",
                 PhoneNumber = "1234567890",
-                IsAdmin = false
             }
         };
     }

@@ -1,0 +1,36 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+
+<h2 class="font-bold text-2xl text-white">BookHub Admin Panel</h2>
+<div class="grid w-full gap-4 grid-cols-1 lg:grid-cols-3">
+    <a href="/Admin/order" class="btn-adminpanel-menu">
+        <i class="bi bi-box-seam text-4xl"></i>
+        Orders
+    </a>
+    <a href="/Admin/Book/" class="btn-adminpanel-menu">
+        <i class="bi bi-book text-4xl"></i>
+        Books
+    </a>
+    <a href="/Admin/Genre/" class="btn-adminpanel-menu">
+        <i class="bi bi-tags text-4xl"></i>
+        Genres
+    </a>
+    <a href="/Admin/Author" class="btn-adminpanel-menu">
+        <i class="bi bi-pencil text-4xl"></i>
+        Authors
+    </a>
+    <a href="/Admin/Publisher" class="btn-adminpanel-menu">
+        <i class="bi bi-buildings text-4xl"></i>
+        Publishers
+    </a>
+    <a href="/Admin/User" class="btn-adminpanel-menu">
+        <i class="bi bi-people text-4xl"></i>
+        Users
+    </a>
+</div>
+

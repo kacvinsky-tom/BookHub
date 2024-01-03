@@ -1,0 +1,61 @@
+﻿@using DataAccessLayer.Entity
+@using DataAccessLayer.Enum
+@using WebMVC.Areas.Admin.Views.Shared
+@model DataAccessLayer.Helpers.PaginationObject<DataAccessLayer.Entity.Order>
+
+@{
+    ViewBag.Title = "Order list";
+    Layout = "_Layout";
+}
+
+@{
+    var status = new Dictionary<OrderStatus, string>
+    {
+        { OrderStatus.Completed, "badge-success" },
+        { OrderStatus.Pending, "badge-warning" },
+        { OrderStatus.Cancelled, "badge-error" }
+    };
+
+}
+<div class="flex justify-between items-center mb-4 w-full">
+    <h2 class="text-2xl font-bold text-white">Orders</h2>
+    <a href="/Admin/Order/Create" class="btn btn-success btn-sm">Create order</a>
+</div>
+
+
+<div class="flex flex-col gap-4 w-full">
+    @foreach (var order in Model.Items)
+    {
+        <div class="bg-indigo-900 rounded-xl shadow-lg flex justify-between items-center py-2 px-4">
+            <div>
+                <div class="flex items-center gap-2">
+                    <div class="text-white font-semibold text-lg">
+                        @order.Id
+                    </div>
+                    <div class="badge @(status[order.Status])">
+                        @order.Status
+                    </div>
+                </div>
+                <div class="text-neutral-300 text-sm">
+                    Created at: @order.CreatedAt by @order.User.FirstName @order.User.LastName
+                </div>
+                <div class="text-neutral-300 text-sm">
+                    Items @order.OrderItems.Count()
+                </div>
+                <div class="text-neutral-300 text-sm">
+                    Total @order.TotalPrice CZK
+                </div>
+            </div>
+            
+            <div class="flex gap-4">
+                <a class="btn btn-secondary btn-sm" href="/Admin/Order/Edit/@order.Id">Edit</a>
+                <form action="/Admin/Order/Delete/@order.Id" method="post">
+                    <button onclick="return confirm('Really delete order @order.Id?')" class="btn btn-error btn-sm"><i class="bi bi-trash"></i></button>
+                </form>
+                
+            </div>
+        </div>
+    }
+    
+    @Html.Partial("_Paginator", new PaginatorData {  ModelName = "Order", Page = Model.Page, TotalPages = Model.TotalPages })
+</div>

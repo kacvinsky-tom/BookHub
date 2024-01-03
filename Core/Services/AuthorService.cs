@@ -1,7 +1,10 @@
-﻿using Core.DTO.Input.Author;
+﻿using System.Linq.Expressions;
+using Core.DTO.Input.Author;
 using Core.Exception;
+using Core.Helpers;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
+using DataAccessLayer.Helpers;
 
 namespace Core.Services;
 
@@ -14,9 +17,30 @@ public class AuthorService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<IEnumerable<Author>> GetAll()
+    public async Task<IEnumerable<Author>> GetAll(
+        IEnumerable<Ordering<Author>>? orderingExpressions = null
+    )
     {
+        if (orderingExpressions != null)
+        {
+            return await _unitOfWork.Authors.GetAllOrdered(orderingExpressions);
+        }
         return await _unitOfWork.Authors.GetAll();
+    }
+
+    public async Task<PaginationObject<Author>> GetAllPaginated(
+        int page,
+        int pageSize,
+        Expression<Func<Author, IComparable>>? orderingExpression = null,
+        bool reverseOrder = false
+    )
+    {
+        return await _unitOfWork.Authors.GetPaginated(
+            page,
+            pageSize,
+            orderingExpression ?? (a => a.LastName + a.FirstName),
+            reverseOrder
+        );
     }
 
     public async Task<Author?> GetById(int id)

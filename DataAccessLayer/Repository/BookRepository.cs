@@ -11,7 +11,7 @@ public class BookRepository : GenericRepository<Book>, IBookRepository
     public BookRepository(BookHubDbContext context)
         : base(context) { }
 
-    private IQueryable<Book> GetBasicQuery()
+    public override IQueryable<Book> GetBasicQuery()
     {
         return _context
             .Books
@@ -21,12 +21,18 @@ public class BookRepository : GenericRepository<Book>, IBookRepository
             .Include(book => book.Reviews)
             .ThenInclude(review => review.User)
             .Include(book => book.Publisher)
+            .Include(book => book.BookAuthors)
             .Include(book => book.Authors)
             .Where(book => !book.IsDeleted);
     }
 
-    public async Task<IEnumerable<Book>> GetWithRelations(BookFilter filterInput)
+    public async Task<IEnumerable<Book>> GetWithRelations(BookFilter? filterInput = null)
     {
+        if (filterInput == null)
+        {
+            return await GetBasicQuery().ToListAsync();
+        }
+
         var query = GetBasicQuery()
             .WhereTitle(filterInput.Title)
             .WhereDescription(filterInput.Description)

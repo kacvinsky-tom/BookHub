@@ -1,0 +1,43 @@
+﻿@using WebMVC.Areas.Admin.Views.Shared
+@model DataAccessLayer.Helpers.PaginationObject<DataAccessLayer.Entity.LocalIdentityUser>
+
+@{
+    ViewBag.Title = "User list";
+    Layout = "_Layout";
+}
+<div class="flex justify-between items-center mb-4 w-full">
+    <h2 class="text-2xl font-bold text-white">Users</h2>
+    <a href="/Admin/User/Create" class="btn btn-success btn-sm">Add user</a>
+</div>
+
+
+<div class="flex flex-col gap-4 w-full">
+    @foreach (var user in Model.Items)
+    {
+        <div class="bg-indigo-900 rounded-xl shadow-lg flex justify-between items-center py-2 px-4">
+            <div>
+                <div class="text-white font-semibold text-lg">
+                    @user.User.FirstName @user.User.LastName
+                </div>
+                <div class="text-neutral-300 text-sm">
+                    @user.Email, @user.PhoneNumber
+                </div>
+                <div class="text-neutral-300 text-sm">
+                    @user.UserName
+                </div>
+            </div>
+            
+            <div class="flex gap-4">
+                <a class="btn btn-secondary btn-sm" href="/Admin/User/Edit/@user.Id">Edit</a>
+                <form action="/Admin/User/ResetPassword/@user.Id" method="post">
+                    <button onclick="return confirm('Really reset password of user @user.UserName?')" class="btn btn-warning btn-sm">Reset password</button>
+                </form>
+                <form action="/Admin/User/Delete/@user.Id" method="post">
+                    <button onclick="return confirm('Really delete user @user.UserName?')" class="btn btn-error btn-sm"><i class="bi bi-trash"></i></button>
+                </form>
+            </div>
+        </div>
+    }
+    
+    @Html.Partial("_Paginator", new PaginatorData {  ModelName = "User", Page = Model.Page, TotalPages = Model.TotalPages })
+</div>

@@ -1,7 +1,9 @@
-﻿using Core.DTO.Input.Book;
+﻿using System.Linq.Expressions;
+using Core.DTO.Input.Book;
 using Core.Exception;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
+using DataAccessLayer.Helpers;
 
 namespace Core.Services;
 
@@ -19,9 +21,37 @@ public class BookService
         return await _unitOfWork.Books.GetByIdWithRelations(id);
     }
 
-    public async Task<IEnumerable<Book>> GetAll(BookFilterInputDto filterInputDto)
+    public async Task<IEnumerable<Book>> GetAll(BookFilterInputDto? filterInputDto = null)
     {
-        return await _unitOfWork.Books.GetWithRelations(filterInputDto.ToBookFilter());
+        return await _unitOfWork.Books.GetWithRelations(filterInputDto?.ToBookFilter());
+    }
+
+    public async Task<PaginationObject<Book>> GetAllPaginated(
+        int page,
+        int pageSize,
+        Expression<Func<Book, IComparable>>? orderingExpression = null,
+        bool reverseOrder = false
+    )
+    {
+        return await _unitOfWork.Books.GetPaginated(
+            page,
+            pageSize,
+            orderingExpression ?? (b => b.Title),
+            reverseOrder
+        );
+    }
+
+    public async Task<PaginationObject<Book>> GetAllPaginatedFiltered(
+        BookFilterInputDto filterInputDto,
+        int page,
+        int pageSize
+    )
+    {
+        return await _unitOfWork.Books.GetPaginatedFiltered(
+            filterInputDto.ToBookFilter(),
+            page,
+            pageSize
+        );
     }
 
     public async Task<Book> Create(BookCreateInputDto bookCreateCreateInputDto)
@@ -87,7 +117,7 @@ public class BookService
 
     public async Task<Book> Update(BookCreateInputDto bookCreateUpdateInputDto, int id)
     {
-        var book = await _unitOfWork.Books.GetById(id);
+        var book = await _unitOfWork.Books.GetByIdWithRelations(id);
 
         if (book == null)
         {
@@ -140,8 +170,14 @@ public class BookService
         book.Quantity = bookCreateUpdateInputDto.Quantity;
         book.PublisherId = bookCreateUpdateInputDto.PublisherId;
         book.ReleaseYear = bookCreateUpdateInputDto.ReleaseYear;
-        book.Authors = authors;
-        book.Genres = genres;
+        // book.Authors = authors;
+        // book.Genres = genres;
+
+        book.Genres.Where(g => !genres.Contains(g)).ToList().ForEach(g => book.Genres.Remove(g));
+        genres.Where(g => !book.Genres.Contains(g)).ToList().ForEach(g => book.Genres.Add(g));
+
+        book.Authors.Where(a => !authors.Contains(a)).ToList().ForEach(a => book.Authors.Remove(a));
+        authors.Where(a => !book.Authors.Contains(a)).ToList().ForEach(a => book.Authors.Add(a));
 
         if (bookCreateUpdateInputDto.PrimaryGenreId != null)
         {
