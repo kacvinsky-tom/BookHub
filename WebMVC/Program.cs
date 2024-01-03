@@ -1,6 +1,7 @@
 using Core.Extensions;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
+using LoggingMiddleware.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebMVC.Extensions;
@@ -51,6 +52,7 @@ else
     app.UseHsts();
 }
 
+app.UseLoggingMiddleware("WebMVC");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
