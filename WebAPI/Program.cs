@@ -22,6 +22,7 @@ builder.Services.AddScoped<UnitOfWork>();
 
 builder.Services.AddRepositories();
 builder.Services.AddBLServices();
+builder.Services.ConfigureIdentity();
 
 var app = builder.Build();
 

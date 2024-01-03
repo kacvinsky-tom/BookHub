@@ -14,21 +14,7 @@ builder.Services.AddScoped<UnitOfWork>();
 builder.Services.AddRepositories();
 builder.Services.AddBLServices();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-builder
-    .Services.AddIdentity<LocalIdentityUser, LocalIdentityRole>()
-    .AddEntityFrameworkStores<BookHubDbContext>()
-    .AddDefaultTokenProviders();
-
-builder.Services.Configure<IdentityOptions>(options =>
-{
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequiredLength = 8;
-    options.Password.RequiredUniqueChars = 1;
-});
+builder.Services.ConfigureIdentity();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
