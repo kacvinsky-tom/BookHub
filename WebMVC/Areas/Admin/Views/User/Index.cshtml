@@ -29,9 +29,7 @@
             
             <div class="flex gap-4">
                 <a class="btn btn-secondary btn-sm" href="/Admin/User/Edit/@user.Id">Edit</a>
-                <form action="/Admin/User/ResetPassword/@user.Id" method="post">
-                    <button onclick="return confirm('Really reset password of user @user.UserName?')" class="btn btn-warning btn-sm">Reset password</button>
-                </form>
+                <a class="btn btn-secondary btn-sm" href="/Admin/User/ResetPassword/@user.Id">Reset password</a>
                 <form action="/Admin/User/Delete/@user.Id" method="post">
                     <button onclick="return confirm('Really delete user @user.UserName?')" class="btn btn-error btn-sm"><i class="bi bi-trash"></i></button>
                 </form>
