@@ -19,7 +19,12 @@ public class UserController : ControllerBase
     private readonly IMemoryCache _memoryCache;
     private readonly OrderService _orderService;
 
-    public UserController(UserService userService, IMapper mapper, IMemoryCache memoryCache, OrderService orderService)  
+    public UserController(
+        UserService userService,
+        IMapper mapper,
+        IMemoryCache memoryCache,
+        OrderService orderService
+    )
     {
         _userService = userService;
         _mapper = mapper;
