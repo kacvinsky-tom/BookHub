@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace DataAccessLayer.Migrations
+namespace Migrations.Postgre.Migrations
 {
     [DbContext(typeof(BookHubDbContext))]
     [Migration("20231120165356_RolesAndIdentityDbContext")]

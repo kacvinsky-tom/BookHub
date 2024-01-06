@@ -17,8 +17,10 @@ builder.Services.AddLogging();
 
 builder.Services.AddAutoMapper(typeof(BookHubProfile));
 builder.Services.AddMemoryCacheWithConfiguration();
-builder.Services.AddDbContextFactoryWithConfiguration(builder.Configuration);
 builder.Services.AddScoped<UnitOfWork>();
+
+//builder.Services.AddPostgreDbContextFactory(builder.Configuration);
+builder.Services.AddSqliteDbContextFactory(builder.Configuration);
 
 builder.Services.AddRepositories();
 builder.Services.AddBLServices();

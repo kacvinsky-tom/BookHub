@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace DataAccessLayer.Migrations
+namespace Migrations.Postgre.Migrations
 {
     /// <inheritdoc />
     public partial class RemoveDuplicateUserProps : Migration

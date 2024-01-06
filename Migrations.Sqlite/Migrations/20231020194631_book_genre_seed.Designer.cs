@@ -5,47 +5,182 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace DataAccessLayer.Migrations
+namespace Migrations.Sqlite.Migrations
 {
     [DbContext(typeof(BookHubDbContext))]
-    [Migration("20231120162802_AddIdentityUser")]
-    partial class AddIdentityUser
+    [Migration("20231020194631_book_genre_seed")]
+    partial class book_genre_seed
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.12")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.12");
 
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+            modelBuilder.Entity("BookGenre", b =>
+                {
+                    b.Property<int>("BooksId")
+                        .HasColumnType("INTEGER");
 
-            modelBuilder.Entity("DataAccessLayer.Entity.Author", b =>
+                    b.Property<int>("GenresId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("BooksId", "GenresId");
+
+                    b.HasIndex("GenresId");
+
+                    b.ToTable("BookGenre");
+
+                    b.HasData(
+                        new
+                        {
+                            BooksId = 1,
+                            GenresId = 2
+                        },
+                        new
+                        {
+                            BooksId = 1,
+                            GenresId = 8
+                        },
+                        new
+                        {
+                            BooksId = 2,
+                            GenresId = 2
+                        },
+                        new
+                        {
+                            BooksId = 2,
+                            GenresId = 8
+                        },
+                        new
+                        {
+                            BooksId = 3,
+                            GenresId = 2
+                        },
+                        new
+                        {
+                            BooksId = 3,
+                            GenresId = 8
+                        },
+                        new
+                        {
+                            BooksId = 3,
+                            GenresId = 9
+                        },
+                        new
+                        {
+                            BooksId = 4,
+                            GenresId = 1
+                        },
+                        new
+                        {
+                            BooksId = 4,
+                            GenresId = 5
+                        },
+                        new
+                        {
+                            BooksId = 4,
+                            GenresId = 6
+                        },
+                        new
+                        {
+                            BooksId = 4,
+                            GenresId = 7
+                        },
+                        new
+                        {
+                            BooksId = 5,
+                            GenresId = 2
+                        },
+                        new
+                        {
+                            BooksId = 5,
+                            GenresId = 8
+                        },
+                        new
+                        {
+                            BooksId = 6,
+                            GenresId = 2
+                        },
+                        new
+                        {
+                            BooksId = 6,
+                            GenresId = 8
+                        },
+                        new
+                        {
+                            BooksId = 7,
+                            GenresId = 2
+                        },
+                        new
+                        {
+                            BooksId = 7,
+                            GenresId = 8
+                        },
+                        new
+                        {
+                            BooksId = 8,
+                            GenresId = 2
+                        },
+                        new
+                        {
+                            BooksId = 8,
+                            GenresId = 8
+                        },
+                        new
+                        {
+                            BooksId = 9,
+                            GenresId = 2
+                        },
+                        new
+                        {
+                            BooksId = 9,
+                            GenresId = 8
+                        },
+                        new
+                        {
+                            BooksId = 10,
+                            GenresId = 2
+                        },
+                        new
+                        {
+                            BooksId = 10,
+                            GenresId = 8
+                        },
+                        new
+                        {
+                            BooksId = 11,
+                            GenresId = 2
+                        },
+                        new
+                        {
+                            BooksId = 11,
+                            GenresId = 8
+                        });
+                });
+
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.Author", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -55,80 +190,82 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6807),
                             FirstName = "Stephen",
                             LastName = "King"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6811),
                             FirstName = "J. K.",
                             LastName = "Rowling"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6813),
                             FirstName = "George R. R.",
                             LastName = "Martin"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6814),
                             FirstName = "Terry",
                             LastName = "Pratchett"
                         });
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entity.Book", b =>
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ISBN")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Image")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Price")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
-                    b.Property<int>("PublisherId")
-                        .HasColumnType("integer");
+                    b.Property<string>("Publisher")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("ReleaseYear")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PublisherId");
+                    b.HasIndex("AuthorId");
 
                     b.ToTable("Books");
 
@@ -136,12 +273,13 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            AuthorId = 4,
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6821),
                             Description = "Ve světě, který leží na krunýři obrovské želvy, se vydává na cestu rozverná, temperamentní a neuvěřitelně výstřední výprava. Setkáte se s lakomým a naprosto neschopným čarodějem Mrakoplašem, naivním turistou Dvoukvítkem, jehož Zavazadlo za ním běhá jako pes na stovce malých nožiček, s draky, kteří existují, pokud na ně opravdu věříte, a samozřejmě dojdete až na okraj této podivné planety.",
                             ISBN = "978-80-7197-614-1",
                             IsDeleted = false,
                             Price = 399,
-                            PublisherId = 1,
+                            Publisher = "Talpress",
                             Quantity = 7,
                             ReleaseYear = 1993,
                             Title = "Barva kouzel"
@@ -149,12 +287,13 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            AuthorId = 2,
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6853),
                             Description = "Harry Potter je sirotek, který žije u svých příbuzných Dursleyových. Jeho rodiče byli mocní čarodějové, kteří zahynuli při souboji s nejtemnějším čarodějem všech dob, Lordem Voldemortem. Harryho rodiče zanechali svého syna v péči svého přítele, kouzelníka Albusa Brumbála, ředitele Školy čar a kouzel v Bradavicích. Harryho příbuzní o jeho magických schopnostech nevědí, protože se bojí, že by ho mohli zavděčit. Harryho život je plný ponižování a šikany, ale v den jeho jedenáctých narozenin se vše změní. Harry dostane dopis od Brumbála, který ho pozve na Školu čar a kouzel v Bradavicích. Harry se dozví, že je čaroděj a že jeho rodiče zemřeli při souboji s nejtemnějším čarodějem všech dob, Lordem Voldemortem. Harry se vydává do Bradavic, kde se seznámí s Ronem Weasleym a Hermionou Grangerovou, kteří se stanou jeho nejlepšími přáteli. Harry se také dozví, že Voldemort přežil a že se chystá získat Kámen mudrců, který mu pomůže znovu získat svou moc.",
                             ISBN = "978-80-7197-614-1",
                             IsDeleted = false,
                             Price = 399,
-                            PublisherId = 2,
+                            Publisher = "Albatros",
                             Quantity = 17,
                             ReleaseYear = 1997,
                             Title = "Harry Potter a Kámen mudrců"
@@ -162,12 +301,13 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            AuthorId = 3,
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6857),
                             Description = "Když král Robert rozhodne, že jeho nejstarší přítel Eddard Stark bude jeho pravou rukou, nevědomky odstartuje události, které otřesou celým kontinentem. Eddard se totiž snaží vyšetřit tajemnou smrt předchozího krájů a nastoupit na své nové místo, ale brzy zjistí, že je vše mnohem složitější, než se zdálo. Na jihu se totiž připravuje vzpoura a v záloze číhá starodávné zlo, které se probouzí.",
                             ISBN = "978-80-257-2891-5",
                             IsDeleted = false,
                             Price = 699,
-                            PublisherId = 3,
+                            Publisher = "Argo",
                             Quantity = 15,
                             ReleaseYear = 1996,
                             Title = "Hra o trůny"
@@ -175,12 +315,13 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            AuthorId = 1,
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6859),
                             Description = "V roce 1958 se sedmička přátel z Derry, malého městečka v americkém státě Maine, vydává do kanalizace, aby zničila zlého klauna Pennywaise, který se zde ukrývá. Sedmička však zjistí, že Pennywise je jen jedním z mnoha podob zla, které se ukrývá v Derry. Ze slibu se však stane kletba a sedmička se musí v roce 1985 vrátit do Derry, aby zlo zničila jednou provždy.",
                             ISBN = "978-80-7197-614-1",
                             IsDeleted = false,
                             Price = 799,
-                            PublisherId = 1,
+                            Publisher = "Talpress",
                             Quantity = 2,
                             ReleaseYear = 1986,
                             Title = "To"
@@ -188,12 +329,13 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            AuthorId = 2,
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6862),
                             Description = "Harry Potter, Ron Weasley a Hermiona Grangerová se vrací do Bradavic, kde se dozvědí o Tajemné komnatě, která je úzce spojena s Harrym. Harry se rozhodne najít Tajemnou komnatu a zjistit, co se tam skrývá. Harryho plán je však zmařen, když se objeví záhadný písař. Harryho přítel Ron je napaden a jeho sestra Ginny zmizí. Harry, Ron a Hermiona se tak vydávají do Tajemné komnaty, aby zjistili, co se tam skrývá a zachránili Ginny.",
                             ISBN = "978-80-7197-614-1",
                             IsDeleted = false,
                             Price = 399,
-                            PublisherId = 2,
+                            Publisher = "Albatros",
                             Quantity = 9,
                             ReleaseYear = 1998,
                             Title = "Harry Potter a Tajemná komnata"
@@ -201,12 +343,13 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            AuthorId = 2,
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6866),
                             Description = "Harry Potter se vrací do Bradavic, ale tentokrát se musí vyhýbat nebezpečnému vězni jménem Sirius Black, který utekl z Azkabanu. Harry se dozví, že Sirius byl vězněn kvůli tomu, že zradil jeho rodiče a že se chystá Harryho zabít. Harry se vydává na cestu, která ho zavede do minulosti, kde se dozví, že Sirius není tím, za koho se vydává.",
                             ISBN = "978-80-7197-614-1",
                             IsDeleted = false,
                             Price = 399,
-                            PublisherId = 2,
+                            Publisher = "Albatros",
                             Quantity = 11,
                             ReleaseYear = 1999,
                             Title = "Harry Potter a vězeň z Azkabanu"
@@ -214,12 +357,13 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            AuthorId = 2,
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6868),
                             Description = "Harry Potter se vrací do Bradavic, kde se má konat Turnaj tří kouzelníků. Harry se však dozví, že se do turnaje dostal podvodem a že se musí zúčastnit tří nebezpečných úkolů. Harry se vydává na cestu, která ho zavede do minulosti, kde se dozví, že se do turnaje dostal podvodem a že se musí zúčastnit tří nebezpečných úkolů.",
                             ISBN = "978-80-7197-614-1",
                             IsDeleted = false,
                             Price = 399,
-                            PublisherId = 2,
+                            Publisher = "Albatros",
                             Quantity = 13,
                             ReleaseYear = 2000,
                             Title = "Harry Potter a Ohnivý pohár"
@@ -227,12 +371,13 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            AuthorId = 2,
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6871),
                             Description = "Do Bradavic přišly temné časy. Po útoku mozkomorů na bratrance Dudleyho Harry ví, že Voldemort udělá cokoli, jen aby ho našel. Mnozí jeho návrat popírají, ale Harry přesto není sám: na Grimmauldově náměstí se schází tajný řád, který chce bojovat proti temným silám. Harry se musí od profesora Snapea naučit, jak se chránit před Voldemortovými útoky na jeho duši. Jenže Pán zla je den ode dne silnější a Harrymu dochází čas…",
                             ISBN = "978-80-7197-614-1",
                             IsDeleted = false,
                             Price = 399,
-                            PublisherId = 2,
+                            Publisher = "Albatros",
                             Quantity = 13,
                             ReleaseYear = 2000,
                             Title = "Harry Potter a Fénixův řád"
@@ -240,12 +385,13 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            AuthorId = 2,
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6873),
                             Description = "Moc Lorda Voldemorta stále roste a smrtijedi působí spoušť ve světě mudlů i kouzelníků. Když Harry Potter objeví starou učebnici lektvarů patřící tajemnému princi dvojí krve, spoléhá na její kouzla i přes varování svých kamarádů. Profesor Brumbál poodhaluje Voldemortovu minulost a s Harryho pomocí se snaží odkrýt tajemství jeho nesmrtelnosti. Jenže zlo se dere k moci stále silněji, neštěstí se blíží a Bradavice už nikdy nebudou jako dřív.",
                             ISBN = "978-80-7197-614-1",
                             IsDeleted = false,
                             Price = 399,
-                            PublisherId = 2,
+                            Publisher = "Albatros",
                             Quantity = 13,
                             ReleaseYear = 2005,
                             Title = "Harry Potter a princ dvojí krve"
@@ -253,12 +399,13 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            AuthorId = 2,
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6877),
                             Description = "Harry Potter se vydává na nebezpečnou cestu, aby zničil poslední Voldemortovy viteály. Společně s Ronem a Hermionou hledá zbytek Voldemortovy duše, který se ukrývá v tělech jeho nejmocnějších stoupenců. Harry se musí vydat na nebezpečnou cestu, aby zničil poslední Voldemortovy viteály. Společně s Ronem a Hermionou hledá zbytek Voldemortovy duše, který se ukrývá v tělech jeho nejmocnějších stoupenců.",
                             ISBN = "978-80-7197-614-1",
                             IsDeleted = false,
                             Price = 399,
-                            PublisherId = 2,
+                            Publisher = "Albatros",
                             Quantity = 13,
                             ReleaseYear = 2007,
                             Title = "Harry Potter a Relikvie smrti"
@@ -266,324 +413,39 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            AuthorId = 2,
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6879),
                             Description = "Harry Potter je zaměstnán v Ministerstvu kouzel a má tři školáky. Jeho minulost ho však neustále pronásleduje. Harry Potter je zaměstnán v Ministerstvu kouzel a má tři školáky. Jeho minulost ho však neustále pronásleduje.",
                             ISBN = "978-80-7197-614-1",
                             IsDeleted = false,
                             Price = 399,
-                            PublisherId = 2,
+                            Publisher = "Albatros",
                             Quantity = 13,
                             ReleaseYear = 2016,
                             Title = "Harry Potter a prokleté dítě"
                         });
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entity.BookAuthor", b =>
-                {
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("AuthorId", "BookId");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("BookAuthor");
-
-                    b.HasData(
-                        new
-                        {
-                            AuthorId = 1,
-                            BookId = 1
-                        },
-                        new
-                        {
-                            AuthorId = 2,
-                            BookId = 1
-                        },
-                        new
-                        {
-                            AuthorId = 3,
-                            BookId = 2
-                        },
-                        new
-                        {
-                            AuthorId = 4,
-                            BookId = 2
-                        },
-                        new
-                        {
-                            AuthorId = 1,
-                            BookId = 3
-                        },
-                        new
-                        {
-                            AuthorId = 2,
-                            BookId = 3
-                        },
-                        new
-                        {
-                            AuthorId = 3,
-                            BookId = 3
-                        },
-                        new
-                        {
-                            AuthorId = 4,
-                            BookId = 4
-                        },
-                        new
-                        {
-                            AuthorId = 1,
-                            BookId = 4
-                        },
-                        new
-                        {
-                            AuthorId = 2,
-                            BookId = 4
-                        },
-                        new
-                        {
-                            AuthorId = 3,
-                            BookId = 4
-                        },
-                        new
-                        {
-                            AuthorId = 4,
-                            BookId = 5
-                        },
-                        new
-                        {
-                            AuthorId = 1,
-                            BookId = 5
-                        },
-                        new
-                        {
-                            AuthorId = 2,
-                            BookId = 6
-                        },
-                        new
-                        {
-                            AuthorId = 3,
-                            BookId = 6
-                        },
-                        new
-                        {
-                            AuthorId = 4,
-                            BookId = 7
-                        },
-                        new
-                        {
-                            AuthorId = 1,
-                            BookId = 7
-                        },
-                        new
-                        {
-                            AuthorId = 2,
-                            BookId = 8
-                        },
-                        new
-                        {
-                            AuthorId = 3,
-                            BookId = 8
-                        },
-                        new
-                        {
-                            AuthorId = 4,
-                            BookId = 9
-                        },
-                        new
-                        {
-                            AuthorId = 1,
-                            BookId = 9
-                        },
-                        new
-                        {
-                            AuthorId = 2,
-                            BookId = 10
-                        },
-                        new
-                        {
-                            AuthorId = 3,
-                            BookId = 10
-                        },
-                        new
-                        {
-                            AuthorId = 4,
-                            BookId = 11
-                        },
-                        new
-                        {
-                            AuthorId = 1,
-                            BookId = 11
-                        });
-                });
-
-            modelBuilder.Entity("DataAccessLayer.Entity.BookGenre", b =>
-                {
-                    b.Property<int>("BookId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("GenreId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("BookId", "GenreId");
-
-                    b.HasIndex("GenreId");
-
-                    b.ToTable("BookGenre");
-
-                    b.HasData(
-                        new
-                        {
-                            BookId = 1,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            BookId = 1,
-                            GenreId = 8
-                        },
-                        new
-                        {
-                            BookId = 2,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            BookId = 2,
-                            GenreId = 8
-                        },
-                        new
-                        {
-                            BookId = 3,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            BookId = 3,
-                            GenreId = 8
-                        },
-                        new
-                        {
-                            BookId = 3,
-                            GenreId = 9
-                        },
-                        new
-                        {
-                            BookId = 4,
-                            GenreId = 1
-                        },
-                        new
-                        {
-                            BookId = 4,
-                            GenreId = 5
-                        },
-                        new
-                        {
-                            BookId = 4,
-                            GenreId = 6
-                        },
-                        new
-                        {
-                            BookId = 4,
-                            GenreId = 7
-                        },
-                        new
-                        {
-                            BookId = 5,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            BookId = 5,
-                            GenreId = 8
-                        },
-                        new
-                        {
-                            BookId = 6,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            BookId = 6,
-                            GenreId = 8
-                        },
-                        new
-                        {
-                            BookId = 7,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            BookId = 7,
-                            GenreId = 8
-                        },
-                        new
-                        {
-                            BookId = 8,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            BookId = 8,
-                            GenreId = 8
-                        },
-                        new
-                        {
-                            BookId = 9,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            BookId = 9,
-                            GenreId = 8
-                        },
-                        new
-                        {
-                            BookId = 10,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            BookId = 10,
-                            GenreId = 8
-                        },
-                        new
-                        {
-                            BookId = 11,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            BookId = 11,
-                            GenreId = 8
-                        });
-                });
-
-            modelBuilder.Entity("DataAccessLayer.Entity.CartItem", b =>
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.CartItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("BookId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -598,7 +460,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 1,
                             BookId = 7,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6925),
                             Quantity = 1,
                             UserId = 4
                         },
@@ -606,7 +468,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 2,
                             BookId = 1,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6927),
                             Quantity = 2,
                             UserId = 4
                         },
@@ -614,29 +476,27 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 3,
                             BookId = 2,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6929),
                             Quantity = 1,
                             UserId = 2
                         });
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entity.Genre", b =>
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.Genre", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -646,177 +506,113 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6778),
                             Name = "Horor"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6781),
                             Name = "Fantasy"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6782),
                             Name = "Sci-Fi"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6784),
                             Name = "Romantické"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6786),
                             Name = "Krimi"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6790),
                             Name = "Mysteriózní"
                         },
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6791),
                             Name = "Thriller"
                         },
                         new
                         {
                             Id = 8,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6793),
                             Name = "Dobrodružné"
                         },
                         new
                         {
                             Id = 9,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6795),
                             Name = "Akční"
                         },
                         new
                         {
                             Id = 10,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6797),
                             Name = "Komedie"
                         },
                         new
                         {
                             Id = 11,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6799),
                             Name = "Drama"
                         },
                         new
                         {
                             Id = 12,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6801),
                             Name = "Biografie"
                         },
                         new
                         {
                             Id = 13,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6803),
                             Name = "Historické romány"
                         },
                         new
                         {
                             Id = 14,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6804),
                             Name = "Poezie"
                         });
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entity.LocalIdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("text");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("LocalIdentityUsers");
-                });
-
-            modelBuilder.Entity("DataAccessLayer.Entity.Order", b =>
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Status")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("TotalPrice")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("VoucherUsedId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("VoucherUsedId");
 
                     b.ToTable("Orders");
 
@@ -824,7 +620,7 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6932),
                             Status = 0,
                             TotalPrice = 798,
                             UserId = 3
@@ -832,7 +628,7 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6935),
                             Status = 1,
                             TotalPrice = 699,
                             UserId = 4
@@ -840,46 +636,44 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6937),
                             Status = 2,
                             TotalPrice = 399,
                             UserId = 2
                         });
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entity.OrderItem", b =>
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.OrderItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("BookId")
-                        .HasColumnType("integer");
+                    b.Property<int>("BookId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ISBN")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("OrderId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Price")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -894,7 +688,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 1,
                             BookId = 10,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6940),
                             ISBN = "978-80-7197-614-1",
                             OrderId = 1,
                             Price = 399,
@@ -905,7 +699,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 2,
                             BookId = 11,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6943),
                             ISBN = "978-80-7197-613-4",
                             OrderId = 1,
                             Price = 399,
@@ -916,7 +710,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 3,
                             BookId = 3,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6945),
                             ISBN = "978-80-7197-612-7",
                             OrderId = 2,
                             Price = 699,
@@ -927,7 +721,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 4,
                             BookId = 1,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6947),
                             ISBN = "978-80-7197-611-0",
                             OrderId = 3,
                             Price = 399,
@@ -936,89 +730,30 @@ namespace DataAccessLayer.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entity.Publisher", b =>
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.Review", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Publishers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
-                            Email = "eshop@talpress.cz",
-                            Name = "Talpress",
-                            State = "Czech Republic"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
-                            Email = "albatros@albatrosmedia.cz",
-                            Name = "Albatros",
-                            State = "Czech Republic"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
-                            Email = "argo@argo.cz",
-                            Name = "Argo",
-                            State = "Czech Republic"
-                        });
-                });
-
-            modelBuilder.Entity("DataAccessLayer.Entity.Review", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("BookId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Comment")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Rating")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -1034,7 +769,7 @@ namespace DataAccessLayer.Migrations
                             Id = 1,
                             BookId = 1,
                             Comment = "Barva kouzel od Terryho Pratchetta je brilantní kombinací fantasy a humoru. Pratchettova schopnost tvořit fantastické světy a vtipně komentovat naši skutečnost je prostě neuvěřitelná. Tato kniha je nesmírně zábavná a zároveň hluboká.",
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6906),
                             Rating = 5,
                             UserId = 1
                         },
@@ -1043,7 +778,7 @@ namespace DataAccessLayer.Migrations
                             Id = 2,
                             BookId = 1,
                             Comment = "Když jsem poprvé četl Barvu kouzel, byl jsem ohromen Pratchettovým talentem. Jeho postavy jsou živé, zápletka je originální a humor je úžasný. V průběhu knihy jsem se smál na každé stránce.",
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6909),
                             Rating = 5,
                             UserId = 2
                         },
@@ -1052,7 +787,7 @@ namespace DataAccessLayer.Migrations
                             Id = 3,
                             BookId = 1,
                             Comment = "Barva kouzel je úžasným začátkem dlouhé série knih ze Zeměplochy od Terryho Pratchetta. Kniha je plná vtipných narážek, alegorií a skvělých postav. Pratchettova imaginace je prostě neomezená.",
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6911),
                             Rating = 4,
                             UserId = 3
                         },
@@ -1061,7 +796,7 @@ namespace DataAccessLayer.Migrations
                             Id = 4,
                             BookId = 1,
                             Comment = "Terry Pratchett byl génius a Barva kouzel to dokazuje. Jeho schopnost kombinovat fantasy s komedií a zároveň skvěle komentovat různé aspekty naší společnosti je úžasná. Tato kniha je klenotem a musí pro všechny fanoušky fantasy a humoru.",
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6913),
                             Rating = 4,
                             UserId = 4
                         },
@@ -1070,7 +805,7 @@ namespace DataAccessLayer.Migrations
                             Id = 5,
                             BookId = 7,
                             Comment = "Harry Potter a Ohnivý pohár je zlomovým dílem v sérii. Rowlingova schopnost rozvíjet svět čarodějů a postavy je úžasná. Tato kniha je plná napětí, dobrodružství a emocí. Nemohl jsem se od ní odtrhnout.",
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6914),
                             Rating = 5,
                             UserId = 1
                         },
@@ -1079,7 +814,7 @@ namespace DataAccessLayer.Migrations
                             Id = 6,
                             BookId = 7,
                             Comment = "Kniha Harry Potter a Ohnivý pohár je nejen temnější než předchozí díly, ale také daleko složitější. Rowling zde ukazuje, že její příběh není určen jen pro děti. Děj je napínavý a postavy procházejí důležitými změnami.",
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6917),
                             Rating = 4,
                             UserId = 2
                         },
@@ -1088,7 +823,7 @@ namespace DataAccessLayer.Migrations
                             Id = 7,
                             BookId = 7,
                             Comment = "Harry Potterova čtvrtá dobrodružství v Ohnivém poháru jsou fantastická. Tato kniha se vyznačuje neuvěřitelným nasazením a soubojem na Turnaji tří kouzel. Rowlingova schopnost vytvořit komplexní a poutavý příběh zůstává nepřekonaná.",
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6919),
                             Rating = 5,
                             UserId = 3
                         },
@@ -1097,52 +832,50 @@ namespace DataAccessLayer.Migrations
                             Id = 8,
                             BookId = 7,
                             Comment = "Harry Potter a Ohnivý pohár je dalším důkazem Rowlinginy brilantní schopnosti psát pro různé věkové kategorie. Tato kniha je poutavá, plná tajemství a emocí, a dokazuje, proč je série Harryho Pottera tak oblíbená po celém světě.",
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6920),
                             Rating = 5,
                             UserId = 4
                         });
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entity.User", b =>
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("IsAdmin")
-                        .HasColumnType("boolean");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -1152,7 +885,7 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6717),
                             Email = "john.doe@gmail.com",
                             FirstName = "John",
                             IsAdmin = true,
@@ -1164,7 +897,7 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6762),
                             Email = "jane.doe@gmai.com",
                             FirstName = "Jane",
                             IsAdmin = false,
@@ -1176,7 +909,7 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6769),
                             Email = "pavel.kraus@gmail.com",
                             FirstName = "Pavel",
                             IsAdmin = false,
@@ -1188,7 +921,7 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6772),
                             Email = "jarda@novak.cz",
                             FirstName = "Jarda",
                             IsAdmin = false,
@@ -1199,93 +932,24 @@ namespace DataAccessLayer.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entity.Voucher", b =>
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.WishList", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Discount")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("ExpirationDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Vouchers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Code = "VANOCE10",
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
-                            Discount = 10,
-                            ExpirationDate = new DateTime(2023, 12, 24, 12, 0, 0, 0, DateTimeKind.Utc),
-                            Quantity = 0,
-                            Type = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Code = "KILODOLU",
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
-                            Discount = 100,
-                            ExpirationDate = new DateTime(2023, 11, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Quantity = 0,
-                            Type = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Code = "ZIMNISLEVA",
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
-                            Discount = 20,
-                            ExpirationDate = new DateTime(2024, 1, 31, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Quantity = 0,
-                            Type = 0
-                        });
-                });
-
-            modelBuilder.Entity("DataAccessLayer.Entity.WishList", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -1297,38 +961,36 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6886),
                             Name = "Můj seznam přání",
                             UserId = 2
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6889),
                             Name = "Zbývající harry potter knížky",
                             UserId = 2
                         });
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entity.WishListItem", b =>
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.WishListItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("BookId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("WishListId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -1343,107 +1005,84 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 1,
                             BookId = 1,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6893),
                             WishListId = 1
                         },
                         new
                         {
                             Id = 2,
                             BookId = 3,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6896),
                             WishListId = 1
                         },
                         new
                         {
                             Id = 3,
                             BookId = 8,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6897),
                             WishListId = 2
                         },
                         new
                         {
                             Id = 4,
                             BookId = 9,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6899),
                             WishListId = 2
                         },
                         new
                         {
                             Id = 5,
                             BookId = 10,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6901),
                             WishListId = 2
                         },
                         new
                         {
                             Id = 6,
                             BookId = 11,
-                            CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2023, 10, 20, 21, 46, 31, 590, DateTimeKind.Local).AddTicks(6903),
                             WishListId = 2
                         });
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entity.Book", b =>
+            modelBuilder.Entity("BookGenre", b =>
                 {
-                    b.HasOne("DataAccessLayer.Entity.Publisher", "Publisher")
+                    b.HasOne("BookHub.DataAccessLayer.Entity.Book", null)
                         .WithMany()
-                        .HasForeignKey("PublisherId")
+                        .HasForeignKey("BooksId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Publisher");
+                    b.HasOne("BookHub.DataAccessLayer.Entity.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenresId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entity.BookAuthor", b =>
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.Book", b =>
                 {
-                    b.HasOne("DataAccessLayer.Entity.Author", "Author")
-                        .WithMany()
+                    b.HasOne("BookHub.DataAccessLayer.Entity.Author", "Author")
+                        .WithMany("Books")
                         .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DataAccessLayer.Entity.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Author");
-
-                    b.Navigation("Book");
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entity.BookGenre", b =>
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.CartItem", b =>
                 {
-                    b.HasOne("DataAccessLayer.Entity.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DataAccessLayer.Entity.Genre", "Genre")
-                        .WithMany()
-                        .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-
-                    b.Navigation("Genre");
-                });
-
-            modelBuilder.Entity("DataAccessLayer.Entity.CartItem", b =>
-                {
-                    b.HasOne("DataAccessLayer.Entity.Book", "Book")
+                    b.HasOne("BookHub.DataAccessLayer.Entity.Book", "Book")
                         .WithMany("CartItems")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("DataAccessLayer.Entity.User", "User")
+                    b.HasOne("BookHub.DataAccessLayer.Entity.User", "User")
                         .WithMany("CartItems")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Book");
@@ -1451,10 +1090,10 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entity.LocalIdentityUser", b =>
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.Order", b =>
                 {
-                    b.HasOne("DataAccessLayer.Entity.User", "User")
-                        .WithMany()
+                    b.HasOne("BookHub.DataAccessLayer.Entity.User", "User")
+                        .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1462,35 +1101,18 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entity.Order", b =>
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.OrderItem", b =>
                 {
-                    b.HasOne("DataAccessLayer.Entity.User", "User")
-                        .WithMany("Orders")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DataAccessLayer.Entity.Voucher", "VoucherUsed")
-                        .WithMany("Orders")
-                        .HasForeignKey("VoucherUsedId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("User");
-
-                    b.Navigation("VoucherUsed");
-                });
-
-            modelBuilder.Entity("DataAccessLayer.Entity.OrderItem", b =>
-                {
-                    b.HasOne("DataAccessLayer.Entity.Book", "Book")
+                    b.HasOne("BookHub.DataAccessLayer.Entity.Book", "Book")
                         .WithMany("OrderItems")
                         .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.HasOne("DataAccessLayer.Entity.Order", "Order")
+                    b.HasOne("BookHub.DataAccessLayer.Entity.Order", "Order")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Book");
@@ -1498,18 +1120,18 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entity.Review", b =>
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.Review", b =>
                 {
-                    b.HasOne("DataAccessLayer.Entity.Book", "Book")
+                    b.HasOne("BookHub.DataAccessLayer.Entity.Book", "Book")
                         .WithMany("Reviews")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("DataAccessLayer.Entity.User", "User")
+                    b.HasOne("BookHub.DataAccessLayer.Entity.User", "User")
                         .WithMany("Reviews")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Book");
@@ -1517,29 +1139,29 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entity.WishList", b =>
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.WishList", b =>
                 {
-                    b.HasOne("DataAccessLayer.Entity.User", "User")
-                        .WithMany("WishLists")
+                    b.HasOne("BookHub.DataAccessLayer.Entity.User", "User")
+                        .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entity.WishListItem", b =>
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.WishListItem", b =>
                 {
-                    b.HasOne("DataAccessLayer.Entity.Book", "Book")
+                    b.HasOne("BookHub.DataAccessLayer.Entity.Book", "Book")
                         .WithMany("WishListItems")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("DataAccessLayer.Entity.WishList", "WishList")
+                    b.HasOne("BookHub.DataAccessLayer.Entity.WishList", "WishList")
                         .WithMany("WishListItems")
                         .HasForeignKey("WishListId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Book");
@@ -1547,7 +1169,12 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("WishList");
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entity.Book", b =>
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.Author", b =>
+                {
+                    b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.Book", b =>
                 {
                     b.Navigation("CartItems");
 
@@ -1558,28 +1185,21 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("WishListItems");
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entity.Order", b =>
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.Order", b =>
                 {
                     b.Navigation("OrderItems");
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entity.User", b =>
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.User", b =>
                 {
                     b.Navigation("CartItems");
 
                     b.Navigation("Orders");
 
                     b.Navigation("Reviews");
-
-                    b.Navigation("WishLists");
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entity.Voucher", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("DataAccessLayer.Entity.WishList", b =>
+            modelBuilder.Entity("BookHub.DataAccessLayer.Entity.WishList", b =>
                 {
                     b.Navigation("WishListItems");
                 });

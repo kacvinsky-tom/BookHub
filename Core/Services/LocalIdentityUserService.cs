@@ -5,7 +5,6 @@ using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Helpers;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace Core.Services;
 

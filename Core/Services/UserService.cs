@@ -3,7 +3,6 @@ using Core.Exception;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Helpers;
-using Microsoft.AspNetCore.Identity;
 
 namespace Core.Services;
 
