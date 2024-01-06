@@ -9,18 +9,18 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace DataAccessLayer.Migrations
+namespace Migrations.Postgre.Migrations
 {
     [DbContext(typeof(BookHubDbContext))]
-    [Migration("20240102125439_SeedIdentityUsers")]
-    partial class SeedIdentityUsers
+    [Migration("20231120162802_AddIdentityUser")]
+    partial class AddIdentityUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.14")
+                .HasAnnotation("ProductVersion", "7.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -428,9 +428,6 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("GenreId")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("IsPrimary")
-                        .HasColumnType("boolean");
-
                     b.HasKey("BookId", "GenreId");
 
                     b.HasIndex("GenreId");
@@ -441,152 +438,127 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             BookId = 1,
-                            GenreId = 2,
-                            IsPrimary = false
+                            GenreId = 2
                         },
                         new
                         {
                             BookId = 1,
-                            GenreId = 8,
-                            IsPrimary = false
+                            GenreId = 8
                         },
                         new
                         {
                             BookId = 2,
-                            GenreId = 2,
-                            IsPrimary = false
+                            GenreId = 2
                         },
                         new
                         {
                             BookId = 2,
-                            GenreId = 8,
-                            IsPrimary = false
+                            GenreId = 8
                         },
                         new
                         {
                             BookId = 3,
-                            GenreId = 2,
-                            IsPrimary = false
+                            GenreId = 2
                         },
                         new
                         {
                             BookId = 3,
-                            GenreId = 8,
-                            IsPrimary = false
+                            GenreId = 8
                         },
                         new
                         {
                             BookId = 3,
-                            GenreId = 9,
-                            IsPrimary = false
+                            GenreId = 9
                         },
                         new
                         {
                             BookId = 4,
-                            GenreId = 1,
-                            IsPrimary = false
+                            GenreId = 1
                         },
                         new
                         {
                             BookId = 4,
-                            GenreId = 5,
-                            IsPrimary = false
+                            GenreId = 5
                         },
                         new
                         {
                             BookId = 4,
-                            GenreId = 6,
-                            IsPrimary = false
+                            GenreId = 6
                         },
                         new
                         {
                             BookId = 4,
-                            GenreId = 7,
-                            IsPrimary = false
+                            GenreId = 7
                         },
                         new
                         {
                             BookId = 5,
-                            GenreId = 2,
-                            IsPrimary = false
+                            GenreId = 2
                         },
                         new
                         {
                             BookId = 5,
-                            GenreId = 8,
-                            IsPrimary = false
+                            GenreId = 8
                         },
                         new
                         {
                             BookId = 6,
-                            GenreId = 2,
-                            IsPrimary = false
+                            GenreId = 2
                         },
                         new
                         {
                             BookId = 6,
-                            GenreId = 8,
-                            IsPrimary = false
+                            GenreId = 8
                         },
                         new
                         {
                             BookId = 7,
-                            GenreId = 2,
-                            IsPrimary = false
+                            GenreId = 2
                         },
                         new
                         {
                             BookId = 7,
-                            GenreId = 8,
-                            IsPrimary = false
+                            GenreId = 8
                         },
                         new
                         {
                             BookId = 8,
-                            GenreId = 2,
-                            IsPrimary = false
+                            GenreId = 2
                         },
                         new
                         {
                             BookId = 8,
-                            GenreId = 8,
-                            IsPrimary = false
+                            GenreId = 8
                         },
                         new
                         {
                             BookId = 9,
-                            GenreId = 2,
-                            IsPrimary = false
+                            GenreId = 2
                         },
                         new
                         {
                             BookId = 9,
-                            GenreId = 8,
-                            IsPrimary = false
+                            GenreId = 8
                         },
                         new
                         {
                             BookId = 10,
-                            GenreId = 2,
-                            IsPrimary = false
+                            GenreId = 2
                         },
                         new
                         {
                             BookId = 10,
-                            GenreId = 8,
-                            IsPrimary = false
+                            GenreId = 8
                         },
                         new
                         {
                             BookId = 11,
-                            GenreId = 2,
-                            IsPrimary = false
+                            GenreId = 2
                         },
                         new
                         {
                             BookId = 11,
-                            GenreId = 8,
-                            IsPrimary = false
+                            GenreId = 8
                         });
                 });
 
@@ -757,46 +729,6 @@ namespace DataAccessLayer.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entity.LocalIdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex");
-
-                    b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "86718895-f083-4ba8-8452-b7a4dc9ca99c",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "cb9a0fb7-cd3e-498f-9b3e-ef3c9809708d",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
-                });
-
             modelBuilder.Entity("DataAccessLayer.Entity.LocalIdentityUser", b =>
                 {
                     b.Property<string>("Id")
@@ -806,12 +738,10 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
@@ -823,12 +753,10 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("text");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
@@ -849,91 +777,13 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
-
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "0d8fb324-0996-465b-a7b1-aeaaf327e6a8",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "52f29df2-7b85-4f2d-b925-d861e125ad37",
-                            Email = "john.doe@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "JOHN.DOE@GMAIL.COM",
-                            NormalizedUserName = "JOHN.DOE",
-                            PasswordHash = "AQAAAAIAAYagAAAAENvJRIhW0HvRBoR6q6bmwLyxK6FOQd+ENX5fY0zExhUbq9q8JsCo8Gz0CxOH5O6xCA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "e34b0df2-8863-4466-ae5a-92686ddb52e4",
-                            TwoFactorEnabled = false,
-                            UserId = 1,
-                            UserName = "john.doe"
-                        },
-                        new
-                        {
-                            Id = "551d86f0-c626-4dcf-bb4e-5fb3d05666cd",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "2ca69a27-f75d-4b17-89e1-e3a4c9da44d9",
-                            Email = "jane.doe@gmai.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "JANE.DOE@GMAI.COM",
-                            NormalizedUserName = "JANE.DOE",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAEyiPBPZx6HbMCOq2MmaqxdciGpSUbhoX01VRjU4hGjXRdOh3ou7Lg3QwhfcRkA3w==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "4bac5dda-ba34-433d-9f68-0bd4abf58c1c",
-                            TwoFactorEnabled = false,
-                            UserId = 2,
-                            UserName = "jane.doe"
-                        },
-                        new
-                        {
-                            Id = "996aa4ee-3b11-4e0f-b307-63bad603f850",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "f350415d-efed-44bf-b92c-8e61f19b2469",
-                            Email = "pavel.kraus@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "PAVEL.KRAUS@GMAIL.COM",
-                            NormalizedUserName = "PAVEL.KRAUS",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJa0udvFKhAgafmNjFzwoPR4YnCskaTHKP0CmpjH2h4BOOWz4kHEO3EF8JjGcLrUpg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "51f9b5e5-8609-4c04-9800-500cfee2f599",
-                            TwoFactorEnabled = false,
-                            UserId = 3,
-                            UserName = "pavel.kraus"
-                        },
-                        new
-                        {
-                            Id = "caac826e-f9a3-4d6f-a521-e35be632b112",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "cdedf214-b574-4988-86c3-81a44173688a",
-                            Email = "jarda@novak.cz",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "JARDA@NOVAK.CZ",
-                            NormalizedUserName = "JARDA.NOVAK",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJJZ5PWdW8XhdfuYU6UkWnkqBwOcsPHWIErN+0r6boR5bc2QMD750v7PB2cL4NLeIA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "fe71b0a1-d7fa-4017-a0f1-95b23f05f8fe",
-                            TwoFactorEnabled = false,
-                            UserId = 4,
-                            UserName = "jarda.novak"
-                        });
+                    b.ToTable("LocalIdentityUsers");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entity.Order", b =>
@@ -1272,7 +1122,14 @@ namespace DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -1298,7 +1155,9 @@ namespace DataAccessLayer.Migrations
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
                             Email = "john.doe@gmail.com",
                             FirstName = "John",
+                            IsAdmin = true,
                             LastName = "Doe",
+                            Password = "$2a$12$9NC8nfoll0NYTn40Jc79gu7BL9sXfrZTtuhHvuT9O0uDT0/rTCOJi",
                             PhoneNumber = "752 685 143",
                             Username = "john.doe"
                         },
@@ -1308,7 +1167,9 @@ namespace DataAccessLayer.Migrations
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
                             Email = "jane.doe@gmai.com",
                             FirstName = "Jane",
+                            IsAdmin = false,
                             LastName = "Doe",
+                            Password = "$2a$12$9NC8nfoll0NYTn40Jc79gu7BL9sXfrZTtuhHvuT9O0uDT0/rTCOJi",
                             PhoneNumber = "746 692 352",
                             Username = "jane.doe"
                         },
@@ -1318,7 +1179,9 @@ namespace DataAccessLayer.Migrations
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
                             Email = "pavel.kraus@gmail.com",
                             FirstName = "Pavel",
+                            IsAdmin = false,
                             LastName = "Kraus",
+                            Password = "$2a$12$9NC8nfoll0NYTn40Jc79gu7BL9sXfrZTtuhHvuT9O0uDT0/rTCOJi",
                             PhoneNumber = "748 242 562",
                             Username = "pavel.kraus"
                         },
@@ -1328,7 +1191,9 @@ namespace DataAccessLayer.Migrations
                             CreatedAt = new DateTime(2023, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
                             Email = "jarda@novak.cz",
                             FirstName = "Jarda",
+                            IsAdmin = false,
                             LastName = "Novák",
+                            Password = "$2a$12$9NC8nfoll0NYTn40Jc79gu7BL9sXfrZTtuhHvuT9O0uDT0/rTCOJi",
                             PhoneNumber = "742 942 934",
                             Username = "jarda.novak"
                         });
@@ -1518,112 +1383,6 @@ namespace DataAccessLayer.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("text");
-
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("text");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ProviderKey")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("LoginProvider", "ProviderKey");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserLogins", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("RoleId")
-                        .HasColumnType("text");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetUserRoles", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("text");
-
-                    b.HasKey("UserId", "LoginProvider", "Name");
-
-                    b.ToTable("AspNetUserTokens", (string)null);
-                });
-
             modelBuilder.Entity("DataAccessLayer.Entity.Book", b =>
                 {
                     b.HasOne("DataAccessLayer.Entity.Publisher", "Publisher")
@@ -1638,15 +1397,15 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("DataAccessLayer.Entity.BookAuthor", b =>
                 {
                     b.HasOne("DataAccessLayer.Entity.Author", "Author")
-                        .WithMany("BookAuthors")
+                        .WithMany()
                         .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DataAccessLayer.Entity.Book", "Book")
-                        .WithMany("BookAuthors")
+                        .WithMany()
                         .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Author");
@@ -1657,15 +1416,15 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("DataAccessLayer.Entity.BookGenre", b =>
                 {
                     b.HasOne("DataAccessLayer.Entity.Book", "Book")
-                        .WithMany("BookGenres")
+                        .WithMany()
                         .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DataAccessLayer.Entity.Genre", "Genre")
-                        .WithMany("BookGenres")
+                        .WithMany()
                         .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Book");
@@ -1788,68 +1547,8 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("WishList");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.HasOne("DataAccessLayer.Entity.LocalIdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.HasOne("DataAccessLayer.Entity.LocalIdentityUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.HasOne("DataAccessLayer.Entity.LocalIdentityUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.HasOne("DataAccessLayer.Entity.LocalIdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DataAccessLayer.Entity.LocalIdentityUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.HasOne("DataAccessLayer.Entity.LocalIdentityUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DataAccessLayer.Entity.Author", b =>
-                {
-                    b.Navigation("BookAuthors");
-                });
-
             modelBuilder.Entity("DataAccessLayer.Entity.Book", b =>
                 {
-                    b.Navigation("BookAuthors");
-
-                    b.Navigation("BookGenres");
-
                     b.Navigation("CartItems");
 
                     b.Navigation("OrderItems");
@@ -1857,11 +1556,6 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Reviews");
 
                     b.Navigation("WishListItems");
-                });
-
-            modelBuilder.Entity("DataAccessLayer.Entity.Genre", b =>
-                {
-                    b.Navigation("BookGenres");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entity.Order", b =>

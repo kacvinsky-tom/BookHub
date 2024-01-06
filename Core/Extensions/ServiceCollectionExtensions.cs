@@ -2,6 +2,8 @@
 using DataAccessLayer;
 using DataAccessLayer.Entity;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Extensions;
@@ -30,6 +32,7 @@ public static class ServiceCollectionExtensions
             .AddIdentity<LocalIdentityUser, LocalIdentityRole>()
             .AddEntityFrameworkStores<BookHubDbContext>()
             .AddDefaultTokenProviders();
+
         services.Configure<IdentityOptions>(options =>
         {
             options.Password.RequireDigit = true;
@@ -39,6 +42,41 @@ public static class ServiceCollectionExtensions
             options.Password.RequiredLength = 8;
             options.Password.RequiredUniqueChars = 1;
         });
+
         return services;
+    }
+
+    public static IServiceCollection AddPostgreDbContextFactory(
+        this IServiceCollection services,
+        IConfiguration configuration
+    )
+    {
+        return services.AddDbContextFactory<BookHubDbContext>(options =>
+        {
+            var connectionString = configuration.GetValue<string>(
+                "ConnectionStrings:LocalPostgresConnection"
+            );
+
+            options.UseNpgsql(connectionString, x => x.MigrationsAssembly("Migrations.Postgre"));
+        });
+    }
+
+    public static IServiceCollection AddSqliteDbContextFactory(
+        this IServiceCollection services,
+        IConfiguration configuration
+    )
+    {
+        return services.AddDbContextFactory<BookHubDbContext>(options =>
+        {
+            const Environment.SpecialFolder folder = Environment.SpecialFolder.LocalApplicationData;
+
+            var dbFileName = configuration.GetValue<string>("ConnectionStrings:SQLiteFileName");
+            var dbPath = Path.Join(Environment.GetFolderPath(folder), dbFileName);
+
+            options.UseSqlite(
+                $"Data Source={dbPath}",
+                x => x.MigrationsAssembly("Migrations.Sqlite")
+            );
+        });
     }
 }

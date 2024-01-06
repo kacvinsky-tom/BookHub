@@ -1,14 +1,12 @@
 using Core.Extensions;
 using DataAccessLayer;
-using DataAccessLayer.Entity;
 using LoggingMiddleware.Extensions;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using WebMVC.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContextWithConfiguration(builder.Configuration);
+//builder.Services.AddPostgreDbContextFactory(builder.Configuration);
+builder.Services.AddSqliteDbContextFactory(builder.Configuration);
+
 builder.Services.AddScoped<UnitOfWork>();
 
 builder.Services.AddRepositories();

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace DataAccessLayer.Migrations
+namespace Migrations.Postgre.Migrations
 {
     /// <inheritdoc />
     public partial class AddIdentityUser : Migration

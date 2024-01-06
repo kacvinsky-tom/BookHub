@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace DataAccessLayer.Migrations
+namespace Migrations.Postgre.Migrations
 {
     [DbContext(typeof(BookHubDbContext))]
     partial class BookHubDbContextModelSnapshot : ModelSnapshot
@@ -46,7 +46,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors", (string)null);
+                    b.ToTable("Authors");
 
                     b.HasData(
                         new
@@ -127,7 +127,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
 
                     b.HasData(
                         new
@@ -287,7 +287,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("BookAuthor", (string)null);
+                    b.ToTable("BookAuthor");
 
                     b.HasData(
                         new
@@ -432,7 +432,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("GenreId");
 
-                    b.ToTable("BookGenre", (string)null);
+                    b.ToTable("BookGenre");
 
                     b.HasData(
                         new
@@ -616,7 +616,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CartItems", (string)null);
+                    b.ToTable("CartItems");
 
                     b.HasData(
                         new
@@ -665,7 +665,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genres", (string)null);
+                    b.ToTable("Genres");
 
                     b.HasData(
                         new
@@ -965,7 +965,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("VoucherUsedId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
 
                     b.HasData(
                         new
@@ -1034,7 +1034,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderItems", (string)null);
+                    b.ToTable("OrderItems");
 
                     b.HasData(
                         new
@@ -1111,7 +1111,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Publishers", (string)null);
+                    b.ToTable("Publishers");
 
                     b.HasData(
                         new
@@ -1173,7 +1173,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reviews", (string)null);
+                    b.ToTable("Reviews");
 
                     b.HasData(
                         new
@@ -1286,7 +1286,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
 
                     b.HasData(
                         new
@@ -1363,7 +1363,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Vouchers", (string)null);
+                    b.ToTable("Vouchers");
 
                     b.HasData(
                         new
@@ -1423,7 +1423,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("WishLists", (string)null);
+                    b.ToTable("WishLists");
 
                     b.HasData(
                         new
@@ -1468,7 +1468,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("WishListId");
 
-                    b.ToTable("WishListItems", (string)null);
+                    b.ToTable("WishListItems");
 
                     b.HasData(
                         new

@@ -23,5 +23,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Core\Core.csproj" />
       <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
+      <ProjectReference Include="..\Migrations.Postgre\Migrations.Postgre.csproj" />
+      <ProjectReference Include="..\Migrations.Sqlite\Migrations.Sqlite.csproj" />
     </ItemGroup>
 </Project>
