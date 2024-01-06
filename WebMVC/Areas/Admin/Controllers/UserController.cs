@@ -1,5 +1,6 @@
 ﻿using Core.DTO.Input.LocalIdentityUser;
 using Core.DTO.Input.User;
+using Core.Exception;
 using Core.Services;
 using DataAccessLayer.Entity;
 using Microsoft.AspNetCore.Authorization;
@@ -140,7 +141,6 @@ public class UserController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    [HttpPost]
     public async Task<IActionResult> ResetPassword(string id)
     {
         var user = await _localIdentityUserService.GetById(id);
@@ -150,7 +150,25 @@ public class UserController : Controller
             return NotFound();
         }
 
-        await _localIdentityUserService.ResetPassword(id);
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> ResetPassword(string id, UserResetPasswordViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
+        try
+        {
+            await _localIdentityUserService.SetPassword(id, model.Password);
+        }
+        catch (EntityNotFoundException<LocalIdentityUser, string>)
+        {
+            return NotFound();
+        }
 
         TempData["Success"] = "Password reset successfully!";
         return RedirectToAction(nameof(Index));

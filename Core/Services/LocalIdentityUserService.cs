@@ -106,7 +106,7 @@ public class LocalIdentityUserService
         return result;
     }
 
-    public async Task ResetPassword(string localIdentityUserId)
+    public async Task SetPassword(string localIdentityUserId, string password)
     {
         var user = await _unitOfWork.LocalIdentityUsers.GetById(localIdentityUserId);
 
@@ -116,6 +116,7 @@ public class LocalIdentityUserService
         }
 
         await _userManager.RemovePasswordAsync(user);
+        await _userManager.AddPasswordAsync(user, password);
     }
 
     public async Task<LocalIdentityUser?> GetById(string id)
