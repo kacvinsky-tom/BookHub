@@ -10,20 +10,18 @@ namespace Migrations.Sqlite.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_BookGenre_Books_BooksId",
-                table: "BookGenre");
+            migrationBuilder.DropForeignKey(name: "FK_BookGenre_Books_BooksId", table: "BookGenre");
 
-            migrationBuilder.DropTable(
-                name: "BookAuthor");
+            migrationBuilder.DropTable(name: "BookAuthor");
 
             migrationBuilder.CreateTable(
                 name: "AuthorBook",
-                columns: table => new
-                {
-                    AuthorsId = table.Column<int>(type: "INTEGER", nullable: false),
-                    BooksId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
+                columns: table =>
+                    new
+                    {
+                        AuthorsId = table.Column<int>(type: "INTEGER", nullable: false),
+                        BooksId = table.Column<int>(type: "INTEGER", nullable: false)
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AuthorBook", x => new { x.AuthorsId, x.BooksId });
@@ -32,19 +30,23 @@ namespace Migrations.Sqlite.Migrations
                         column: x => x.AuthorsId,
                         principalTable: "Authors",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Restrict
+                    );
                     table.ForeignKey(
                         name: "FK_AuthorBook_Books_BooksId",
                         column: x => x.BooksId,
                         principalTable: "Books",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
+                        onDelete: ReferentialAction.Restrict
+                    );
+                }
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_AuthorBook_BooksId",
                 table: "AuthorBook",
-                column: "BooksId");
+                column: "BooksId"
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_BookGenre_Books_BooksId",
@@ -52,26 +54,25 @@ namespace Migrations.Sqlite.Migrations
                 column: "BooksId",
                 principalTable: "Books",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.Restrict
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_BookGenre_Books_BooksId",
-                table: "BookGenre");
+            migrationBuilder.DropForeignKey(name: "FK_BookGenre_Books_BooksId", table: "BookGenre");
 
-            migrationBuilder.DropTable(
-                name: "AuthorBook");
+            migrationBuilder.DropTable(name: "AuthorBook");
 
             migrationBuilder.CreateTable(
                 name: "BookAuthor",
-                columns: table => new
-                {
-                    BooksId = table.Column<int>(type: "INTEGER", nullable: false),
-                    AuthorsId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
+                columns: table =>
+                    new
+                    {
+                        BooksId = table.Column<int>(type: "INTEGER", nullable: false),
+                        AuthorsId = table.Column<int>(type: "INTEGER", nullable: false)
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BookAuthor", x => new { x.BooksId, x.AuthorsId });
@@ -80,19 +81,23 @@ namespace Migrations.Sqlite.Migrations
                         column: x => x.AuthorsId,
                         principalTable: "Authors",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Restrict
+                    );
                     table.ForeignKey(
                         name: "FK_BookAuthor_Books_BooksId",
                         column: x => x.BooksId,
                         principalTable: "Books",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_BookAuthor_AuthorsId",
                 table: "BookAuthor",
-                column: "AuthorsId");
+                column: "AuthorsId"
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_BookGenre_Books_BooksId",
@@ -100,7 +105,8 @@ namespace Migrations.Sqlite.Migrations
                 column: "BooksId",
                 principalTable: "Books",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
         }
     }
 }

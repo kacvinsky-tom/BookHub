@@ -32,7 +32,7 @@ public static class ServiceCollectionExtensions
             .AddIdentity<LocalIdentityUser, LocalIdentityRole>()
             .AddEntityFrameworkStores<BookHubDbContext>()
             .AddDefaultTokenProviders();
-        
+
         services.Configure<IdentityOptions>(options =>
         {
             options.Password.RequireDigit = true;
@@ -42,7 +42,7 @@ public static class ServiceCollectionExtensions
             options.Password.RequiredLength = 8;
             options.Password.RequiredUniqueChars = 1;
         });
-        
+
         return services;
     }
 
@@ -69,11 +69,14 @@ public static class ServiceCollectionExtensions
         return services.AddDbContextFactory<BookHubDbContext>(options =>
         {
             const Environment.SpecialFolder folder = Environment.SpecialFolder.LocalApplicationData;
-            
+
             var dbFileName = configuration.GetValue<string>("ConnectionStrings:SQLiteFileName");
             var dbPath = Path.Join(Environment.GetFolderPath(folder), dbFileName);
 
-            options.UseSqlite($"Data Source={dbPath}", x => x.MigrationsAssembly("Migrations.Sqlite"));
+            options.UseSqlite(
+                $"Data Source={dbPath}",
+                x => x.MigrationsAssembly("Migrations.Sqlite")
+            );
         });
     }
 }
