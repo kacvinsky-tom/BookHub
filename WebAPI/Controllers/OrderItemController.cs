@@ -58,4 +58,37 @@ public class OrderItemController : ControllerBase
             return NotFound(e.GetApiMessage());
         }
     }
+    
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> Update(
+        int id,
+        [FromBody] OrderItemUpdateInputDto orderUpdateInputDto
+    )
+    {
+        try
+        {
+            var orderItem = await _orderService.UpdateOrderItem(orderUpdateInputDto, id);
+
+            return Ok(_mapper.Map<OrderItemDetailOutputDto>(orderItem));
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
+    }
+
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        try
+        {
+            await _orderService.DeleteOrderItem(id);
+
+            return NoContent();
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.GetApiMessage());
+        }
+    }
 }
