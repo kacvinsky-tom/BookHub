@@ -1,5 +1,4 @@
 ﻿@using Microsoft.AspNetCore.Identity;
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using DataAccessLayer.Entity
 @using Microsoft.EntityFrameworkCore
 @inject SignInManager<LocalIdentityUser> SignInManager
@@ -13,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] | BookHub</title>
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true"/>
+    @RenderSection("Styles", required: false)
 </head>
 <body>
 <header>
@@ -74,6 +74,9 @@
                     </li>
                 }
             </ul>
+            @{
+                await Html.RenderPartialAsync("_SearchBox", new WebMVC.ViewModels.SearchViewInputModel());
+            }
         </div>
         <div class="navbar-end">
             @if (SignInManager.IsSignedIn(User))

@@ -1,0 +1,42 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section h2 {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+.books .item h3 {
+    font-weight: bold;
+}
+.matrix {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 5px;
+    width: 200px;
+    min-height: 50px;
+    color: whitesmoke;
+}
+
+.genres .item {
+    background-color: #52796f;
+}
+
+.authors .item {
+    background-color: #354f52;
+}
+
+.books .item {
+    background-color: #2f3e46;
+}

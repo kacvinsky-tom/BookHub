@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace WebMVC.ViewModels;
+﻿namespace WebMVC.ViewModels;
 
 public class OrderViewModel
 {

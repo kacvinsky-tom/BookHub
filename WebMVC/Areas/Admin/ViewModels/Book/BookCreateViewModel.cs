@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using WebMVC.Areas.Admin.ViewModels.Author;
-using WebMVC.Areas.Admin.ViewModels.Genre;
 
 namespace WebMVC.Areas.Admin.ViewModels.Book;
 

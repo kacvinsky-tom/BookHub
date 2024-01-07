@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using DataAccessLayer.Entity;
 using DataAccessLayer.Enum;
 
 namespace WebMVC.Areas.Admin.ViewModels.Order;

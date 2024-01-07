@@ -1,5 +1,9 @@
 ﻿using System.Linq.Expressions;
+using AutoMapper;
 using Core.DTO.Input.Book;
+using Core.DTO.Input.Search;
+using Core.DTO.Output;
+using Core.DTO.Output.Book;
 using Core.Exception;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
@@ -10,9 +14,11 @@ namespace Core.Services;
 public class BookService
 {
     private readonly UnitOfWork _unitOfWork;
+    private readonly IMapper _mapper;
 
-    public BookService(UnitOfWork unitOfWork)
+    public BookService(UnitOfWork unitOfWork, IMapper mapper)
     {
+        _mapper = mapper;
         _unitOfWork = unitOfWork;
     }
 
@@ -52,6 +58,25 @@ public class BookService
             page,
             pageSize
         );
+    }
+
+    public async Task<PaginatedResult<BookListOutputDto>> Search(
+        SearchQueryInputDto searchQuery,
+        int page,
+        int pageSize
+    )
+    {
+        var paginatedBooksQuery = await _unitOfWork.Books.GetPaginatedBySearchQuery(
+            searchQuery.Query,
+            page,
+            pageSize
+        );
+
+        return new PaginatedResult<BookListOutputDto>
+        {
+            Items = paginatedBooksQuery.Items.Select(_mapper.Map<BookListOutputDto>),
+            TotalCount = paginatedBooksQuery.TotalItems
+        };
     }
 
     public async Task<Book> Create(BookCreateInputDto bookCreateCreateInputDto)
