@@ -1,5 +1,9 @@
 ﻿using System.Linq.Expressions;
+using AutoMapper;
 using Core.DTO.Input.Author;
+using Core.DTO.Input.Search;
+using Core.DTO.Output;
+using Core.DTO.Output.Author;
 using Core.Exception;
 using Core.Helpers;
 using DataAccessLayer;
@@ -11,10 +15,12 @@ namespace Core.Services;
 public class AuthorService
 {
     private readonly UnitOfWork _unitOfWork;
+    private readonly IMapper _mapper;
 
-    public AuthorService(UnitOfWork unitOfWork)
+    public AuthorService(UnitOfWork unitOfWork, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
+        _mapper = mapper;
     }
 
     public async Task<IEnumerable<Author>> GetAll(
@@ -46,6 +52,25 @@ public class AuthorService
     public async Task<Author?> GetById(int id)
     {
         return await _unitOfWork.Authors.GetByIdWithRelations(id);
+    }
+
+    public async Task<PaginatedResult<AuthorListOutputDto>> Search(
+        SearchQueryInputDto searchQuery,
+        int page,
+        int pageSize
+    )
+    {
+        var paginatedAuthorsQuery = await _unitOfWork.Authors.GetPaginatedBySearchQuery(
+            searchQuery.Query,
+            page,
+            pageSize
+        );
+
+        return new PaginatedResult<AuthorListOutputDto>
+        {
+            Items = paginatedAuthorsQuery.Items.Select(_mapper.Map<AuthorListOutputDto>),
+            TotalCount = paginatedAuthorsQuery.TotalItems
+        };
     }
 
     public async Task<Author> Create(AuthorInputDto authorInputDto)

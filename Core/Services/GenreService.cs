@@ -1,5 +1,9 @@
 ﻿using System.Linq.Expressions;
+using AutoMapper;
 using Core.DTO.Input.Genre;
+using Core.DTO.Input.Search;
+using Core.DTO.Output;
+using Core.DTO.Output.Genre;
 using Core.Exception;
 using Core.Helpers;
 using DataAccessLayer;
@@ -11,10 +15,12 @@ namespace Core.Services;
 public class GenreService
 {
     private readonly UnitOfWork _unitOfWork;
+    private readonly IMapper _mapper;
 
-    public GenreService(UnitOfWork unitOfWork)
+    public GenreService(UnitOfWork unitOfWork, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
+        _mapper = mapper;
     }
 
     public async Task<IEnumerable<Genre>> GetAll(
@@ -46,6 +52,25 @@ public class GenreService
             orderingExpression ?? (g => g.Name),
             reverseOrder
         );
+    }
+
+    public async Task<PaginatedResult<GenreListOutputDto>> Search(
+        SearchQueryInputDto searchQuery,
+        int page,
+        int pageSize
+    )
+    {
+        var paginatedGenresQuery = await _unitOfWork.Genres.GetPaginatedBySearchQuery(
+            searchQuery.Query,
+            page,
+            pageSize
+        );
+
+        return new PaginatedResult<GenreListOutputDto>
+        {
+            Items = paginatedGenresQuery.Items.Select(_mapper.Map<GenreListOutputDto>),
+            TotalCount = paginatedGenresQuery.TotalItems
+        };
     }
 
     public async Task<Genre> Create(GenreInputDto genreInputDto)

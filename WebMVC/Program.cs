@@ -1,6 +1,8 @@
+using Core;
 using Core.Extensions;
 using DataAccessLayer;
 using LoggingMiddleware.Extensions;
+using WebMVC;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +23,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+builder.Services.AddAutoMapper(typeof(BookHubProfile), typeof(ServicesBookHubProfile));
 
 var app = builder.Build();
 
@@ -35,7 +38,6 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
 app.UseLoggingMiddleware("WebMVC");
 app.UseHttpsRedirection();
 app.UseStaticFiles();

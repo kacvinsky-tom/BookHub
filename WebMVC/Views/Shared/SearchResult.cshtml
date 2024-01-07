@@ -1,0 +1,76 @@
+@model WebMVC.ViewModels.SearchListViewModel
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/search-styles.css" />
+}
+
+<div class="section genres">
+    @if (Model.Genres.Any())
+    {
+        <h2>Genres:</h2>
+        <div class="matrix">
+            @foreach (var genre in Model.Genres)
+            {
+                <div class="item">@genre.Name</div>
+            }
+        </div>
+    }
+    else
+    {
+        <p>No genres found.</p>
+    }
+</div>
+
+<div class="section authors">
+    @if (Model.Authors.Any())
+    {
+        <h2>Authors:</h2>
+        <div class="matrix">
+            @foreach (var author in Model.Authors)
+            {
+                <div class="item">@author.LastName 
+                    @author.FirstName
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p>No authors found.</p>
+    }
+</div>
+
+<div class="section books">
+    @if (Model.Books.Any())
+    {
+        <h2>Books:</h2>
+        <div class="matrix">
+            @foreach (var book in Model.Books)
+            {
+                <div class="item">
+                    <h3>@book.Title</h3>
+                    <p>@book.Price</p>
+                    @foreach (var author in book.Authors)
+                    {
+                        <p>@author.LastName @author.FirstName</p>
+                    }
+                    <p>@book.ReleaseYear</p>
+                </div>
+            }
+        </div>
+        <!-- Pagination -->
+        <div class="pagination">
+            @for (var i = 1; i <= Model.TotalPages; i++)
+            {   
+                <a asp-action="GlobalSearch"
+                   asp-route-page="@i"
+                   asp-route-query="@Model.Query"
+                   class="@(i == Model.CurrentPage ? "active" : "")">@($" {i}, ")</a>
+            }
+        </div>
+    }
+    else
+    {
+        <p>No books found.</p>
+    }
+</div>

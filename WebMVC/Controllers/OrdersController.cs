@@ -1,7 +1,5 @@
 ﻿using System.Security.Claims;
 using Core.Services;
-using DataAccessLayer.Entity;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.ViewModels;
 

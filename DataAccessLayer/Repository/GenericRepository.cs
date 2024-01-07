@@ -1,6 +1,5 @@
 ﻿using System.Linq.Expressions;
 using Core.Helpers;
-using DataAccessLayer.Entity;
 using DataAccessLayer.Filter;
 using DataAccessLayer.Helpers;
 using DataAccessLayer.Repository.Interfaces;
@@ -32,10 +31,11 @@ public class GenericRepository<T> : IGenericRepository<T>
         int page,
         int pageSize,
         Expression<Func<T, IComparable>>? orderingExpression = null,
-        bool reverseOrder = false
+        bool reverseOrder = false,
+        IQueryable<T>? query = null
     )
     {
-        var query = GetBasicQuery();
+        query ??= GetBasicQuery();
 
         if (orderingExpression != null)
         {
@@ -44,13 +44,7 @@ public class GenericRepository<T> : IGenericRepository<T>
                 : query.OrderBy(orderingExpression);
         }
 
-        return new PaginationObject<T>()
-        {
-            Items = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(),
-            Page = page,
-            TotalItems = query.Count(),
-            TotalPages = (int)Math.Ceiling(query.Count() / (double)pageSize)
-        };
+        return await PaginationObject(page, pageSize, query);
     }
 
     public async Task<PaginationObject<T>> GetPaginatedFiltered(
@@ -74,6 +68,15 @@ public class GenericRepository<T> : IGenericRepository<T>
                 : query.OrderBy(orderingExpression);
         }
 
+        return await PaginationObject(page, pageSize, query);
+    }
+
+    private static async Task<PaginationObject<T>> PaginationObject(
+        int page,
+        int pageSize,
+        IQueryable<T> query
+    )
+    {
         return new PaginationObject<T>()
         {
             Items = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(),

@@ -1,8 +1,6 @@
 ﻿using DataAccessLayer.Entity;
 using DataAccessLayer.Enum;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Npgsql.Internal.TypeHandlers;
 
 namespace DataAccessLayer;
 

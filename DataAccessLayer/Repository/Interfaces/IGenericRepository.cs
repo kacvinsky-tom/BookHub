@@ -1,9 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Core.Helpers;
-using DataAccessLayer.Entity;
 using DataAccessLayer.Filter;
 using DataAccessLayer.Helpers;
-using Microsoft.AspNetCore.Identity;
 
 namespace DataAccessLayer.Repository.Interfaces;
 
@@ -22,7 +20,8 @@ public interface IGenericRepository<T>
         int page,
         int pageSize,
         Expression<Func<T, IComparable>>? orderingExpression = null,
-        bool reverseOrder = false
+        bool reverseOrder = false,
+        IQueryable<T>? query = null
     );
 
     public Task<PaginationObject<T>> GetPaginatedFiltered(
