@@ -5,8 +5,10 @@ using Core.DTO.Input.Search;
 using Core.DTO.Output;
 using Core.DTO.Output.Book;
 using Core.Exception;
+using Core.Helpers;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
+using DataAccessLayer.Filter;
 using DataAccessLayer.Helpers;
 
 namespace Core.Services;
@@ -29,7 +31,13 @@ public class BookService
 
     public async Task<IEnumerable<Book>> GetAll(BookFilterInputDto? filterInputDto = null)
     {
-        return await _unitOfWork.Books.GetWithRelations(filterInputDto?.ToBookFilter());
+        if (filterInputDto == null)
+        {
+            return await _unitOfWork.Books.GetAll();
+        }
+        
+        return await _unitOfWork.Books.GetAll(_mapper.Map<BookFilter>(filterInputDto));
+
     }
 
     public async Task<PaginationObject<Book>> GetAllPaginated(
@@ -39,24 +47,17 @@ public class BookService
         bool reverseOrder = false
     )
     {
-        return await _unitOfWork.Books.GetPaginated(
+        var ordering = new Ordering<Book>
+        {
+            Expression = orderingExpression ?? (b => b.Title),
+            Reverse = reverseOrder
+        };
+
+        return await _unitOfWork.Books.GetAllPaginated(
             page,
             pageSize,
-            orderingExpression ?? (b => b.Title),
-            reverseOrder
-        );
-    }
-
-    public async Task<PaginationObject<Book>> GetAllPaginatedFiltered(
-        BookFilterInputDto filterInputDto,
-        int page,
-        int pageSize
-    )
-    {
-        return await _unitOfWork.Books.GetPaginatedFiltered(
-            filterInputDto.ToBookFilter(),
-            page,
-            pageSize
+            null,
+            new[] { ordering }
         );
     }
 
@@ -66,11 +67,12 @@ public class BookService
         int pageSize
     )
     {
-        var paginatedBooksQuery = await _unitOfWork.Books.GetPaginatedBySearchQuery(
-            searchQuery.Query,
-            page,
-            pageSize
-        );
+        var bookFilter = new BookFilter
+        {
+            FullTextSearch = searchQuery.Query,
+        };
+        
+        var paginatedBooksQuery = await _unitOfWork.Books.GetAllPaginated(page, pageSize, bookFilter);
 
         return new PaginatedResult<BookListOutputDto>
         {
@@ -212,7 +214,7 @@ public class BookService
         return book;
     }
 
-    public async Task<Book> SetPrimaryGenre(int bookId, int genreId)
+    private async Task<Book> SetPrimaryGenre(int bookId, int genreId)
     {
         var book = await _unitOfWork.Books.GetByIdWithRelations(bookId);
 

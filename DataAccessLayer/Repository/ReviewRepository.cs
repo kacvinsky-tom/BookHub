@@ -11,7 +11,7 @@ public class ReviewRepository : GenericRepository<Review>, IReviewRepository
 
     public async Task<Review?> GetByIdWithRelations(int id)
     {
-        return await _context
+        return await Context
             .Reviews.Include(r => r.User)
             .Include(r => r.Book)
             .ThenInclude(b => b.Authors)
@@ -22,6 +22,6 @@ public class ReviewRepository : GenericRepository<Review>, IReviewRepository
 
     public async Task<IEnumerable<Review>> GetAllWithRelations()
     {
-        return await _context.Reviews.Include(r => r.User).Include(r => r.Book).ToListAsync();
+        return await Context.Reviews.Include(r => r.User).Include(r => r.Book).ToListAsync();
     }
 }

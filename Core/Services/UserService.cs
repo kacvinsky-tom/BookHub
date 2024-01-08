@@ -20,11 +20,6 @@ public class UserService
         return await _unitOfWork.Users.GetAll();
     }
 
-    public async Task<PaginationObject<User>> GetAllPaginated(int page, int pageSize)
-    {
-        return await _unitOfWork.Users.GetPaginated(page, pageSize);
-    }
-
     public async Task<User?> GetById(int id)
     {
         return await _unitOfWork.Users.GetByIdWithRelations(id);

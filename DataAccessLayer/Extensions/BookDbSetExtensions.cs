@@ -90,4 +90,29 @@ public static class BookDbSetExtensions
 
         return query.Where(book => book.Publisher.Name.ToLower().Contains(publisherName.ToLower()));
     }
+    
+    public static IQueryable<Book> WhereFulltext(
+        this IQueryable<Book> query,
+        string? search
+    )
+    {
+        if (search == null)
+        {
+            return query;
+        }
+
+        return query.Where(
+            book =>
+                book.Title.ToLower().Contains(search.ToLower())
+                || book.Description.ToLower().Contains(search.ToLower())
+                || book.Authors.Any(
+                    afn =>
+                        afn.FirstName.ToLower().Contains(search.ToLower())
+                        || book.Authors.Any(
+                            aln => aln.LastName.ToLower().Contains(search.ToLower())
+                        )
+                )
+                || book.Publisher.Name.ToLower().Contains(search.ToLower())
+        );
+    }
 }

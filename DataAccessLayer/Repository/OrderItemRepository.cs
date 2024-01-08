@@ -11,7 +11,7 @@ public class OrderItemRepository : GenericRepository<OrderItem>, IOrderItemRepos
 
     private IQueryable<OrderItem> GetBasicQuery()
     {
-        return _context
+        return Context
             .OrderItems.Include(oi => oi.Order)
             .ThenInclude(o => o.User)
             .Include(oi => oi.Book);

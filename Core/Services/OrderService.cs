@@ -35,7 +35,7 @@ public class OrderService
 
     public async Task<PaginationObject<Order>> GetAllPaginated(int page, int pageSize)
     {
-        return await _unitOfWork.Orders.GetPaginated(page, pageSize);
+        return await _unitOfWork.Orders.GetAllPaginated(page, pageSize);
     }
 
     public async Task<Order?> GetById(int id)
