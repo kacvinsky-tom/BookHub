@@ -1,4 +1,5 @@
-﻿using Core.Services;
+﻿using Core.Extensions;
+using Core.Services;
 using DataAccessLayer;
 using DataAccessLayer.Repository;
 using DataAccessLayer.Repository.Interfaces;
@@ -33,6 +34,7 @@ public class MockedDependencyInjectionBuilder
     {
         _serviceCollection = _serviceCollection
             .AddScoped<IAuthorRepository, AuthorRepository>()
+            .AddScoped<ILocalIdentityUserRepository, LocalIdentityUserRepository>()
             .AddScoped<IBookRepository, BookRepository>()
             .AddScoped<ICartItemRepository, CartItemRepository>()
             .AddScoped<IGenreRepository, GenreRepository>()
@@ -54,6 +56,7 @@ public class MockedDependencyInjectionBuilder
         _serviceCollection = _serviceCollection
             .AddScoped<BookService>()
             .AddScoped<VoucherService>()
+            .AddScoped<LocalIdentityUserService>()
             .AddScoped<GenreService>()
             .AddScoped<CartService>()
             .AddScoped<AuthorService>()
@@ -64,7 +67,19 @@ public class MockedDependencyInjectionBuilder
 
         return this;
     }
-
+    
+    public MockedDependencyInjectionBuilder ConfigureIdentity()
+    {
+        _serviceCollection = _serviceCollection.ConfigureIdentity();
+        return this;
+    }
+    
+    public MockedDependencyInjectionBuilder AddLogging()
+    {
+        _serviceCollection = _serviceCollection.AddLogging();
+        return this;
+    }
+    
     public MockedDependencyInjectionBuilder AddUnitOfWork()
     {
         _serviceCollection = _serviceCollection.AddScoped<UnitOfWork>();

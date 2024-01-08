@@ -26,6 +26,8 @@ public class OrderServiceTest
         userRepositoryMock.GetById(1).Returns(OrderTestData.GetFakeOrders().First().User);
 
         _serviceProviderBuilder = new MockedDependencyInjectionBuilder()
+            .ConfigureIdentity()
+            .AddLogging()
             .AddUnitOfWork()
             .AddAutoMapper()
             .AddRepositories()

@@ -60,6 +60,8 @@ public class BookServiceTests
             .Returns(new Publisher() { Id = 1, Name = "Test Publisher" });
 
         _serviceProviderBuilder = new MockedDependencyInjectionBuilder()
+            .ConfigureIdentity()
+            .AddLogging()
             .AddUnitOfWork()
             .AddAutoMapper()
             .AddRepositories()

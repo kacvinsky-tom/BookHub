@@ -20,6 +20,8 @@ public class PublisherServiceTest
         publisherRepositoryMock.GetById(1).Returns(PublisherTestData.GetFakePublishers().First());
 
         _serviceProviderBuilder = new MockedDependencyInjectionBuilder()
+            .ConfigureIdentity()
+            .AddLogging()
             .AddUnitOfWork()
             .AddAutoMapper()
             .AddRepositories()
