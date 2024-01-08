@@ -20,6 +20,7 @@ details, manage user accounts, and regulate book prices.
 
 - .NET 7.0 or later
 - Visual Studio / Rider
+- Node.js 18 or newer with npm
 
 ### Installation
 
@@ -28,9 +29,20 @@ details, manage user accounts, and regulate book prices.
     git clone git@gitlab.fi.muni.cz:xkraus2/pv179-bookhub.git
     ```
 2. Open the solution file `BookHub.sln` in editor of your choice.
-3. Build the solution to restore NuGet packages and compile the project.
+3. Go to `WebMVC` folder and install frontend development dependencies by running `npm install`.
+4. Build the solution to restore NuGet packages and compile the project.
 
 ## Usage
+
+#### Important note: WebMVC frontend
+MVC part of this project uses Tailwind CSS as frontend library.
+
+Before running `WebMVC` project, you have to navigate into `WebMVC` folder and run `npm install`. This will install Tailwind CSS and other dependencies.
+After that, the project will take care of building required CSS files.
+
+If you are running in development environment, you may run `npm run css:watch` to start Tailwind's watch, so it rebuilds CSS files after every change automatically.
+
+Otherwise, you can build CSS files manually by running `npm run css:build`. Note, that during full project build .NET takes care of this part automatically.
 
 ### Visual Studio
 

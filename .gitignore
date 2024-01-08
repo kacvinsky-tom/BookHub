@@ -5,3 +5,9 @@ obj
 bin
 /.vs
 /BookHub.csproj.user
+/BookHub.sln.DotSettings.user
+
+node_modules
+
+# Generated file (by Tailwind CSS on build)
+WebMVC/wwwroot/css/styles.css 
