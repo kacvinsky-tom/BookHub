@@ -67,19 +67,19 @@ public class MockedDependencyInjectionBuilder
 
         return this;
     }
-    
+
     public MockedDependencyInjectionBuilder ConfigureIdentity()
     {
         _serviceCollection = _serviceCollection.ConfigureIdentity();
         return this;
     }
-    
+
     public MockedDependencyInjectionBuilder AddLogging()
     {
         _serviceCollection = _serviceCollection.AddLogging();
         return this;
     }
-    
+
     public MockedDependencyInjectionBuilder AddUnitOfWork()
     {
         _serviceCollection = _serviceCollection.AddScoped<UnitOfWork>();
