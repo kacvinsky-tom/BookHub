@@ -17,11 +17,7 @@ public class UserController : ControllerBase
     private readonly IMapper _mapper;
     private readonly OrderService _orderService;
 
-    public UserController(
-        UserService userService,
-        IMapper mapper,
-        OrderService orderService
-    )
+    public UserController(UserService userService, IMapper mapper, OrderService orderService)
     {
         _userService = userService;
         _mapper = mapper;
