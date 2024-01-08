@@ -8,7 +8,7 @@ public class CartItemRepository : GenericRepository<CartItem>, ICartItemReposito
 {
     public CartItemRepository(BookHubDbContext context)
         : base(context) { }
-    
+
     public override IQueryable<CartItem> GetBasicQuery()
     {
         return _context
@@ -18,7 +18,6 @@ public class CartItemRepository : GenericRepository<CartItem>, ICartItemReposito
             .Include(r => r.Book)
             .ThenInclude(b => b.Genres);
     }
-
 
     public async Task<CartItem?> GetByIdWithRelations(int id)
     {
@@ -35,7 +34,7 @@ public class CartItemRepository : GenericRepository<CartItem>, ICartItemReposito
     {
         return await _context.CartItems.Include(r => r.User).Include(r => r.Book).ToListAsync();
     }
-    
+
     public async Task<IEnumerable<CartItem>> GetByUserIdWithRelations(int userId)
     {
         return await GetBasicQuery().Where(r => r.UserId == userId).ToListAsync();

@@ -16,7 +16,7 @@ public class BookController : Controller
         _bookService = bookService;
         _mapper = mapper;
     }
-    
+
     public async Task<IActionResult> Detail(int id)
     {
         var book = await _bookService.GetById(id);

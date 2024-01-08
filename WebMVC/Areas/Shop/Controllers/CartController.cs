@@ -15,7 +15,12 @@ public class CartController : Controller
     private readonly UserService _userService;
     private readonly IMapper _mapper;
 
-    public CartController(BookService bookService, CartService cartService, UserService userService, IMapper mapper)
+    public CartController(
+        BookService bookService,
+        CartService cartService,
+        UserService userService,
+        IMapper mapper
+    )
     {
         _bookService = bookService;
         _cartService = cartService;
@@ -38,12 +43,12 @@ public class CartController : Controller
         }
 
         var cartItems = await _cartService.GetCartItemsByUserId(currentUser.Id);
-        
+
         var cartItemViewModels = _mapper.Map<IEnumerable<CartItemViewModel>>(cartItems);
 
         return View(cartItemViewModels);
     }
-    
+
     public async Task<IActionResult> Add(int id)
     {
         var currentUserUsername = User.FindFirst(ClaimTypes.Name)?.Value;
@@ -59,7 +64,7 @@ public class CartController : Controller
         }
 
         var currentUserId = currentUser.Id;
-        
+
         var book = await _bookService.GetById(id);
 
         if (book == null)
@@ -67,13 +72,15 @@ public class CartController : Controller
             return NotFound();
         }
 
-        await _cartService.CreateCartItem(new CartItemCreateInputDto
-        {
-            BookId = book.Id,
-            UserId = currentUserId,
-            Quantity = 1
-        });
-        
+        await _cartService.CreateCartItem(
+            new CartItemCreateInputDto
+            {
+                BookId = book.Id,
+                UserId = currentUserId,
+                Quantity = 1
+            }
+        );
+
         return RedirectToAction(nameof(Index), nameof(CartController).Replace("Controller", ""));
     }
 }
