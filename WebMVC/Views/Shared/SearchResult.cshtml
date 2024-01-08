@@ -47,15 +47,17 @@
         <div class="matrix">
             @foreach (var book in Model.Books)
             {
-                <div class="item">
-                    <h3>@book.Title</h3>
-                    <p>@book.Price</p>
-                    @foreach (var author in book.Authors)
-                    {
-                        <p>@author.LastName @author.FirstName</p>
-                    }
-                    <p>@book.ReleaseYear</p>
-                </div>
+                <a href="/Shop/Book/Detail/@book.Id">
+                    <div class="item">
+                                        <h3>@book.Title</h3>
+                                        <p>@book.Price</p>
+                                        @foreach (var author in book.Authors)
+                                        {
+                                            <p>@author.LastName @author.FirstName</p>
+                                        }
+                                        <p>@book.ReleaseYear</p>
+                                    </div>
+                </a>
             }
         </div>
         <!-- Pagination -->

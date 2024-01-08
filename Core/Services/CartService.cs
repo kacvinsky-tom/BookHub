@@ -23,6 +23,11 @@ public class CartService
     {
         return await _unitOfWork.CartItems.GetByIdWithRelations(id);
     }
+    
+    public Task<IEnumerable<CartItem>> GetCartItemsByUserId(int userId)
+    {
+        return _unitOfWork.CartItems.GetByUserIdWithRelations(userId);
+    }
 
     public async Task<CartItem> CreateCartItem(CartItemCreateInputDto cartItemCreateInputDto)
     {
