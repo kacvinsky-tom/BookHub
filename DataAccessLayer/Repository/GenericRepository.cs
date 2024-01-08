@@ -47,10 +47,13 @@ public class GenericRepository<T> : IGenericRepository<T>
         return await Context.Set<T>().Where(expression).ToListAsync();
     }
 
-    public async Task<IEnumerable<T>> GetAll(IFilter<T>? filter = null, IEnumerable<Ordering<T>>? orderingExpressions = null)
+    public async Task<IEnumerable<T>> GetAll(
+        IFilter<T>? filter = null,
+        IEnumerable<Ordering<T>>? orderingExpressions = null
+    )
     {
         var query = GetBasicQuery();
-        
+
         if (filter != null)
         {
             query = filter.Apply(query);
@@ -64,10 +67,15 @@ public class GenericRepository<T> : IGenericRepository<T>
         return await query.ToListAsync();
     }
 
-    public async Task<PaginationObject<T>> GetAllPaginated(int page, int pageSize, IFilter<T>? filter = null, IEnumerable<Ordering<T>>? order = null)
+    public async Task<PaginationObject<T>> GetAllPaginated(
+        int page,
+        int pageSize,
+        IFilter<T>? filter = null,
+        IEnumerable<Ordering<T>>? order = null
+    )
     {
         var query = GetBasicQuery();
-        
+
         if (filter != null)
         {
             query = filter.Apply(query);
@@ -81,11 +89,14 @@ public class GenericRepository<T> : IGenericRepository<T>
         return await PaginationObject(page, pageSize, query);
     }
 
-    private IOrderedQueryable<T> ApplyOrderingExpressions(IEnumerable<Ordering<T>> orderingExpressions, IQueryable<T> query)
+    private IOrderedQueryable<T> ApplyOrderingExpressions(
+        IEnumerable<Ordering<T>> orderingExpressions,
+        IQueryable<T> query
+    )
     {
         var exprEnumerated = orderingExpressions.ToList();
         var first = exprEnumerated.First();
-        
+
         var orderedQuery = first.Reverse
             ? query.OrderByDescending(first.Expression)
             : query.OrderBy(first.Expression);

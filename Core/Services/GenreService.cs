@@ -53,11 +53,7 @@ public class GenreService
             Reverse = reverseOrder
         };
 
-        return await _unitOfWork.Genres.GetAllPaginated(
-            page,
-            pageSize,
-            order: new[] { ordering }
-        );
+        return await _unitOfWork.Genres.GetAllPaginated(page, pageSize, order: new[] { ordering });
     }
 
     public async Task<PaginatedResult<GenreListOutputDto>> Search(
@@ -66,15 +62,13 @@ public class GenreService
         int pageSize
     )
     {
-        var genreFilter = new GenreFilter
-        {
-            Name = searchQuery.Query
-        };
+        var genreFilter = new GenreFilter { Name = searchQuery.Query };
 
         var paginatedGenresQuery = await _unitOfWork.Genres.GetAllPaginated(
             page,
             pageSize,
-            genreFilter);
+            genreFilter
+        );
 
         return new PaginatedResult<GenreListOutputDto>
         {

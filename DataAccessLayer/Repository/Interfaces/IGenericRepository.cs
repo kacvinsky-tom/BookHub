@@ -12,11 +12,17 @@ public interface IGenericRepository<T>
 
     public Task<T?> GetById(int id);
 
-    public Task<IEnumerable<T>> GetAll(IFilter<T>? filter = null,
-        IEnumerable<Ordering<T>>? orderingExpressions = null);
+    public Task<IEnumerable<T>> GetAll(
+        IFilter<T>? filter = null,
+        IEnumerable<Ordering<T>>? orderingExpressions = null
+    );
 
-    public Task<PaginationObject<T>> GetAllPaginated(int page, int pageSize, IFilter<T>? filter = null,
-        IEnumerable<Ordering<T>>? order = null);
+    public Task<PaginationObject<T>> GetAllPaginated(
+        int page,
+        int pageSize,
+        IFilter<T>? filter = null,
+        IEnumerable<Ordering<T>>? order = null
+    );
 
     public Task<IEnumerable<T>> Find(Expression<Func<T, bool>> expression);
     public Task Add(T entity);

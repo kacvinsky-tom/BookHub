@@ -12,8 +12,7 @@ public class BookRepository : GenericRepository<Book>, IBookRepository
     public override IQueryable<Book> GetBasicQuery()
     {
         return Context
-            .Books
-            .Include(book => book.BookGenres)
+            .Books.Include(book => book.BookGenres)
             .ThenInclude(bg => bg.Genre)
             .Include(book => book.Reviews)
             .ThenInclude(review => review.User)

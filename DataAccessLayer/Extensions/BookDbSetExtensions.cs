@@ -90,11 +90,8 @@ public static class BookDbSetExtensions
 
         return query.Where(book => book.Publisher.Name.ToLower().Contains(publisherName.ToLower()));
     }
-    
-    public static IQueryable<Book> WhereFulltext(
-        this IQueryable<Book> query,
-        string? search
-    )
+
+    public static IQueryable<Book> WhereFulltext(this IQueryable<Book> query, string? search)
     {
         if (search == null)
         {

@@ -50,7 +50,8 @@ public class PublisherService
         return await _unitOfWork.Publishers.GetAllPaginated(
             page,
             pageSize,
-            order: new [] { ordering });
+            order: new[] { ordering }
+        );
     }
 
     public async Task<Publisher> Create(PublisherInputDto publisherCreateInput)

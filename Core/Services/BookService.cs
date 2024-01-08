@@ -35,9 +35,8 @@ public class BookService
         {
             return await _unitOfWork.Books.GetAll();
         }
-        
-        return await _unitOfWork.Books.GetAll(_mapper.Map<BookFilter>(filterInputDto));
 
+        return await _unitOfWork.Books.GetAll(_mapper.Map<BookFilter>(filterInputDto));
     }
 
     public async Task<PaginationObject<Book>> GetAllPaginated(
@@ -53,12 +52,7 @@ public class BookService
             Reverse = reverseOrder
         };
 
-        return await _unitOfWork.Books.GetAllPaginated(
-            page,
-            pageSize,
-            null,
-            new[] { ordering }
-        );
+        return await _unitOfWork.Books.GetAllPaginated(page, pageSize, null, new[] { ordering });
     }
 
     public async Task<PaginatedResult<BookListOutputDto>> Search(
@@ -67,12 +61,13 @@ public class BookService
         int pageSize
     )
     {
-        var bookFilter = new BookFilter
-        {
-            FullTextSearch = searchQuery.Query,
-        };
-        
-        var paginatedBooksQuery = await _unitOfWork.Books.GetAllPaginated(page, pageSize, bookFilter);
+        var bookFilter = new BookFilter { FullTextSearch = searchQuery.Query, };
+
+        var paginatedBooksQuery = await _unitOfWork.Books.GetAllPaginated(
+            page,
+            pageSize,
+            bookFilter
+        );
 
         return new PaginatedResult<BookListOutputDto>
         {

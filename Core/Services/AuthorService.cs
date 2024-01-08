@@ -48,11 +48,7 @@ public class AuthorService
             Reverse = reverseOrder
         };
 
-        return await _unitOfWork.Authors.GetAllPaginated(
-            page,
-            pageSize,
-            order: new[] { ordering }
-        );
+        return await _unitOfWork.Authors.GetAllPaginated(page, pageSize, order: new[] { ordering });
     }
 
     public async Task<Author?> GetById(int id)
@@ -66,12 +62,13 @@ public class AuthorService
         int pageSize
     )
     {
-        var authorFilter = new AuthorFilter
-        {
-            Name = searchQuery.Query
-        };
-        
-        var paginatedAuthorsQuery = await _unitOfWork.Authors.GetAllPaginated(page, pageSize, authorFilter);
+        var authorFilter = new AuthorFilter { Name = searchQuery.Query };
+
+        var paginatedAuthorsQuery = await _unitOfWork.Authors.GetAllPaginated(
+            page,
+            pageSize,
+            authorFilter
+        );
 
         return new PaginatedResult<AuthorListOutputDto>
         {

@@ -12,7 +12,9 @@ public static class AuthorDbSetExtensions
         }
 
         return query.Where(
-            a => a.FirstName.ToUpper().Contains(name.ToUpper()) || a.LastName.ToUpper().Contains(name.ToUpper())
+            a =>
+                a.FirstName.ToUpper().Contains(name.ToUpper())
+                || a.LastName.ToUpper().Contains(name.ToUpper())
         );
     }
 }

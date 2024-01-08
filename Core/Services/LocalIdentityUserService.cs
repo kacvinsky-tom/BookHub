@@ -139,8 +139,8 @@ public class LocalIdentityUserService
         return await _unitOfWork.LocalIdentityUsers.GetAllPaginated(
             page,
             pageSize,
-            order: new [] { ordering }
-            );
+            order: new[] { ordering }
+        );
     }
 
     public async Task<IdentityResult> Delete(string id)

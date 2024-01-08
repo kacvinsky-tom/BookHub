@@ -18,12 +18,13 @@ public class BookFilter : IFilter<Book>
     public string? AuthorName { get; set; }
 
     public string? PublisherName { get; set; }
-    
+
     public string? FullTextSearch { get; set; }
-    
+
     public IQueryable<Book> Apply(IQueryable<Book> query)
     {
-        return query.WhereTitle(Title)
+        return query
+            .WhereTitle(Title)
             .WhereDescription(Description)
             .WherePriceIn(PriceFrom, PriceTo)
             .WhereGenreIds(GenreIds)
