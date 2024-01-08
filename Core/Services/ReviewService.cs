@@ -28,14 +28,14 @@ public class ReviewService
         {
             return cachedReview;
         }
-        
+
         var review = await _unitOfWork.Reviews.GetByIdWithRelations(id);
 
         if (review != null)
         {
             _memoryCache.Set("review-" + id, review);
         }
-        
+
         return review;
     }
 
@@ -85,7 +85,7 @@ public class ReviewService
         await _unitOfWork.Complete();
 
         _memoryCache.Set("review-" + reviewId, review);
-        
+
         return review;
     }
 
@@ -99,10 +99,9 @@ public class ReviewService
         }
 
         _unitOfWork.Reviews.Remove(review);
-        
-        await _unitOfWork.Complete();
-        
-        _memoryCache.Remove("review-" + reviewId);
 
+        await _unitOfWork.Complete();
+
+        _memoryCache.Remove("review-" + reviewId);
     }
 }

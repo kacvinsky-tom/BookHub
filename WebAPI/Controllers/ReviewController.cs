@@ -82,7 +82,7 @@ public class ReviewController : ControllerBase
         try
         {
             await _reviewService.Delete(id);
-            
+
             return Ok();
         }
         catch (NotFoundException e)

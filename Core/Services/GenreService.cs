@@ -44,14 +44,14 @@ public class GenreService
         {
             return cachedGenre;
         }
-        
+
         var genre = await _unitOfWork.Genres.GetByIdWithRelations(id);
 
         if (genre != null)
         {
             _memoryCache.Set("genre-" + id, genre);
         }
-        
+
         return genre;
     }
 
@@ -132,7 +132,7 @@ public class GenreService
         _unitOfWork.Genres.Remove(genre);
 
         await _unitOfWork.Complete();
-        
+
         _memoryCache.Remove("genre-" + genreId);
     }
 }

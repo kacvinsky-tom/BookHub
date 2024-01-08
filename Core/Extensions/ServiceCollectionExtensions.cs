@@ -79,7 +79,7 @@ public static class ServiceCollectionExtensions
             );
         });
     }
-    
+
     public static void AddMemoryCacheWithConfiguration(this IServiceCollection services)
     {
         services.AddMemoryCache(options =>

@@ -67,11 +67,13 @@ public class MockedDependencyInjectionBuilder
 
         return this;
     }
+
     public MockedDependencyInjectionBuilder AddCaching()
     {
         _serviceCollection = _serviceCollection.AddMemoryCache();
         return this;
     }
+
     public MockedDependencyInjectionBuilder ConfigureIdentity()
     {
         _serviceCollection = _serviceCollection.ConfigureIdentity();

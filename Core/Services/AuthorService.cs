@@ -60,14 +60,14 @@ public class AuthorService
         {
             return cachedAuthor;
         }
-        
+
         var author = await _unitOfWork.Authors.GetByIdWithRelations(id);
 
         if (author != null)
         {
             _memoryCache.Set("author-" + id, author);
         }
-        
+
         return author;
     }
 
@@ -120,9 +120,9 @@ public class AuthorService
         author.LastName = authorInputDto.LastName;
 
         await _unitOfWork.Complete();
-        
+
         _memoryCache.Set("author-" + authorId, author);
-        
+
         return author;
     }
 
@@ -138,7 +138,7 @@ public class AuthorService
         _unitOfWork.Authors.Remove(author);
 
         await _unitOfWork.Complete();
-        
+
         _memoryCache.Remove("author-" + authorId);
     }
 }

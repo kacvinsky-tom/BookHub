@@ -25,7 +25,6 @@ public class GenreController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Fetch()
     {
-
         var genres = await _genreService.GetAll();
 
         var genresListDto = _mapper.Map<BookGenreListOutputDto>(genres);

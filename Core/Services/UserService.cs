@@ -29,14 +29,14 @@ public class UserService
         {
             return cachedUser;
         }
-        
+
         var user = await _unitOfWork.Users.GetByIdWithRelations(id);
 
         if (user != null)
         {
             _memoryCache.Set("user-" + id, user);
         }
-        
+
         return user;
     }
 
@@ -97,7 +97,7 @@ public class UserService
         _unitOfWork.Users.Remove(user);
 
         await _unitOfWork.Complete();
-        
+
         _memoryCache.Remove("user-" + userId);
     }
 }

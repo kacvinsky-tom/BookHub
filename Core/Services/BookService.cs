@@ -33,14 +33,14 @@ public class BookService
         {
             return cachedBook;
         }
-        
+
         var book = await _unitOfWork.Books.GetByIdWithRelations(id);
 
         if (book != null)
         {
             _memoryCache.Set("book-" + id, book);
         }
-        
+
         return book;
     }
 
@@ -220,9 +220,9 @@ public class BookService
         {
             await SetPrimaryGenre(book.Id, bookCreateUpdateInputDto.PrimaryGenreId.Value);
         }
-        
+
         _memoryCache.Set("book-" + id, book);
-        
+
         return book;
     }
 
@@ -261,7 +261,7 @@ public class BookService
         bookGenre.IsPrimary = true;
 
         await _unitOfWork.Complete();
-        
+
         _memoryCache.Set("book-" + bookId, book);
 
         return book;
@@ -277,9 +277,9 @@ public class BookService
         }
 
         book.IsDeleted = true;
-        
+
         await _unitOfWork.Complete();
-        
+
         _memoryCache.Remove("book-" + bookId);
     }
 }
