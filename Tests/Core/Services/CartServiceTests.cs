@@ -38,6 +38,8 @@ public class CartServiceTests
         userRepositoryMock.GetById(1).Returns(CartItemTestData.GetFakeCartItemUsers().First());
 
         _serviceProviderBuilder = new MockedDependencyInjectionBuilder()
+            .ConfigureIdentity()
+            .AddLogging()
             .AddUnitOfWork()
             .AddAutoMapper()
             .AddRepositories()

@@ -24,6 +24,7 @@ using Core.DTO.Output.Voucher;
 using Core.DTO.Output.WishList;
 using Core.DTO.Output.WishListItem;
 using DataAccessLayer.Entity;
+using DataAccessLayer.Filter;
 
 namespace WebAPI;
 
@@ -34,6 +35,7 @@ public class BookHubProfile : Profile
         // Input
         CreateMap<AuthorInputDto, Author>();
         CreateMap<BookCreateInputDto, Book>();
+        CreateMap<BookFilterInputDto, BookFilter>();
         CreateMap<BookFilterInputDto, Book>();
         CreateMap<CartItemCreateInputDto, CartItem>();
         CreateMap<CartItemUpdateInputDto, CartItem>();

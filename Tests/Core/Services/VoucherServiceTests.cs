@@ -21,6 +21,8 @@ public class VoucherServiceTests
         var options = MockedDbContext.GenerateNewInMemoryDbContextOptions();
         _mockedContext = MockedDbContext.CreateFromOptions(options);
         _serviceProviderBuilder = new MockedDependencyInjectionBuilder()
+            .ConfigureIdentity()
+            .AddLogging()
             .AddUnitOfWork()
             .AddAutoMapper()
             .AddRepositories()

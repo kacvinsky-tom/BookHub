@@ -31,6 +31,8 @@ public class AuthorServiceTests
             .Returns(AuthorTestData.GetFakeAuthors().First());
 
         _serviceProviderBuilder = new MockedDependencyInjectionBuilder()
+            .ConfigureIdentity()
+            .AddLogging()
             .AddUnitOfWork()
             .AddAutoMapper()
             .AddRepositories()
