@@ -1,6 +1,9 @@
-﻿namespace DataAccessLayer.Filter;
+﻿using DataAccessLayer.Entity;
+using DataAccessLayer.Extensions;
 
-public class BookFilter : IFilter
+namespace DataAccessLayer.Filter;
+
+public class BookFilter : IFilter<Book>
 {
     public string? Title { get; set; }
 
@@ -15,4 +18,18 @@ public class BookFilter : IFilter
     public string? AuthorName { get; set; }
 
     public string? PublisherName { get; set; }
+
+    public string? FullTextSearch { get; set; }
+
+    public IQueryable<Book> Apply(IQueryable<Book> query)
+    {
+        return query
+            .WhereTitle(Title)
+            .WhereDescription(Description)
+            .WherePriceIn(PriceFrom, PriceTo)
+            .WhereGenreIds(GenreIds)
+            .WhereAuthorName(AuthorName)
+            .WherePublisherName(PublisherName)
+            .WhereFulltext(FullTextSearch);
+    }
 }

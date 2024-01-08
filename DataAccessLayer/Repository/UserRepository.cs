@@ -11,7 +11,7 @@ public class UserRepository : GenericRepository<User>, IUserRepository
 
     public async Task<User?> GetByIdWithRelations(int id)
     {
-        return await _context
+        return await Context
             .Users.Include(u => u.Reviews)
             .Include(u => u.Orders)
             .Include(u => u.CartItems)
@@ -22,6 +22,6 @@ public class UserRepository : GenericRepository<User>, IUserRepository
 
     public async Task<User?> GetByUsername(string username)
     {
-        return await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+        return await Context.Users.FirstOrDefaultAsync(u => u.Username == username);
     }
 }

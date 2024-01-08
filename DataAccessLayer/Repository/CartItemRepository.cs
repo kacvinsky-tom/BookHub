@@ -11,7 +11,7 @@ public class CartItemRepository : GenericRepository<CartItem>, ICartItemReposito
 
     public override IQueryable<CartItem> GetBasicQuery()
     {
-        return _context
+        return Context
             .CartItems.Include(r => r.User)
             .Include(r => r.Book)
             .ThenInclude(b => b.Authors)
@@ -21,7 +21,7 @@ public class CartItemRepository : GenericRepository<CartItem>, ICartItemReposito
 
     public async Task<CartItem?> GetByIdWithRelations(int id)
     {
-        return await _context
+        return await Context
             .CartItems.Include(r => r.User)
             .Include(r => r.Book)
             .ThenInclude(b => b.Authors)
@@ -32,7 +32,7 @@ public class CartItemRepository : GenericRepository<CartItem>, ICartItemReposito
 
     public async Task<IEnumerable<CartItem>> GetAllWithRelations()
     {
-        return await _context.CartItems.Include(r => r.User).Include(r => r.Book).ToListAsync();
+        return await Context.CartItems.Include(r => r.User).Include(r => r.Book).ToListAsync();
     }
 
     public async Task<IEnumerable<CartItem>> GetByUserIdWithRelations(int userId)

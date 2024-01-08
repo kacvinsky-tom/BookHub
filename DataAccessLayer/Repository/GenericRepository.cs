@@ -10,65 +10,21 @@ namespace DataAccessLayer.Repository;
 public class GenericRepository<T> : IGenericRepository<T>
     where T : class
 {
-    protected readonly BookHubDbContext _context;
+    protected readonly BookHubDbContext Context;
 
     public GenericRepository(BookHubDbContext context)
     {
-        _context = context;
+        Context = context;
     }
 
     public async Task Add(T entity)
     {
-        await _context.Set<T>().AddAsync(entity);
+        await Context.Set<T>().AddAsync(entity);
     }
 
     public async Task AddRange(IEnumerable<T> entities)
     {
-        await _context.Set<T>().AddRangeAsync(entities);
-    }
-
-    public async Task<PaginationObject<T>> GetPaginated(
-        int page,
-        int pageSize,
-        Expression<Func<T, IComparable>>? orderingExpression = null,
-        bool reverseOrder = false,
-        IQueryable<T>? query = null
-    )
-    {
-        query ??= GetBasicQuery();
-
-        if (orderingExpression != null)
-        {
-            query = reverseOrder
-                ? query.OrderByDescending(orderingExpression)
-                : query.OrderBy(orderingExpression);
-        }
-
-        return await PaginationObject(page, pageSize, query);
-    }
-
-    public async Task<PaginationObject<T>> GetPaginatedFiltered(
-        IFilter filter,
-        int page,
-        int pageSize,
-        Expression<Func<T, bool>>? orderingExpression = null,
-        bool reverseOrder = false
-    /* TODO:
-     * toto by chtelo v ramci vypracovavani Issue #31 "Develop a Search feature for Products, Categories, Manufacturers"
-     * refaktorovat, funkcionalitu sjednotit s GetAllOrdered, potencialne vsechny Get* metody sjednotit
-     */
-    )
-    {
-        var query = GetFilteredQuery(filter);
-
-        if (orderingExpression != null)
-        {
-            query = reverseOrder
-                ? query.OrderByDescending(orderingExpression)
-                : query.OrderBy(orderingExpression);
-        }
-
-        return await PaginationObject(page, pageSize, query);
+        await Context.Set<T>().AddRangeAsync(entities);
     }
 
     private static async Task<PaginationObject<T>> PaginationObject(
@@ -88,57 +44,93 @@ public class GenericRepository<T> : IGenericRepository<T>
 
     public async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> expression)
     {
-        return await _context.Set<T>().Where(expression).ToListAsync();
+        return await Context.Set<T>().Where(expression).ToListAsync();
     }
 
-    public async Task<IEnumerable<T>> GetAllOrdered(IEnumerable<Ordering<T>> orderingExpressions)
+    public async Task<IEnumerable<T>> GetAll(
+        IFilter<T>? filter = null,
+        IEnumerable<Ordering<T>>? orderingExpressions = null
+    )
+    {
+        var query = GetBasicQuery();
+
+        if (filter != null)
+        {
+            query = filter.Apply(query);
+        }
+
+        if (orderingExpressions != null)
+        {
+            query = ApplyOrderingExpressions(orderingExpressions, query);
+        }
+
+        return await query.ToListAsync();
+    }
+
+    public async Task<PaginationObject<T>> GetAllPaginated(
+        int page,
+        int pageSize,
+        IFilter<T>? filter = null,
+        IEnumerable<Ordering<T>>? order = null
+    )
+    {
+        var query = GetBasicQuery();
+
+        if (filter != null)
+        {
+            query = filter.Apply(query);
+        }
+
+        if (order != null)
+        {
+            query = ApplyOrderingExpressions(order, query);
+        }
+
+        return await PaginationObject(page, pageSize, query);
+    }
+
+    private IOrderedQueryable<T> ApplyOrderingExpressions(
+        IEnumerable<Ordering<T>> orderingExpressions,
+        IQueryable<T> query
+    )
     {
         var exprEnumerated = orderingExpressions.ToList();
         var first = exprEnumerated.First();
-        var query = first.Reverse
-            ? GetBasicQuery().OrderByDescending(first.Expression)
-            : GetBasicQuery().OrderBy(first.Expression);
 
-        query = exprEnumerated
+        var orderedQuery = first.Reverse
+            ? query.OrderByDescending(first.Expression)
+            : query.OrderBy(first.Expression);
+
+        orderedQuery = exprEnumerated
             .Skip(1)
             .Aggregate(
-                query,
+                orderedQuery,
                 (current, expression) =>
                     expression.Reverse
                         ? current.ThenByDescending(expression.Expression)
                         : current.ThenBy(expression.Expression)
             );
 
-        return await query.ToListAsync();
-    }
-
-    public async Task<IEnumerable<T>> GetAll()
-    {
-        return await _context.Set<T>().ToListAsync();
+        return orderedQuery;
     }
 
     public virtual IQueryable<T> GetBasicQuery()
     {
-        return _context.Set<T>();
-    }
-
-    public virtual IQueryable<T> GetFilteredQuery(IFilter filter)
-    {
-        return _context.Set<T>();
+        return Context.Set<T>();
     }
 
     public async Task<T?> GetById(int id)
     {
-        return await _context.Set<T>().FindAsync(id);
+        return await Context.Set<T>().FindAsync(id);
     }
 
     public void Remove(T entity)
     {
-        _context.Set<T>().Remove(entity);
+        Context.Set<T>().Remove(entity);
     }
 
     public void RemoveRange(IEnumerable<T> entities)
     {
-        _context.Set<T>().RemoveRange(entities);
+        Context.Set<T>().RemoveRange(entities);
     }
 }

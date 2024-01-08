@@ -8,6 +8,7 @@ using Core.Exception;
 using Core.Helpers;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
+using DataAccessLayer.Filter;
 using DataAccessLayer.Helpers;
 
 namespace Core.Services;
@@ -29,7 +30,7 @@ public class AuthorService
     {
         if (orderingExpressions != null)
         {
-            return await _unitOfWork.Authors.GetAllOrdered(orderingExpressions);
+            return await _unitOfWork.Authors.GetAll(orderingExpressions: orderingExpressions);
         }
         return await _unitOfWork.Authors.GetAll();
     }
@@ -41,12 +42,13 @@ public class AuthorService
         bool reverseOrder = false
     )
     {
-        return await _unitOfWork.Authors.GetPaginated(
-            page,
-            pageSize,
-            orderingExpression ?? (a => a.LastName + a.FirstName),
-            reverseOrder
-        );
+        var ordering = new Ordering<Author>
+        {
+            Expression = orderingExpression ?? (a => a.LastName + a.FirstName),
+            Reverse = reverseOrder
+        };
+
+        return await _unitOfWork.Authors.GetAllPaginated(page, pageSize, order: new[] { ordering });
     }
 
     public async Task<Author?> GetById(int id)
@@ -60,10 +62,12 @@ public class AuthorService
         int pageSize
     )
     {
-        var paginatedAuthorsQuery = await _unitOfWork.Authors.GetPaginatedBySearchQuery(
-            searchQuery.Query,
+        var authorFilter = new AuthorFilter { Name = searchQuery.Query };
+
+        var paginatedAuthorsQuery = await _unitOfWork.Authors.GetAllPaginated(
             page,
-            pageSize
+            pageSize,
+            authorFilter
         );
 
         return new PaginatedResult<AuthorListOutputDto>

@@ -9,27 +9,19 @@ public interface IGenericRepository<T>
     where T : class
 {
     public IQueryable<T> GetBasicQuery();
-    public IQueryable<T> GetFilteredQuery(IFilter filter);
 
     public Task<T?> GetById(int id);
-    public Task<IEnumerable<T>> GetAll();
 
-    public Task<IEnumerable<T>> GetAllOrdered(IEnumerable<Ordering<T>> orderingExpressions);
-
-    public Task<PaginationObject<T>> GetPaginated(
-        int page,
-        int pageSize,
-        Expression<Func<T, IComparable>>? orderingExpression = null,
-        bool reverseOrder = false,
-        IQueryable<T>? query = null
+    public Task<IEnumerable<T>> GetAll(
+        IFilter<T>? filter = null,
+        IEnumerable<Ordering<T>>? orderingExpressions = null
     );
 
-    public Task<PaginationObject<T>> GetPaginatedFiltered(
-        IFilter filter,
+    public Task<PaginationObject<T>> GetAllPaginated(
         int page,
         int pageSize,
-        Expression<Func<T, bool>>? orderingExpression = null,
-        bool reverseOrder = false
+        IFilter<T>? filter = null,
+        IEnumerable<Ordering<T>>? order = null
     );
 
     public Task<IEnumerable<T>> Find(Expression<Func<T, bool>> expression);

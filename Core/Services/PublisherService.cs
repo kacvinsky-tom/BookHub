@@ -23,8 +23,9 @@ public class PublisherService
     {
         if (orderingExpressions != null)
         {
-            return await _unitOfWork.Publishers.GetAllOrdered(orderingExpressions);
+            return await _unitOfWork.Publishers.GetAll(orderingExpressions: orderingExpressions);
         }
+
         return await _unitOfWork.Publishers.GetAll();
     }
 
@@ -40,11 +41,16 @@ public class PublisherService
         bool reverseOrder = false
     )
     {
-        return await _unitOfWork.Publishers.GetPaginated(
+        var ordering = new Ordering<Publisher>
+        {
+            Expression = orderingExpression ?? (p => p.Name),
+            Reverse = reverseOrder
+        };
+
+        return await _unitOfWork.Publishers.GetAllPaginated(
             page,
             pageSize,
-            orderingExpression ?? (p => p.Name),
-            reverseOrder
+            order: new[] { ordering }
         );
     }
 

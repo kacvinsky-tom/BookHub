@@ -1,6 +1,7 @@
 ﻿using Core.DTO.Input.LocalIdentityUser;
 using Core.DTO.Input.User;
 using Core.Exception;
+using Core.Helpers;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Helpers;
@@ -130,10 +131,15 @@ public class LocalIdentityUserService
 
     public async Task<PaginationObject<LocalIdentityUser>> GetAllPaginated(int page, int pageSize)
     {
-        return await _unitOfWork.LocalIdentityUsers.GetPaginated(
+        var ordering = new Ordering<LocalIdentityUser>
+        {
+            Expression = u => u.UserName ?? u.UserId.ToString()
+        };
+
+        return await _unitOfWork.LocalIdentityUsers.GetAllPaginated(
             page,
             pageSize,
-            u => u.UserName ?? u.UserId.ToString()
+            order: new[] { ordering }
         );
     }
 

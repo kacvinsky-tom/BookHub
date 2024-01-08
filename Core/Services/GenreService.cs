@@ -8,6 +8,7 @@ using Core.Exception;
 using Core.Helpers;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
+using DataAccessLayer.Filter;
 using DataAccessLayer.Helpers;
 
 namespace Core.Services;
@@ -29,7 +30,7 @@ public class GenreService
     {
         if (orderingExpressions != null)
         {
-            return await _unitOfWork.Genres.GetAllOrdered(orderingExpressions);
+            return await _unitOfWork.Genres.GetAll(orderingExpressions: orderingExpressions);
         }
         return await _unitOfWork.Genres.GetAll();
     }
@@ -46,12 +47,13 @@ public class GenreService
         bool reverseOrder = false
     )
     {
-        return await _unitOfWork.Genres.GetPaginated(
-            page,
-            pageSize,
-            orderingExpression ?? (g => g.Name),
-            reverseOrder
-        );
+        var ordering = new Ordering<Genre>
+        {
+            Expression = orderingExpression ?? (g => g.Name),
+            Reverse = reverseOrder
+        };
+
+        return await _unitOfWork.Genres.GetAllPaginated(page, pageSize, order: new[] { ordering });
     }
 
     public async Task<PaginatedResult<GenreListOutputDto>> Search(
@@ -60,10 +62,12 @@ public class GenreService
         int pageSize
     )
     {
-        var paginatedGenresQuery = await _unitOfWork.Genres.GetPaginatedBySearchQuery(
-            searchQuery.Query,
+        var genreFilter = new GenreFilter { Name = searchQuery.Query };
+
+        var paginatedGenresQuery = await _unitOfWork.Genres.GetAllPaginated(
             page,
-            pageSize
+            pageSize,
+            genreFilter
         );
 
         return new PaginatedResult<GenreListOutputDto>
