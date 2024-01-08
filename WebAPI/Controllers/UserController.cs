@@ -1,11 +1,10 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Core.DTO.Input.User;
 using Core.DTO.Output.Order;
 using Core.DTO.Output.User;
 using Core.Exception;
 using Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using WebAPI.Extensions;
 
 namespace WebAPI.Controllers;
@@ -16,19 +15,12 @@ public class UserController : ControllerBase
 {
     private readonly UserService _userService;
     private readonly IMapper _mapper;
-    private readonly IMemoryCache _memoryCache;
     private readonly OrderService _orderService;
 
-    public UserController(
-        UserService userService,
-        IMapper mapper,
-        IMemoryCache memoryCache,
-        OrderService orderService
-    )
+    public UserController(UserService userService, IMapper mapper, OrderService orderService)
     {
         _userService = userService;
         _mapper = mapper;
-        _memoryCache = memoryCache;
         _orderService = orderService;
     }
 
@@ -43,11 +35,6 @@ public class UserController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
-        if (_memoryCache.TryGetValue("user-" + id, out var cachedUser))
-        {
-            return Ok(cachedUser);
-        }
-
         var user = await _userService.GetById(id);
 
         if (user == null)
@@ -56,8 +43,6 @@ public class UserController : ControllerBase
         }
 
         var userDetailDto = _mapper.Map<UserDetailOutputDto>(user);
-
-        _memoryCache.Set("user-" + id, userDetailDto);
 
         return Ok(userDetailDto);
     }
@@ -79,8 +64,6 @@ public class UserController : ControllerBase
 
             var userDetailDto = _mapper.Map<UserDetailOutputDto>(user);
 
-            _memoryCache.Set("user-" + id, userDetailDto);
-
             return Ok(userDetailDto);
         }
         catch (NotFoundException e)
@@ -95,8 +78,6 @@ public class UserController : ControllerBase
         try
         {
             await _userService.Delete(id);
-
-            _memoryCache.Remove("user-" + id);
 
             return Ok();
         }

@@ -15,28 +15,19 @@ public class GenreController : ControllerBase
 {
     private readonly GenreService _genreService;
     private readonly IMapper _mapper;
-    private readonly IMemoryCache _memoryCache;
 
-    public GenreController(GenreService genreService, IMapper mapper, IMemoryCache memoryCache)
+    public GenreController(GenreService genreService, IMapper mapper)
     {
         _genreService = genreService;
         _mapper = mapper;
-        _memoryCache = memoryCache;
     }
 
     [HttpGet]
     public async Task<IActionResult> Fetch()
     {
-        if (_memoryCache.TryGetValue("genres", out var cachedGenres))
-        {
-            return Ok(cachedGenres);
-        }
-
         var genres = await _genreService.GetAll();
 
         var genresListDto = _mapper.Map<BookGenreListOutputDto>(genres);
-
-        _memoryCache.Set("genres", genresListDto);
 
         return Ok(genresListDto);
     }
@@ -59,8 +50,6 @@ public class GenreController : ControllerBase
     {
         var genre = await _genreService.Create(genreInputDto);
 
-        _memoryCache.Remove("genres");
-
         return Ok(_mapper.Map<GenreDetailOutputDto>(genre));
     }
 
@@ -70,8 +59,6 @@ public class GenreController : ControllerBase
         try
         {
             var genre = await _genreService.Update(genreInputDto, id);
-
-            _memoryCache.Remove("genres");
 
             return Ok(_mapper.Map<GenreDetailOutputDto>(genre));
         }
@@ -87,8 +74,6 @@ public class GenreController : ControllerBase
         try
         {
             await _genreService.Delete(id);
-
-            _memoryCache.Remove("genres");
 
             return Ok();
         }

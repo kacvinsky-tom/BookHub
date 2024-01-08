@@ -2,16 +2,19 @@
 using Core.Exception;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Core.Services;
 
 public class ReviewService
 {
     private readonly UnitOfWork _unitOfWork;
+    private readonly IMemoryCache _memoryCache;
 
-    public ReviewService(UnitOfWork unitOfWork)
+    public ReviewService(UnitOfWork unitOfWork, IMemoryCache memoryCache)
     {
         _unitOfWork = unitOfWork;
+        _memoryCache = memoryCache;
     }
 
     public async Task<IEnumerable<Review>> GetAll()
@@ -21,7 +24,19 @@ public class ReviewService
 
     public async Task<Review?> GetById(int id)
     {
-        return await _unitOfWork.Reviews.GetByIdWithRelations(id);
+        if (_memoryCache.TryGetValue("review-" + id, out Review? cachedReview))
+        {
+            return cachedReview;
+        }
+
+        var review = await _unitOfWork.Reviews.GetByIdWithRelations(id);
+
+        if (review != null)
+        {
+            _memoryCache.Set("review-" + id, review);
+        }
+
+        return review;
     }
 
     public async Task<Review> Create(ReviewCreateInputDto reviewCreateInputDto)
@@ -69,6 +84,8 @@ public class ReviewService
 
         await _unitOfWork.Complete();
 
+        _memoryCache.Set("review-" + reviewId, review);
+
         return review;
     }
 
@@ -84,5 +101,7 @@ public class ReviewService
         _unitOfWork.Reviews.Remove(review);
 
         await _unitOfWork.Complete();
+
+        _memoryCache.Remove("review-" + reviewId);
     }
 }

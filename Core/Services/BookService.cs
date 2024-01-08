@@ -10,23 +10,38 @@ using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Filter;
 using DataAccessLayer.Helpers;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Core.Services;
 
 public class BookService
 {
     private readonly UnitOfWork _unitOfWork;
+    private readonly IMemoryCache _memoryCache;
     private readonly IMapper _mapper;
 
-    public BookService(UnitOfWork unitOfWork, IMapper mapper)
+    public BookService(UnitOfWork unitOfWork, IMapper mapper, IMemoryCache memoryCache)
     {
         _mapper = mapper;
         _unitOfWork = unitOfWork;
+        _memoryCache = memoryCache;
     }
 
     public async Task<Book?> GetById(int id)
     {
-        return await _unitOfWork.Books.GetByIdWithRelations(id);
+        if (_memoryCache.TryGetValue("book-" + id, out Book? cachedBook))
+        {
+            return cachedBook;
+        }
+
+        var book = await _unitOfWork.Books.GetByIdWithRelations(id);
+
+        if (book != null)
+        {
+            _memoryCache.Set("book-" + id, book);
+        }
+
+        return book;
     }
 
     public async Task<IEnumerable<Book>> GetAll(BookFilterInputDto? filterInputDto = null)
@@ -206,6 +221,8 @@ public class BookService
             await SetPrimaryGenre(book.Id, bookCreateUpdateInputDto.PrimaryGenreId.Value);
         }
 
+        _memoryCache.Set("book-" + id, book);
+
         return book;
     }
 
@@ -245,6 +262,8 @@ public class BookService
 
         await _unitOfWork.Complete();
 
+        _memoryCache.Set("book-" + bookId, book);
+
         return book;
     }
 
@@ -260,5 +279,7 @@ public class BookService
         book.IsDeleted = true;
 
         await _unitOfWork.Complete();
+
+        _memoryCache.Remove("book-" + bookId);
     }
 }

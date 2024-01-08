@@ -10,6 +10,7 @@ using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Filter;
 using DataAccessLayer.Helpers;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Core.Services;
 
@@ -17,11 +18,13 @@ public class GenreService
 {
     private readonly UnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly IMemoryCache _memoryCache;
 
-    public GenreService(UnitOfWork unitOfWork, IMapper mapper)
+    public GenreService(UnitOfWork unitOfWork, IMapper mapper, IMemoryCache memoryCache)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _memoryCache = memoryCache;
     }
 
     public async Task<IEnumerable<Genre>> GetAll(
@@ -37,7 +40,19 @@ public class GenreService
 
     public async Task<Genre?> GetById(int id)
     {
-        return await _unitOfWork.Genres.GetByIdWithRelations(id);
+        if (_memoryCache.TryGetValue("genre-" + id, out Genre? cachedGenre))
+        {
+            return cachedGenre;
+        }
+
+        var genre = await _unitOfWork.Genres.GetByIdWithRelations(id);
+
+        if (genre != null)
+        {
+            _memoryCache.Set("genre-" + id, genre);
+        }
+
+        return genre;
     }
 
     public async Task<PaginationObject<Genre>> GetAllPaginated(
@@ -100,6 +115,8 @@ public class GenreService
 
         await _unitOfWork.Complete();
 
+        _memoryCache.Set("genre-" + id, genre);
+
         return genre;
     }
 
@@ -115,5 +132,7 @@ public class GenreService
         _unitOfWork.Genres.Remove(genre);
 
         await _unitOfWork.Complete();
+
+        _memoryCache.Remove("genre-" + genreId);
     }
 }

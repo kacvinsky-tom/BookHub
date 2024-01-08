@@ -3,16 +3,19 @@ using Core.Exception;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Helpers;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Core.Services;
 
 public class UserService
 {
     private readonly UnitOfWork _unitOfWork;
+    private readonly IMemoryCache _memoryCache;
 
-    public UserService(UnitOfWork unitOfWork)
+    public UserService(UnitOfWork unitOfWork, IMemoryCache memoryCache)
     {
         _unitOfWork = unitOfWork;
+        _memoryCache = memoryCache;
     }
 
     public async Task<IEnumerable<User>> GetAll()
@@ -22,7 +25,19 @@ public class UserService
 
     public async Task<User?> GetById(int id)
     {
-        return await _unitOfWork.Users.GetByIdWithRelations(id);
+        if (_memoryCache.TryGetValue("user-" + id, out User? cachedUser))
+        {
+            return cachedUser;
+        }
+
+        var user = await _unitOfWork.Users.GetByIdWithRelations(id);
+
+        if (user != null)
+        {
+            _memoryCache.Set("user-" + id, user);
+        }
+
+        return user;
     }
 
     public async Task<User?> GetByUsername(string username)
@@ -65,6 +80,8 @@ public class UserService
 
         await _unitOfWork.Complete();
 
+        _memoryCache.Set("user-" + userId, user);
+
         return user;
     }
 
@@ -80,5 +97,7 @@ public class UserService
         _unitOfWork.Users.Remove(user);
 
         await _unitOfWork.Complete();
+
+        _memoryCache.Remove("user-" + userId);
     }
 }

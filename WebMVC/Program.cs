@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSqliteDbContextFactory(builder.Configuration);
 
 builder.Services.AddScoped<UnitOfWork>();
-
+builder.Services.AddMemoryCacheWithConfiguration();
 builder.Services.AddRepositories();
 builder.Services.AddBLServices();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
