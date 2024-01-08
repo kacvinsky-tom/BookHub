@@ -73,14 +73,24 @@ To run the application from within command line, follow these steps:
 ### Logging
 
 By default, BookHub logs incoming requests to standard output in a shortened version:\
-`(Timestamp | IP:Port | HTTP method | URL path )`.
+`(LogSourceProject | Timestamp | IP:Port | HTTP method | URL path )`.
 
 Alternatively, the logging can be extended by listing the request headers in the `appsettings.json` file 
 in the `Logging:RequestLogging` section by setting `Detailed` to `true`.
 
+### WEB authenticating
+
+#### Admin Access
+Username: `john.doe`
+Password: `P@ssw0rd`
+
+#### Customer Access
+Username: `jarda.novak`
+Password: `P@ssw0rd`
+
 ### API authenticating
 
-Authentication works by comparing a given Bearer token with a hardcoded Bearer token in the `appsettings.json` file int the 
+Authentication works by comparing a given Bearer token with a hardcoded Bearer token in the `appsettings.json` file in the 
 `APIAuthorization:BearerToken` section.
 
 ## Technical overview
