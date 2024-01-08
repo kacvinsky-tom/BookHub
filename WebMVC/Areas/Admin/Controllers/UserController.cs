@@ -33,7 +33,11 @@ public class UserController : Controller
 
     public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
     {
-        return View(_mapper.Map<PaginationViewModel<UserListViewModel>>(await _localIdentityUserService.GetAllPaginated(page, pageSize)));
+        return View(
+            _mapper.Map<PaginationViewModel<UserListViewModel>>(
+                await _localIdentityUserService.GetAllPaginated(page, pageSize)
+            )
+        );
     }
 
     public IActionResult Create()
@@ -85,11 +89,9 @@ public class UserController : Controller
         }
 
         var roles = await _localIdentityUserService.GetRolesOfUser(user);
-        var availableRoles = _roleManager.Roles.Select(r => new SimpleListDto()
-        {
-            Id = r.Name ?? "",
-            Value = r.Name ?? ""
-        }).ToList();
+        var availableRoles = _roleManager
+            .Roles.Select(r => new SimpleListDto() { Id = r.Name ?? "", Value = r.Name ?? "" })
+            .ToList();
 
         var model = new UserEditViewModel()
         {

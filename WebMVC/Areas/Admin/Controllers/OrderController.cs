@@ -24,7 +24,11 @@ public class OrderController : Controller
 
     public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
     {
-        return View(_mapper.Map<PaginationViewModel<OrderListViewModel>>(await _orderService.GetAllPaginated(page, pageSize)));
+        return View(
+            _mapper.Map<PaginationViewModel<OrderListViewModel>>(
+                await _orderService.GetAllPaginated(page, pageSize)
+            )
+        );
     }
 
     public IActionResult Create()

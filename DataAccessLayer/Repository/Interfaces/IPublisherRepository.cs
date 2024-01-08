@@ -6,5 +6,7 @@ namespace DataAccessLayer.Repository.Interfaces;
 
 public interface IPublisherRepository : IGenericRepository<Publisher>
 {
-    public Task<IEnumerable<SimpleListResult>> GetSimpleList(IEnumerable<Ordering<Publisher>>? order = null);
+    public Task<IEnumerable<SimpleListResult>> GetSimpleList(
+        IEnumerable<Ordering<Publisher>>? order = null
+    );
 }

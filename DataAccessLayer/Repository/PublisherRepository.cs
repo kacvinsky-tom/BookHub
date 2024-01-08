@@ -10,20 +10,20 @@ public class PublisherRepository : GenericRepository<Publisher>, IPublisherRepos
 {
     public PublisherRepository(BookHubDbContext context)
         : base(context) { }
-    
-    public async Task<IEnumerable<SimpleListResult>> GetSimpleList(IEnumerable<Ordering<Publisher>>? order = null)
+
+    public async Task<IEnumerable<SimpleListResult>> GetSimpleList(
+        IEnumerable<Ordering<Publisher>>? order = null
+    )
     {
         var query = Context.Publishers.AsQueryable();
-        
+
         if (order != null)
         {
             query = ApplyOrderingExpressions(order, query);
         }
 
-        return await query.Select(p => new SimpleListResult
-        {
-            Id = p.Id.ToString(),
-            Value = p.Name
-        }).ToListAsync();
+        return await query
+            .Select(p => new SimpleListResult { Id = p.Id.ToString(), Value = p.Name })
+            .ToListAsync();
     }
 }

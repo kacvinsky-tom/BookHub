@@ -138,11 +138,7 @@ public class GenreService
 
     public async Task<IEnumerable<SimpleListDto>> GetSimpleList()
     {
-        var ordering = new Ordering<Genre>
-        {
-            Expression = g => g.Name,
-            Reverse = false
-        };
+        var ordering = new Ordering<Genre> { Expression = g => g.Name, Reverse = false };
 
         var genreList = await _unitOfWork.Genres.GetSimpleList(order: new[] { ordering });
 

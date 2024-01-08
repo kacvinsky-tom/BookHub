@@ -105,14 +105,10 @@ public class PublisherService
 
         await _unitOfWork.Complete();
     }
-    
+
     public async Task<IEnumerable<SimpleListDto>> GetSimpleList()
     {
-        var ordering = new Ordering<Publisher>
-        {
-            Expression = g => g.Name,
-            Reverse = false
-        };
+        var ordering = new Ordering<Publisher> { Expression = g => g.Name, Reverse = false };
 
         var publishersList = await _unitOfWork.Publishers.GetSimpleList(order: new[] { ordering });
 

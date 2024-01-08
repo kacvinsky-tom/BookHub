@@ -8,5 +8,7 @@ public interface IAuthorRepository : IGenericRepository<Author>
 {
     public Task<Author?> GetByIdWithRelations(int id);
 
-    public Task<IEnumerable<SimpleListResult>> GetSimpleList(IEnumerable<Ordering<Author>>? order = null);
+    public Task<IEnumerable<SimpleListResult>> GetSimpleList(
+        IEnumerable<Ordering<Author>>? order = null
+    );
 }

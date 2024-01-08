@@ -28,8 +28,10 @@ public class BookRepository : GenericRepository<Book>, IBookRepository
     {
         return await GetBasicQuery().FirstOrDefaultAsync(book => book.Id == id);
     }
-    
-    public async Task<IEnumerable<SimpleListResult>> GetSimpleList(IEnumerable<Ordering<Book>>? order = null)
+
+    public async Task<IEnumerable<SimpleListResult>> GetSimpleList(
+        IEnumerable<Ordering<Book>>? order = null
+    )
     {
         var query = Context.Books.AsQueryable();
 
@@ -38,10 +40,8 @@ public class BookRepository : GenericRepository<Book>, IBookRepository
             query = ApplyOrderingExpressions(order, query);
         }
 
-        return await query.Select(b => new SimpleListResult
-        {
-            Id = b.Id.ToString(),
-            Value = b.Title
-        }).ToListAsync();
+        return await query
+            .Select(b => new SimpleListResult { Id = b.Id.ToString(), Value = b.Title })
+            .ToListAsync();
     }
 }

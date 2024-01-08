@@ -2,7 +2,7 @@
 
 namespace WebMVC.Areas.Admin.ViewModels.Publisher;
 
-public class PublisherListViewModel: OutputDtoBase
+public class PublisherListViewModel : OutputDtoBase
 {
     public string Name { get; set; } = "";
 

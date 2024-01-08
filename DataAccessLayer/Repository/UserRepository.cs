@@ -26,8 +26,10 @@ public class UserRepository : GenericRepository<User>, IUserRepository
     {
         return await Context.Users.FirstOrDefaultAsync(u => u.Username == username);
     }
-    
-    public async Task<IEnumerable<SimpleListResult>> GetSimpleList(IEnumerable<Ordering<User>>? order = null)
+
+    public async Task<IEnumerable<SimpleListResult>> GetSimpleList(
+        IEnumerable<Ordering<User>>? order = null
+    )
     {
         var query = Context.Users.AsQueryable();
 
@@ -36,10 +38,15 @@ public class UserRepository : GenericRepository<User>, IUserRepository
             query = ApplyOrderingExpressions(order, query);
         }
 
-        return await query.Select(u => new SimpleListResult
-        {
-            Id = u.Id.ToString(),
-            Value = u.FirstName + " " + u.LastName + " (" + u.Username + ")"
-        }).ToListAsync();
+        return await query
+            .Select(
+                u =>
+                    new SimpleListResult
+                    {
+                        Id = u.Id.ToString(),
+                        Value = u.FirstName + " " + u.LastName + " (" + u.Username + ")"
+                    }
+            )
+            .ToListAsync();
     }
 }

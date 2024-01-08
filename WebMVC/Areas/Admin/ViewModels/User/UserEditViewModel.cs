@@ -33,6 +33,6 @@ public class UserEditViewModel
 
     [Required]
     public string Role { get; set; } = "User";
-    
+
     public List<SimpleListDto> AvailableRoles { get; set; } = new List<SimpleListDto>();
 }

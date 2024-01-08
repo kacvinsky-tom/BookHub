@@ -104,7 +104,7 @@ public class UserService
 
         _memoryCache.Remove("user-" + userId);
     }
-    
+
     public async Task<IEnumerable<SimpleListDto>> GetSimpleList()
     {
         var usersList = await _unitOfWork.Users.GetSimpleList();

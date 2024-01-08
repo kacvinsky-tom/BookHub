@@ -9,5 +9,7 @@ public interface IUserRepository : IGenericRepository<User>
     public Task<User?> GetByIdWithRelations(int id);
     public Task<User?> GetByUsername(string username);
 
-    public Task<IEnumerable<SimpleListResult>> GetSimpleList(IEnumerable<Ordering<User>>? order = null);
+    public Task<IEnumerable<SimpleListResult>> GetSimpleList(
+        IEnumerable<Ordering<User>>? order = null
+    );
 }

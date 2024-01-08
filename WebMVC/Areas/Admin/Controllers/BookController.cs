@@ -19,7 +19,13 @@ public class BookController : Controller
     private readonly AuthorService _authorService;
     private readonly IMapper _mapper;
 
-    public BookController(BookService bookService, GenreService genreService, PublisherService publisherService, AuthorService authorService, IMapper mapper)
+    public BookController(
+        BookService bookService,
+        GenreService genreService,
+        PublisherService publisherService,
+        AuthorService authorService,
+        IMapper mapper
+    )
     {
         _bookService = bookService;
         _genreService = genreService;
@@ -30,7 +36,11 @@ public class BookController : Controller
 
     public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
     {
-        return View(_mapper.Map<PaginationViewModel<BookListViewModel>>(await _bookService.GetAllPaginated(page, pageSize)));
+        return View(
+            _mapper.Map<PaginationViewModel<BookListViewModel>>(
+                await _bookService.GetAllPaginated(page, pageSize)
+            )
+        );
     }
 
     public IActionResult Create()

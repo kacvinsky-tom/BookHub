@@ -24,7 +24,11 @@ public class GenreController : Controller
 
     public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
     {
-        return View(_mapper.Map<PaginationViewModel<GenreListViewModel>>(await _genreService.GetAllPaginated(page, pageSize)));
+        return View(
+            _mapper.Map<PaginationViewModel<GenreListViewModel>>(
+                await _genreService.GetAllPaginated(page, pageSize)
+            )
+        );
     }
 
     public IActionResult Create()
