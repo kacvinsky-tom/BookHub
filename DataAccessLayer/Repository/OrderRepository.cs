@@ -11,7 +11,7 @@ public class OrderRepository : GenericRepository<Order>, IOrderRepository
 
     public override IQueryable<Order> GetBasicQuery()
     {
-        return _context
+        return Context
             .Orders.Include(o => o.User)
             .Include(o => o.OrderItems)
             .Include(o => o.VoucherUsed);
@@ -24,7 +24,7 @@ public class OrderRepository : GenericRepository<Order>, IOrderRepository
 
     public async Task<IEnumerable<Order>> GetAllByUserId(int id)
     {
-        return await _context.Orders.Where(o => o.User.Id == id).ToListAsync();
+        return await Context.Orders.Where(o => o.User.Id == id).ToListAsync();
     }
 
     public async Task<Order?> GetByIdWithRelations(int id)

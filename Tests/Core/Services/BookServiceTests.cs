@@ -29,9 +29,7 @@ public class BookServiceTests
         var genreRepositoryMock = Substitute.For<IGenreRepository>();
         var publisherRepositoryMock = Substitute.For<IPublisherRepository>();
 
-        bookRepositoryMock
-            .GetWithRelations(Arg.Any<BookFilter>())
-            .Returns(BookTestData.GetFakeBooks());
+        bookRepositoryMock.GetAll(Arg.Any<BookFilter>()).Returns(BookTestData.GetFakeBooks());
         bookRepositoryMock.GetByIdWithRelations(1).Returns(BookTestData.GetFakeBooks().First());
         bookRepositoryMock.GetById(1).Returns(BookTestData.GetFakeBooks().First());
 
