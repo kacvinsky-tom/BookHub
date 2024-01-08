@@ -8,8 +8,8 @@ variables:
     --property WarningLevel=0
 
 stages:
-  # - format
-  # - build
+  - format
+  - build
   - test
 
 default:
@@ -18,31 +18,31 @@ default:
   artifacts:
     expire_in: 10 minutes
 
-# check-formatting:
-#   stage: build
-#   script:
-#     - dotnet tool install csharpier -g
-#     - export PATH="$PATH:/root/.dotnet/tools"
-#     - dotnet csharpier --check .
-#   rules:
-#     - !reference [ .custom_rules, on_merge_on_master_or_milestone ]
+check-formatting:
+  stage: build
+  script:
+    - dotnet tool install csharpier -g
+    - export PATH="$PATH:/root/.dotnet/tools"
+    - dotnet csharpier --check .
+  rules:
+    - !reference [ .custom_rules, on_merge_on_master_or_milestone ]
 
-# build:
-#   stage: build
-#   script:
-#     - !reference [ .install_dependencies, nodejs ]
-#     - npm install ./WebMVC
-#     - dotnet build $solutionPath $buildParams
-#   rules:
-#     - !reference [.custom_rules, on_merge_on_master_or_milestone]
-#   needs:
-#     - job: check-formatting
+build:
+  stage: build
+  script:
+    - !reference [ .install_dependencies, nodejs ]
+    - npm install ./WebMVC
+    - dotnet build $solutionPath $buildParams
+  rules:
+    - !reference [.custom_rules, on_merge_on_master_or_milestone]
+  needs:
+    - job: check-formatting
 
 test:
   stage: test
   script:
     - dotnet test $solutionPath
-  # rules:
-  #   - !reference [.custom_rules, on_merge_on_master_or_milestone]
-  # needs:
-  #   - job: build
+  rules:
+    - !reference [.custom_rules, on_merge_on_master_or_milestone]
+  needs:
+    - job: build
