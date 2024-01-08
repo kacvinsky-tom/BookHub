@@ -46,7 +46,8 @@ public class MockedDependencyInjectionBuilder
             .AddScoped<IVoucherRepository, VoucherRepository>()
             .AddScoped<IWishListRepository, WishListRepository>()
             .AddScoped<IWishListItemRepository, WishListItemRepository>()
-            .AddScoped<IBookRepository, BookRepository>();
+            .AddScoped<IBookRepository, BookRepository>()
+            .AddScoped<ILocalIdentityUserRepository, LocalIdentityUserRepository>();
 
         return this;
     }
@@ -63,7 +64,8 @@ public class MockedDependencyInjectionBuilder
             .AddScoped<PublisherService>()
             .AddScoped<OrderService>()
             .AddScoped<UserService>()
-            .AddScoped<ReviewService>();
+            .AddScoped<ReviewService>()
+            .AddScoped<LocalIdentityUserService>();
 
         return this;
     }

@@ -6,7 +6,7 @@
 @{
     ViewBag.Title = "Edit order item " + Model.Id;
     Layout = "_Layout";
-    var books = (await BookService.GetAll()).Select(b => new SelectListItem() { Text = b.Title, Value = b.Id.ToString() });
+    var books = (await BookService.GetSimpleList()).Select(b => new SelectListItem() { Text = b.Value, Value = b.Id.ToString() });
 }
 
 <div class="h-full w-full flex justify-center align-center">

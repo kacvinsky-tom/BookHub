@@ -1,10 +1,14 @@
-﻿using Core.DTO.Input.LocalIdentityUser;
+﻿using AutoMapper;
+using Core.DTO.Input.LocalIdentityUser;
+using Core.DTO.Output;
 using Core.Exception;
 using Core.Services;
 using DataAccessLayer.Entity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.Areas.Admin.ViewModels.User;
+using WebMVC.ViewModels;
 
 namespace WebMVC.Areas.Admin.Controllers;
 
@@ -12,21 +16,24 @@ namespace WebMVC.Areas.Admin.Controllers;
 [Authorize(Roles = "Admin")]
 public class UserController : Controller
 {
-    private readonly UserService _userService;
     private readonly LocalIdentityUserService _localIdentityUserService;
+    private readonly RoleManager<LocalIdentityRole> _roleManager;
+    private readonly IMapper _mapper;
 
     public UserController(
-        UserService userService,
-        LocalIdentityUserService localIdentityUserService
+        LocalIdentityUserService localIdentityUserService,
+        RoleManager<LocalIdentityRole> roleManager,
+        IMapper mapper
     )
     {
-        _userService = userService;
         _localIdentityUserService = localIdentityUserService;
+        _roleManager = roleManager;
+        _mapper = mapper;
     }
 
     public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
     {
-        return View(await _localIdentityUserService.GetAllPaginated(page, pageSize));
+        return View(_mapper.Map<PaginationViewModel<UserListViewModel>>(await _localIdentityUserService.GetAllPaginated(page, pageSize)));
     }
 
     public IActionResult Create()
@@ -78,6 +85,11 @@ public class UserController : Controller
         }
 
         var roles = await _localIdentityUserService.GetRolesOfUser(user);
+        var availableRoles = _roleManager.Roles.Select(r => new SimpleListDto()
+        {
+            Id = r.Name ?? "",
+            Value = r.Name ?? ""
+        }).ToList();
 
         var model = new UserEditViewModel()
         {
@@ -88,6 +100,7 @@ public class UserController : Controller
             LastName = user.User.LastName,
             PhoneNumber = user.User.PhoneNumber,
             Role = roles.FirstOrDefault() ?? "User",
+            AvailableRoles = availableRoles
         };
 
         return View(model);

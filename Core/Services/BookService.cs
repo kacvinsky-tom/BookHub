@@ -282,4 +282,11 @@ public class BookService
 
         _memoryCache.Remove("book-" + bookId);
     }
+    
+    public async Task<IEnumerable<SimpleListDto>> GetSimpleList()
+    {
+        var booksList = await _unitOfWork.Books.GetSimpleList();
+
+        return _mapper.Map<IEnumerable<SimpleListDto>>(booksList);
+    }
 }

@@ -1,4 +1,6 @@
-﻿using DataAccessLayer.Entity;
+﻿using Core.Helpers;
+using DataAccessLayer.DTO;
+using DataAccessLayer.Entity;
 using DataAccessLayer.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,5 +27,21 @@ public class BookRepository : GenericRepository<Book>, IBookRepository
     public async Task<Book?> GetByIdWithRelations(int id)
     {
         return await GetBasicQuery().FirstOrDefaultAsync(book => book.Id == id);
+    }
+    
+    public async Task<IEnumerable<SimpleListResult>> GetSimpleList(IEnumerable<Ordering<Book>>? order = null)
+    {
+        var query = Context.Books.AsQueryable();
+
+        if (order != null)
+        {
+            query = ApplyOrderingExpressions(order, query);
+        }
+
+        return await query.Select(b => new SimpleListResult
+        {
+            Id = b.Id.ToString(),
+            Value = b.Title
+        }).ToListAsync();
     }
 }

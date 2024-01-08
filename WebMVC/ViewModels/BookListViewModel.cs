@@ -1,7 +1,8 @@
-﻿using Core.DTO.Output.Author;
+﻿using Core.DTO.Output;
+using Core.DTO.Output.Author;
 using Core.DTO.Output.Genre;
 
-namespace Core.DTO.Output.Book;
+namespace WebMVC.ViewModels;
 
 public class BookListViewModel : OutputDtoBase
 {

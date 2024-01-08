@@ -1,12 +1,9 @@
-﻿@using DataAccessLayer.Entity
-@using Microsoft.AspNetCore.Identity
-@model WebMVC.Areas.Admin.ViewModels.User.UserEditViewModel
-@inject RoleManager<LocalIdentityRole> RoleManager
+﻿@model WebMVC.Areas.Admin.ViewModels.User.UserEditViewModel
 
 @{
     ViewBag.Title = "title";
     Layout = "_Layout";
-    var roleSelectList = RoleManager.Roles.Select(role => new SelectListItem(role.Name, role.Name));
+    var roleSelectList = Model.AvailableRoles.Select(role => new SelectListItem(role.Value, role.Id));
 }
 
 <div class="h-full w-full flex justify-center align-center">

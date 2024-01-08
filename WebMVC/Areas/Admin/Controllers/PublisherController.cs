@@ -1,9 +1,11 @@
-﻿using Core.DTO.Input.Publisher;
+﻿using AutoMapper;
+using Core.DTO.Input.Publisher;
 using Core.Services;
 using DataAccessLayer.Entity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.Areas.Admin.ViewModels.Publisher;
+using WebMVC.ViewModels;
 
 namespace WebMVC.Areas.Admin.Controllers;
 
@@ -12,15 +14,17 @@ namespace WebMVC.Areas.Admin.Controllers;
 public class PublisherController : Controller
 {
     private readonly PublisherService _publisherService;
+    private readonly IMapper _mapper;
 
-    public PublisherController(PublisherService publisherService)
+    public PublisherController(PublisherService publisherService, IMapper mapper)
     {
         _publisherService = publisherService;
+        _mapper = mapper;
     }
 
     public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
     {
-        return View(await _publisherService.GetAllPaginated(page, pageSize));
+        return View(_mapper.Map<PaginationViewModel<PublisherListViewModel>>(await _publisherService.GetAllPaginated(page, pageSize)));
     }
 
     public IActionResult Create()
@@ -37,7 +41,7 @@ public class PublisherController : Controller
             return NotFound();
         }
 
-        return View(publisher);
+        return View(_mapper.Map<PublisherEditViewModel>(publisher));
     }
 
     [HttpPost]
@@ -91,7 +95,7 @@ public class PublisherController : Controller
             catch (Exception e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(updated);
+                return View(_mapper.Map<PublisherEditViewModel>(updated));
             }
 
             return RedirectToAction(
@@ -100,7 +104,7 @@ public class PublisherController : Controller
             );
         }
 
-        return View(updated);
+        return View(_mapper.Map<PublisherEditViewModel>(updated));
     }
 
     [HttpPost]

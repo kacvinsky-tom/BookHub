@@ -1,4 +1,6 @@
-﻿namespace Core.DTO.Output.Author;
+﻿using Core.DTO.Output;
+
+namespace WebMVC.ViewModels;
 
 public class AuthorListViewModel : OutputDtoBase
 {

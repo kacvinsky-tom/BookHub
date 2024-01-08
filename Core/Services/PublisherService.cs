@@ -1,5 +1,7 @@
 ﻿using System.Linq.Expressions;
+using AutoMapper;
 using Core.DTO.Input.Publisher;
+using Core.DTO.Output;
 using Core.Exception;
 using Core.Helpers;
 using DataAccessLayer;
@@ -11,10 +13,12 @@ namespace Core.Services;
 public class PublisherService
 {
     private readonly UnitOfWork _unitOfWork;
+    private readonly IMapper _mapper;
 
-    public PublisherService(UnitOfWork unitOfWork)
+    public PublisherService(UnitOfWork unitOfWork, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
+        _mapper = mapper;
     }
 
     public async Task<IEnumerable<Publisher>> GetAll(
@@ -100,5 +104,18 @@ public class PublisherService
         _unitOfWork.Publishers.Remove(publisher);
 
         await _unitOfWork.Complete();
+    }
+    
+    public async Task<IEnumerable<SimpleListDto>> GetSimpleList()
+    {
+        var ordering = new Ordering<Publisher>
+        {
+            Expression = g => g.Name,
+            Reverse = false
+        };
+
+        var publishersList = await _unitOfWork.Publishers.GetSimpleList(order: new[] { ordering });
+
+        return _mapper.Map<IEnumerable<SimpleListDto>>(publishersList);
     }
 }

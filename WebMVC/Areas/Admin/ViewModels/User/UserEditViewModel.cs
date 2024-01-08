@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Core.DTO.Output;
 
 namespace WebMVC.Areas.Admin.ViewModels.User;
 
@@ -32,4 +33,6 @@ public class UserEditViewModel
 
     [Required]
     public string Role { get; set; } = "User";
+    
+    public List<SimpleListDto> AvailableRoles { get; set; } = new List<SimpleListDto>();
 }
