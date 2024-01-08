@@ -4,7 +4,6 @@ using Core.DTO.Output.Author;
 using Core.Exception;
 using Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using WebAPI.Extensions;
 
 namespace WebAPI.Controllers;
@@ -15,28 +14,19 @@ public class AuthorController : ControllerBase
 {
     private readonly AuthorService _authorService;
     private readonly IMapper _mapper;
-    private readonly IMemoryCache _memoryCache;
 
-    public AuthorController(AuthorService authorService, IMapper mapper, IMemoryCache memoryCache)
+    public AuthorController(AuthorService authorService, IMapper mapper)
     {
         _authorService = authorService;
         _mapper = mapper;
-        _memoryCache = memoryCache;
     }
 
     [HttpGet]
     public async Task<IActionResult> Fetch()
     {
-        if (_memoryCache.TryGetValue("authors", out var cachedAuthors))
-        {
-            return Ok(cachedAuthors);
-        }
-
         var authors = await _authorService.GetAll();
 
         var authorListDto = _mapper.Map<AuthorListOutputDto>(authors);
-
-        _memoryCache.Set("authors", authorListDto);
 
         return Ok(authorListDto);
     }
@@ -59,8 +49,6 @@ public class AuthorController : ControllerBase
     {
         var author = await _authorService.Create(authorInputDto);
 
-        _memoryCache.Remove("authors");
-
         return Ok(_mapper.Map<AuthorDetailOutputDto>(author));
     }
 
@@ -70,8 +58,6 @@ public class AuthorController : ControllerBase
         try
         {
             var author = await _authorService.Update(authorInputDto, id);
-
-            _memoryCache.Remove("authors");
 
             return Ok(_mapper.Map<AuthorDetailOutputDto>(author));
         }
@@ -87,8 +73,6 @@ public class AuthorController : ControllerBase
         try
         {
             await _authorService.Delete(id);
-
-            _memoryCache.Remove("authors");
 
             return NoContent();
         }

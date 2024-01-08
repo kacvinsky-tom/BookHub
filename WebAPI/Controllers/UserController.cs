@@ -15,13 +15,11 @@ public class UserController : ControllerBase
 {
     private readonly UserService _userService;
     private readonly IMapper _mapper;
-    private readonly IMemoryCache _memoryCache;
 
-    public UserController(UserService userService, IMapper mapper, IMemoryCache memoryCache)
+    public UserController(UserService userService, IMapper mapper)
     {
         _userService = userService;
         _mapper = mapper;
-        _memoryCache = memoryCache;
     }
 
     [HttpGet]
@@ -35,11 +33,6 @@ public class UserController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
-        if (_memoryCache.TryGetValue("user-" + id, out var cachedUser))
-        {
-            return Ok(cachedUser);
-        }
-
         var user = await _userService.GetById(id);
 
         if (user == null)
@@ -48,8 +41,6 @@ public class UserController : ControllerBase
         }
 
         var userDetailDto = _mapper.Map<UserDetailOutputDto>(user);
-
-        _memoryCache.Set("user-" + id, userDetailDto);
 
         return Ok(userDetailDto);
     }
@@ -71,8 +62,6 @@ public class UserController : ControllerBase
 
             var userDetailDto = _mapper.Map<UserDetailOutputDto>(user);
 
-            _memoryCache.Set("user-" + id, userDetailDto);
-
             return Ok(userDetailDto);
         }
         catch (NotFoundException e)
@@ -87,8 +76,6 @@ public class UserController : ControllerBase
         try
         {
             await _userService.Delete(id);
-
-            _memoryCache.Remove("user-" + id);
 
             return Ok();
         }

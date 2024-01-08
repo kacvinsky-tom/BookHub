@@ -4,7 +4,6 @@ using Core.DTO.Output.Review;
 using Core.Exception;
 using Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using WebAPI.Extensions;
 
 namespace WebAPI.Controllers;
@@ -15,13 +14,11 @@ public class ReviewController : ControllerBase
 {
     private readonly ReviewService _reviewService;
     private readonly IMapper _mapper;
-    private readonly IMemoryCache _memoryCache;
 
-    public ReviewController(ReviewService reviewService, IMapper mapper, IMemoryCache memoryCache)
+    public ReviewController(ReviewService reviewService, IMapper mapper)
     {
         _reviewService = reviewService;
         _mapper = mapper;
-        _memoryCache = memoryCache;
     }
 
     [HttpGet]
@@ -35,11 +32,6 @@ public class ReviewController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Fetch(int id)
     {
-        if (_memoryCache.TryGetValue("review-" + id, out var cachedReview))
-        {
-            return Ok(cachedReview);
-        }
-
         var review = await _reviewService.GetById(id);
 
         if (review == null)
@@ -48,8 +40,6 @@ public class ReviewController : ControllerBase
         }
 
         var reviewDetailDto = _mapper.Map<ReviewDetailOutputDto>(review);
-
-        _memoryCache.Set("review-" + id, reviewDetailDto);
 
         return Ok(reviewDetailDto);
     }
@@ -78,8 +68,6 @@ public class ReviewController : ControllerBase
 
             var reviewDetailDto = _mapper.Map<ReviewDetailOutputDto>(review);
 
-            _memoryCache.Set("review-" + id, reviewDetailDto);
-
             return Ok(reviewDetailDto);
         }
         catch (NotFoundException e)
@@ -94,9 +82,7 @@ public class ReviewController : ControllerBase
         try
         {
             await _reviewService.Delete(id);
-
-            _memoryCache.Remove("review-" + id);
-
+            
             return Ok();
         }
         catch (NotFoundException e)

@@ -10,6 +10,7 @@ using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Filter;
 using DataAccessLayer.Helpers;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Core.Services;
 
@@ -17,11 +18,13 @@ public class AuthorService
 {
     private readonly UnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly IMemoryCache _memoryCache;
 
-    public AuthorService(UnitOfWork unitOfWork, IMapper mapper)
+    public AuthorService(UnitOfWork unitOfWork, IMapper mapper, IMemoryCache memoryCache)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _memoryCache = memoryCache;
     }
 
     public async Task<IEnumerable<Author>> GetAll(
@@ -53,7 +56,19 @@ public class AuthorService
 
     public async Task<Author?> GetById(int id)
     {
-        return await _unitOfWork.Authors.GetByIdWithRelations(id);
+        if (_memoryCache.TryGetValue("author-" + id, out Author? cachedAuthor))
+        {
+            return cachedAuthor;
+        }
+        
+        var author = await _unitOfWork.Authors.GetByIdWithRelations(id);
+
+        if (author != null)
+        {
+            _memoryCache.Set("author-" + id, author);
+        }
+        
+        return author;
     }
 
     public async Task<PaginatedResult<AuthorListOutputDto>> Search(
@@ -105,7 +120,9 @@ public class AuthorService
         author.LastName = authorInputDto.LastName;
 
         await _unitOfWork.Complete();
-
+        
+        _memoryCache.Set("author-" + authorId, author);
+        
         return author;
     }
 
@@ -121,5 +138,7 @@ public class AuthorService
         _unitOfWork.Authors.Remove(author);
 
         await _unitOfWork.Complete();
+        
+        _memoryCache.Remove("author-" + authorId);
     }
 }

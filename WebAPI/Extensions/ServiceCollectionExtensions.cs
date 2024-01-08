@@ -41,11 +41,5 @@ public static class ServiceCollectionExtensions
         });
     }
 
-    public static void AddMemoryCacheWithConfiguration(this IServiceCollection services)
-    {
-        services.AddMemoryCache(options =>
-        {
-            options.ExpirationScanFrequency = TimeSpan.FromSeconds(5);
-        });
-    }
+
 }
