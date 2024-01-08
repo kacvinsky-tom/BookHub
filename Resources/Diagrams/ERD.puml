@@ -36,6 +36,18 @@ entity Genre {
     updated_at
 }
 
+entity BookGenre {
+    *book_id
+    *genre_id
+    --
+    *is_primary
+}
+
+entity BookAuthor {
+    *book_id
+    *author_id
+}
+
 entity Author {
     *id
     --
@@ -138,6 +150,10 @@ User ||--o{ Review
 Book ||--o{ Review
 User ||--o{ WishList
 WishList ||--o{ WishListItem
+BookGenre }|--|| Book
+BookGenre }|--|| Genre
+BookAuthor }|--|| Book
+BookAuthor }|--|| Author
 Book ||--o{ WishListItem
 Book ||--o{ OrderItem
 Author }|--o{ Book

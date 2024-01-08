@@ -1,10 +1,10 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Core.DTO.Input.User;
+using Core.DTO.Output.Order;
 using Core.DTO.Output.User;
 using Core.Exception;
 using Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using WebAPI.Extensions;
 
 namespace WebAPI.Controllers;
@@ -15,11 +15,17 @@ public class UserController : ControllerBase
 {
     private readonly UserService _userService;
     private readonly IMapper _mapper;
+    private readonly OrderService _orderService;
 
-    public UserController(UserService userService, IMapper mapper)
+    public UserController(
+        UserService userService,
+        IMapper mapper,
+        OrderService orderService
+    )
     {
         _userService = userService;
         _mapper = mapper;
+        _orderService = orderService;
     }
 
     [HttpGet]
@@ -83,5 +89,13 @@ public class UserController : ControllerBase
         {
             return NotFound(e.GetApiMessage());
         }
+    }
+
+    [HttpGet("{id:int}/orders")]
+    public async Task<IActionResult> FetchOrders(int id)
+    {
+        var orders = await _orderService.GetAllByUserId(id);
+
+        return Ok(orders.Select(_mapper.Map<OrderListOutputDto>));
     }
 }
