@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Core.DTO.Output;
 
 namespace WebMVC.Areas.Admin.ViewModels.Book;
 
@@ -50,4 +51,10 @@ public class BookUpdateViewModel
     [Required]
     [Display(Name = "Primary genre")]
     public int PrimaryGenreId { get; set; }
+
+    public IEnumerable<SimpleListDto> Genres { get; set; } = new List<SimpleListDto>();
+
+    public IEnumerable<SimpleListDto> Authors { get; set; } = new List<SimpleListDto>();
+
+    public IEnumerable<SimpleListDto> Publishers { get; set; } = new List<SimpleListDto>();
 }

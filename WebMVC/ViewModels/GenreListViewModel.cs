@@ -1,4 +1,6 @@
-﻿namespace Core.DTO.Output.Genre;
+﻿using Core.DTO.Output;
+
+namespace WebMVC.ViewModels;
 
 public class GenreListViewModel : OutputDtoBase
 {

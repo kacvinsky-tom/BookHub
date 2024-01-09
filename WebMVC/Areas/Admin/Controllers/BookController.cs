@@ -1,8 +1,11 @@
-﻿using Core.DTO.Input.Book;
+﻿using AutoMapper;
+using Core.DTO.Input.Book;
 using Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.Areas.Admin.ViewModels.Book;
+using WebMVC.ViewModels;
+using BookListViewModel = WebMVC.Areas.Admin.ViewModels.Book.BookListViewModel;
 
 namespace WebMVC.Areas.Admin.Controllers;
 
@@ -11,15 +14,33 @@ namespace WebMVC.Areas.Admin.Controllers;
 public class BookController : Controller
 {
     private readonly BookService _bookService;
+    private readonly GenreService _genreService;
+    private readonly PublisherService _publisherService;
+    private readonly AuthorService _authorService;
+    private readonly IMapper _mapper;
 
-    public BookController(BookService bookService)
+    public BookController(
+        BookService bookService,
+        GenreService genreService,
+        PublisherService publisherService,
+        AuthorService authorService,
+        IMapper mapper
+    )
     {
         _bookService = bookService;
+        _genreService = genreService;
+        _publisherService = publisherService;
+        _authorService = authorService;
+        _mapper = mapper;
     }
 
     public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
     {
-        return View(await _bookService.GetAllPaginated(page, pageSize));
+        return View(
+            _mapper.Map<PaginationViewModel<BookListViewModel>>(
+                await _bookService.GetAllPaginated(page, pageSize)
+            )
+        );
     }
 
     public IActionResult Create()
@@ -47,7 +68,7 @@ public class BookController : Controller
                         ReleaseYear = model.ReleaseYear,
                         AuthorIds = model.AuthorIds,
                         GenreIds = model.GenreIds,
-                        PrimaryGenreId = model.PrimaryGenreId
+                        PrimaryGenreId = model.PrimaryGenreId,
                     }
                 );
             }
@@ -89,6 +110,9 @@ public class BookController : Controller
                 AuthorIds = book.Authors.Select(a => a.Id).ToList(),
                 GenreIds = book.Genres.Select(g => g.Id).ToList(),
                 PrimaryGenreId = book.BookGenres.First(bg => bg.IsPrimary).Genre.Id,
+                Genres = await _genreService.GetSimpleList(),
+                Authors = await _authorService.GetSimpleList(),
+                Publishers = await _publisherService.GetSimpleList(),
             }
         );
     }

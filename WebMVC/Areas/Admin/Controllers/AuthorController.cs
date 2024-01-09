@@ -1,9 +1,12 @@
-﻿using Core.DTO.Input.Author;
+﻿using AutoMapper;
+using Core.DTO.Input.Author;
+using Core.DTO.Output.Author;
 using Core.Services;
 using DataAccessLayer.Entity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.Areas.Admin.ViewModels.Author;
+using WebMVC.ViewModels;
 
 namespace WebMVC.Areas.Admin.Controllers;
 
@@ -12,15 +15,21 @@ namespace WebMVC.Areas.Admin.Controllers;
 public class AuthorController : Controller
 {
     private readonly AuthorService _authorService;
+    private readonly IMapper _mapper;
 
-    public AuthorController(AuthorService authorService)
+    public AuthorController(AuthorService authorService, IMapper mapper)
     {
         _authorService = authorService;
+        _mapper = mapper;
     }
 
     public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
     {
-        return View(await _authorService.GetAllPaginated(page, pageSize));
+        return View(
+            _mapper.Map<PaginationViewModel<AuthorListViewModel>>(
+                await _authorService.GetAllPaginated(page, pageSize)
+            )
+        );
     }
 
     public IActionResult Create()
@@ -63,7 +72,7 @@ public class AuthorController : Controller
             return NotFound();
         }
 
-        return View(author);
+        return View(_mapper.Map<AuthorEditViewModel>(author));
     }
 
     [HttpPost]
@@ -85,7 +94,7 @@ public class AuthorController : Controller
             catch (Exception e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(updated);
+                return View(_mapper.Map<AuthorEditViewModel>(updated));
             }
 
             return RedirectToAction(
@@ -94,7 +103,7 @@ public class AuthorController : Controller
             );
         }
 
-        return View(updated);
+        return View(_mapper.Map<AuthorEditViewModel>(updated));
     }
 
     [HttpPost]

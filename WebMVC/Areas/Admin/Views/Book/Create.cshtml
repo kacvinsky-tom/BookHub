@@ -1,6 +1,4 @@
-﻿@using Core.Helpers
-@using Core.Services
-@using DataAccessLayer.Entity
+﻿@using Core.Services
 @model WebMVC.Areas.Admin.ViewModels.Book.BookCreateViewModel
 @inject PublisherService PublisherService
 @inject AuthorService AuthorService
@@ -9,9 +7,9 @@
 @{
     ViewBag.Title = "Create book";
     Layout = "_Layout";
-    var genreList = (await GenreService.GetAll(new []{new Ordering<Genre>{Expression = g => g.Name}})).Select(g => new SelectListItem(g.Name, g.Id.ToString())).ToList();
-    var authorList = (await AuthorService.GetAll(new []{new Ordering<Author>{Expression = a => a.LastName}, new Ordering<Author>(){Expression = a => a.FirstName}})).Select(a => new SelectListItem($"{a.FirstName} {a.LastName}", a.Id.ToString()));
-    var publisherList = (await PublisherService.GetAll(new []{new Ordering<Publisher>{Expression = p => p.Name}})).Select(p => new SelectListItem(p.Name, p.Id.ToString()));
+    var genreList = (await GenreService.GetSimpleList()).Select(g => new SelectListItem(g.Value, g.Id.ToString()));
+    var authorList = (await AuthorService.GetSimpleList()).Select(a => new SelectListItem(a.Value, a.Id.ToString()));
+    var publisherList = (await PublisherService.GetSimpleList()).Select(p => new SelectListItem(p.Value, p.Id.ToString()));
 }
 
 <div class="h-full w-full flex justify-center align-center">

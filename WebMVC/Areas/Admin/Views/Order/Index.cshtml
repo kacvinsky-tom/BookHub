@@ -1,6 +1,6 @@
 ﻿@using DataAccessLayer.Enum
 @using WebMVC.Areas.Admin.Views.Shared
-@model DataAccessLayer.Helpers.PaginationObject<DataAccessLayer.Entity.Order>
+@model WebMVC.ViewModels.PaginationViewModel<WebMVC.Areas.Admin.ViewModels.Order.OrderListViewModel>
 
 @{
     ViewBag.Title = "Order list";
@@ -36,10 +36,10 @@
                     </div>
                 </div>
                 <div class="text-neutral-300 text-sm">
-                    Created at: @order.CreatedAt by @order.User.FirstName @order.User.LastName
+                    Created at: @order.CreatedAt by @order.UserFullName
                 </div>
                 <div class="text-neutral-300 text-sm">
-                    Items @order.OrderItems.Count()
+                    Items @order.ItemsCount
                 </div>
                 <div class="text-neutral-300 text-sm">
                     Total @order.TotalPrice CZK

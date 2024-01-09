@@ -1,9 +1,11 @@
-﻿using Core.DTO.Input.Order;
+﻿using AutoMapper;
+using Core.DTO.Input.Order;
 using Core.DTO.Input.OrderItem;
 using Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.Areas.Admin.ViewModels.Order;
+using WebMVC.ViewModels;
 
 namespace WebMVC.Areas.Admin.Controllers;
 
@@ -12,15 +14,21 @@ namespace WebMVC.Areas.Admin.Controllers;
 public class OrderController : Controller
 {
     private readonly OrderService _orderService;
+    private readonly IMapper _mapper;
 
-    public OrderController(OrderService orderService)
+    public OrderController(OrderService orderService, IMapper mapper)
     {
         _orderService = orderService;
+        _mapper = mapper;
     }
 
     public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
     {
-        return View(await _orderService.GetAllPaginated(page, pageSize));
+        return View(
+            _mapper.Map<PaginationViewModel<OrderListViewModel>>(
+                await _orderService.GetAllPaginated(page, pageSize)
+            )
+        );
     }
 
     public IActionResult Create()

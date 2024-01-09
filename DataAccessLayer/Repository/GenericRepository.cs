@@ -89,7 +89,7 @@ public class GenericRepository<T> : IGenericRepository<T>
         return await PaginationObject(page, pageSize, query);
     }
 
-    private IOrderedQueryable<T> ApplyOrderingExpressions(
+    protected IOrderedQueryable<T> ApplyOrderingExpressions(
         IEnumerable<Ordering<T>> orderingExpressions,
         IQueryable<T> query
     )

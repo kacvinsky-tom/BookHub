@@ -1,8 +1,9 @@
-﻿using Core.DTO.Input.User;
+﻿using AutoMapper;
+using Core.DTO.Input.User;
+using Core.DTO.Output;
 using Core.Exception;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
-using DataAccessLayer.Helpers;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Core.Services;
@@ -10,12 +11,14 @@ namespace Core.Services;
 public class UserService
 {
     private readonly UnitOfWork _unitOfWork;
+    private readonly IMapper _mapper;
     private readonly IMemoryCache _memoryCache;
 
-    public UserService(UnitOfWork unitOfWork, IMemoryCache memoryCache)
+    public UserService(UnitOfWork unitOfWork, IMemoryCache memoryCache, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _memoryCache = memoryCache;
+        _mapper = mapper;
     }
 
     public async Task<IEnumerable<User>> GetAll()
@@ -99,5 +102,12 @@ public class UserService
         await _unitOfWork.Complete();
 
         _memoryCache.Remove("user-" + userId);
+    }
+
+    public async Task<IEnumerable<SimpleListDto>> GetSimpleList()
+    {
+        var usersList = await _unitOfWork.Users.GetSimpleList();
+
+        return _mapper.Map<IEnumerable<SimpleListDto>>(usersList);
     }
 }

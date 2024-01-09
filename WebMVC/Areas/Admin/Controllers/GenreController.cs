@@ -1,9 +1,11 @@
-﻿using Core.DTO.Input.Genre;
+﻿using AutoMapper;
+using Core.DTO.Input.Genre;
 using Core.Services;
 using DataAccessLayer.Entity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.Areas.Admin.ViewModels.Genre;
+using WebMVC.ViewModels;
 
 namespace WebMVC.Areas.Admin.Controllers;
 
@@ -12,15 +14,21 @@ namespace WebMVC.Areas.Admin.Controllers;
 public class GenreController : Controller
 {
     private readonly GenreService _genreService;
+    private readonly IMapper _mapper;
 
-    public GenreController(GenreService genreService)
+    public GenreController(GenreService genreService, IMapper mapper)
     {
         _genreService = genreService;
+        _mapper = mapper;
     }
 
     public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
     {
-        return View(await _genreService.GetAllPaginated(page, pageSize));
+        return View(
+            _mapper.Map<PaginationViewModel<GenreListViewModel>>(
+                await _genreService.GetAllPaginated(page, pageSize)
+            )
+        );
     }
 
     public IActionResult Create()
@@ -61,7 +69,7 @@ public class GenreController : Controller
             return NotFound();
         }
 
-        return View(genre);
+        return View(_mapper.Map<GenreEditViewModel>(genre));
     }
 
     [HttpPost]
@@ -71,12 +79,12 @@ public class GenreController : Controller
         {
             try
             {
-                await _genreService.Update(new GenreInputDto() { Name = updated.Name }, updated.Id);
+                await _genreService.Update(new GenreInputDto { Name = updated.Name }, updated.Id);
             }
             catch (Exception e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(updated);
+                return View(_mapper.Map<GenreEditViewModel>(updated));
             }
 
             return RedirectToAction(
@@ -85,7 +93,7 @@ public class GenreController : Controller
             );
         }
 
-        return View(updated);
+        return View(_mapper.Map<GenreEditViewModel>(updated));
     }
 
     [HttpPost]

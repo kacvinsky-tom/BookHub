@@ -1,4 +1,6 @@
-﻿using DataAccessLayer.Entity;
+﻿using Core.Helpers;
+using DataAccessLayer.DTO;
+using DataAccessLayer.Entity;
 using DataAccessLayer.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,5 +25,28 @@ public class UserRepository : GenericRepository<User>, IUserRepository
     public async Task<User?> GetByUsername(string username)
     {
         return await Context.Users.FirstOrDefaultAsync(u => u.Username == username);
+    }
+
+    public async Task<IEnumerable<SimpleListResult>> GetSimpleList(
+        IEnumerable<Ordering<User>>? order = null
+    )
+    {
+        var query = Context.Users.AsQueryable();
+
+        if (order != null)
+        {
+            query = ApplyOrderingExpressions(order, query);
+        }
+
+        return await query
+            .Select(
+                u =>
+                    new SimpleListResult
+                    {
+                        Id = u.Id.ToString(),
+                        Value = u.FirstName + " " + u.LastName + " (" + u.Username + ")"
+                    }
+            )
+            .ToListAsync();
     }
 }

@@ -141,4 +141,13 @@ public class AuthorService
 
         _memoryCache.Remove("author-" + authorId);
     }
+
+    public async Task<IEnumerable<SimpleListDto>> GetSimpleList()
+    {
+        var ordering = new Ordering<Author> { Expression = g => g.LastName, Reverse = false };
+
+        var authorsList = await _unitOfWork.Authors.GetSimpleList(order: new[] { ordering });
+
+        return _mapper.Map<IEnumerable<SimpleListDto>>(authorsList);
+    }
 }

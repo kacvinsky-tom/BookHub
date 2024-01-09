@@ -7,7 +7,7 @@
 @{
     ViewBag.Title = "Create order";
     Layout = "_Layout";
-    var users = (await UserService.GetAll()).ToList().Select(u => new SelectListItem(){Text = $"{u.FirstName} {u.LastName} ({u.Username})", Value = u.Id.ToString()});
+    var users = (await UserService.GetSimpleList()).ToList().Select(u => new SelectListItem(){Text = u.Value, Value = u.Id.ToString()});
     var orderStatuses = Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>().Select(s => new SelectListItem(){Text = s.ToString(), Value = s.ToString()});
 }
 

@@ -1,5 +1,5 @@
 ﻿@using WebMVC.Areas.Admin.Views.Shared
-@model DataAccessLayer.Helpers.PaginationObject<DataAccessLayer.Entity.LocalIdentityUser>
+@model WebMVC.ViewModels.PaginationViewModel<WebMVC.Areas.Admin.ViewModels.User.UserListViewModel> 
 
 @{
     ViewBag.Title = "User list";
@@ -17,7 +17,7 @@
         <div class="bg-indigo-900 rounded-xl shadow-lg flex justify-between items-center py-2 px-4">
             <div>
                 <div class="text-white font-semibold text-lg">
-                    @user.User.FirstName @user.User.LastName
+                    @user.Name
                 </div>
                 <div class="text-neutral-300 text-sm">
                     @user.Email, @user.PhoneNumber
