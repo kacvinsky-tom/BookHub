@@ -125,20 +125,10 @@ public class BookService
             );
         }
 
-        var book = new Book
-        {
-            Title = bookCreateCreateInputDto.Title,
-            ISBN = bookCreateCreateInputDto.ISBN,
-            Description = bookCreateCreateInputDto.Description,
-            Image = bookCreateCreateInputDto.Image,
-            Price = bookCreateCreateInputDto.Price,
-            Quantity = bookCreateCreateInputDto.Quantity,
-            PublisherId = bookCreateCreateInputDto.PublisherId,
-            ReleaseYear = bookCreateCreateInputDto.ReleaseYear,
-            IsDeleted = false,
-            Authors = authors,
-            Genres = genres,
-        };
+        var book = _mapper.Map<Book>(bookCreateCreateInputDto);
+        
+        book.Authors = authors;
+        book.Genres = genres;
 
         await _unitOfWork.Books.Add(book);
 
