@@ -27,7 +27,7 @@ public class GenreController : ControllerBase
     {
         var genres = await _genreService.GetAll();
 
-        var genresListDto = _mapper.Map<BookGenreListOutputDto>(genres);
+        var genresListDto = genres.Select(_mapper.Map<BookGenreListOutputDto>);
 
         return Ok(genresListDto);
     }
