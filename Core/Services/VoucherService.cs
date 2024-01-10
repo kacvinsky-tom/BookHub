@@ -1,4 +1,5 @@
-﻿using Core.DTO.Input.Voucher;
+﻿using AutoMapper;
+using Core.DTO.Input.Voucher;
 using Core.Exception;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
@@ -8,10 +9,12 @@ namespace Core.Services;
 public class VoucherService
 {
     private readonly UnitOfWork _unitOfWork;
+    private readonly IMapper _mapper;
 
-    public VoucherService(UnitOfWork unitOfWork)
+    public VoucherService(UnitOfWork unitOfWork, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
+        _mapper = mapper;
     }
 
     public async Task<IEnumerable<Voucher>> GetAll()
@@ -26,14 +29,7 @@ public class VoucherService
 
     public async Task<Voucher> Create(VoucherInputDto voucherInputDto)
     {
-        var voucher = new Voucher
-        {
-            Code = voucherInputDto.Code,
-            Discount = voucherInputDto.Discount,
-            ExpirationDate = voucherInputDto.ExpirationDate,
-            Quantity = voucherInputDto.Quantity,
-            Type = voucherInputDto.Type,
-        };
+        var voucher = _mapper.Map<Voucher>(voucherInputDto);
 
         await _unitOfWork.Vouchers.Add(voucher);
 

@@ -1,4 +1,5 @@
-﻿using Core.DTO.Input.Review;
+﻿using AutoMapper;
+using Core.DTO.Input.Review;
 using Core.Exception;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
@@ -10,11 +11,13 @@ public class ReviewService
 {
     private readonly UnitOfWork _unitOfWork;
     private readonly IMemoryCache _memoryCache;
+    private readonly IMapper _mapper;
 
-    public ReviewService(UnitOfWork unitOfWork, IMemoryCache memoryCache)
+    public ReviewService(UnitOfWork unitOfWork, IMemoryCache memoryCache, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _memoryCache = memoryCache;
+        _mapper = mapper;
     }
 
     public async Task<IEnumerable<Review>> GetAll()
@@ -55,13 +58,10 @@ public class ReviewService
             throw new EntityNotFoundException<User>(reviewCreateInputDto.UserId);
         }
 
-        var review = new Review
-        {
-            Book = book,
-            User = user,
-            Rating = reviewCreateInputDto.Rating,
-            Comment = reviewCreateInputDto.Comment,
-        };
+        var review = _mapper.Map<Review>(reviewCreateInputDto);
+
+        review.Book = book;
+        review.User = user;
 
         await _unitOfWork.Reviews.Add(review);
 

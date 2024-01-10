@@ -94,11 +94,7 @@ public class AuthorService
 
     public async Task<Author> Create(AuthorInputDto authorInputDto)
     {
-        var author = new Author
-        {
-            FirstName = authorInputDto.FirstName,
-            LastName = authorInputDto.LastName,
-        };
+        var author = _mapper.Map<Author>(authorInputDto);
 
         await _unitOfWork.Authors.Add(author);
 

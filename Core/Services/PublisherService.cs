@@ -60,12 +60,7 @@ public class PublisherService
 
     public async Task<Publisher> Create(PublisherInputDto publisherCreateInput)
     {
-        var publisher = new Publisher
-        {
-            Name = publisherCreateInput.Name,
-            Email = publisherCreateInput.Email,
-            State = publisherCreateInput.State
-        };
+        var publisher = _mapper.Map<Publisher>(publisherCreateInput);
 
         await _unitOfWork.Publishers.Add(publisher);
 
@@ -82,10 +77,7 @@ public class PublisherService
         {
             throw new EntityNotFoundException<Publisher>(publisherId);
         }
-
-        publisher.Name = publisherUpdateInput.Name;
-        publisher.State = publisherUpdateInput.State;
-        publisher.Email = publisherUpdateInput.Email;
+        publisher = _mapper.Map(publisherUpdateInput, publisher);
 
         await _unitOfWork.Complete();
 

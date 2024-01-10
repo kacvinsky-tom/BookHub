@@ -1,4 +1,5 @@
-﻿using Core.DTO.Input.LocalIdentityUser;
+﻿using AutoMapper;
+using Core.DTO.Input.LocalIdentityUser;
 using Core.DTO.Input.User;
 using Core.Exception;
 using Core.Helpers;
@@ -15,18 +16,21 @@ public class LocalIdentityUserService
     private readonly UserService _userService;
     private readonly UserManager<LocalIdentityUser> _userManager;
     private readonly SignInManager<LocalIdentityUser> _signInManager;
+    private readonly IMapper _mapper;
 
     public LocalIdentityUserService(
         UserService userService,
         UserManager<LocalIdentityUser> userManager,
         SignInManager<LocalIdentityUser> signInManager,
-        UnitOfWork unitOfWork
+        UnitOfWork unitOfWork,
+        IMapper mapper
     )
     {
         _userService = userService;
         _userManager = userManager;
         _signInManager = signInManager;
         _unitOfWork = unitOfWork;
+        _mapper = mapper;
     }
 
     public async Task<IdentityResult> Create(
@@ -34,23 +38,12 @@ public class LocalIdentityUserService
         bool logIn = false
     )
     {
-        var user = await _userService.Create(
-            new UserInputDto()
-            {
-                Email = localIdentityUserInputDto.Email,
-                Username = localIdentityUserInputDto.Username,
-                FirstName = localIdentityUserInputDto.FirstName,
-                LastName = localIdentityUserInputDto.LastName,
-                PhoneNumber = localIdentityUserInputDto.PhoneNumber
-            }
-        );
+        var userInputDto = _mapper.Map<UserInputDto>(localIdentityUserInputDto);
 
-        var identityUser = new LocalIdentityUser
-        {
-            UserName = localIdentityUserInputDto.Username,
-            Email = localIdentityUserInputDto.Email,
-            User = user
-        };
+        var user = await _userService.Create(userInputDto);
+
+        var identityUser = _mapper.Map<LocalIdentityUser>(localIdentityUserInputDto);
+        identityUser.User = user;
 
         var result = await _userManager.CreateAsync(
             identityUser,
