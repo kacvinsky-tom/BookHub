@@ -57,9 +57,9 @@ public class ReviewService
         {
             throw new EntityNotFoundException<User>(reviewCreateInputDto.UserId);
         }
-        
+
         var review = _mapper.Map<Review>(reviewCreateInputDto);
-        
+
         review.Book = book;
         review.User = user;
 

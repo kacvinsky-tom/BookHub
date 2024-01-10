@@ -126,7 +126,7 @@ public class BookService
         }
 
         var book = _mapper.Map<Book>(bookCreateCreateInputDto);
-        
+
         book.Authors = authors;
         book.Genres = genres;
 

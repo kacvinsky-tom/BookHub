@@ -17,6 +17,7 @@ public class LocalIdentityUserService
     private readonly UserManager<LocalIdentityUser> _userManager;
     private readonly SignInManager<LocalIdentityUser> _signInManager;
     private readonly IMapper _mapper;
+
     public LocalIdentityUserService(
         UserService userService,
         UserManager<LocalIdentityUser> userManager,
@@ -38,10 +39,8 @@ public class LocalIdentityUserService
     )
     {
         var userInputDto = _mapper.Map<UserInputDto>(localIdentityUserInputDto);
-        
-        var user = await _userService.Create(
-            userInputDto
-        );
+
+        var user = await _userService.Create(userInputDto);
 
         var identityUser = _mapper.Map<LocalIdentityUser>(localIdentityUserInputDto);
         identityUser.User = user;
