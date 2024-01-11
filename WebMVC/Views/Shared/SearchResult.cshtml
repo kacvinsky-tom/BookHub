@@ -40,34 +40,46 @@
     }
 </div>
 
-<div class="section books">
+<div class="flex flex-col gap-4">
     @if (Model.Books.Any())
     {
-        <h2>Books:</h2>
-        <div class="matrix">
+        <h2 class="font-bold text-xl">Books</h2>
+        <div class="grid gap-2 lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-1">
             @foreach (var book in Model.Books)
             {
-                <a href="/Shop/Book/Detail/@book.Id">
-                    <div class="item">
-                                        <h3>@book.Title</h3>
-                                        <p>@book.Price</p>
-                                        @foreach (var author in book.Authors)
-                                        {
-                                            <p>@author.LastName @author.FirstName</p>
-                                        }
-                                        <p>@book.ReleaseYear</p>
-                                    </div>
+                <a href="/Shop/Book/Detail/@book.Id"  class="card border border-primary shadow-lg bg-base-200 hover:bg-base-300 transition-colors duration-300">
+                        <div class="card-body">
+                            <h3 class="font-bold text-lg">@book.Title</h3>
+                            <div class="text-sm text-neutral-400 flex flex-col gap-1">
+                                <span class="font-bold">Authors</span>
+                                @foreach (var author in book.Authors)
+                                {
+                                    <p>@author.LastName @author.FirstName</p>
+                                }
+                            </div>
+                            <p>Release: @book.ReleaseYear</p>
+                            <p class="text-red-600 font-bold">@book.Price CZK</p>
+                        </div>
                 </a>
             }
         </div>
-        <!-- Pagination -->
-        <div class="pagination">
-            @for (var i = 1; i <= Model.TotalPages; i++)
-            {   
+        <div class="join">
+            @if (Model.CurrentPage > 1)
+            {
+                <a asp-action="GlobalSearch" asp-route-page="@(Model.CurrentPage-1)" asp-route-query="@Model.Query" class="join-item btn"><i class="bi bi-chevron-left"></i></a>
+            }
+            @for (int i = Math.Max(1, Model.CurrentPage - 3); i <= Math.Min(Model.TotalPages, Model.CurrentPage + 3); i++)
+            {
                 <a asp-action="GlobalSearch"
                    asp-route-page="@i"
                    asp-route-query="@Model.Query"
-                   class="@(i == Model.CurrentPage ? "active" : "")">@($" {i}, ")</a>
+                   class="join-item btn @((i == Model.CurrentPage) ? "btn-primary" : "")">
+                    @i
+                </a>
+            }
+            @if (Model.CurrentPage < Model.TotalPages)
+            {
+                <a asp-action="GlobalSearch" asp-route-page="@(Model.CurrentPage+1)" asp-route-query="@Model.Query" class="join-item btn"><i class="bi bi-chevron-right"></i></a>
             }
         </div>
     }
