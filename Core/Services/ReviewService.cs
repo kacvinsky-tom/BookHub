@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Core.DTO.Input.Review;
 using Core.Exception;
 using DataAccessLayer;
@@ -62,6 +62,7 @@ public class ReviewService
 
         review.Book = book;
         review.User = user;
+        review.CreatedAt = DateTime.Now;
 
         await _unitOfWork.Reviews.Add(review);
 

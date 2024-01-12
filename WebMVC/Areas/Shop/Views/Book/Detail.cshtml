@@ -9,13 +9,91 @@
     <h2 class="text-2xl font-bold text-white">@Model.Title</h2>
 </div>
 
-<div>
-    <ul>
-        <li>ISBN: @Model.ISBN</li>
-        <li>Description: @Model.Description</li>
-        <li>Price: @Model.Price</li>
-        <li>Release year: @Model.ReleaseYear</li>
-    </ul>
-    
-    <a href="/Shop/Cart/Add/@Model.Id"><button class="btn btn-secondary">Add to cart</button></a>
+<div class="flex flex-col gap-4">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        @if (Model.Image != null)
+        {
+            <img src="@Model.Image" alt="Image of @Model.Title">
+        }
+        else
+        {
+            <div class="card shadow-xl w-full h-96 bg-base-200">
+                <div class="card-body w-hull h-full flex justify-center items-center font-bold text-xl">
+                    No image for this book
+                </div>
+            </div>
+        }
+        <div class="flex flex-col gap-4 lg:col-span-2">
+            <div class="flex flex-col">
+                <span class="font-bold text-lg">Description</span>
+                <span>@Model.Description</span>
+            </div>
+            <div>
+                Released in <span class="font-bold">@Model.ReleaseYear</span> 
+            </div>
+            <div class="flex flex-col gap-2">
+                <span class="text-lg font-bold text-red-600">
+                    @Model.Price CZK
+                </span>
+                <div class="flex">
+                    <a href="/Shop/Cart/Add/@Model.Id" class="btn btn-sm btn-success"><i class="bi bi-cart"></i> Add to cart</a>
+                </div>
+                
+            </div>
+            <div class="text-sm text-neutral-400">
+                ISBN @Model.ISBN
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-col gap-2">
+        <span class="text-lg font-bold">
+            Write a review
+        </span>
+        @await Html.PartialAsync("_AddReview", new WebMVC.Areas.Shop.ViewModel.Review.ReviewCreateViewModel { BookId = Model.Id })
+    </div>
+    <div class="flex flex-col gap-2">
+        <span class="text-xl font-bold">
+            Reviews from others
+        </span>
+        @if (Model.Reviews.Count == 0)
+        {
+            <div class="card shadow-xl w-full h-32 bg-base-200">
+                <div class="card-body w-hull h-full flex justify-center items-center font-bold text-xl">
+                    No reviews for this book, be the first one!
+                </div>
+            </div>
+        }
+        else
+        {
+            @foreach (var review in Model.Reviews)
+            {
+                <div class="card shadow-xl bg-base-200">
+                    <div class="card-body">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">@review.UserFirstName @review.UserLastName</span>
+                            <div class="flex items-center gap-2">
+                                <span class="text-sm text-neutral-400">@review.CreatedAt</span>
+                                @if (User.IsInRole("Admin") || review.UserUsername == User.Identity?.Name)
+                                {
+                                    <form action="/Shop/Book/DeleteReview/@review.Id" method="post">
+                                        <button onclick="confirm('Do you really want to delete this review?')" class="btn btn-sm btn-outline btn-error"><i class="bi bi-trash"></i></button>
+                                    </form>
+                                }
+                            </div>
+                            
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <div class="rating">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <input type="radio" name="rating-@review.Id" class="mask mask-star bg-amber-400" @(review.Rating == i ? "checked" : "") disabled/>
+                                }
+                            </div>
+                            <span>@review.Comment</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
 </div>

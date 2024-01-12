@@ -1,6 +1,6 @@
 ﻿@model WebMVC.ViewModels.SearchViewInputModel
 
-<form asp-action="GlobalSearch" asp-controller="Shared" method="get">
-    <input type="text" name="query" placeholder="Search..." />
-    <button type="submit">Search</button>
+<form asp-action="GlobalSearch" asp-controller="Shared" method="get" class="join">
+    <input type="text" name="query" class="input input-primary input-bordered rounded-full join-item" placeholder="Search..." />
+    <button type="submit" class="btn btn-primary btn-outline join-item rounded-r-full"><i class="bi bi-search"></i></button>
 </form>

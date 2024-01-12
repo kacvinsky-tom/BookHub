@@ -84,8 +84,13 @@
                 var user = await UserManager
                     .Users
                     .Include(u => u.User)
+                    .ThenInclude(u => u.CartItems)
                     .FirstAsync(u => u.Id == UserManager.GetUserId(User));
-                <div class="flex items-stretch">
+                <div class="flex items-center gap-4">
+                    <a asp-area="Shop" asp-controller="Cart" asp-action="Index" class="btn btn-ghost">
+                        <i class="bi bi-cart"></i>
+                        <div class="badge badge-primary">@user.User.CartItems.Count()</div>
+                    </a>
                     <div class="dropdown dropdown-end">
                         <label tabindex="0" class="btn btn-ghost rounded-btn">
                             @user.User?.FirstName @user.User?.LastName <i class="bi bi-chevron-down"></i>
@@ -110,7 +115,7 @@
                     <a class="btn btn-ghost" asp-area="" asp-controller="Account" asp-action="Register">Sign up</a>
                     <a class="btn btn-primary" asp-area="" asp-controller="Account" asp-action="Login">Log in</a>
                 </div>
-                
+
             }
 
         </div>
