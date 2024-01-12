@@ -50,14 +50,7 @@ public class UserService
 
     public async Task<User> Create(UserInputDto userInputDto)
     {
-        var user = new User
-        {
-            Username = userInputDto.Username,
-            Email = userInputDto.Email,
-            FirstName = userInputDto.FirstName,
-            LastName = userInputDto.LastName,
-            PhoneNumber = userInputDto.PhoneNumber,
-        };
+        var user = _mapper.Map<User>(userInputDto);
 
         await _unitOfWork.Users.Add(user);
 

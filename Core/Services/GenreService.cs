@@ -94,7 +94,7 @@ public class GenreService
 
     public async Task<Genre> Create(GenreInputDto genreInputDto)
     {
-        var genre = new Genre { Name = genreInputDto.Name, };
+        var genre = _mapper.Map<Genre>(genreInputDto);
 
         await _unitOfWork.Genres.Add(genre);
         await _unitOfWork.Complete();
