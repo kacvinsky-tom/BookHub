@@ -1,4 +1,4 @@
-﻿using DataAccessLayer.Entity;
+﻿using WebMVC.Areas.Shop.ViewModel.Review;
 
 namespace WebMVC.Areas.Shop.ViewModel.Book;
 
@@ -18,5 +18,5 @@ public class BookDetailViewModel
 
     public int ReleaseYear { get; set; }
 
-    public List<Review> Reviews { get; set; } = new();
+    public List<ReviewDetailViewModel> Reviews { get; set; } = new();
 }

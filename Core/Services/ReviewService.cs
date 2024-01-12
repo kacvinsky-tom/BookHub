@@ -61,6 +61,7 @@ public class ReviewService
             User = user,
             Rating = reviewCreateInputDto.Rating,
             Comment = reviewCreateInputDto.Comment,
+            CreatedAt = DateTime.Now
         };
 
         await _unitOfWork.Reviews.Add(review);

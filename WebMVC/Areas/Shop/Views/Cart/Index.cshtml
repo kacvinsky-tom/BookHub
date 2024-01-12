@@ -10,15 +10,15 @@
 
     @foreach (var item in Model)
     {
-        <div class="card">
+        <div class="card bg-base-200">
             <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
+                <div class="flex justify-between items-center">
+                    <div>
                         <h5 class="card-title">@item.BookTitle</h5>
                         <p class="card-text">Quantity: @item.Quantity</p>
                     </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-danger">Remove</button>
+                    <div>
+                        <button class="btn btn-error btn-sm btn-outline"><i class="bi bi-trash"></i></button>
                     </div>
                 </div>
             </div>

@@ -35,7 +35,10 @@
                 <span class="text-lg font-bold text-red-600">
                     @Model.Price CZK
                 </span>
-                <a href="/Shop/Cart/Add/@Model.Id"><button class="btn btn-sm btn-success"><i class="bi bi-cart"></i> Add to cart</button></a>
+                <div class="flex">
+                    <a href="/Shop/Cart/Add/@Model.Id" class="btn btn-sm btn-success"><i class="bi bi-cart"></i> Add to cart</a>
+                </div>
+                
             </div>
             <div class="text-sm text-neutral-400">
                 ISBN @Model.ISBN
@@ -46,22 +49,7 @@
         <span class="text-lg font-bold">
             Write a review
         </span>
-        <form action="" class="flex flex-col gap-2">
-            <textarea class="textarea h-24 textarea-bordered" placeholder="Write your review here..."></textarea>
-            <div class="flex justify-between items-center">
-                <div class="flex items-center gap-2">
-                    <span class="font-bold">Your rating:</span>
-                    <div class="rating">
-                        <input type="radio" name="rating-new" value="1" class="mask mask-star bg-amber-400"/>
-                        <input type="radio" name="rating-new" value="2" class="mask mask-star bg-amber-400"/>
-                        <input type="radio" name="rating-new" value="3" class="mask mask-star bg-amber-400"/>
-                        <input type="radio" name="rating-new" value="4" class="mask mask-star bg-amber-400"/>
-                        <input type="radio" name="rating-new" value="5" class="mask mask-star bg-amber-400" checked/>
-                    </div>
-                </div>
-                <button class="btn btn-primary">Submit</button>
-            </div>
-        </form>
+        @await Html.PartialAsync("_AddReview", new WebMVC.Areas.Shop.ViewModel.Review.ReviewCreateViewModel { BookId = Model.Id })
     </div>
     <div class="flex flex-col gap-2">
         <span class="text-xl font-bold">
@@ -82,12 +70,12 @@
                 <div class="card shadow-xl bg-base-200">
                     <div class="card-body">
                         <div class="flex justify-between items-center">
-                            <span class="font-bold text-lg">@review.User.FirstName @review.User.LastName</span>
+                            <span class="font-bold text-lg">@review.UserFirstName @review.UserLastName</span>
                             <div class="flex items-center gap-2">
                                 <span class="text-sm text-neutral-400">@review.CreatedAt</span>
-                                @if (User.IsInRole("Admin"))
+                                @if (User.IsInRole("Admin") || review.UserUsername == User.Identity?.Name)
                                 {
-                                    <form>
+                                    <form action="/Shop/Book/DeleteReview/@review.Id" method="post">
                                         <button onclick="confirm('Do you really want to delete this review?')" class="btn btn-sm btn-outline btn-error"><i class="bi bi-trash"></i></button>
                                     </form>
                                 }

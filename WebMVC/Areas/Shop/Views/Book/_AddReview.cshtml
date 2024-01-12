@@ -1,0 +1,26 @@
+﻿@model WebMVC.Areas.Shop.ViewModel.Review.ReviewCreateViewModel
+
+<form action="/Shop/Book/AddReview" method="post" class="flex flex-col gap-2">
+    @Html.HiddenFor(v => v.BookId)
+    @Html.ValidationSummary(false, "", new { @class = "text-red-500" })
+    <div class="form-control">
+        @Html.TextAreaFor(r => r.Comment, new { @class = "textarea textarea-bordered h-24", placeholder = "Write your review here..." })
+        <label class="label">
+            @Html.ValidationMessageFor(r => r.Comment, "", new { @class = "label-text text-red-500" })
+        </label>
+    </div>
+
+    <div class="flex justify-between items-center">
+        <div class="flex items-center gap-2">
+            <span class="font-bold">Your rating:</span>
+            <div class="rating">
+                @Html.RadioButtonFor(r => r.Rating, 1, new { @class = "mask mask-star bg-amber-400" })
+                @Html.RadioButtonFor(r => r.Rating, 2, new { @class = "mask mask-star bg-amber-400" })
+                @Html.RadioButtonFor(r => r.Rating, 3, new { @class = "mask mask-star bg-amber-400" })
+                @Html.RadioButtonFor(r => r.Rating, 4, new { @class = "mask mask-star bg-amber-400" })
+                @Html.RadioButtonFor(r => r.Rating, 5, new { @class = "mask mask-star bg-amber-400", @checked = true })
+            </div>
+        </div>
+        <button class="btn btn-primary">Submit</button>
+    </div>
+</form>
