@@ -20,6 +20,11 @@ public class WishListService
         return await _unitOfWork.WishLists.GetAll();
     }
 
+    public async Task<IEnumerable<WishList>> GetAllForUser(int userId)
+    {
+        return await _unitOfWork.WishLists.GetAllForUser(userId);
+    }
+
     public async Task<WishList?> GetById(int id)
     {
         return await _unitOfWork.WishLists.GetByIdWithRelations(id);
@@ -58,6 +63,11 @@ public class WishListService
         return wishList;
     }
 
+    public async Task<IEnumerable<WishList>> GetByBookId(int bookId, bool containsBook = true)
+    {
+        return await _unitOfWork.WishLists.GetByBookId(bookId, containsBook);
+    }
+
     public async Task<WishList> Update(WishListInputDto wishListInputDto, int wishListId)
     {
         var wishList = await _unitOfWork.WishLists.GetByIdWithRelations(wishListId);
@@ -84,7 +94,9 @@ public class WishListService
 
     public async Task<WishListItem> CreateItemInWishlist(WishListItemInputDto wishListItemInputDto)
     {
-        var wishlist = await _unitOfWork.WishLists.GetById(wishListItemInputDto.WishListId);
+        var wishlist = await _unitOfWork.WishLists.GetByIdWithRelations(
+            wishListItemInputDto.WishListId
+        );
 
         if (wishlist == null)
         {
@@ -96,6 +108,13 @@ public class WishListService
         if (book == null)
         {
             throw new EntityNotFoundException<Book>(wishListItemInputDto.BookId);
+        }
+
+        if (wishlist.WishListItems.Any(w => w.BookId == book.Id))
+        {
+            throw new AlreadyExistsException<WishListItem>(
+                $"Book {book.Title} is already in wishlist {wishlist.Name}"
+            );
         }
 
         var wishListItem = new WishListItem { WishList = wishlist, Book = book, };
@@ -162,6 +181,23 @@ public class WishListService
         if (wishListItem == null)
         {
             throw new EntityNotFoundException<WishListItem>(wishListItemId);
+        }
+
+        _unitOfWork.WishListItems.Remove(wishListItem);
+
+        await _unitOfWork.Complete();
+    }
+
+    public async Task DeleteItemByBookAndWishListId(int bookId, int wishListId)
+    {
+        var wishListItem = await _unitOfWork.WishListItems.GetByBookAndWishlistId(
+            bookId,
+            wishListId
+        );
+
+        if (wishListItem == null)
+        {
+            throw new EntityNotFoundException<WishListItem>(wishListId);
         }
 
         _unitOfWork.WishListItems.Remove(wishListItem);
