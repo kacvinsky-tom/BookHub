@@ -120,7 +120,7 @@ public class OrderService
             throw new EntityNotFoundException<Book>(orderItemInputDto.BookId);
         }
 
-        order.TotalPrice += orderItemInputDto.Price;
+        order.TotalPrice += orderItemInputDto.Price * orderItemInputDto.Quantity;
 
         var orderItem = new OrderItem
         {

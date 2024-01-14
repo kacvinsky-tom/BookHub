@@ -14,11 +14,13 @@ namespace WebMVC.Areas.Admin.Controllers;
 public class OrderController : Controller
 {
     private readonly OrderService _orderService;
+    private readonly BookService _bookService;
     private readonly IMapper _mapper;
 
-    public OrderController(OrderService orderService, IMapper mapper)
+    public OrderController(OrderService orderService, BookService bookService, IMapper mapper)
     {
         _orderService = orderService;
+        _bookService = bookService;
         _mapper = mapper;
     }
 
@@ -123,6 +125,13 @@ public class OrderController : Controller
             return View(model);
         }
 
+        var book = await _bookService.GetById(model.BookId);
+
+        if (book == null)
+        {
+            throw new Exception($"Book with ID {model.BookId} does not exist.");
+        }
+
         try
         {
             await _orderService.CreateOrderItem(
@@ -131,6 +140,7 @@ public class OrderController : Controller
                     OrderId = model.OrderId,
                     BookId = model.BookId,
                     Quantity = model.Quantity,
+                    Price = book.Price
                 }
             );
         }
