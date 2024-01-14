@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Core.DTO.Input.Author;
-using Core.DTO.Output.Author;
 using Core.Services;
 using DataAccessLayer.Entity;
 using Microsoft.AspNetCore.Authorization;

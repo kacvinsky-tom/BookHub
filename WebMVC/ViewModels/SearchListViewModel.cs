@@ -1,7 +1,3 @@
-using Core.DTO.Output.Author;
-using Core.DTO.Output.Book;
-using Core.DTO.Output.Genre;
-
 namespace WebMVC.ViewModels;
 
 public class SearchListViewModel
