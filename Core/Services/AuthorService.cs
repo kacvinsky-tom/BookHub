@@ -119,6 +119,11 @@ public class AuthorService
 
         _memoryCache.Set("author-" + authorId, author);
 
+        foreach (var book in author.Books)
+        {
+            _memoryCache.Remove("book-" + book.Id);
+        }
+
         return author;
     }
 
