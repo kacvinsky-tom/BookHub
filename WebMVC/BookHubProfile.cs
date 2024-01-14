@@ -1,5 +1,7 @@
 using AutoMapper;
 using Core.DTO.Input.Review;
+using Core.DTO.Input.WishList;
+using Core.DTO.Input.WishListItem;
 using Core.DTO.Output.Author;
 using Core.DTO.Output.Book;
 using Core.DTO.Output.Genre;
@@ -12,6 +14,7 @@ using WebMVC.Areas.Admin.ViewModels.User;
 using WebMVC.Areas.Shop.ViewModel.Book;
 using WebMVC.Areas.Shop.ViewModel.CartItem;
 using WebMVC.Areas.Shop.ViewModel.Review;
+using WebMVC.Areas.Shop.ViewModel.WishList;
 using WebMVC.ViewModels;
 
 namespace WebMVC;
@@ -31,8 +34,14 @@ public class BookHubProfile : Profile
         CreateMap<Genre, GenreListViewModel>();
         CreateMap<Publisher, PublisherListViewModel>();
         CreateMap<Review, ReviewDetailViewModel>();
+        CreateMap<WishList, WishListDetailViewModel>();
+        CreateMap<WishList, WishListListViewModel>();
         CreateMap<ReviewDetailOutputDto, ReviewDetailViewModel>();
         CreateMap<ReviewCreateViewModel, ReviewCreateInputDto>();
+        CreateMap<WishListItemsEditViewModel, WishListItemInputDto>();
+        CreateMap<WishListItem, WishListItemListViewModel>();
+        CreateMap<WishListCreateViewModel, WishListInputDto>();
+        CreateMap<WishListEditViewModel, WishListInputDto>();
 
         CreateMap<Book, Areas.Admin.ViewModels.Book.BookListViewModel>()
             .ForMember(
