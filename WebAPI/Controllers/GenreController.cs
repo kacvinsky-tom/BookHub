@@ -4,7 +4,6 @@ using Core.DTO.Output.Genre;
 using Core.Exception;
 using Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using WebAPI.Extensions;
 
 namespace WebAPI.Controllers;

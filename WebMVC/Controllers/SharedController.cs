@@ -1,8 +1,5 @@
 using AutoMapper;
 using Core.DTO.Input.Search;
-using Core.DTO.Output.Author;
-using Core.DTO.Output.Book;
-using Core.DTO.Output.Genre;
 using Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.ViewModels;

@@ -68,6 +68,9 @@ public class ReviewService
 
         await _unitOfWork.Complete();
 
+        _memoryCache.Remove("book-" + review.BookId);
+        _memoryCache.Remove("user-" + review.UserId);
+
         return review;
     }
 
@@ -86,6 +89,8 @@ public class ReviewService
         await _unitOfWork.Complete();
 
         _memoryCache.Set("review-" + reviewId, review);
+        _memoryCache.Remove("book-" + review.BookId);
+        _memoryCache.Remove("user-" + review.UserId);
 
         return review;
     }
@@ -104,5 +109,7 @@ public class ReviewService
         await _unitOfWork.Complete();
 
         _memoryCache.Remove("review-" + reviewId);
+        _memoryCache.Remove("book-" + review.BookId);
+        _memoryCache.Remove("user-" + review.UserId);
     }
 }

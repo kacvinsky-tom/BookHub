@@ -10,6 +10,7 @@ using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Filter;
 using DataAccessLayer.Helpers;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Core.Services;
@@ -117,6 +118,8 @@ public class GenreService
 
         _memoryCache.Set("genre-" + id, genre);
 
+        await InvalidateCachedBooks(genre);
+
         return genre;
     }
 
@@ -143,5 +146,18 @@ public class GenreService
         var genreList = await _unitOfWork.Genres.GetSimpleList(order: new[] { ordering });
 
         return _mapper.Map<IEnumerable<SimpleListDto>>(genreList);
+    }
+
+    private async Task InvalidateCachedBooks(Genre genre)
+    {
+        var books = await _unitOfWork
+            .Books.GetBasicQuery()
+            .Where(b => b.Genres.Any(g => g.Id == genre.Id))
+            .ToListAsync();
+
+        foreach (var book in books)
+        {
+            _memoryCache.Remove("book-" + book.Id);
+        }
     }
 }

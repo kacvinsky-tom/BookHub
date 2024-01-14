@@ -1,5 +1,3 @@
-using Core.DTO.Output.Book;
-
 namespace WebMVC.ViewModels;
 
 public class SearchViewOutputModel
