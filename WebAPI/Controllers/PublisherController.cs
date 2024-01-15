@@ -22,11 +22,13 @@ public class PublisherController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Fetch()
+    public async Task<IActionResult> FetchPaginated(int page, int pageSize)
     {
-        var publishers = await _publisherService.GetAll();
+        var publishers = (await _publisherService.GetAllPaginated(page, pageSize)).Items;
 
-        return Ok(publishers.Select(_mapper.Map<PublisherListOutputDto>));
+        var publisherListDto = publishers.Select(_mapper.Map<PublisherListOutputDto>);
+        
+        return Ok(publisherListDto);
     }
 
     [HttpGet("{id:int}")]
