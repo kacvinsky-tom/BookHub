@@ -112,7 +112,7 @@ public class WishListService
 
         if (wishlist.WishListItems.Any(w => w.BookId == book.Id))
         {
-            throw new AlreadyExistsException<WishListItem>(
+            throw new AlreadyExistsException(
                 $"Book {book.Title} is already in wishlist {wishlist.Name}"
             );
         }
