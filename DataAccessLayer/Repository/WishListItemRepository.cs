@@ -9,7 +9,7 @@ public class WishListItemRepository : GenericRepository<WishListItem>, IWishList
     public WishListItemRepository(BookHubDbContext context)
         : base(context) { }
 
-    private IQueryable<WishListItem> GetBasicQuery()
+    public override IQueryable<WishListItem> GetBasicQuery()
     {
         return Context
             .WishListItems.Include(w => w.Book)

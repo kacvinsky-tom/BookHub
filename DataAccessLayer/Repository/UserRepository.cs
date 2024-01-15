@@ -14,7 +14,7 @@ public class UserRepository : GenericRepository<User>, IUserRepository
     public async Task<User?> GetByIdWithRelations(int id)
     {
         return await Context
-            .Users.Include(u => u.Reviews)
+            .CustomerUsers.Include(u => u.Reviews)
             .Include(u => u.Orders)
             .Include(u => u.CartItems)
             .ThenInclude(ci => ci.Book)
@@ -24,14 +24,14 @@ public class UserRepository : GenericRepository<User>, IUserRepository
 
     public async Task<User?> GetByUsername(string username)
     {
-        return await Context.Users.FirstOrDefaultAsync(u => u.Username == username);
+        return await Context.CustomerUsers.FirstOrDefaultAsync(u => u.Username == username);
     }
 
     public async Task<IEnumerable<SimpleListResult>> GetSimpleList(
         IEnumerable<Ordering<User>>? order = null
     )
     {
-        var query = Context.Users.AsQueryable();
+        var query = Context.CustomerUsers.AsQueryable();
 
         if (order != null)
         {
