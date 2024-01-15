@@ -27,7 +27,7 @@ public class OrderController : ControllerBase
         var orders = (await _orderService.GetAllPaginated(page, pageSize)).Items;
 
         var orderListDto = orders.Select(_mapper.Map<OrderListOutputDto>);
-        
+
         return Ok(orderListDto);
     }
 

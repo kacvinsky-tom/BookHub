@@ -27,7 +27,7 @@ public class PublisherController : ControllerBase
         var publishers = (await _publisherService.GetAllPaginated(page, pageSize)).Items;
 
         var publisherListDto = publishers.Select(_mapper.Map<PublisherListOutputDto>);
-        
+
         return Ok(publisherListDto);
     }
 
