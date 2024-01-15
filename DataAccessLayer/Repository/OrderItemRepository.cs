@@ -9,7 +9,7 @@ public class OrderItemRepository : GenericRepository<OrderItem>, IOrderItemRepos
     public OrderItemRepository(BookHubDbContext context)
         : base(context) { }
 
-    private IQueryable<OrderItem> GetBasicQuery()
+    public override IQueryable<OrderItem> GetBasicQuery()
     {
         return Context
             .OrderItems.Include(oi => oi.Order)

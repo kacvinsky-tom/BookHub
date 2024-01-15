@@ -6,7 +6,7 @@ namespace DataAccessLayer;
 
 public class BookHubDbContext : IdentityDbContext<LocalIdentityUser, LocalIdentityRole, string>
 {
-    public virtual DbSet<User> Users { get; set; } = null!;
+    public virtual DbSet<User> CustomerUsers { get; set; } = null!;
     public virtual DbSet<Author> Authors { get; set; } = null!;
     public virtual DbSet<Publisher> Publishers { get; set; } = null!;
     public virtual DbSet<Book> Books { get; set; } = null!;
@@ -108,6 +108,12 @@ public class BookHubDbContext : IdentityDbContext<LocalIdentityUser, LocalIdenti
     {
         AddTimestamps();
         return base.SaveChanges();
+    }
+
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        AddTimestamps();
+        return base.SaveChangesAsync(cancellationToken);
     }
 
     private void AddTimestamps()

@@ -32,5 +32,5 @@
         </div>
     }
     
-    @Html.Partial("_Paginator", new PaginatorData {  ModelName = "Book", Page = Model.Page, TotalPages = Model.TotalPages })
+    @await Html.PartialAsync("_Paginator", new PaginatorData {  ModelName = "Book", Page = Model.Page, TotalPages = Model.TotalPages })
 </div>

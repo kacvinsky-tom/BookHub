@@ -1,5 +1,8 @@
-﻿namespace DataAccessLayer.Entity;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
+namespace DataAccessLayer.Entity;
+
+[Table("Users")]
 public class User : BaseEntity
 {
     public string Username { get; set; } = "";
