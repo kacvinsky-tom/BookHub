@@ -27,4 +27,10 @@ public class WishListItemRepository : GenericRepository<WishListItem>, IWishList
     {
         return await GetBasicQuery().ToListAsync();
     }
+
+    public Task<WishListItem?> GetByBookAndWishlistId(int bookId, int wishListId)
+    {
+        return GetBasicQuery()
+            .FirstOrDefaultAsync(w => w.BookId == bookId && w.WishListId == wishListId);
+    }
 }

@@ -1,0 +1,25 @@
+﻿@using Core.Services
+@model WebMVC.Areas.Shop.ViewModel.WishList.WishListItemsEditViewModel
+@inject WishListService WishListService
+
+@{
+    var wishlists = (await WishListService.GetByBookId(Model.BookId)).ToList();
+}
+
+@if (wishlists.Count > 0)
+{
+    <form asp-controller="WishList" asp-area="Shop" asp-action="RemoveFromWishList" method="post">
+        <input type="hidden" name="bookId" value="@Model.BookId"/>
+        <div class="form-control">
+            @Html.ValidationSummary(false, "", new { @class = "text-red-500" })
+            <label class="label">
+                @Html.LabelFor(m => m.WishListId)
+            </label>
+            @Html.DropDownListFor(m => m.WishListId, wishlists.Select(w => new SelectListItem(w.Name, w.Id.ToString())), new { @class = "select select-sm select-bordered w-full max-w-xs" })
+            <label class="label">
+                @Html.ValidationMessageFor(m => m.WishListId, "", new { @class = "label-text text-red-500" })
+            </label>
+        </div>
+        <button type="submit" class="btn btn-sm btn-error"><i class="bi bi-trash"></i> Remove from Wishlist</button>
+    </form>
+}

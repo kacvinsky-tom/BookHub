@@ -1,0 +1,28 @@
+﻿@using WebMVC.Areas.Shop.ViewModel.WishList
+@model WebMVC.Areas.Shop.ViewModel.WishList.WishListListPageViewModel
+
+@{
+    ViewBag.Title = "My wishlists";
+    Layout = "_Layout";
+}
+
+<h2 class="font-bold text-2xl">My wishlists</h2>
+
+@await Html.PartialAsync("_CreateNewWishList", new WishListCreateViewModel(){ UserId = Model.UserId })
+
+@foreach (var wishlist in Model.WishLists)
+{
+    <div class="card border border-primary shadow-lg bg-base-200 w-full max-w-5xl">
+        <div class="card-body">
+            <div class="flex justify-between items-center">
+                <a href="/Shop/Wishlist/Detail/@wishlist.Id" class="text-lg font-bold">@wishlist.Name</a>
+                <div class="flex gap-2">
+                    <a href="/Shop/Wishlist/Detail/@wishlist.Id" class="btn btn-sm btn-primary btn-outline"><i class="bi bi-box-arrow-up-right"></i> Detail</a>
+                    <form action="/Shop/WishList/Delete/@wishlist.Id" method="post">
+                        <button onclick="confirm('Do you really want to delete wishlist @wishlist.Name? You cannot undo this action')" type="submit" class="btn btn-sm btn-error btn-outline"><i class="bi bi-trash"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}

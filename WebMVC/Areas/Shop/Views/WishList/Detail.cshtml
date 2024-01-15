@@ -1,0 +1,32 @@
+﻿@using WebMVC.Areas.Shop.ViewModel.WishList
+@model WebMVC.Areas.Shop.ViewModel.WishList.WishListDetailViewModel
+
+@{
+    ViewBag.Title = $"Wishlist: {Model.Name}";
+    Layout = "_Layout";
+}
+
+<h1 class="text-2xl font-bold">Wishlist: @Model.Name</h1>
+@await Html.PartialAsync("_EditWishList", new WishListEditViewModel(){ WishListId = Model.Id, UserId = Model.UserId, Name = Model.Name })
+@foreach (var item in Model.WishListItems)
+{
+        <a class="card border border-primary shadow-lg bg-base-200 w-full max-w-5xl">
+            <div class="card-body">
+                <div class="flex justify-between items-center">
+                    <h3 class="font-bold text-lg">@item.BookTitle</h3>
+                    @await Html.PartialAsync("_RemoveFromWishlistPrefilled", new WebMVC.Areas.Shop.ViewModel.WishList.WishListItemsEditViewModel { BookId = item.BookId, WishListId = Model.Id })
+                </div>
+                
+                <div class="text-sm text-neutral-400 flex flex-col gap-1">
+                    <span class="font-bold">Authors</span>
+                    @foreach (var author in item.BookAuthors)
+                    {
+                        <p>@author.FirstName @author.LastName</p>
+                    }
+                </div>
+                <span class="text-lg font-bold text-red-600">
+                    @item.BookPrice CZK
+                </span>
+            </div>
+        </a>
+}

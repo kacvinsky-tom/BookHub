@@ -1,0 +1,10 @@
+﻿@model WebMVC.Areas.Shop.ViewModel.WishList.WishListItemsEditViewModel
+
+<form asp-controller="WishList" asp-area="Shop" asp-action="RemoveFromWishList" method="post">
+    <input type="hidden" name="bookId" value="@Model.BookId"/>
+    <div class="form-control">
+        @Html.HiddenFor(m => m.BookId)
+        @Html.HiddenFor(m => m.WishListId)
+    </div>
+    <button onclick="confirm('Really delete this item from your wishlist?')" type="submit" class="btn btn-sm btn-error"><i class="bi bi-trash"></i></button>
+</form>

@@ -1,3 +1,4 @@
+@using WebMVC.Areas.Shop.ViewModel.WishList
 @model WebMVC.ViewModels.SearchListViewModel
 
 @section Styles {
@@ -47,20 +48,38 @@
         <div class="grid gap-2 lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-1">
             @foreach (var book in Model.Books)
             {
-                <a href="/Shop/Book/Detail/@book.Id"  class="card border border-primary shadow-lg bg-base-200 hover:bg-base-300 transition-colors duration-300">
-                        <div class="card-body">
-                            <h3 class="font-bold text-lg">@book.Title</h3>
-                            <div class="text-sm text-neutral-400 flex flex-col gap-1">
-                                <span class="font-bold">Authors</span>
-                                @foreach (var author in book.Authors)
-                                {
-                                    <p>@author.LastName @author.FirstName</p>
-                                }
-                            </div>
-                            <p>Release: @book.ReleaseYear</p>
-                            <p class="text-red-600 font-bold">@book.Price CZK</p>
+                <div   class="card border border-primary shadow-lg bg-base-200 hover:bg-base-300 transition-colors duration-300">
+                    <div class="card-body">
+                        <h3 class="font-bold text-lg">@book.Title</h3>
+                        <div class="text-sm text-neutral-400 flex flex-col gap-1">
+                            <span class="font-bold">Authors</span>
+                            @foreach (var author in book.Authors)
+                            {
+                                <p>@author.LastName @author.FirstName</p>
+                            }
                         </div>
-                </a>
+                        <p>Release: @book.ReleaseYear</p>
+                        <p class="text-red-600 font-bold">@book.Price CZK</p>
+                        <div class="flex w-full gap-2">
+                            <a href="/Shop/Book/Detail/@book.Id" class="btn btn-primary btn-sm">Detail</a>
+                            <button class="btn btn-secondary btn-outline btn-sm" onclick="@($"wishlistmodal_{book.Id}").showModal()">Wishlist</button>
+                            <dialog id="@($"wishlistmodal_{book.Id}")" class="modal">
+                                <div class="modal-box">
+                                    <form method="dialog">
+                                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                    </form>
+                                    <h3 class="font-bold text-lg">Wishlist book @book.Title</h3>
+                                    @await Html.PartialAsync("_AddToWishList", new WishListItemsEditViewModel() { BookId = book.Id })
+                                    @await Html.PartialAsync("_RemoveFromWishList", new WishListItemsEditViewModel() { BookId = book.Id })
+                                </div>
+                              <form method="dialog" class="modal-backdrop">
+                                <button>close</button>
+                              </form>
+                            </dialog>
+                        </div> 
+                    </div>
+                    
+                </div>
             }
         </div>
         <div class="join">

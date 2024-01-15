@@ -1,0 +1,11 @@
+﻿@model WebMVC.Areas.Shop.ViewModel.WishList.WishListEditViewModel
+
+<form action="/Shop/WishList/Edit/" method="post" class="flex flex-col gap-2 w-full max-w-5xl">
+    @Html.ValidationSummary(false, "", new { @class = "text-red-500" })
+    @Html.HiddenFor(w => w.UserId)
+    @Html.HiddenFor(w => w.WishListId)
+    <div class="join w-full">
+        @Html.TextBoxFor(w => w.Name, new { @class = "join-item w-full input input-sm input-bordered" })
+        <button type="submit" class="btn btn-success btn-sm btn-outline join-item"><i class="bi bi-check-circle"></i> Rename</button>
+    </div>
+</form>
