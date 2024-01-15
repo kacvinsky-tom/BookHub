@@ -109,6 +109,12 @@ public class BookHubDbContext : IdentityDbContext<LocalIdentityUser, LocalIdenti
         AddTimestamps();
         return base.SaveChanges();
     }
+    
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        AddTimestamps();
+        return base.SaveChangesAsync(cancellationToken);
+    }
 
     private void AddTimestamps()
     {
