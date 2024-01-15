@@ -22,11 +22,13 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Fetch()
+    public async Task<IActionResult> FetchPaginated(int page, int pageSize)
     {
-        var orders = await _orderService.GetAll();
+        var orders = (await _orderService.GetAllPaginated(page, pageSize)).Items;
 
-        return Ok(orders.Select(_mapper.Map<OrderListOutputDto>));
+        var orderListDto = orders.Select(_mapper.Map<OrderListOutputDto>);
+        
+        return Ok(orderListDto);
     }
 
     [HttpGet("{id:int}")]

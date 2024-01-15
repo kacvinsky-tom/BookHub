@@ -55,12 +55,13 @@ public class BookHubProfile : Profile
         CreateMap<Author, AuthorDetailOutputDto>();
         CreateMap<Author, AuthorListOutputDto>();
         CreateMap<Book, BookDetailOutputDto>();
-        CreateMap<Book, BookListOutputDto>();
+        CreateMap<Book, BookListOutputDto>().ForMember(opt => opt.Genres, opt => opt.MapFrom(src => src.BookGenres));
         CreateMap<Book, BookListWithoutAuthorOutputDto>();
         CreateMap<CartItem, CartItemDetailOutputDto>();
         CreateMap<CartItem, CartItemListOutputDto>();
         CreateMap<CartItem, CartItemListWithoutUserOutputDto>();
         CreateMap<Genre, GenreDetailOutputDto>();
+        CreateMap<Genre, GenreListOutputDto>();
         CreateMap<BookGenre, BookGenreListOutputDto>();
         CreateMap<Order, OrderDetailOutputDto>();
         CreateMap<Order, OrderListOutputDto>();

@@ -22,9 +22,9 @@ public class BookController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Fetch([FromQuery] BookFilterInputDto filterInputDto)
+    public async Task<IActionResult> FetchPaginated(int page, int pageSize)
     {
-        var books = await _bookService.GetAll(filterInputDto);
+        var books = (await _bookService.GetAllPaginated(page, pageSize)).Items;
 
         return Ok(books.Select(_mapper.Map<BookListOutputDto>));
     }

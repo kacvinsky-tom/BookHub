@@ -22,9 +22,9 @@ public class AuthorController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Fetch()
+    public async Task<IActionResult> FetchPaginated(int page, int pageSize)
     {
-        var authors = await _authorService.GetAll();
+        var authors = (await _authorService.GetAllPaginated(page, pageSize)).Items;
 
         var authorListDto = authors.Select(_mapper.Map<AuthorListOutputDto>);
 

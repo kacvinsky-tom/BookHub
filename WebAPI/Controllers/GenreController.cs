@@ -22,11 +22,11 @@ public class GenreController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Fetch()
+    public async Task<IActionResult> FetchPaginated(int page, int pageSize)
     {
-        var genres = await _genreService.GetAll();
+        var genres = (await _genreService.GetAllPaginated(page, pageSize)).Items;
 
-        var genresListDto = genres.Select(_mapper.Map<BookGenreListOutputDto>);
+        var genresListDto = genres.Select(_mapper.Map<GenreListOutputDto>);
 
         return Ok(genresListDto);
     }
