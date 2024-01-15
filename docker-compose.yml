@@ -1,14 +1,14 @@
-version: "3"
+﻿version: "3"
 services:
-  db:
-    image: postgres:16-alpine
+  webapi:
+    build:
+      context: .
+      dockerfile: WebAPI/Dockerfile
     ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=bookhub
-volumes:
-  postgres_data:
+      - "8800:80"
+  webmvc:
+    build:
+      context: .
+      dockerfile: WebMVC/Dockerfile
+    ports:
+      - "8801:80"
