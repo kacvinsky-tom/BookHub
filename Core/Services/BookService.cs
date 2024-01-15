@@ -95,8 +95,8 @@ public class BookService
     {
         var publisher = await _unitOfWork.Publishers.GetById(bookCreateCreateInputDto.PublisherId);
         var authors = (
-            await _unitOfWork.Authors.Find(
-                author => bookCreateCreateInputDto.AuthorIds.Contains(author.Id)
+            await _unitOfWork.Authors.Find(author =>
+                bookCreateCreateInputDto.AuthorIds.Contains(author.Id)
             )
         ).ToList();
 
@@ -113,8 +113,8 @@ public class BookService
         }
 
         var genres = (
-            await _unitOfWork.Genres.Find(
-                genre => bookCreateCreateInputDto.GenreIds.Contains(genre.Id)
+            await _unitOfWork.Genres.Find(genre =>
+                bookCreateCreateInputDto.GenreIds.Contains(genre.Id)
             )
         ).ToList();
 
@@ -159,8 +159,8 @@ public class BookService
         }
 
         var authors = (
-            await _unitOfWork.Authors.Find(
-                author => bookCreateUpdateInputDto.AuthorIds.Contains(author.Id)
+            await _unitOfWork.Authors.Find(author =>
+                bookCreateUpdateInputDto.AuthorIds.Contains(author.Id)
             )
         ).ToList();
 
@@ -177,8 +177,8 @@ public class BookService
         }
 
         var genres = (
-            await _unitOfWork.Genres.Find(
-                genre => bookCreateUpdateInputDto.GenreIds.Contains(genre.Id)
+            await _unitOfWork.Genres.Find(genre =>
+                bookCreateUpdateInputDto.GenreIds.Contains(genre.Id)
             )
         ).ToList();
 

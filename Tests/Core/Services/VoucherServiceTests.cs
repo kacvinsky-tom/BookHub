@@ -173,8 +173,8 @@ public class VoucherServiceTests
         await voucherService.Update(inputDto, voucherBeforeUpdate.Id);
 
         // Assert
-        var updatedVoucher = await _mockedContext.Vouchers.FirstOrDefaultAsync(
-            v => v.Code == uniqueCode
+        var updatedVoucher = await _mockedContext.Vouchers.FirstOrDefaultAsync(v =>
+            v.Code == uniqueCode
         );
 
         Assert.NotNull(updatedVoucher);

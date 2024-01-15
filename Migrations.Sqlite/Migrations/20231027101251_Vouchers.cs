@@ -22,20 +22,19 @@ namespace Migrations.Sqlite.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Vouchers",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "INTEGER", nullable: false)
-                            .Annotation("Sqlite:Autoincrement", true),
-                        Code = table.Column<string>(type: "TEXT", nullable: false),
-                        Discount = table.Column<int>(type: "INTEGER", nullable: false),
-                        ExpirationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                        Quantity = table.Column<int>(type: "INTEGER", nullable: false),
-                        Type = table.Column<int>(type: "INTEGER", nullable: false),
-                        CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                        UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
-                    },
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Code = table.Column<string>(type: "TEXT", nullable: false),
+                    Discount = table.Column<int>(type: "INTEGER", nullable: false),
+                    ExpirationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Quantity = table.Column<int>(type: "INTEGER", nullable: false),
+                    Type = table.Column<int>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Vouchers", x => x.Id);

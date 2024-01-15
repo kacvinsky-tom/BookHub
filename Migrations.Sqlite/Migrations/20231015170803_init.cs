@@ -13,17 +13,16 @@ namespace Migrations.Sqlite.Migrations
         {
             migrationBuilder.CreateTable(
                 name: "Authors",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "INTEGER", nullable: false)
-                            .Annotation("Sqlite:Autoincrement", true),
-                        FirstName = table.Column<string>(type: "TEXT", nullable: false),
-                        LastName = table.Column<string>(type: "TEXT", nullable: false),
-                        CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                        UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
-                    },
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Authors", x => x.Id);
@@ -32,16 +31,15 @@ namespace Migrations.Sqlite.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Genres",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "INTEGER", nullable: false)
-                            .Annotation("Sqlite:Autoincrement", true),
-                        Name = table.Column<string>(type: "TEXT", nullable: false),
-                        CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                        UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
-                    },
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Genres", x => x.Id);
@@ -50,22 +48,21 @@ namespace Migrations.Sqlite.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Users",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "INTEGER", nullable: false)
-                            .Annotation("Sqlite:Autoincrement", true),
-                        Username = table.Column<string>(type: "TEXT", nullable: false),
-                        Email = table.Column<string>(type: "TEXT", nullable: false),
-                        Password = table.Column<string>(type: "TEXT", nullable: false),
-                        FirstName = table.Column<string>(type: "TEXT", nullable: false),
-                        LastName = table.Column<string>(type: "TEXT", nullable: false),
-                        PhoneNumber = table.Column<string>(type: "TEXT", nullable: false),
-                        IsAdmin = table.Column<bool>(type: "INTEGER", nullable: false),
-                        CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                        UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
-                    },
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Username = table.Column<string>(type: "TEXT", nullable: false),
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    Password = table.Column<string>(type: "TEXT", nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: false),
+                    IsAdmin = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
@@ -74,25 +71,24 @@ namespace Migrations.Sqlite.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Books",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "INTEGER", nullable: false)
-                            .Annotation("Sqlite:Autoincrement", true),
-                        Title = table.Column<string>(type: "TEXT", nullable: false),
-                        ISBN = table.Column<string>(type: "TEXT", nullable: false),
-                        Description = table.Column<string>(type: "TEXT", nullable: false),
-                        Image = table.Column<string>(type: "TEXT", nullable: true),
-                        Price = table.Column<int>(type: "INTEGER", nullable: false),
-                        Quantity = table.Column<int>(type: "INTEGER", nullable: false),
-                        Publisher = table.Column<string>(type: "TEXT", nullable: false),
-                        ReleaseYear = table.Column<int>(type: "INTEGER", nullable: false),
-                        IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
-                        AuthorId = table.Column<int>(type: "INTEGER", nullable: false),
-                        CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                        UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
-                    },
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    ISBN = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    Image = table.Column<string>(type: "TEXT", nullable: true),
+                    Price = table.Column<int>(type: "INTEGER", nullable: false),
+                    Quantity = table.Column<int>(type: "INTEGER", nullable: false),
+                    Publisher = table.Column<string>(type: "TEXT", nullable: false),
+                    ReleaseYear = table.Column<int>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    AuthorId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Books", x => x.Id);
@@ -108,18 +104,17 @@ namespace Migrations.Sqlite.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Orders",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "INTEGER", nullable: false)
-                            .Annotation("Sqlite:Autoincrement", true),
-                        TotalPrice = table.Column<int>(type: "INTEGER", nullable: false),
-                        Status = table.Column<int>(type: "INTEGER", nullable: false),
-                        UserId = table.Column<int>(type: "INTEGER", nullable: false),
-                        CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                        UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
-                    },
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    TotalPrice = table.Column<int>(type: "INTEGER", nullable: false),
+                    Status = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
@@ -135,17 +130,16 @@ namespace Migrations.Sqlite.Migrations
 
             migrationBuilder.CreateTable(
                 name: "WishLists",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "INTEGER", nullable: false)
-                            .Annotation("Sqlite:Autoincrement", true),
-                        UserId = table.Column<int>(type: "INTEGER", nullable: false),
-                        Name = table.Column<string>(type: "TEXT", nullable: false),
-                        CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                        UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
-                    },
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WishLists", x => x.Id);
@@ -161,12 +155,11 @@ namespace Migrations.Sqlite.Migrations
 
             migrationBuilder.CreateTable(
                 name: "BookGenre",
-                columns: table =>
-                    new
-                    {
-                        BooksId = table.Column<int>(type: "INTEGER", nullable: false),
-                        GenresId = table.Column<int>(type: "INTEGER", nullable: false)
-                    },
+                columns: table => new
+                {
+                    BooksId = table.Column<int>(type: "INTEGER", nullable: false),
+                    GenresId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BookGenre", x => new { x.BooksId, x.GenresId });
@@ -189,18 +182,17 @@ namespace Migrations.Sqlite.Migrations
 
             migrationBuilder.CreateTable(
                 name: "CartItems",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "INTEGER", nullable: false)
-                            .Annotation("Sqlite:Autoincrement", true),
-                        BookId = table.Column<int>(type: "INTEGER", nullable: false),
-                        UserId = table.Column<int>(type: "INTEGER", nullable: false),
-                        Quantity = table.Column<int>(type: "INTEGER", nullable: false),
-                        CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                        UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
-                    },
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    BookId = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Quantity = table.Column<int>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CartItems", x => x.Id);
@@ -223,19 +215,18 @@ namespace Migrations.Sqlite.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Reviews",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "INTEGER", nullable: false)
-                            .Annotation("Sqlite:Autoincrement", true),
-                        UserId = table.Column<int>(type: "INTEGER", nullable: false),
-                        BookId = table.Column<int>(type: "INTEGER", nullable: false),
-                        Comment = table.Column<string>(type: "TEXT", nullable: false),
-                        Rating = table.Column<int>(type: "INTEGER", nullable: false),
-                        CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                        UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
-                    },
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    BookId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Comment = table.Column<string>(type: "TEXT", nullable: false),
+                    Rating = table.Column<int>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Reviews", x => x.Id);
@@ -258,21 +249,20 @@ namespace Migrations.Sqlite.Migrations
 
             migrationBuilder.CreateTable(
                 name: "OrderItems",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "INTEGER", nullable: false)
-                            .Annotation("Sqlite:Autoincrement", true),
-                        OrderId = table.Column<int>(type: "INTEGER", nullable: false),
-                        BookId = table.Column<int>(type: "INTEGER", nullable: false),
-                        Quantity = table.Column<int>(type: "INTEGER", nullable: false),
-                        Price = table.Column<int>(type: "INTEGER", nullable: false),
-                        Title = table.Column<string>(type: "TEXT", nullable: false),
-                        ISBN = table.Column<string>(type: "TEXT", nullable: false),
-                        CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                        UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
-                    },
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    OrderId = table.Column<int>(type: "INTEGER", nullable: false),
+                    BookId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Quantity = table.Column<int>(type: "INTEGER", nullable: false),
+                    Price = table.Column<int>(type: "INTEGER", nullable: false),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    ISBN = table.Column<string>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OrderItems", x => x.Id);
@@ -295,17 +285,16 @@ namespace Migrations.Sqlite.Migrations
 
             migrationBuilder.CreateTable(
                 name: "WishListItems",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "INTEGER", nullable: false)
-                            .Annotation("Sqlite:Autoincrement", true),
-                        WishListId = table.Column<int>(type: "INTEGER", nullable: false),
-                        BookId = table.Column<int>(type: "INTEGER", nullable: false),
-                        CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                        UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
-                    },
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    WishListId = table.Column<int>(type: "INTEGER", nullable: false),
+                    BookId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WishListItems", x => x.Id);
