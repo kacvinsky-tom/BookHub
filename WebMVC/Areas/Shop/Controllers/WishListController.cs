@@ -4,11 +4,8 @@ using Core.DTO.Input.WishList;
 using Core.DTO.Input.WishListItem;
 using Core.Exception;
 using Core.Services;
-using DataAccessLayer.Entity;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.Areas.Shop.ViewModel.WishList;
-using WebMVC.ViewModels;
 
 namespace WebMVC.Areas.Shop.Controllers;
 
@@ -87,7 +84,7 @@ public class WishListController : Controller
                 wishListEditViewModel.WishListId
             );
         }
-        catch (EntityNotFoundException<WishList> e)
+        catch (NotFoundException e)
         {
             return NotFound("Wishlist not found");
         }
@@ -104,7 +101,7 @@ public class WishListController : Controller
         {
             await _wishListService.Delete(wishListId);
         }
-        catch (EntityNotFoundException<WishList> e)
+        catch (NotFoundException e)
         {
             return NotFound("Wishlist not found");
         }
@@ -138,20 +135,16 @@ public class WishListController : Controller
                 _mapper.Map<WishListItemInputDto>(itemsEditWishListItemsViewModel)
             );
         }
-        catch (EntityNotFoundException<WishList> e)
+        catch (NotFoundException e)
         {
-            return NotFound("Wishlist not found");
-        }
-        catch (EntityNotFoundException<Book> e)
-        {
-            TempData["Error"] = "Failed to add wishlist item: book not found";
+            TempData["Error"] = "Failed to add wishlist item";
             return RedirectToAction(
                 "Detail",
                 "WishList",
                 new { id = itemsEditWishListItemsViewModel.WishListId }
             );
         }
-        catch (AlreadyExistsException<WishListItem> e)
+        catch (AlreadyExistsException e)
         {
             TempData["Error"] = $"Failed to add wishlist item: {e.Message}";
             return RedirectToAction(
@@ -182,7 +175,7 @@ public class WishListController : Controller
                 itemsEditWishListItemsViewModel.WishListId
             );
         }
-        catch (EntityNotFoundException<WishListItem> e)
+        catch (NotFoundException e)
         {
             return NotFound("Item not found");
         }
