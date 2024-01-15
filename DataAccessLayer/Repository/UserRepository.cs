@@ -39,14 +39,11 @@ public class UserRepository : GenericRepository<User>, IUserRepository
         }
 
         return await query
-            .Select(
-                u =>
-                    new SimpleListResult
-                    {
-                        Id = u.Id.ToString(),
-                        Value = u.FirstName + " " + u.LastName + " (" + u.Username + ")"
-                    }
-            )
+            .Select(u => new SimpleListResult
+            {
+                Id = u.Id.ToString(),
+                Value = u.FirstName + " " + u.LastName + " (" + u.Username + ")"
+            })
             .ToListAsync();
     }
 }

@@ -33,14 +33,11 @@ public class AuthorRepository : GenericRepository<Author>, IAuthorRepository
         }
 
         return await query
-            .Select(
-                a =>
-                    new SimpleListResult
-                    {
-                        Id = a.Id.ToString(),
-                        Value = a.LastName + " " + a.FirstName
-                    }
-            )
+            .Select(a => new SimpleListResult
+            {
+                Id = a.Id.ToString(),
+                Value = a.LastName + " " + a.FirstName
+            })
             .ToListAsync();
     }
 }

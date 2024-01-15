@@ -47,14 +47,13 @@ public class BookHubProfile : Profile
             .ForMember(
                 dest => dest.BookAuthors,
                 opt =>
-                    opt.MapFrom(
-                        src =>
-                            string.Join(
-                                ", ",
-                                src.BookAuthors.Select(
-                                    x => x.Author.FirstName + " " + x.Author.LastName
-                                )
+                    opt.MapFrom(src =>
+                        string.Join(
+                            ", ",
+                            src.BookAuthors.Select(x =>
+                                x.Author.FirstName + " " + x.Author.LastName
                             )
+                        )
                     )
             );
 

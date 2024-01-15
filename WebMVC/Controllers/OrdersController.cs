@@ -35,16 +35,13 @@ public class OrdersController : Controller
         var orders = await _orderService.GetAllByUserId(currentUserId);
 
         var viewModels = orders
-            .Select(
-                order =>
-                    new OrderViewModel
-                    {
-                        OrderId = order.Id,
-                        OrderDate = order.CreatedAt,
-                        OrderStatus = order.Status.ToString(),
-                        TotalPrice = order.TotalPrice
-                    }
-            )
+            .Select(order => new OrderViewModel
+            {
+                OrderId = order.Id,
+                OrderDate = order.CreatedAt,
+                OrderStatus = order.Status.ToString(),
+                TotalPrice = order.TotalPrice
+            })
             .ToList();
 
         return View(viewModels);

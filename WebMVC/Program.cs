@@ -2,6 +2,7 @@ using Core;
 using Core.Extensions;
 using DataAccessLayer;
 using LoggingMiddleware.Extensions;
+using Microsoft.EntityFrameworkCore;
 using WebMVC;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -52,5 +53,16 @@ app.MapControllerRoute(
 );
 app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<BookHubDbContext>();
+    if (context.Database.GetPendingMigrations().Any())
+    {
+        context.Database.Migrate();
+    }
+}
 
 app.Run();

@@ -16,26 +16,25 @@ namespace Migrations.Postgre.Migrations
         {
             migrationBuilder.CreateTable(
                 name: "Authors",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "integer", nullable: false)
-                            .Annotation(
-                                "Npgsql:ValueGenerationStrategy",
-                                NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                            ),
-                        FirstName = table.Column<string>(type: "text", nullable: false),
-                        LastName = table.Column<string>(type: "text", nullable: false),
-                        CreatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: false
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
                         ),
-                        UpdatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: true
-                        )
-                    },
+                    FirstName = table.Column<string>(type: "text", nullable: false),
+                    LastName = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
+                    UpdatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: true
+                    )
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Authors", x => x.Id);
@@ -44,25 +43,24 @@ namespace Migrations.Postgre.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Genres",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "integer", nullable: false)
-                            .Annotation(
-                                "Npgsql:ValueGenerationStrategy",
-                                NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                            ),
-                        Name = table.Column<string>(type: "text", nullable: false),
-                        CreatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: false
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
                         ),
-                        UpdatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: true
-                        )
-                    },
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
+                    UpdatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: true
+                    )
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Genres", x => x.Id);
@@ -71,27 +69,26 @@ namespace Migrations.Postgre.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Publishers",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "integer", nullable: false)
-                            .Annotation(
-                                "Npgsql:ValueGenerationStrategy",
-                                NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                            ),
-                        Name = table.Column<string>(type: "text", nullable: false),
-                        State = table.Column<string>(type: "text", nullable: false),
-                        Email = table.Column<string>(type: "text", nullable: false),
-                        CreatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: false
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
                         ),
-                        UpdatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: true
-                        )
-                    },
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    State = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
+                    UpdatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: true
+                    )
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Publishers", x => x.Id);
@@ -100,31 +97,30 @@ namespace Migrations.Postgre.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Users",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "integer", nullable: false)
-                            .Annotation(
-                                "Npgsql:ValueGenerationStrategy",
-                                NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                            ),
-                        Username = table.Column<string>(type: "text", nullable: false),
-                        Email = table.Column<string>(type: "text", nullable: false),
-                        Password = table.Column<string>(type: "text", nullable: false),
-                        FirstName = table.Column<string>(type: "text", nullable: false),
-                        LastName = table.Column<string>(type: "text", nullable: false),
-                        PhoneNumber = table.Column<string>(type: "text", nullable: false),
-                        IsAdmin = table.Column<bool>(type: "boolean", nullable: false),
-                        CreatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: false
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
                         ),
-                        UpdatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: true
-                        )
-                    },
+                    Username = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Password = table.Column<string>(type: "text", nullable: false),
+                    FirstName = table.Column<string>(type: "text", nullable: false),
+                    LastName = table.Column<string>(type: "text", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
+                    IsAdmin = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
+                    UpdatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: true
+                    )
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
@@ -133,32 +129,31 @@ namespace Migrations.Postgre.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Vouchers",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "integer", nullable: false)
-                            .Annotation(
-                                "Npgsql:ValueGenerationStrategy",
-                                NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                            ),
-                        Code = table.Column<string>(type: "text", nullable: false),
-                        Discount = table.Column<int>(type: "integer", nullable: false),
-                        ExpirationDate = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: false
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
                         ),
-                        Quantity = table.Column<int>(type: "integer", nullable: false),
-                        Type = table.Column<int>(type: "integer", nullable: false),
-                        CreatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: false
-                        ),
-                        UpdatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: true
-                        )
-                    },
+                    Code = table.Column<string>(type: "text", nullable: false),
+                    Discount = table.Column<int>(type: "integer", nullable: false),
+                    ExpirationDate = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    Type = table.Column<int>(type: "integer", nullable: false),
+                    CreatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
+                    UpdatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: true
+                    )
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Vouchers", x => x.Id);
@@ -167,33 +162,32 @@ namespace Migrations.Postgre.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Books",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "integer", nullable: false)
-                            .Annotation(
-                                "Npgsql:ValueGenerationStrategy",
-                                NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                            ),
-                        Title = table.Column<string>(type: "text", nullable: false),
-                        ISBN = table.Column<string>(type: "text", nullable: false),
-                        Description = table.Column<string>(type: "text", nullable: false),
-                        Image = table.Column<string>(type: "text", nullable: true),
-                        Price = table.Column<int>(type: "integer", nullable: false),
-                        Quantity = table.Column<int>(type: "integer", nullable: false),
-                        ReleaseYear = table.Column<int>(type: "integer", nullable: false),
-                        IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                        PublisherId = table.Column<int>(type: "integer", nullable: false),
-                        CreatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: false
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
                         ),
-                        UpdatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: true
-                        )
-                    },
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    ISBN = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    Image = table.Column<string>(type: "text", nullable: true),
+                    Price = table.Column<int>(type: "integer", nullable: false),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    ReleaseYear = table.Column<int>(type: "integer", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    PublisherId = table.Column<int>(type: "integer", nullable: false),
+                    CreatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
+                    UpdatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: true
+                    )
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Books", x => x.Id);
@@ -209,26 +203,25 @@ namespace Migrations.Postgre.Migrations
 
             migrationBuilder.CreateTable(
                 name: "WishLists",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "integer", nullable: false)
-                            .Annotation(
-                                "Npgsql:ValueGenerationStrategy",
-                                NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                            ),
-                        UserId = table.Column<int>(type: "integer", nullable: false),
-                        Name = table.Column<string>(type: "text", nullable: false),
-                        CreatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: false
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
                         ),
-                        UpdatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: true
-                        )
-                    },
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
+                    UpdatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: true
+                    )
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WishLists", x => x.Id);
@@ -244,28 +237,27 @@ namespace Migrations.Postgre.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Orders",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "integer", nullable: false)
-                            .Annotation(
-                                "Npgsql:ValueGenerationStrategy",
-                                NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                            ),
-                        TotalPrice = table.Column<int>(type: "integer", nullable: false),
-                        Status = table.Column<int>(type: "integer", nullable: false),
-                        UserId = table.Column<int>(type: "integer", nullable: false),
-                        VoucherUsedId = table.Column<int>(type: "integer", nullable: true),
-                        CreatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: false
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
                         ),
-                        UpdatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: true
-                        )
-                    },
+                    TotalPrice = table.Column<int>(type: "integer", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    VoucherUsedId = table.Column<int>(type: "integer", nullable: true),
+                    CreatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
+                    UpdatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: true
+                    )
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
@@ -288,12 +280,11 @@ namespace Migrations.Postgre.Migrations
 
             migrationBuilder.CreateTable(
                 name: "BookAuthor",
-                columns: table =>
-                    new
-                    {
-                        BookId = table.Column<int>(type: "integer", nullable: false),
-                        AuthorId = table.Column<int>(type: "integer", nullable: false)
-                    },
+                columns: table => new
+                {
+                    BookId = table.Column<int>(type: "integer", nullable: false),
+                    AuthorId = table.Column<int>(type: "integer", nullable: false)
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BookAuthor", x => new { x.AuthorId, x.BookId });
@@ -316,12 +307,11 @@ namespace Migrations.Postgre.Migrations
 
             migrationBuilder.CreateTable(
                 name: "BookGenre",
-                columns: table =>
-                    new
-                    {
-                        BookId = table.Column<int>(type: "integer", nullable: false),
-                        GenreId = table.Column<int>(type: "integer", nullable: false)
-                    },
+                columns: table => new
+                {
+                    BookId = table.Column<int>(type: "integer", nullable: false),
+                    GenreId = table.Column<int>(type: "integer", nullable: false)
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BookGenre", x => new { x.BookId, x.GenreId });
@@ -344,27 +334,26 @@ namespace Migrations.Postgre.Migrations
 
             migrationBuilder.CreateTable(
                 name: "CartItems",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "integer", nullable: false)
-                            .Annotation(
-                                "Npgsql:ValueGenerationStrategy",
-                                NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                            ),
-                        BookId = table.Column<int>(type: "integer", nullable: false),
-                        UserId = table.Column<int>(type: "integer", nullable: false),
-                        Quantity = table.Column<int>(type: "integer", nullable: false),
-                        CreatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: false
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
                         ),
-                        UpdatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: true
-                        )
-                    },
+                    BookId = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    CreatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
+                    UpdatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: true
+                    )
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CartItems", x => x.Id);
@@ -387,28 +376,27 @@ namespace Migrations.Postgre.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Reviews",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "integer", nullable: false)
-                            .Annotation(
-                                "Npgsql:ValueGenerationStrategy",
-                                NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                            ),
-                        UserId = table.Column<int>(type: "integer", nullable: false),
-                        BookId = table.Column<int>(type: "integer", nullable: false),
-                        Comment = table.Column<string>(type: "text", nullable: false),
-                        Rating = table.Column<int>(type: "integer", nullable: false),
-                        CreatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: false
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
                         ),
-                        UpdatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: true
-                        )
-                    },
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    BookId = table.Column<int>(type: "integer", nullable: false),
+                    Comment = table.Column<string>(type: "text", nullable: false),
+                    Rating = table.Column<int>(type: "integer", nullable: false),
+                    CreatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
+                    UpdatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: true
+                    )
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Reviews", x => x.Id);
@@ -431,26 +419,25 @@ namespace Migrations.Postgre.Migrations
 
             migrationBuilder.CreateTable(
                 name: "WishListItems",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "integer", nullable: false)
-                            .Annotation(
-                                "Npgsql:ValueGenerationStrategy",
-                                NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                            ),
-                        WishListId = table.Column<int>(type: "integer", nullable: false),
-                        BookId = table.Column<int>(type: "integer", nullable: false),
-                        CreatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: false
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
                         ),
-                        UpdatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: true
-                        )
-                    },
+                    WishListId = table.Column<int>(type: "integer", nullable: false),
+                    BookId = table.Column<int>(type: "integer", nullable: false),
+                    CreatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
+                    UpdatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: true
+                    )
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WishListItems", x => x.Id);
@@ -473,30 +460,29 @@ namespace Migrations.Postgre.Migrations
 
             migrationBuilder.CreateTable(
                 name: "OrderItems",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "integer", nullable: false)
-                            .Annotation(
-                                "Npgsql:ValueGenerationStrategy",
-                                NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                            ),
-                        OrderId = table.Column<int>(type: "integer", nullable: false),
-                        BookId = table.Column<int>(type: "integer", nullable: true),
-                        Quantity = table.Column<int>(type: "integer", nullable: false),
-                        Price = table.Column<int>(type: "integer", nullable: false),
-                        Title = table.Column<string>(type: "text", nullable: false),
-                        ISBN = table.Column<string>(type: "text", nullable: false),
-                        CreatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: false
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
                         ),
-                        UpdatedAt = table.Column<DateTime>(
-                            type: "timestamp with time zone",
-                            nullable: true
-                        )
-                    },
+                    OrderId = table.Column<int>(type: "integer", nullable: false),
+                    BookId = table.Column<int>(type: "integer", nullable: true),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    Price = table.Column<int>(type: "integer", nullable: false),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    ISBN = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
+                    UpdatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: true
+                    )
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OrderItems", x => x.Id);

@@ -27,12 +27,11 @@ namespace Migrations.Sqlite.Migrations
 
             migrationBuilder.CreateTable(
                 name: "BookAuthor",
-                columns: table =>
-                    new
-                    {
-                        BooksId = table.Column<int>(type: "INTEGER", nullable: false),
-                        AuthorsId = table.Column<int>(type: "INTEGER", nullable: false)
-                    },
+                columns: table => new
+                {
+                    BooksId = table.Column<int>(type: "INTEGER", nullable: false),
+                    AuthorsId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BookAuthor", x => new { x.BooksId, x.AuthorsId });
@@ -55,18 +54,17 @@ namespace Migrations.Sqlite.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Publishers",
-                columns: table =>
-                    new
-                    {
-                        Id = table
-                            .Column<int>(type: "INTEGER", nullable: false)
-                            .Annotation("Sqlite:Autoincrement", true),
-                        Name = table.Column<string>(type: "TEXT", nullable: false),
-                        State = table.Column<string>(type: "TEXT", nullable: false),
-                        Email = table.Column<string>(type: "TEXT", nullable: false),
-                        CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                        UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
-                    },
+                columns: table => new
+                {
+                    Id = table
+                        .Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    State = table.Column<string>(type: "TEXT", nullable: false),
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Publishers", x => x.Id);

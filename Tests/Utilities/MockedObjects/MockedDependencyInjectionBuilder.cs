@@ -15,8 +15,8 @@ public class MockedDependencyInjectionBuilder
 
     public MockedDependencyInjectionBuilder AddMockedDbContext()
     {
-        _serviceCollection = _serviceCollection.AddDbContext<BookHubDbContext>(
-            options => options.UseInMemoryDatabase(MockedDbContext.RandomDbName)
+        _serviceCollection = _serviceCollection.AddDbContext<BookHubDbContext>(options =>
+            options.UseInMemoryDatabase(MockedDbContext.RandomDbName)
         );
 
         return this;

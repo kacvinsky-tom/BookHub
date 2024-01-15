@@ -120,8 +120,8 @@ public class BookHubDbContext : IdentityDbContext<LocalIdentityUser, LocalIdenti
     {
         var entities = ChangeTracker
             .Entries()
-            .Where(
-                x => x is { Entity: BaseEntity, State: EntityState.Modified or EntityState.Added }
+            .Where(x =>
+                x is { Entity: BaseEntity, State: EntityState.Modified or EntityState.Added }
             );
 
         foreach (var entity in entities)

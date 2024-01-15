@@ -23,6 +23,7 @@ check-formatting:
   script:
     - dotnet tool install csharpier -g
     - export PATH="$PATH:/root/.dotnet/tools"
+    - dotnet tool restore
     - dotnet csharpier --check .
   rules:
     - !reference [ .custom_rules, on_merge_on_master_or_milestone ]

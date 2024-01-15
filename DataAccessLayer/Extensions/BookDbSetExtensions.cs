@@ -66,15 +66,11 @@ public static class BookDbSetExtensions
             return query;
         }
 
-        return query.Where(
-            book =>
-                book.Authors.Any(
-                    afn =>
-                        afn.FirstName.ToLower().Contains(authorName.ToLower())
-                        || book.Authors.Any(
-                            aln => aln.LastName.ToLower().Contains(authorName.ToLower())
-                        )
-                )
+        return query.Where(book =>
+            book.Authors.Any(afn =>
+                afn.FirstName.ToLower().Contains(authorName.ToLower())
+                || book.Authors.Any(aln => aln.LastName.ToLower().Contains(authorName.ToLower()))
+            )
         );
     }
 
@@ -98,18 +94,14 @@ public static class BookDbSetExtensions
             return query;
         }
 
-        return query.Where(
-            book =>
-                book.Title.ToLower().Contains(search.ToLower())
-                || book.Description.ToLower().Contains(search.ToLower())
-                || book.Authors.Any(
-                    afn =>
-                        afn.FirstName.ToLower().Contains(search.ToLower())
-                        || book.Authors.Any(
-                            aln => aln.LastName.ToLower().Contains(search.ToLower())
-                        )
-                )
-                || book.Publisher.Name.ToLower().Contains(search.ToLower())
+        return query.Where(book =>
+            book.Title.ToLower().Contains(search.ToLower())
+            || book.Description.ToLower().Contains(search.ToLower())
+            || book.Authors.Any(afn =>
+                afn.FirstName.ToLower().Contains(search.ToLower())
+                || book.Authors.Any(aln => aln.LastName.ToLower().Contains(search.ToLower()))
+            )
+            || book.Publisher.Name.ToLower().Contains(search.ToLower())
         );
     }
 }

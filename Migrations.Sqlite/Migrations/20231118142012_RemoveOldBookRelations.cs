@@ -16,12 +16,11 @@ namespace Migrations.Sqlite.Migrations
 
             migrationBuilder.CreateTable(
                 name: "AuthorBook",
-                columns: table =>
-                    new
-                    {
-                        AuthorsId = table.Column<int>(type: "INTEGER", nullable: false),
-                        BooksId = table.Column<int>(type: "INTEGER", nullable: false)
-                    },
+                columns: table => new
+                {
+                    AuthorsId = table.Column<int>(type: "INTEGER", nullable: false),
+                    BooksId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AuthorBook", x => new { x.AuthorsId, x.BooksId });
@@ -67,12 +66,11 @@ namespace Migrations.Sqlite.Migrations
 
             migrationBuilder.CreateTable(
                 name: "BookAuthor",
-                columns: table =>
-                    new
-                    {
-                        BooksId = table.Column<int>(type: "INTEGER", nullable: false),
-                        AuthorsId = table.Column<int>(type: "INTEGER", nullable: false)
-                    },
+                columns: table => new
+                {
+                    BooksId = table.Column<int>(type: "INTEGER", nullable: false),
+                    AuthorsId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BookAuthor", x => new { x.BooksId, x.AuthorsId });
