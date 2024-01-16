@@ -26,6 +26,7 @@ public class ServicesBookHubProfile : Profile
         CreateMap<BookCreateInputDto, Book>()
             .ForMember(dest => dest.IsDeleted, opt => opt.MapFrom(src => false));
         CreateMap<Book, BookListOutputDto>();
+        CreateMap<BookGenre, BookGenreListOutputDto>();
         CreateMap<Genre, BookGenreListOutputDto>();
         CreateMap<Genre, GenreListOutputDto>();
         CreateMap<GenreInputDto, Genre>();

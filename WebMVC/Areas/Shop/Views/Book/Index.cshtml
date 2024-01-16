@@ -1,52 +1,17 @@
-@using WebMVC.Areas.Shop.ViewModel.WishList
-@model WebMVC.ViewModels.SearchListViewModel
+﻿@using WebMVC.Areas.Shop.ViewModel.WishList
+@model WebMVC.ViewModels.PaginationViewModel<WebMVC.Areas.Shop.ViewModel.Book.BookFullListViewModel>
 
-@section Styles {
-    <link rel="stylesheet" href="~/css/search-styles.css" />
+@{
+    ViewBag.Title = "All books";
+    Layout = "_Layout";
 }
 
-<div class="section genres">
-    @if (Model.Genres.Any())
-    {
-        <h2>Genres:</h2>
-        <div class="matrix">
-            @foreach (var genre in Model.Genres)
-            {
-                <div class="item">@genre.Name</div>
-            }
-        </div>
-    }
-    else
-    {
-        <p>No genres found.</p>
-    }
-</div>
-
-<div class="section authors">
-    @if (Model.Authors.Any())
-    {
-        <h2>Authors:</h2>
-        <div class="matrix">
-            @foreach (var author in Model.Authors)
-            {
-                <div class="item">@author.LastName 
-                    @author.FirstName
-                </div>
-            }
-        </div>
-    }
-    else
-    {
-        <p>No authors found.</p>
-    }
-</div>
-
 <div class="flex flex-col gap-4">
-    @if (Model.Books.Any())
+    @if (Model.Items.Any())
     {
         <h2 class="font-bold text-xl">Books</h2>
         <div class="grid gap-2 lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-1">
-            @foreach (var book in Model.Books)
+            @foreach (var book in Model.Items)
             {
                 <div   class="card border border-primary shadow-lg bg-base-200 hover:bg-base-300 transition-colors duration-300">
                     <div class="card-body">
@@ -105,22 +70,21 @@
             }
         </div>
         <div class="join">
-            @if (Model.CurrentPage > 1)
+            @if (Model.Page > 1)
             {
-                <a asp-action="GlobalSearch" asp-route-page="@(Model.CurrentPage-1)" asp-route-query="@Model.Query" class="join-item btn"><i class="bi bi-chevron-left"></i></a>
+                <a asp-action="Index" asp-route-page="@(Model.Page-1)" class="join-item btn"><i class="bi bi-chevron-left"></i></a>
             }
-            @for (int i = Math.Max(1, Model.CurrentPage - 3); i <= Math.Min(Model.TotalPages, Model.CurrentPage + 3); i++)
+            @for (int i = Math.Max(1, Model.Page - 3); i <= Math.Min(Model.TotalPages, Model.Page + 3); i++)
             {
-                <a asp-action="GlobalSearch"
+                <a asp-action="Index"
                    asp-route-page="@i"
-                   asp-route-query="@Model.Query"
-                   class="join-item btn @((i == Model.CurrentPage) ? "btn-primary" : "")">
+                   class="join-item btn @((i == Model.Page) ? "btn-primary" : "")">
                     @i
                 </a>
             }
-            @if (Model.CurrentPage < Model.TotalPages)
+            @if (Model.Page < Model.TotalPages)
             {
-                <a asp-action="GlobalSearch" asp-route-page="@(Model.CurrentPage+1)" asp-route-query="@Model.Query" class="join-item btn"><i class="bi bi-chevron-right"></i></a>
+                <a asp-action="Index" asp-route-page="@(Model.Page+1)" class="join-item btn"><i class="bi bi-chevron-right"></i></a>
             }
         </div>
     }
