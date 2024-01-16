@@ -58,8 +58,7 @@ public class BookHubProfile : Profile
         CreateMap<Author, AuthorListOutputDto>();
         CreateMap<PaginationObject<Author>, PaginatedResult<AuthorListOutputDto>>();
         CreateMap<Book, BookDetailOutputDto>();
-        CreateMap<Book, BookListOutputDto>()
-            .ForMember(opt => opt.Genres, opt => opt.MapFrom(src => src.BookGenres));
+        CreateMap<Book, BookListOutputDto>();
         CreateMap<Book, BookListWithoutAuthorOutputDto>();
         CreateMap<PaginationObject<Book>, PaginatedResult<BookListOutputDto>>();
         CreateMap<CartItem, CartItemDetailOutputDto>();
