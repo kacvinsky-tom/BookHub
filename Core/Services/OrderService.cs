@@ -48,6 +48,57 @@ public class OrderService
         return await _unitOfWork.OrderItems.GetByIdWithRelations(id);
     }
 
+    public async Task<Order> CreateFromCart(int userId)
+    {
+        var user = await _unitOfWork.Users.GetById(userId);
+
+        if (user == null)
+        {
+            throw new EntityNotFoundException<User>(userId);
+        }
+        
+        var cartItems = (await _unitOfWork.CartItems.GetByUserIdWithRelations(userId)).ToList();
+        
+        if (!cartItems.Any())
+        {
+            throw new CartEmptyException();
+        }
+        
+        var order = new Order
+        {
+            UserId = userId,
+            User = user,
+            Status = OrderStatus.Pending,
+            TotalPrice = 0
+        };
+        
+        await _unitOfWork.Orders.Add(order);
+        
+        foreach (var cartItem in cartItems)
+        {
+            var orderItem = new OrderItem
+            {
+                Order = order,
+                OrderId = order.Id,
+                Book = cartItem.Book,
+                BookId = cartItem.BookId,
+                ISBN = cartItem.Book.ISBN,
+                Title = cartItem.Book.Title,
+                Price = cartItem.Book.Price,
+                Quantity = cartItem.Quantity
+            };
+        
+            order.TotalPrice += orderItem.Price * orderItem.Quantity;
+        
+            await _unitOfWork.OrderItems.Add(orderItem);
+            _unitOfWork.CartItems.Remove(cartItem);
+        }
+        
+        await _unitOfWork.Complete();
+        
+        return order;
+    }
+
     public async Task<Order> Create(OrderCreateInputDto orderCreateInputDto)
     {
         var user = await _unitOfWork.Users.GetById(orderCreateInputDto.UserId);

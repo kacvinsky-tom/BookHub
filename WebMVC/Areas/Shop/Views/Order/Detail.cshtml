@@ -1,0 +1,48 @@
+﻿@model WebMVC.Areas.Shop.ViewModel.Order.OrderDetailViewModel
+
+@{
+    ViewData["Title"] = "Order " + Model.OrderId + " detail";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    
+    <h1><b>Order Details</b></h1>
+    
+    <div class="order-info">
+        <h2>Order ID: @Model.OrderId</h2>
+        <p>Order Date: @Model.OrderDate</p>
+        <p>Order Status: @Model.OrderStatus</p>
+        <p>Total Price: @Model.TotalPrice</p>
+    </div>
+    <br/>
+    <hr />
+    <br/>
+    <h2><b>Ordered Books</b></h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Book Title</th>
+            <th>Quantity</th>
+            <th>Price per Unit</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var book in Model.OrderedBooks)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.Quantity</td>
+                <td>@book.Price</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <br/>
+    @if (Model.OrderStatus == "Pending")
+    {
+        <form action="/Shop/Order/Pay/@Model.OrderId" method="post"  class="join">
+            <button type="submit" class="btn btn-primary">Pay</button>
+        </form>    
+    }
+</div>
