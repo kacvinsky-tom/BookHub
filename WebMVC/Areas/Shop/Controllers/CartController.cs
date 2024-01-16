@@ -2,12 +2,14 @@
 using AutoMapper;
 using Core.DTO.Input.CartItem;
 using Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.Areas.Shop.ViewModel.CartItem;
 
 namespace WebMVC.Areas.Shop.Controllers;
 
 [Area("Shop")]
+[Authorize]
 public class CartController : Controller
 {
     private readonly BookService _bookService;

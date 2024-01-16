@@ -4,12 +4,14 @@ using Core.DTO.Input.WishList;
 using Core.DTO.Input.WishListItem;
 using Core.Exception;
 using Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.Areas.Shop.ViewModel.WishList;
 
 namespace WebMVC.Areas.Shop.Controllers;
 
 [Area("Shop")]
+[Authorize]
 public class WishListController : Controller
 {
     private readonly WishListService _wishListService;
