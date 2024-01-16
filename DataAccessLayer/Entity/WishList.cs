@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace DataAccessLayer.Entity;
+﻿namespace DataAccessLayer.Entity;
 
 public class WishList : BaseEntity
 {
