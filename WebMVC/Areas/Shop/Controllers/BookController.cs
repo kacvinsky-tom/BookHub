@@ -14,19 +14,25 @@ public class BookController : Controller
     private readonly BookService _bookService;
     private readonly ReviewService _reviewService;
     private readonly UserService _userService;
+    private readonly GenreService _genreService;
+    private readonly AuthorService _authorService;
     private readonly IMapper _mapper;
 
     public BookController(
         BookService bookService,
         IMapper mapper,
         ReviewService reviewService,
-        UserService userService
+        UserService userService,
+        GenreService genreService,
+        AuthorService authorService
     )
     {
         _bookService = bookService;
         _mapper = mapper;
         _reviewService = reviewService;
         _userService = userService;
+        _genreService = genreService;
+        _authorService = authorService;
     }
 
     public async Task<IActionResult> Index(int page = 1, int pageSize = 12)
@@ -81,7 +87,7 @@ public class BookController : Controller
         return RedirectToAction("Detail", new { id = reviewCreateViewModel.BookId });
     }
 
-    [HttpPost("Shop/Book/DeleteReview/{id:int}")]
+    [HttpPost("/Shop/Book/DeleteReview/{id:int}")]
     public async Task<IActionResult> DeleteReview(int id)
     {
         var review = await _reviewService.GetById(id);
@@ -99,5 +105,45 @@ public class BookController : Controller
         await _reviewService.Delete(id);
 
         return RedirectToAction("Detail", new { id = review.BookId });
+    }
+
+    [HttpGet("/Shop/Book/ByGenre/{genreId:int}")]
+    public async Task<IActionResult> ByGenre(int genreId, int page = 1, int pageSize = 12)
+    {
+        var genre = await _genreService.GetById(genreId);
+
+        if (genre == null)
+        {
+            return NotFound();
+        }
+
+        var model = _mapper.Map<PaginatedBooksByGenreViewModel>(
+            await _bookService.GetByGenrePaginated(genreId, pageSize, page)
+        );
+
+        model.GenreId = genreId;
+        model.GenreDisplayName = genre.Name;
+
+        return View(model);
+    }
+
+    [HttpGet("/Shop/Book/ByAuthor/{authorId:int}")]
+    public async Task<IActionResult> ByAuthor(int authorId, int page = 1, int pageSize = 12)
+    {
+        var author = await _authorService.GetById(authorId);
+
+        if (author == null)
+        {
+            return NotFound();
+        }
+
+        var model = _mapper.Map<PaginatedBooksByAuthorViewModel>(
+            await _bookService.GetByAuthorPaginated(authorId, pageSize, page)
+        );
+
+        model.AuthorId = authorId;
+        model.AuthorDisplayName = author.FirstName + " " + author.LastName;
+
+        return View(model);
     }
 }
