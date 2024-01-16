@@ -84,7 +84,9 @@ public class PublisherController : ControllerBase
         }
         catch (CannotDeleteException)
         {
-            return Conflict("Cannot delete this publisher because it is referenced by other entities.");
+            return Conflict(
+                "Cannot delete this publisher because it is referenced by other entities."
+            );
         }
     }
 }

@@ -150,7 +150,12 @@ public class AuthorService
         }
         catch (DbUpdateException ex)
         {
-            if (ex.InnerException is SqliteException { SqliteErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT })
+            if (
+                ex.InnerException is SqliteException
+                {
+                    SqliteErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT
+                }
+            )
             {
                 throw new CannotDeleteException();
             }
