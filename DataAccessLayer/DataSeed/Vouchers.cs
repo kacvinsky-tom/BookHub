@@ -12,7 +12,7 @@ internal static class Vouchers
             new()
             {
                 Id = 1,
-                Code = "VANOCE10",
+                Code = "CHRISTMAS",
                 Discount = 10,
                 ExpirationDate = new DateTime(2023, 12, 24, 12, 00, 00, DateTimeKind.Utc),
                 Type = VoucherType.Percentage
@@ -20,7 +20,7 @@ internal static class Vouchers
             new()
             {
                 Id = 2,
-                Code = "KILODOLU",
+                Code = "SALE10",
                 Discount = 100,
                 ExpirationDate = new DateTime(2023, 11, 1, 0, 0, 0, DateTimeKind.Utc),
                 Type = VoucherType.FixedAmount
@@ -28,7 +28,7 @@ internal static class Vouchers
             new()
             {
                 Id = 3,
-                Code = "ZIMNISLEVA",
+                Code = "WINTERSALE",
                 Discount = 20,
                 ExpirationDate = new DateTime(2024, 1, 31, 0, 0, 0, DateTimeKind.Utc),
                 Type = VoucherType.Percentage

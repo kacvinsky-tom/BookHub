@@ -11,13 +11,13 @@ internal static class WishLists
             new()
             {
                 Id = 1,
-                Name = "Můj seznam přání",
+                Name = "My wish list",
                 UserId = 2,
             },
             new()
             {
                 Id = 2,
-                Name = "Zbývající harry potter knížky",
+                Name = "The Remaining Harry Potter Books",
                 UserId = 2,
             },
         };

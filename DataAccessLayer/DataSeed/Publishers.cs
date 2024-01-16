@@ -11,23 +11,23 @@ internal static class Publishers
             new()
             {
                 Id = 1,
-                Name = "Talpress",
-                State = "Czech Republic",
-                Email = "eshop@talpress.cz"
+                Name = "Scribner",
+                State = "New York",
+                Email = "ScribnerPublicity@SimonandSchuster.com"
             },
             new()
             {
                 Id = 2,
-                Name = "Albatros",
-                State = "Czech Republic",
-                Email = "albatros@albatrosmedia.cz"
+                Name = "Pottermore Publishing",
+                State = "London",
+                Email = "help@pottermore.com"
             },
             new()
             {
                 Id = 3,
-                Name = "Argo",
-                State = "Czech Republic",
-                Email = "argo@argo.cz"
+                Name = "Bantam",
+                State = "New York",
+                Email = "BBDPublicity@randomhouse.com"
             }
         };
         publishers.ForEach(publisher =>

@@ -11,10 +11,10 @@ internal static class Books
             new()
             {
                 Id = 1,
-                Title = "Barva kouzel",
-                ISBN = "978-80-7197-614-1",
+                Title = "The Color of Magic",
+                ISBN = "9780060855925",
                 Description =
-                    "Ve světě, který leží na krunýři obrovské želvy, se vydává na cestu rozverná, temperamentní a neuvěřitelně výstřední výprava. Setkáte se s lakomým a naprosto neschopným čarodějem Mrakoplašem, naivním turistou Dvoukvítkem, jehož Zavazadlo za ním běhá jako pes na stovce malých nožiček, s draky, kteří existují, pokud na ně opravdu věříte, a samozřejmě dojdete až na okraj této podivné planety.",
+                    "In a world supported on the back of a giant turtle (sex unknown), a gleeful, explosive, wickedly eccentric expedition sets out. There's an avaricious but inept wizard, a naive tourist whose luggage moves on hundreds of dear little legs, dragons who only exist if you believe in them, and of course THE EDGE of the planet...",
                 Price = 399,
                 Quantity = 7,
                 ReleaseYear = 1993,
@@ -23,10 +23,10 @@ internal static class Books
             new()
             {
                 Id = 2,
-                Title = "Harry Potter a Kámen mudrců",
-                ISBN = "978-80-7197-614-1",
+                Title = "Harry Potter and the Sorcerer’s Stone",
+                ISBN = "9781338878929",
                 Description =
-                    "Harry Potter je sirotek, který žije u svých příbuzných Dursleyových. Jeho rodiče byli mocní čarodějové, kteří zahynuli při souboji s nejtemnějším čarodějem všech dob, Lordem Voldemortem. Harryho rodiče zanechali svého syna v péči svého přítele, kouzelníka Albusa Brumbála, ředitele Školy čar a kouzel v Bradavicích. Harryho příbuzní o jeho magických schopnostech nevědí, protože se bojí, že by ho mohli zavděčit. Harryho život je plný ponižování a šikany, ale v den jeho jedenáctých narozenin se vše změní. Harry dostane dopis od Brumbála, který ho pozve na Školu čar a kouzel v Bradavicích. Harry se dozví, že je čaroděj a že jeho rodiče zemřeli při souboji s nejtemnějším čarodějem všech dob, Lordem Voldemortem. Harry se vydává do Bradavic, kde se seznámí s Ronem Weasleym a Hermionou Grangerovou, kteří se stanou jeho nejlepšími přáteli. Harry se také dozví, že Voldemort přežil a že se chystá získat Kámen mudrců, který mu pomůže znovu získat svou moc.",
+                    "Harry Potter has never even heard of Hogwarts when the letters start dropping on the doormat at number four, Privet Drive. Addressed in green ink on yellowish parchment with a purple seal, they are swiftly confiscated by his grisly aunt and uncle. Then, on Harry's eleventh birthday, a great beetle-eyed giant of a man called Rubeus Hagrid bursts in with some astonishing news: Harry Potter is a wizard, and he has a place at Hogwarts School of Witchcraft and Wizardry. An incredible adventure is about to begin!",
                 Price = 399,
                 Quantity = 17,
                 ReleaseYear = 1997,
@@ -35,10 +35,10 @@ internal static class Books
             new()
             {
                 Id = 3,
-                Title = "Hra o trůny",
-                ISBN = "978-80-257-2891-5",
+                Title = "A Game of Thrones",
+                ISBN = "9780553897845",
                 Description =
-                    "Když král Robert rozhodne, že jeho nejstarší přítel Eddard Stark bude jeho pravou rukou, nevědomky odstartuje události, které otřesou celým kontinentem. Eddard se totiž snaží vyšetřit tajemnou smrt předchozího krájů a nastoupit na své nové místo, ale brzy zjistí, že je vše mnohem složitější, než se zdálo. Na jihu se totiž připravuje vzpoura a v záloze číhá starodávné zlo, které se probouzí.",
+                    "Long ago, in a time forgotten, a preternatural event threw the seasons out of balance. In a land where summers can last decades and winters a lifetime, trouble is brewing. The cold is returning, and in the frozen wastes to the north of Winterfell, sinister forces are massing beyond the kingdom’s protective Wall. To the south, the king’s powers are failing—his most trusted adviser dead under mysterious circumstances and his enemies emerging from the shadows of the throne.",
                 Price = 699,
                 Quantity = 15,
                 ReleaseYear = 1996,
@@ -47,10 +47,10 @@ internal static class Books
             new()
             {
                 Id = 4,
-                Title = "To",
-                ISBN = "978-80-7197-614-1",
+                Title = "It",
+                ISBN = "9780450411434",
                 Description =
-                    "V roce 1958 se sedmička přátel z Derry, malého městečka v americkém státě Maine, vydává do kanalizace, aby zničila zlého klauna Pennywaise, který se zde ukrývá. Sedmička však zjistí, že Pennywise je jen jedním z mnoha podob zla, které se ukrývá v Derry. Ze slibu se však stane kletba a sedmička se musí v roce 1985 vrátit do Derry, aby zlo zničila jednou provždy.",
+                    "Welcome to Derry, Maine ... It’s a small city, a place as hauntingly familiar as your own hometown. Only in Derry the haunting is real ... They were seven teenagers when they first stumbled upon the horror. Now they are grown-up men and women who have gone out into the big world to gain success and happiness. But none of them can withstand the force that has drawn them back to Derry to face the nightmare without an end, and the evil without a name.",
                 Price = 799,
                 Quantity = 2,
                 ReleaseYear = 1986,
@@ -59,10 +59,10 @@ internal static class Books
             new()
             {
                 Id = 5,
-                Title = "Harry Potter a Tajemná komnata",
-                ISBN = "978-80-7197-614-1",
+                Title = "Harry Potter and the Chamber of Secrets",
+                ISBN = "9781781100226",
                 Description =
-                    "Harry Potter, Ron Weasley a Hermiona Grangerová se vrací do Bradavic, kde se dozvědí o Tajemné komnatě, která je úzce spojena s Harrym. Harry se rozhodne najít Tajemnou komnatu a zjistit, co se tam skrývá. Harryho plán je však zmařen, když se objeví záhadný písař. Harryho přítel Ron je napaden a jeho sestra Ginny zmizí. Harry, Ron a Hermiona se tak vydávají do Tajemné komnaty, aby zjistili, co se tam skrývá a zachránili Ginny.",
+                    "Ever since Harry Potter had come home for the summer, the Dursleys had been so mean and hideous that all Harry wanted was to get back to the Hogwarts School for Witchcraft and Wizardry. But just as he’s packing his bags, Harry receives a warning from a strange impish creature who says that if Harry returns to Hogwarts, disaster will strike.",
                 Price = 399,
                 Quantity = 9,
                 ReleaseYear = 1998,
@@ -71,10 +71,10 @@ internal static class Books
             new()
             {
                 Id = 6,
-                Title = "Harry Potter a vězeň z Azkabanu",
-                ISBN = "978-80-7197-614-1",
+                Title = "Harry Potter and the Prisoner of Azkaban",
+                ISBN = "9781484476253",
                 Description =
-                    "Harry Potter se vrací do Bradavic, ale tentokrát se musí vyhýbat nebezpečnému vězni jménem Sirius Black, který utekl z Azkabanu. Harry se dozví, že Sirius byl vězněn kvůli tomu, že zradil jeho rodiče a že se chystá Harryho zabít. Harry se vydává na cestu, která ho zavede do minulosti, kde se dozví, že Sirius není tím, za koho se vydává.",
+                    "Harry Potter, along with his best friends, Ron and Hermione, is about to start his third year at Hogwarts School of Witchcraft and Wizardry. Harry can't wait to get back to school after the summer holidays. (Who wouldn't if they lived with the horrible Dursleys?) But when Harry gets to Hogwarts, the atmosphere is tense. There's an escaped mass murderer on the loose, and the sinister prison guards of Azkaban have been called in to guard the school...",
                 Price = 399,
                 Quantity = 11,
                 ReleaseYear = 1999,
@@ -83,10 +83,10 @@ internal static class Books
             new()
             {
                 Id = 7,
-                Title = "Harry Potter a Ohnivý pohár",
-                ISBN = "978-80-7197-614-1",
+                Title = "Harry Potter and the Goblet of Fire",
+                ISBN = "9781781105672",
                 Description =
-                    "Harry Potter se vrací do Bradavic, kde se má konat Turnaj tří kouzelníků. Harry se však dozví, že se do turnaje dostal podvodem a že se musí zúčastnit tří nebezpečných úkolů. Harry se vydává na cestu, která ho zavede do minulosti, kde se dozví, že se do turnaje dostal podvodem a že se musí zúčastnit tří nebezpečných úkolů.",
+                    "It is the summer holidays and soon Harry Potter will be starting his fourth year at Hogwarts School of Witchcraft and Wizardry. Harry is counting the days: there are new spells to be learnt, more Quidditch to be played, and Hogwarts castle to continue exploring. But Harry needs to be careful - there are unexpected dangers lurking...",
                 Price = 399,
                 Quantity = 13,
                 ReleaseYear = 2000,
@@ -95,10 +95,10 @@ internal static class Books
             new()
             {
                 Id = 8,
-                Title = "Harry Potter a Fénixův řád",
-                ISBN = "978-80-7197-614-1",
+                Title = "Harry Potter and the Order of the Phoenix",
+                ISBN = "9781338878967",
                 Description =
-                    "Do Bradavic přišly temné časy. Po útoku mozkomorů na bratrance Dudleyho Harry ví, že Voldemort udělá cokoli, jen aby ho našel. Mnozí jeho návrat popírají, ale Harry přesto není sám: na Grimmauldově náměstí se schází tajný řád, který chce bojovat proti temným silám. Harry se musí od profesora Snapea naučit, jak se chránit před Voldemortovými útoky na jeho duši. Jenže Pán zla je den ode dne silnější a Harrymu dochází čas…",
+                    "Dark times have come to Hogwarts. After the Dementors' attack on his cousin Dudley, Harry Potter knows that Voldemort will stop at nothing to find him. There are many who deny the Dark Lord's return, but Harry is not alone: a secret order gathers at Grimmauld Place to fight against the Dark forces. Harry must allow Professor Snape to teach him how to protect himself from Voldemort's savage assaults on his mind. But they are growing stronger by the day and Harry is running out of time ...",
                 Price = 399,
                 Quantity = 13,
                 ReleaseYear = 2000,
@@ -107,10 +107,10 @@ internal static class Books
             new()
             {
                 Id = 9,
-                Title = "Harry Potter a princ dvojí krve",
-                ISBN = "978-80-7197-614-1",
+                Title = "Harry Potter and the Half-Blood Prince",
+                ISBN = "9781781100257",
                 Description =
-                    "Moc Lorda Voldemorta stále roste a smrtijedi působí spoušť ve světě mudlů i kouzelníků. Když Harry Potter objeví starou učebnici lektvarů patřící tajemnému princi dvojí krve, spoléhá na její kouzla i přes varování svých kamarádů. Profesor Brumbál poodhaluje Voldemortovu minulost a s Harryho pomocí se snaží odkrýt tajemství jeho nesmrtelnosti. Jenže zlo se dere k moci stále silněji, neštěstí se blíží a Bradavice už nikdy nebudou jako dřív.",
+                    "It is the middle of the summer, but there is an unseasonal mist pressing against the windowpanes. Harry Potter is waiting nervously in his bedroom at the Dursleys' house in Privet Drive for a visit from Professor Dumbledore himself. One of the last times he saw the Headmaster, he was in a fierce one-to-one duel with Lord Voldemort, and Harry can't quite believe that Professor Dumbledore will actually appear at the Dursleys' of all places. Why is the Professor coming to visit him now? What is it that cannot wait until Harry returns to Hogwarts in a few weeks' time? Harry's sixth year at Hogwarts has already got off to an unusual start, as the worlds of Muggle and magic start to intertwine...",
                 Price = 399,
                 Quantity = 13,
                 ReleaseYear = 2005,
@@ -119,10 +119,10 @@ internal static class Books
             new()
             {
                 Id = 10,
-                Title = "Harry Potter a Relikvie smrti",
-                ISBN = "978-80-7197-614-1",
+                Title = "Harry Potter and the Deathly Hallows",
+                ISBN = "9781781100264",
                 Description =
-                    "Harry Potter se vydává na nebezpečnou cestu, aby zničil poslední Voldemortovy viteály. Společně s Ronem a Hermionou hledá zbytek Voldemortovy duše, který se ukrývá v tělech jeho nejmocnějších stoupenců. Harry se musí vydat na nebezpečnou cestu, aby zničil poslední Voldemortovy viteály. Společně s Ronem a Hermionou hledá zbytek Voldemortovy duše, který se ukrývá v tělech jeho nejmocnějších stoupenců.",
+                    "Harry has been burdened with a dark, dangerous and seemingly impossible task: that of locating and destroying Voldemort's remaining Horcruxes. Never has Harry felt so alone, or faced a future so full of shadows. But Harry must somehow find within himself the strength to complete the task he has been given. He must leave the warmth, safety and companionship of The Burrow and follow without fear or hesitation the inexorable path laid out for him...",
                 Price = 399,
                 Quantity = 13,
                 ReleaseYear = 2007,
@@ -131,10 +131,10 @@ internal static class Books
             new()
             {
                 Id = 11,
-                Title = "Harry Potter a prokleté dítě",
-                ISBN = "978-80-7197-614-1",
+                Title = "Harry Potter and the Cursed Child",
+                ISBN = "9780751565362",
                 Description =
-                    "Harry Potter je zaměstnán v Ministerstvu kouzel a má tři školáky. Jeho minulost ho však neustále pronásleduje. Harry Potter je zaměstnán v Ministerstvu kouzel a má tři školáky. Jeho minulost ho však neustále pronásleduje.",
+                    "The eighth story, nineteen years later... It was always difficult being Harry Potter, and it isn't much easier now that he is an overworked employee of the Ministry of Magic, a husband, and a father of three school-age children. While Harry grapples with a past that refuses to stay where it belongs, his youngest son, Albus, must struggle with the weight of a family legacy he never wanted. As past and present fuse ominously, both father and son learn the uncomfortable truth: sometimes, darkness comes from unexpected places.",
                 Price = 399,
                 Quantity = 13,
                 ReleaseYear = 2016,

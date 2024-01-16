@@ -35,7 +35,7 @@ public class SharedController : Controller
         int pageSize = PrimarySearchObjectsDefaultSize
     )
     {
-        var searchCriteria = new SearchQueryInputDto { Query = searchInputModel.Query };
+        var searchCriteria = new SearchQueryInputDto { Query = searchInputModel.Query.Trim() };
 
         var authors = await _authorService.Search(
             searchCriteria,
