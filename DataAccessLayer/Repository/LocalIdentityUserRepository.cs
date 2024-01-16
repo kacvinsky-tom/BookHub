@@ -29,4 +29,9 @@ public class LocalIdentityUserRepository
     {
         return await GetBasicQuery().FirstOrDefaultAsync(u => u.Id == id);
     }
+
+    public async Task<LocalIdentityUser?> GetByUserName(string userName)
+    {
+        return await GetBasicQuery().FirstOrDefaultAsync(u => u.UserName == userName);
+    }
 }

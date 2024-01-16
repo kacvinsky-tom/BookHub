@@ -112,9 +112,30 @@ public class LocalIdentityUserService
         await _userManager.AddPasswordAsync(user, password);
     }
 
+    public async Task<IdentityResult> ChangePassword(
+        string localIdentityUserName,
+        string oldPassword,
+        string newPassword
+    )
+    {
+        var user = await _userManager.FindByNameAsync(localIdentityUserName);
+
+        if (user == null)
+        {
+            throw new EntityNotFoundException<LocalIdentityUser, string>(localIdentityUserName);
+        }
+
+        return await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
+    }
+
     public async Task<LocalIdentityUser?> GetById(string id)
     {
         return await _unitOfWork.LocalIdentityUsers.GetById(id);
+    }
+
+    public async Task<LocalIdentityUser?> GetByUserName(string username)
+    {
+        return await _unitOfWork.LocalIdentityUsers.GetByUserName(username);
     }
 
     public async Task<IList<string>> GetRolesOfUser(LocalIdentityUser u)

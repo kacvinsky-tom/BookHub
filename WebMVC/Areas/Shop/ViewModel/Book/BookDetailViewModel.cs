@@ -1,4 +1,6 @@
-﻿using WebMVC.Areas.Shop.ViewModel.Review;
+﻿using WebMVC.Areas.Shop.ViewModel.BookGenre;
+using WebMVC.Areas.Shop.ViewModel.Review;
+using WebMVC.ViewModels;
 
 namespace WebMVC.Areas.Shop.ViewModel.Book;
 
@@ -17,6 +19,10 @@ public class BookDetailViewModel
     public int Price { get; set; }
 
     public int ReleaseYear { get; set; }
+
+    public List<AuthorListViewModel> Authors { get; set; } = new();
+
+    public List<BookGenreListViewModel> BookGenres { get; set; } = new();
 
     public List<ReviewDetailViewModel> Reviews { get; set; } = new();
 }

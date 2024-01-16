@@ -12,6 +12,7 @@ using WebMVC.Areas.Admin.ViewModels.Order;
 using WebMVC.Areas.Admin.ViewModels.Publisher;
 using WebMVC.Areas.Admin.ViewModels.User;
 using WebMVC.Areas.Shop.ViewModel.Book;
+using WebMVC.Areas.Shop.ViewModel.BookGenre;
 using WebMVC.Areas.Shop.ViewModel.CartItem;
 using WebMVC.Areas.Shop.ViewModel.Review;
 using WebMVC.Areas.Shop.ViewModel.WishList;
@@ -27,7 +28,9 @@ public class BookHubProfile : Profile
         CreateMap<Author, AuthorListViewModel>();
         CreateMap<GenreListOutputDto, GenreListViewModel>();
         CreateMap<BookListOutputDto, BookListViewModel>();
+        CreateMap<Book, BookFullListViewModel>();
         CreateMap<Book, BookDetailViewModel>();
+        CreateMap<BookGenre, BookGenreListViewModel>();
         CreateMap<Author, AuthorEditViewModel>();
         CreateMap<Genre, GenreEditViewModel>();
         CreateMap<Publisher, PublisherEditViewModel>();
@@ -71,10 +74,8 @@ public class BookHubProfile : Profile
             .ForMember(dest => dest.ItemsCount, opt => opt.MapFrom(src => src.OrderItems.Count()));
 
         CreateMap<PaginationObject<Author>, PaginationViewModel<AuthorListViewModel>>();
-        CreateMap<
-            PaginationObject<Book>,
-            PaginationViewModel<Areas.Admin.ViewModels.Book.BookListViewModel>
-        >();
+        CreateMap<PaginationObject<Book>, PaginationViewModel<BookListViewModel>>();
+        CreateMap<PaginationObject<Book>, PaginationViewModel<BookFullListViewModel>>();
         CreateMap<PaginationObject<Genre>, PaginationViewModel<GenreListViewModel>>();
         CreateMap<PaginationObject<Publisher>, PaginationViewModel<PublisherListViewModel>>();
         CreateMap<PaginationObject<LocalIdentityUser>, PaginationViewModel<UserListViewModel>>();

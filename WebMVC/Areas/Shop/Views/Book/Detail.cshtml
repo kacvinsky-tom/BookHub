@@ -25,11 +25,44 @@
         }
         <div class="flex flex-col gap-4 lg:col-span-2">
             <div class="flex flex-col">
+                <span class="font-bold text-lg">Authors</span>
+                <div class="flex gap-2 flex-wrap">
+                    @foreach (var author in Model.Authors)
+                    {
+                    <span class="badge badge-secondary">
+                        @author.FirstName @author.LastName
+                    </span>
+                    }
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <span class="font-bold text-lg">Genres</span>
+                @{
+                    var primaryGenre = Model.BookGenres.FirstOrDefault(g => g.IsPrimary);
+                    var otherGenres = Model.BookGenres.Where(g => !g.IsPrimary);
+                }
+                <div class="flex flex-col gap-2">
+                    @if (primaryGenre != null)
+                    { 
+                        <div class="flex items-center gap-2">
+                            <span class="text-neutral-300">Primary: </span>
+                            <div class="badge badge-primary">@primaryGenre.GenreName</div>
+                        </div>
+                    }
+                    <div class="flex flex-wrap gap-2">
+                        @foreach (var genre in otherGenres)
+                        {
+                            <div class="badge badge-secondary">@genre.GenreName</div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col">
                 <span class="font-bold text-lg">Description</span>
                 <span>@Model.Description</span>
             </div>
             <div>
-                Released in <span class="font-bold">@Model.ReleaseYear</span> 
+                Released in <span class="font-bold">@Model.ReleaseYear</span>
             </div>
             <div class="flex flex-col gap-2">
                 <span class="text-lg font-bold text-red-600">
@@ -38,7 +71,7 @@
                 <div class="flex">
                     <a href="/Shop/Cart/Add/@Model.Id" class="btn btn-sm btn-success"><i class="bi bi-cart"></i> Add to cart</a>
                 </div>
-                
+
             </div>
             <div class="text-sm text-neutral-400">
                 ISBN @Model.ISBN

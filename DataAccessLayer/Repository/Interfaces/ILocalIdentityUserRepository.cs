@@ -5,4 +5,6 @@ namespace DataAccessLayer.Repository.Interfaces;
 public interface ILocalIdentityUserRepository : IGenericRepository<LocalIdentityUser>
 {
     public Task<LocalIdentityUser?> GetById(string id);
+
+    public Task<LocalIdentityUser?> GetByUserName(string userName);
 }

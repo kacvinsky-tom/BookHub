@@ -1,10 +1,12 @@
 ﻿using System.Security.Claims;
 using Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.ViewModels;
 
 namespace WebMVC.Controllers;
 
+[Authorize]
 public class OrdersController : Controller
 {
     private readonly OrderService _orderService;

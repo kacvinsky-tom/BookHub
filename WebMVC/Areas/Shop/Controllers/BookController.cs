@@ -4,6 +4,7 @@ using Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.Areas.Shop.ViewModel.Book;
 using WebMVC.Areas.Shop.ViewModel.Review;
+using WebMVC.ViewModels;
 
 namespace WebMVC.Areas.Shop.Controllers;
 
@@ -26,6 +27,15 @@ public class BookController : Controller
         _mapper = mapper;
         _reviewService = reviewService;
         _userService = userService;
+    }
+
+    public async Task<IActionResult> Index(int page = 1, int pageSize = 12)
+    {
+        return View(
+            _mapper.Map<PaginationViewModel<BookFullListViewModel>>(
+                await _bookService.GetAllPaginated(page, pageSize)
+            )
+        );
     }
 
     public async Task<IActionResult> Detail(int id)
