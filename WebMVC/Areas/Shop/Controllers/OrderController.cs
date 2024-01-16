@@ -79,10 +79,10 @@ public class OrderController : Controller
     {
         try
         {
-            await _orderService.Update(new OrderUpdateInputDto
-            {
-                Status = OrderStatus.Completed
-            }, id);
+            await _orderService.Update(
+                new OrderUpdateInputDto { Status = OrderStatus.Completed },
+                id
+            );
 
             return RedirectToAction(nameof(Detail), new { id });
         }
@@ -120,7 +120,7 @@ public class OrderController : Controller
         }
 
         var currentUserId = currentUser.Id;
-       
+
         try
         {
             var order = await _orderService.CreateFromCart(currentUserId);

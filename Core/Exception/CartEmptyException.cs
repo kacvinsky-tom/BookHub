@@ -1,5 +1,3 @@
 ﻿namespace Core.Exception;
 
-public class CartEmptyException : System.Exception
-{
-}
+public class CartEmptyException : System.Exception { }
