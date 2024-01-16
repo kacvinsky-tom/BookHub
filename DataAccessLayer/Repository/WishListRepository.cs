@@ -11,9 +11,8 @@ public class WishListRepository : GenericRepository<WishList>, IWishListReposito
 
     public async Task<WishList?> GetByIdWithRelations(int id)
     {
-        return await _context
-            .WishLists
-            .Include(w => w.WishListItems)
+        return await Context
+            .WishLists.Include(w => w.WishListItems)
             .ThenInclude(wli => wli.Book)
             .ThenInclude(b => b.Authors)
             .FirstOrDefaultAsync(w => w.Id == id);

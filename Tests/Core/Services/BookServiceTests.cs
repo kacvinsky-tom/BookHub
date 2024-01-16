@@ -29,9 +29,7 @@ public class BookServiceTests
         var genreRepositoryMock = Substitute.For<IGenreRepository>();
         var publisherRepositoryMock = Substitute.For<IPublisherRepository>();
 
-        bookRepositoryMock
-            .GetWithRelations(Arg.Any<BookFilter>())
-            .Returns(BookTestData.GetFakeBooks());
+        bookRepositoryMock.GetAll(Arg.Any<BookFilter>()).Returns(BookTestData.GetFakeBooks());
         bookRepositoryMock.GetByIdWithRelations(1).Returns(BookTestData.GetFakeBooks().First());
         bookRepositoryMock.GetById(1).Returns(BookTestData.GetFakeBooks().First());
 
@@ -62,6 +60,9 @@ public class BookServiceTests
             .Returns(new Publisher() { Id = 1, Name = "Test Publisher" });
 
         _serviceProviderBuilder = new MockedDependencyInjectionBuilder()
+            .AddCaching()
+            .ConfigureIdentity()
+            .AddLogging()
             .AddUnitOfWork()
             .AddAutoMapper()
             .AddRepositories()

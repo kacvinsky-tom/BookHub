@@ -1,5 +1,4 @@
 ﻿@using Microsoft.AspNetCore.Identity;
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using DataAccessLayer.Entity
 @using Microsoft.EntityFrameworkCore
 @inject SignInManager<LocalIdentityUser> SignInManager
@@ -13,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] | BookHub</title>
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true"/>
+    @RenderSection("Styles", required: false)
 </head>
 <body>
 <header>
@@ -39,9 +39,12 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a>Placeholder</a>
-                    </li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>
+                            <a asp-area="Admin" asp-controller="Home" asp-action="Index">Admin Panel</a>
+                        </li>
+                    }
                 </ul>
             </div>
             <a class="btn btn-ghost text-xl">BookHub</a>
@@ -64,10 +67,16 @@
                         </ul>
                     </details>
                 </li>
-                <li>
-                    <a>Placeholder</a>
-                </li>
+                @if (User.IsInRole("Admin"))
+                {
+                    <li>
+                        <a  asp-area="Admin" asp-controller="Home" asp-action="Index">Admin Panel</a>
+                    </li>
+                }
             </ul>
+            @{
+                await Html.RenderPartialAsync("_SearchBox", new WebMVC.ViewModels.SearchViewInputModel());
+            }
         </div>
         <div class="navbar-end">
             @if (SignInManager.IsSignedIn(User))
@@ -83,7 +92,7 @@
                         </label>
                         <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
                             <li>
-                                <a>Purchase history</a>
+                                <a asp-area="" asp-controller="Orders" asp-action="OrdersHistory">Orders history</a>
                             </li>
                             <li>
                                 <a>Settings</a>
@@ -107,8 +116,22 @@
         </div>
     </div>
 </header>
-<main role="main" class="p-2">
-    @RenderBody()
+<main role="main" class="flex w-full justify-center p-2">
+    <div class="flex flex-col items-center gap-4 w-full max-w-screen-2xl">
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["Success"]
+            </div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-error">
+                @TempData["Error"]
+            </div>
+        }
+        @RenderBody()
+    </div>
 </main>
 
 <footer class="border-top footer text-muted">

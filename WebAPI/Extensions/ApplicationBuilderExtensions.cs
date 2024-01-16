@@ -4,11 +4,6 @@ namespace WebAPI.Extensions;
 
 public static class ApplicationBuilderExtensions
 {
-    public static void UseLoggingMiddleware(this IApplicationBuilder builder)
-    {
-        builder.UseMiddleware<LoggingMiddleware>();
-    }
-
     public static void UseTokenAuthenticationMiddleware(this IApplicationBuilder builder)
     {
         builder.UseMiddleware<TokenAuthenticationMiddleware>();

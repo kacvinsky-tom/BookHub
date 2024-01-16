@@ -1,0 +1,76 @@
+﻿@model WebMVC.Areas.Admin.ViewModels.User.UserEditViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+    var roleSelectList = Model.AvailableRoles.Select(role => new SelectListItem(role.Value, role.Id));
+}
+
+<div class="h-full w-full flex justify-center align-center">
+    <div class="card bg-base-200 shadow-lg rounded-2xl lg:max-w-5xl w-full">
+        <div class="card-body">
+            <h2 class="font-bold text-xl">Create genre</h2>
+            <form asp-action="Edit" method="post" class="grid gap-y-2 gap-x-4 grid-cols-1">
+                @Html.ValidationSummary(false, "", new { @class = "text-red-500" })
+                <div class="form-control">
+                    <label class="label">
+                        @Html.LabelFor(u => u.Username, new { @class = "label-text" })
+                    </label>
+                    @Html.TextBoxFor(u => u.Username, new { @class = "input input-bordered" })
+                    <label class="label">
+                        @Html.ValidationMessageFor(u => u.Username, "", new { @class = "label-text text-red-500" })
+                    </label>
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        @Html.LabelFor(u => u.Email, new { @class = "label-text" })
+                    </label>
+                    @Html.TextBoxFor(u => u.Email, new { @class = "input input-bordered" })
+                    <label class="label">
+                        @Html.ValidationMessageFor(u => u.Email, "", new { @class = "label-text text-red-500" })
+                    </label>
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        @Html.LabelFor(u => u.PhoneNumber, new { @class = "label-text" })
+                    </label>
+                    @Html.TextBoxFor(u => u.PhoneNumber, new { @class = "input input-bordered" })
+                    <label class="label">
+                        @Html.ValidationMessageFor(u => u.PhoneNumber, "", new { @class = "label-text text-red-500" })
+                    </label>
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        @Html.LabelFor(u => u.FirstName, new { @class = "label-text" })
+                    </label>
+                    @Html.TextBoxFor(u => u.FirstName, new { @class = "input input-bordered" })
+                    <label class="label">
+                        @Html.ValidationMessageFor(u => u.FirstName, "", new { @class = "label-text text-red-500" })
+                    </label>
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        @Html.LabelFor(u => u.LastName, new { @class = "label-text" })
+                    </label>
+                    @Html.TextBoxFor(u => u.LastName, new { @class = "input input-bordered" })
+                    <label class="label">
+                        @Html.ValidationMessageFor(u => u.LastName, "", new { @class = "label-text text-red-500" })
+                    </label>
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        @Html.LabelFor(u => u.Role, new { @class = "label-text" })
+                    </label>
+                    @Html.DropDownListFor(u => u.Role, roleSelectList, new { @class = "input input-bordered" })
+                    <label class="label">
+                        @Html.ValidationMessageFor(u => u.Role, "", new { @class = "label-text text-red-500" })
+                    </label>
+                </div>
+                <button class="btn btn-success">
+                    <i class="bi bi-check-circle"></i>
+                    Save
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -11,9 +11,8 @@ public class WishListItemRepository : GenericRepository<WishListItem>, IWishList
 
     private IQueryable<WishListItem> GetBasicQuery()
     {
-        return _context
-            .WishListItems
-            .Include(w => w.Book)
+        return Context
+            .WishListItems.Include(w => w.Book)
             .ThenInclude(b => b.Authors)
             .Include(w => w.Book)
             .ThenInclude(b => b.Genres);

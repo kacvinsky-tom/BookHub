@@ -21,6 +21,9 @@ public class UserServiceTest
         userRepositoryMock.GetByIdWithRelations(1).Returns(UserTestData.GetFakeUsers().First());
 
         _serviceProviderBuilder = new MockedDependencyInjectionBuilder()
+            .AddCaching()
+            .ConfigureIdentity()
+            .AddLogging()
             .AddUnitOfWork()
             .AddAutoMapper()
             .AddRepositories()

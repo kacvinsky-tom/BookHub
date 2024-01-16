@@ -19,6 +19,7 @@ public static class RepositoryConfig
         services.AddScoped<IPublisherRepository, PublisherRepository>();
         services.AddScoped<IReviewRepository, ReviewRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ILocalIdentityUserRepository, LocalIdentityUserRepository>();
         services.AddScoped<IVoucherRepository, VoucherRepository>();
         services.AddScoped<IWishListItemRepository, WishListItemRepository>();
         services.AddScoped<IWishListRepository, WishListRepository>();

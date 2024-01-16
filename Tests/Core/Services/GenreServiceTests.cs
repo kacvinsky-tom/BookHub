@@ -24,6 +24,9 @@ public class GenreServiceTests
         genreRepositoryMock.GetByIdWithRelations(1).Returns(GenreTestData.GetFakeGenres().First());
 
         _serviceProviderBuilder = new MockedDependencyInjectionBuilder()
+            .AddCaching()
+            .ConfigureIdentity()
+            .AddLogging()
             .AddUnitOfWork()
             .AddAutoMapper()
             .AddRepositories()

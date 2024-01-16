@@ -1,0 +1,31 @@
+﻿@using WebMVC.Areas.Admin.Views.Shared
+@model WebMVC.ViewModels.PaginationViewModel<WebMVC.ViewModels.AuthorListViewModel>
+
+@{
+    ViewBag.Title = "Author list";
+    Layout = "_Layout";
+}
+<div class="flex justify-between items-center mb-4 w-full">
+    <h2 class="text-2xl font-bold text-white">Authors</h2>
+    <a href="/Admin/Author/Create" class="btn btn-success btn-sm">Add author</a>
+</div>
+
+
+<div class="flex flex-col gap-4 w-full">
+    @foreach (var author in Model.Items)
+    {
+        <div class="bg-indigo-900 rounded-xl shadow-lg flex justify-between items-center py-2 px-4">
+            <div class="text-white font-semibold text-lg">
+               @author.FirstName @author.LastName
+            </div>
+            <div class="flex gap-4">
+                <a class="btn btn-secondary btn-sm" href="/Admin/Author/Edit/@author.Id">Edit</a>
+                <form action="/Admin/Author/Delete/@author.Id" method="post">
+                    <button onclick="return confirm('Really delete author @author.FirstName @author.LastName?')" class="btn btn-error btn-sm"><i class="bi bi-trash"></i></button>
+                </form>
+            </div>
+        </div>
+    }
+    
+    @Html.Partial("_Paginator", new PaginatorData {  ModelName = "Author", Page = Model.Page, TotalPages = Model.TotalPages })
+</div>

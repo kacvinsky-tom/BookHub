@@ -1,5 +1,6 @@
 using Core.Extensions;
 using DataAccessLayer;
+using LoggingMiddleware.Extensions;
 using WebAPI;
 using WebAPI.Extensions;
 
@@ -15,11 +16,15 @@ builder.Services.AddSwaggerWithAuthentication();
 builder.Services.AddLogging();
 
 builder.Services.AddAutoMapper(typeof(BookHubProfile));
-builder.Services.AddDbContextFactoryWithConfiguration(builder.Configuration);
+builder.Services.AddMemoryCacheWithConfiguration();
 builder.Services.AddScoped<UnitOfWork>();
+
+//builder.Services.AddPostgreDbContextFactory(builder.Configuration);
+builder.Services.AddSqliteDbContextFactory(builder.Configuration);
 
 builder.Services.AddRepositories();
 builder.Services.AddBLServices();
+builder.Services.ConfigureIdentity();
 
 var app = builder.Build();
 
@@ -30,7 +35,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseLoggingMiddleware();
+app.UseLoggingMiddleware("WebAPI");
 
 app.UseHttpsRedirection();
 

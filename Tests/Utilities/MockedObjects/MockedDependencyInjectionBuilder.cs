@@ -1,4 +1,5 @@
-﻿using Core.Services;
+﻿using Core.Extensions;
+using Core.Services;
 using DataAccessLayer;
 using DataAccessLayer.Repository;
 using DataAccessLayer.Repository.Interfaces;
@@ -33,6 +34,7 @@ public class MockedDependencyInjectionBuilder
     {
         _serviceCollection = _serviceCollection
             .AddScoped<IAuthorRepository, AuthorRepository>()
+            .AddScoped<ILocalIdentityUserRepository, LocalIdentityUserRepository>()
             .AddScoped<IBookRepository, BookRepository>()
             .AddScoped<ICartItemRepository, CartItemRepository>()
             .AddScoped<IGenreRepository, GenreRepository>()
@@ -44,7 +46,8 @@ public class MockedDependencyInjectionBuilder
             .AddScoped<IVoucherRepository, VoucherRepository>()
             .AddScoped<IWishListRepository, WishListRepository>()
             .AddScoped<IWishListItemRepository, WishListItemRepository>()
-            .AddScoped<IBookRepository, BookRepository>();
+            .AddScoped<IBookRepository, BookRepository>()
+            .AddScoped<ILocalIdentityUserRepository, LocalIdentityUserRepository>();
 
         return this;
     }
@@ -54,14 +57,34 @@ public class MockedDependencyInjectionBuilder
         _serviceCollection = _serviceCollection
             .AddScoped<BookService>()
             .AddScoped<VoucherService>()
+            .AddScoped<LocalIdentityUserService>()
             .AddScoped<GenreService>()
             .AddScoped<CartService>()
             .AddScoped<AuthorService>()
             .AddScoped<PublisherService>()
             .AddScoped<OrderService>()
             .AddScoped<UserService>()
-            .AddScoped<ReviewService>();
+            .AddScoped<ReviewService>()
+            .AddScoped<LocalIdentityUserService>();
 
+        return this;
+    }
+
+    public MockedDependencyInjectionBuilder AddCaching()
+    {
+        _serviceCollection = _serviceCollection.AddMemoryCache();
+        return this;
+    }
+
+    public MockedDependencyInjectionBuilder ConfigureIdentity()
+    {
+        _serviceCollection = _serviceCollection.ConfigureIdentity();
+        return this;
+    }
+
+    public MockedDependencyInjectionBuilder AddLogging()
+    {
+        _serviceCollection = _serviceCollection.AddLogging();
         return this;
     }
 

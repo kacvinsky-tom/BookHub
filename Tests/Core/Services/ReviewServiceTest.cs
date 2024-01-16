@@ -32,6 +32,9 @@ public class ReviewServiceTest
         userRepositoryMock.GetById(1).Returns(UserTestData.GetFakeUsers().First());
 
         _serviceProviderBuilder = new MockedDependencyInjectionBuilder()
+            .AddCaching()
+            .ConfigureIdentity()
+            .AddLogging()
             .AddUnitOfWork()
             .AddAutoMapper()
             .AddRepositories()

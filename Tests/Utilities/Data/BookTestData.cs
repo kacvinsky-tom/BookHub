@@ -11,7 +11,7 @@ public static class BookTestData
             new()
             {
                 Id = 1,
-                Authors = GetFakeBookAuthors().Take(2),
+                Authors = GetFakeBookAuthors().Take(2).ToList(),
                 Title = "Test Book",
                 Description = "Test Description",
                 Price = 100,
@@ -27,7 +27,7 @@ public static class BookTestData
             new()
             {
                 Id = 2,
-                Authors = GetFakeBookAuthors().Skip(2).Take(2),
+                Authors = GetFakeBookAuthors().Skip(2).Take(2).ToList(),
                 Title = "Test Book 2",
                 Description = "Test Description 2",
                 Price = 200,
@@ -43,7 +43,7 @@ public static class BookTestData
         };
     }
 
-    public static IEnumerable<Author> GetFakeBookAuthors()
+    public static IList<Author> GetFakeBookAuthors()
     {
         return new List<Author>
         {
@@ -74,7 +74,7 @@ public static class BookTestData
         };
     }
 
-    public static IEnumerable<Genre> GetFakeGenres()
+    public static IList<Genre> GetFakeGenres()
     {
         return new List<Genre>
         {

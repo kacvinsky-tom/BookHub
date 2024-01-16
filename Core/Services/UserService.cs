@@ -1,18 +1,24 @@
-﻿using Core.DTO.Input.User;
+﻿using AutoMapper;
+using Core.DTO.Input.User;
+using Core.DTO.Output;
 using Core.Exception;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Core.Services;
 
 public class UserService
 {
     private readonly UnitOfWork _unitOfWork;
+    private readonly IMapper _mapper;
+    private readonly IMemoryCache _memoryCache;
 
-    public UserService(UnitOfWork unitOfWork)
+    public UserService(UnitOfWork unitOfWork, IMemoryCache memoryCache, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
+        _memoryCache = memoryCache;
+        _mapper = mapper;
     }
 
     public async Task<IEnumerable<User>> GetAll()
@@ -22,13 +28,28 @@ public class UserService
 
     public async Task<User?> GetById(int id)
     {
-        return await _unitOfWork.Users.GetByIdWithRelations(id);
+        if (_memoryCache.TryGetValue("user-" + id, out User? cachedUser))
+        {
+            return cachedUser;
+        }
+
+        var user = await _unitOfWork.Users.GetByIdWithRelations(id);
+
+        if (user != null)
+        {
+            _memoryCache.Set("user-" + id, user);
+        }
+
+        return user;
+    }
+
+    public async Task<User?> GetByUsername(string username)
+    {
+        return await _unitOfWork.Users.GetByUsername(username);
     }
 
     public async Task<User> Create(UserInputDto userInputDto)
     {
-        var passwordHasher = new PasswordHasher<User>();
-
         var user = new User
         {
             Username = userInputDto.Username,
@@ -36,10 +57,7 @@ public class UserService
             FirstName = userInputDto.FirstName,
             LastName = userInputDto.LastName,
             PhoneNumber = userInputDto.PhoneNumber,
-            IsAdmin = userInputDto.IsAdmin,
         };
-
-        user.Password = passwordHasher.HashPassword(user, userInputDto.Password);
 
         await _unitOfWork.Users.Add(user);
 
@@ -57,19 +75,15 @@ public class UserService
             throw new EntityNotFoundException<User>(userId);
         }
 
-        var passwordHasher = new PasswordHasher<User>();
-
         user.Username = userInputDto.Username;
         user.Email = userInputDto.Email;
         user.FirstName = userInputDto.FirstName;
         user.LastName = userInputDto.LastName;
         user.PhoneNumber = userInputDto.PhoneNumber;
-        user.IsAdmin = userInputDto.IsAdmin;
-
-        // This should be moved away to separate endpoint/flow of user actions in the future
-        user.Password = passwordHasher.HashPassword(user, userInputDto.Password);
 
         await _unitOfWork.Complete();
+
+        _memoryCache.Set("user-" + userId, user);
 
         return user;
     }
@@ -86,5 +100,14 @@ public class UserService
         _unitOfWork.Users.Remove(user);
 
         await _unitOfWork.Complete();
+
+        _memoryCache.Remove("user-" + userId);
+    }
+
+    public async Task<IEnumerable<SimpleListDto>> GetSimpleList()
+    {
+        var usersList = await _unitOfWork.Users.GetSimpleList();
+
+        return _mapper.Map<IEnumerable<SimpleListDto>>(usersList);
     }
 }

@@ -1,0 +1,31 @@
+﻿@using WebMVC.Areas.Admin.Views.Shared
+@model WebMVC.ViewModels.PaginationViewModel<WebMVC.Areas.Admin.ViewModels.Publisher.PublisherListViewModel>
+
+@{
+    ViewBag.Title = "Publisher list";
+    Layout = "_Layout";
+}
+<div class="flex justify-between items-center mb-4 w-full">
+    <h2 class="text-2xl font-bold text-white">Publishers</h2>
+    <a href="/Admin/Publisher/Create" class="btn btn-success btn-sm">Add publisher</a>
+</div>
+
+
+<div class="flex flex-col gap-4 w-full">
+    @foreach (var publisher in Model.Items)
+    {
+        <div class="bg-indigo-900 rounded-xl shadow-lg flex justify-between items-center py-2 px-4">
+            <div class="text-white font-semibold text-lg">
+               @publisher.Name (@publisher.State)
+            </div>
+            <div class="flex gap-4">
+                <a class="btn btn-secondary btn-sm" href="/Admin/Publisher/Edit/@publisher.Id">Edit</a>
+                <form action="/Admin/Publisher/Delete/@publisher.Id" method="post">
+                    <button onclick="return confirm('Really delete publisher @publisher.Name?')" class="btn btn-error btn-sm"><i class="bi bi-trash"></i></button>
+                </form>
+            </div>
+        </div>
+    }
+    
+    @Html.Partial("_Paginator", new PaginatorData {  ModelName = "Publisher", Page = Model.Page, TotalPages = Model.TotalPages })
+</div>

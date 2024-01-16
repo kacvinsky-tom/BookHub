@@ -26,7 +26,9 @@ public class AuthorController : ControllerBase
     {
         var authors = await _authorService.GetAll();
 
-        return Ok(authors.Select(_mapper.Map<AuthorListOutputDto>));
+        var authorListDto = _mapper.Map<AuthorListOutputDto>(authors);
+
+        return Ok(authorListDto);
     }
 
     [HttpGet("{id:int}")]

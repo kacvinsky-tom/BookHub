@@ -4,6 +4,7 @@ using Core.DTO.Output.Genre;
 using Core.Exception;
 using Core.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using WebAPI.Extensions;
 
 namespace WebAPI.Controllers;
@@ -26,7 +27,9 @@ public class GenreController : ControllerBase
     {
         var genres = await _genreService.GetAll();
 
-        return Ok(genres.Select(_mapper.Map<GenreListOutputDto>));
+        var genresListDto = _mapper.Map<BookGenreListOutputDto>(genres);
+
+        return Ok(genresListDto);
     }
 
     [HttpGet("{id:int}")]

@@ -21,6 +21,8 @@ public class VoucherServiceTests
         var options = MockedDbContext.GenerateNewInMemoryDbContextOptions();
         _mockedContext = MockedDbContext.CreateFromOptions(options);
         _serviceProviderBuilder = new MockedDependencyInjectionBuilder()
+            .ConfigureIdentity()
+            .AddLogging()
             .AddUnitOfWork()
             .AddAutoMapper()
             .AddRepositories()
@@ -171,9 +173,9 @@ public class VoucherServiceTests
         await voucherService.Update(inputDto, voucherBeforeUpdate.Id);
 
         // Assert
-        var updatedVoucher = await _mockedContext
-            .Vouchers
-            .FirstOrDefaultAsync(v => v.Code == uniqueCode);
+        var updatedVoucher = await _mockedContext.Vouchers.FirstOrDefaultAsync(
+            v => v.Code == uniqueCode
+        );
 
         Assert.NotNull(updatedVoucher);
         Assert.Equal(voucherBeforeUpdate.Id, updatedVoucher.Id);

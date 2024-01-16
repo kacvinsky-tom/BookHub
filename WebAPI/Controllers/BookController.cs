@@ -39,7 +39,9 @@ public class BookController : ControllerBase
             return NotFound();
         }
 
-        return Ok(_mapper.Map<BookDetailOutputDto>(book));
+        var bookDetailDto = _mapper.Map<BookDetailOutputDto>(book);
+
+        return Ok(bookDetailDto);
     }
 
     [HttpPost]
@@ -67,7 +69,9 @@ public class BookController : ControllerBase
         {
             var book = await _bookService.Update(bookCreateUpdateInputDto, id);
 
-            return Ok(_mapper.Map<BookDetailOutputDto>(book));
+            var bookDetailDto = _mapper.Map<BookDetailOutputDto>(book);
+
+            return Ok(bookDetailDto);
         }
         catch (NotFoundException e)
         {

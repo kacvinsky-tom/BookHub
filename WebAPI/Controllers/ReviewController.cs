@@ -39,7 +39,9 @@ public class ReviewController : ControllerBase
             return NotFound();
         }
 
-        return Ok(_mapper.Map<ReviewDetailOutputDto>(review));
+        var reviewDetailDto = _mapper.Map<ReviewDetailOutputDto>(review);
+
+        return Ok(reviewDetailDto);
     }
 
     [HttpPost]
@@ -64,7 +66,9 @@ public class ReviewController : ControllerBase
         {
             var review = await _reviewService.Update(reviewInputDto, id);
 
-            return Ok(_mapper.Map<ReviewDetailOutputDto>(review));
+            var reviewDetailDto = _mapper.Map<ReviewDetailOutputDto>(review);
+
+            return Ok(reviewDetailDto);
         }
         catch (NotFoundException e)
         {

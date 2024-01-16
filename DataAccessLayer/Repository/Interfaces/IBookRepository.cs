@@ -1,11 +1,14 @@
-﻿using DataAccessLayer.Entity;
-using DataAccessLayer.Filter;
+﻿using Core.Helpers;
+using DataAccessLayer.DTO;
+using DataAccessLayer.Entity;
 
 namespace DataAccessLayer.Repository.Interfaces;
 
 public interface IBookRepository : IGenericRepository<Book>
 {
-    public Task<IEnumerable<Book>> GetWithRelations(BookFilter filterInput);
-
     public Task<Book?> GetByIdWithRelations(int id);
+
+    public Task<IEnumerable<SimpleListResult>> GetSimpleList(
+        IEnumerable<Ordering<Book>>? order = null
+    );
 }
