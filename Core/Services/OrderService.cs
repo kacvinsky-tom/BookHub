@@ -6,6 +6,8 @@ using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Enum;
 using DataAccessLayer.Helpers;
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Services;
 
@@ -265,8 +267,25 @@ public class OrderService
             throw new EntityNotFoundException<Order>(orderId);
         }
 
-        _unitOfWork.Orders.Remove(order);
+        try
+        {
+            _unitOfWork.Orders.Remove(order);
 
-        await _unitOfWork.Complete();
+            await _unitOfWork.Complete();
+        }
+        catch (DbUpdateException ex)
+        {
+            if (
+                ex.InnerException is SqliteException
+                {
+                    SqliteErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT
+                }
+            )
+            {
+                throw new CannotDeleteException();
+            }
+
+            throw;
+        }
     }
 }

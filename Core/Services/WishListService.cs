@@ -3,6 +3,8 @@ using Core.DTO.Input.WishListItem;
 using Core.Exception;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Services;
 
@@ -169,9 +171,26 @@ public class WishListService
             throw new EntityNotFoundException<WishList>(wishListId);
         }
 
-        _unitOfWork.WishLists.Remove(wishList);
+        try
+        {
+            _unitOfWork.WishLists.Remove(wishList);
 
-        await _unitOfWork.Complete();
+            await _unitOfWork.Complete();
+        }
+        catch (DbUpdateException ex)
+        {
+            if (
+                ex.InnerException is SqliteException
+                {
+                    SqliteErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT
+                }
+            )
+            {
+                throw new CannotDeleteException();
+            }
+
+            throw;
+        }
     }
 
     public async Task DeleteItem(int wishListItemId)

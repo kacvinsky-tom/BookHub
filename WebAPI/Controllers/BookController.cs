@@ -23,7 +23,7 @@ public class BookController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> FetchPaginated(int page, int pageSize)
+    public async Task<IActionResult> FetchPaginated(int page = 1, int pageSize = 10)
     {
         var books = await _bookService.GetAllPaginated(page, pageSize);
 

@@ -85,5 +85,9 @@ public class WishListController : ControllerBase
         {
             return NotFound(e.GetApiMessage());
         }
+        catch (CannotDeleteException)
+        {
+            return Conflict("Cannot delete wish list with books in it");
+        }
     }
 }

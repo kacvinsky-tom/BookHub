@@ -85,6 +85,10 @@ public class UserController : ControllerBase
         {
             return NotFound(e.GetApiMessage());
         }
+        catch (CannotDeleteException)
+        {
+            return Conflict("Cannot delete user with relations.");
+        }
     }
 
     [HttpGet("{id:int}/orders")]

@@ -7,6 +7,8 @@ using Core.Helpers;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Helpers;
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Services;
 
@@ -93,9 +95,26 @@ public class PublisherService
             throw new EntityNotFoundException<Publisher>(publisherId);
         }
 
-        _unitOfWork.Publishers.Remove(publisher);
+        try
+        {
+            _unitOfWork.Publishers.Remove(publisher);
 
-        await _unitOfWork.Complete();
+            await _unitOfWork.Complete();
+        }
+        catch (DbUpdateException ex)
+        {
+            if (
+                ex.InnerException is SqliteException
+                {
+                    SqliteErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT
+                }
+            )
+            {
+                throw new CannotDeleteException();
+            }
+
+            throw;
+        }
     }
 
     public async Task<IEnumerable<SimpleListDto>> GetSimpleList()

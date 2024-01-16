@@ -24,7 +24,7 @@ public class PublisherController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> FetchPaginated(int page, int pageSize)
+    public async Task<IActionResult> FetchPaginated(int page = 1, int pageSize = 10)
     {
         var publishers = await _publisherService.GetAllPaginated(page, pageSize);
 
@@ -81,6 +81,12 @@ public class PublisherController : ControllerBase
         catch (NotFoundException e)
         {
             return NotFound(e.GetApiMessage());
+        }
+        catch (CannotDeleteException)
+        {
+            return Conflict(
+                "Cannot delete this publisher because it is referenced by other entities."
+            );
         }
     }
 }

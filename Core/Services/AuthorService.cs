@@ -10,6 +10,8 @@ using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Filter;
 using DataAccessLayer.Helpers;
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Core.Services;
@@ -138,11 +140,28 @@ public class AuthorService
             throw new EntityNotFoundException<Author>(authorId);
         }
 
-        _unitOfWork.Authors.Remove(author);
+        try
+        {
+            _unitOfWork.Authors.Remove(author);
 
-        await _unitOfWork.Complete();
+            await _unitOfWork.Complete();
 
-        _memoryCache.Remove("author-" + authorId);
+            _memoryCache.Remove("author-" + authorId);
+        }
+        catch (DbUpdateException ex)
+        {
+            if (
+                ex.InnerException is SqliteException
+                {
+                    SqliteErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT
+                }
+            )
+            {
+                throw new CannotDeleteException();
+            }
+
+            throw;
+        }
     }
 
     public async Task<IEnumerable<SimpleListDto>> GetSimpleList()

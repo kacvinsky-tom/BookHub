@@ -23,7 +23,7 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> FetchPaginated(int page, int pageSize)
+    public async Task<IActionResult> FetchPaginated(int page = 1, int pageSize = 10)
     {
         var orders = await _orderService.GetAllPaginated(page, pageSize);
 
@@ -90,6 +90,10 @@ public class OrderController : ControllerBase
         catch (NotFoundException e)
         {
             return NotFound(e.GetApiMessage());
+        }
+        catch (CannotDeleteException)
+        {
+            return Conflict("Cannot delete order because it has relations.");
         }
     }
 }

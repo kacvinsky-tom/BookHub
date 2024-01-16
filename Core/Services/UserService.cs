@@ -4,6 +4,8 @@ using Core.DTO.Output;
 using Core.Exception;
 using DataAccessLayer;
 using DataAccessLayer.Entity;
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Core.Services;
@@ -90,11 +92,28 @@ public class UserService
             throw new EntityNotFoundException<User>(userId);
         }
 
-        _unitOfWork.Users.Remove(user);
+        try
+        {
+            _unitOfWork.Users.Remove(user);
 
-        await _unitOfWork.Complete();
+            await _unitOfWork.Complete();
 
-        _memoryCache.Remove("user-" + userId);
+            _memoryCache.Remove("user-" + userId);
+        }
+        catch (DbUpdateException ex)
+        {
+            if (
+                ex.InnerException is SqliteException
+                {
+                    SqliteErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT
+                }
+            )
+            {
+                throw new CannotDeleteException();
+            }
+
+            throw;
+        }
     }
 
     public async Task<IEnumerable<SimpleListDto>> GetSimpleList()
