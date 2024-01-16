@@ -89,7 +89,9 @@ public class GenreService
         return new PaginatedResult<GenreListOutputDto>
         {
             Items = paginatedGenresQuery.Items.Select(_mapper.Map<GenreListOutputDto>),
-            TotalCount = paginatedGenresQuery.TotalItems
+            TotalCount = paginatedGenresQuery.TotalCount,
+            TotalPages = paginatedGenresQuery.TotalPages,
+            Page = paginatedGenresQuery.Page
         };
     }
 

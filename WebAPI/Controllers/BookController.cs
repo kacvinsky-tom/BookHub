@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.DTO.Input.Book;
+using Core.DTO.Output;
 using Core.DTO.Output.Book;
 using Core.Exception;
 using Core.Services;
@@ -22,11 +23,13 @@ public class BookController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Fetch([FromQuery] BookFilterInputDto filterInputDto)
+    public async Task<IActionResult> FetchPaginated(int page, int pageSize)
     {
-        var books = await _bookService.GetAll(filterInputDto);
+        var books = await _bookService.GetAllPaginated(page, pageSize);
 
-        return Ok(books.Select(_mapper.Map<BookListOutputDto>));
+        var paginatedBooks = _mapper.Map<PaginatedResult<BookListOutputDto>>(books);
+
+        return Ok(paginatedBooks);
     }
 
     [HttpGet("{id:int}")]

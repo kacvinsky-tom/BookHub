@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.DTO.Input.Genre;
+using Core.DTO.Output;
 using Core.DTO.Output.Genre;
 using Core.Exception;
 using Core.Services;
@@ -22,13 +23,13 @@ public class GenreController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Fetch()
+    public async Task<IActionResult> FetchPaginated(int page, int pageSize)
     {
-        var genres = await _genreService.GetAll();
+        var genres = await _genreService.GetAllPaginated(page, pageSize);
 
-        var genresListDto = genres.Select(_mapper.Map<BookGenreListOutputDto>);
+        var paginatedGenres = _mapper.Map<PaginatedResult<GenreListOutputDto>>(genres);
 
-        return Ok(genresListDto);
+        return Ok(paginatedGenres);
     }
 
     [HttpGet("{id:int}")]

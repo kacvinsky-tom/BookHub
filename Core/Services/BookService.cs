@@ -87,7 +87,9 @@ public class BookService
         return new PaginatedResult<BookListOutputDto>
         {
             Items = paginatedBooksQuery.Items.Select(_mapper.Map<BookListOutputDto>),
-            TotalCount = paginatedBooksQuery.TotalItems
+            TotalCount = paginatedBooksQuery.TotalCount,
+            TotalPages = paginatedBooksQuery.TotalPages,
+            Page = paginatedBooksQuery.Page
         };
     }
 

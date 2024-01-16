@@ -37,7 +37,7 @@ public class GenericRepository<T> : IGenericRepository<T>
         {
             Items = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(),
             Page = page,
-            TotalItems = query.Count(),
+            TotalCount = query.Count(),
             TotalPages = (int)Math.Ceiling(query.Count() / (double)pageSize)
         };
     }

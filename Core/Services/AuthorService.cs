@@ -88,7 +88,9 @@ public class AuthorService
         return new PaginatedResult<AuthorListOutputDto>
         {
             Items = paginatedAuthorsQuery.Items.Select(_mapper.Map<AuthorListOutputDto>),
-            TotalCount = paginatedAuthorsQuery.TotalItems
+            TotalCount = paginatedAuthorsQuery.TotalCount,
+            TotalPages = paginatedAuthorsQuery.TotalPages,
+            Page = paginatedAuthorsQuery.Page
         };
     }
 

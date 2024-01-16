@@ -55,7 +55,7 @@ public class SharedController : Controller
             Genres = genres.Items.Select(_mapper.Map<GenreListViewModel>),
             Books = books.Items.Select(_mapper.Map<BookListViewModel>),
             CurrentPage = page,
-            TotalPages = (int)Math.Ceiling((double)books.TotalCount / pageSize),
+            TotalPages = books.TotalPages,
             Query = searchInputModel.Query
         };
 
