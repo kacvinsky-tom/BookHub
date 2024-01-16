@@ -10,6 +10,7 @@ using DataAccessLayer;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Filter;
 using DataAccessLayer.Helpers;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -134,11 +135,23 @@ public class GenreService
             throw new EntityNotFoundException<Genre>(genreId);
         }
 
-        _unitOfWork.Genres.Remove(genre);
+        try
+        {
+            _unitOfWork.Genres.Remove(genre);
 
-        await _unitOfWork.Complete();
+            await _unitOfWork.Complete();
 
-        _memoryCache.Remove("genre-" + genreId);
+            _memoryCache.Remove("genre-" + genreId);
+        }
+        catch (DbUpdateException ex)
+        {
+            if (ex.InnerException is SqliteException { SqliteErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT })
+            {
+                throw new CannotDeleteException();
+            }
+
+            throw;
+        }
     }
 
     public async Task<IEnumerable<SimpleListDto>> GetSimpleList()

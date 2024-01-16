@@ -23,7 +23,7 @@ public class AuthorController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> FetchPaginated(int page, int pageSize)
+    public async Task<IActionResult> FetchPaginated(int page = 1, int pageSize = 10)
     {
         var authors = await _authorService.GetAllPaginated(page, pageSize);
 
@@ -80,6 +80,10 @@ public class AuthorController : ControllerBase
         catch (NotFoundException e)
         {
             return NotFound(e.GetApiMessage());
+        }
+        catch (CannotDeleteException)
+        {
+            return Conflict("Cannot delete author because it has books.");
         }
     }
 }
