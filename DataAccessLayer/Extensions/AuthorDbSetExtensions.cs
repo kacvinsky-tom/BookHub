@@ -4,16 +4,20 @@ namespace DataAccessLayer.Extensions;
 
 public static class AuthorDbSetExtensions
 {
-    public static IQueryable<Author> WhereName(this IQueryable<Author> query, string? name)
+    public static IQueryable<Author> WhereName(this IQueryable<Author> query, string? searchQuery)
     {
-        if (name == null)
+        if (searchQuery == null)
         {
             return query;
         }
 
+        var normalizedSearchQuery = searchQuery.ToUpper();
+
         return query.Where(a =>
-            a.FirstName.ToUpper().Contains(name.ToUpper())
-            || a.LastName.ToUpper().Contains(name.ToUpper())
+            normalizedSearchQuery.Contains(a.FirstName.ToUpper())
+            || normalizedSearchQuery.Contains(a.LastName.ToUpper())
+            || a.FirstName.ToUpper().Contains(normalizedSearchQuery)
+            || a.LastName.ToUpper().Contains(normalizedSearchQuery)
         );
     }
 }

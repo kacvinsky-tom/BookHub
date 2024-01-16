@@ -69,8 +69,8 @@
                                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                                     </form>
                                     <h3 class="font-bold text-lg">Wishlist book @book.Title</h3>
-                                    @await Html.PartialAsync("_AddToWishList", new WishListItemsEditViewModel() { BookId = book.Id })
-                                    @await Html.PartialAsync("_RemoveFromWishList", new WishListItemsEditViewModel() { BookId = book.Id })
+                                    @await Html.PartialAsync("_AddToWishlist", new WishListItemsEditViewModel() { BookId = book.Id })
+                                    @await Html.PartialAsync("_RemoveFromWishlist", new WishListItemsEditViewModel() { BookId = book.Id })
                                 </div>
                               <form method="dialog" class="modal-backdrop">
                                 <button>close</button>

@@ -15,8 +15,8 @@ internal static class OrderItems
                 BookId = 10,
                 Quantity = 1,
                 Price = 399,
-                Title = "Harry Potter a Relikvie smrti",
-                ISBN = "978-80-7197-614-1",
+                Title = "Harry Potter and the Deathly Hallows",
+                ISBN = "9781781100264",
             },
             new()
             {
@@ -25,8 +25,8 @@ internal static class OrderItems
                 BookId = 11,
                 Quantity = 1,
                 Price = 399,
-                Title = "Harry Potter a Prokleté Dítě",
-                ISBN = "978-80-7197-613-4",
+                Title = "Harry Potter and the Cursed Child",
+                ISBN = "9780751565362",
             },
             new()
             {
@@ -35,8 +35,8 @@ internal static class OrderItems
                 BookId = 3,
                 Quantity = 1,
                 Price = 699,
-                Title = "Hra o trůny",
-                ISBN = "978-80-7197-612-7",
+                Title = "A Game of Thrones",
+                ISBN = "9780553897845",
             },
             new()
             {
@@ -45,8 +45,8 @@ internal static class OrderItems
                 BookId = 1,
                 Quantity = 1,
                 Price = 399,
-                Title = "Barva kouzel",
-                ISBN = "978-80-7197-611-0",
+                Title = "The Color of Magic",
+                ISBN = "9780060855925",
             }
         };
         orderItems.ForEach(orderItem =>

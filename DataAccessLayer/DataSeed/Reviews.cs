@@ -15,7 +15,7 @@ internal static class Reviews
                 UserId = 1,
                 Rating = 5,
                 Comment =
-                    "Barva kouzel od Terryho Pratchetta je brilantní kombinací fantasy a humoru. Pratchettova schopnost tvořit fantastické světy a vtipně komentovat naši skutečnost je prostě neuvěřitelná. Tato kniha je nesmírně zábavná a zároveň hluboká.",
+                    "Terry Pratchett's The Colour of Magic is a brilliant combination of fantasy and humour. Pratchett's ability to create fantastical worlds and humorously comment on our reality is simply incredible. This book is extremely entertaining and profound at the same time.",
             },
             new()
             {
@@ -24,7 +24,7 @@ internal static class Reviews
                 UserId = 2,
                 Rating = 5,
                 Comment =
-                    "Když jsem poprvé četl Barvu kouzel, byl jsem ohromen Pratchettovým talentem. Jeho postavy jsou živé, zápletka je originální a humor je úžasný. V průběhu knihy jsem se smál na každé stránce.",
+                    "When I first read The Colour of Magic, I was amazed by Pratchett's talent. His characters are vivid, the plot is original, and the humor is wonderful. Throughout the book, I laughed at every page.",
             },
             new()
             {
@@ -33,7 +33,7 @@ internal static class Reviews
                 UserId = 3,
                 Rating = 4,
                 Comment =
-                    "Barva kouzel je úžasným začátkem dlouhé série knih ze Zeměplochy od Terryho Pratchetta. Kniha je plná vtipných narážek, alegorií a skvělých postav. Pratchettova imaginace je prostě neomezená.",
+                    "Mr. Pratchett created a very interesting place with the Discworld series, populated with very interesting and thoroughly human characters, with all the weaknesses of humans, whose activities are written about in a spirit of tremendous humor. I'm glad to have found the series and will enjoy reading more books in it.",
             },
             new()
             {
@@ -42,7 +42,7 @@ internal static class Reviews
                 UserId = 4,
                 Rating = 4,
                 Comment =
-                    "Terry Pratchett byl génius a Barva kouzel to dokazuje. Jeho schopnost kombinovat fantasy s komedií a zároveň skvěle komentovat různé aspekty naší společnosti je úžasná. Tato kniha je klenotem a musí pro všechny fanoušky fantasy a humoru.",
+                    "Terry Pratchett was a genius and The Colour of Magic proves it. His ability to combine fantasy with comedy while brilliantly commenting on various aspects of our society is amazing. This book is a gem and a must for all fans of fantasy and humor.",
             },
             new()
             {
@@ -51,7 +51,7 @@ internal static class Reviews
                 UserId = 1,
                 Rating = 5,
                 Comment =
-                    "Harry Potter a Ohnivý pohár je zlomovým dílem v sérii. Rowlingova schopnost rozvíjet svět čarodějů a postavy je úžasná. Tato kniha je plná napětí, dobrodružství a emocí. Nemohl jsem se od ní odtrhnout.",
+                    "Harry Potter and the Goblet of Fire is a turning point in the series. Rowling's ability to develop the world of wizards and characters is amazing. This book is full of suspense, adventure and emotion. I couldn't tear myself away from it.",
             },
             new()
             {
@@ -60,7 +60,7 @@ internal static class Reviews
                 UserId = 2,
                 Rating = 4,
                 Comment =
-                    "Kniha Harry Potter a Ohnivý pohár je nejen temnější než předchozí díly, ale také daleko složitější. Rowling zde ukazuje, že její příběh není určen jen pro děti. Děj je napínavý a postavy procházejí důležitými změnami.",
+                    "Harry Potter and the Goblet of Fire is not only darker than the previous books, but also far more complex. Rowling shows here that her story is not just for children. The plot is suspenseful and the characters go through important changes.",
             },
             new()
             {
@@ -69,7 +69,7 @@ internal static class Reviews
                 UserId = 3,
                 Rating = 5,
                 Comment =
-                    "Harry Potterova čtvrtá dobrodružství v Ohnivém poháru jsou fantastická. Tato kniha se vyznačuje neuvěřitelným nasazením a soubojem na Turnaji tří kouzel. Rowlingova schopnost vytvořit komplexní a poutavý příběh zůstává nepřekonaná.",
+                    "Harry Potter's fourth adventures in the Goblet of Fire are fantastic. This book features incredible dedication and dueling at the Tournament of Three Spells. Rowling's ability to create a complex and engaging story remains unsurpassed.",
             },
             new()
             {
@@ -78,7 +78,7 @@ internal static class Reviews
                 UserId = 4,
                 Rating = 5,
                 Comment =
-                    "Harry Potter a Ohnivý pohár je dalším důkazem Rowlinginy brilantní schopnosti psát pro různé věkové kategorie. Tato kniha je poutavá, plná tajemství a emocí, a dokazuje, proč je série Harryho Pottera tak oblíbená po celém světě.",
+                    "Harry Potter and the Goblet of Fire is further proof of Rowling's brilliant ability to write for a variety of ages. This book is engaging, full of mystery and emotion, and proves why the Harry Potter series is so popular around the world.",
             },
         };
         reviews.ForEach(review =>
