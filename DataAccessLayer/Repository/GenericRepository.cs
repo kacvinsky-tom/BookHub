@@ -47,6 +47,17 @@ public class GenericRepository<T> : IGenericRepository<T>
         return await Context.Set<T>().Where(expression).ToListAsync();
     }
 
+    public async Task<PaginationObject<T>> FindPaginated(
+        Expression<Func<T, bool>> expression,
+        int page,
+        int pageSize
+    )
+    {
+        var query = GetBasicQuery().Where(expression);
+
+        return await PaginationObject(page, pageSize, query);
+    }
+
     public async Task<IEnumerable<T>> GetAll(
         IFilter<T>? filter = null,
         IEnumerable<Ordering<T>>? orderingExpressions = null

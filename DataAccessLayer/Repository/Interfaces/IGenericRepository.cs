@@ -25,6 +25,12 @@ public interface IGenericRepository<T>
     );
 
     public Task<IEnumerable<T>> Find(Expression<Func<T, bool>> expression);
+
+    public Task<PaginationObject<T>> FindPaginated(
+        Expression<Func<T, bool>> expression,
+        int page,
+        int pageSize
+    );
     public Task Add(T entity);
     public Task AddRange(IEnumerable<T> entities);
     public void Remove(T entity);

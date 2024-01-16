@@ -1,60 +1,18 @@
-@using WebMVC.Areas.Shop.ViewModel.WishList
-@model WebMVC.ViewModels.SearchListViewModel
+﻿@using WebMVC.Areas.Shop.ViewModel.WishList
+@model WebMVC.Areas.Shop.ViewModel.Book.PaginatedBooksByAuthorViewModel
 
-@section Styles {
-    <link rel="stylesheet" href="~/css/search-styles.css" />
+@{
+    ViewBag.Title = "Books by author";
+    Layout = "_Layout";
 }
 
 <div class="flex flex-col gap-4">
-    @if (Model.Genres.Any())
+    
+    @if (Model.Items.Any())
     {
-        <h2 class="font-bold text-xl">Genres</h2>
+        <h2 class="font-bold text-xl">Books by @Model.AuthorDisplayName</h2>
         <div class="grid gap-2 lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-1">
-            @foreach (var genre in Model.Genres)
-            {
-                <a href="/Shop/Book/ByGenre/@genre.Id" class="card border border-primary shadow-lg bg-base-200 hover:bg-base-300 transition-colors duration-300">
-                    
-                    <div class="card-body">
-                        <h3 class="font-bold text-lg">@genre.Name</h3>
-                    </div>
-                </a>
-            }
-        </div>
-    }
-    else
-    {
-        <p>No genres found.</p>
-    }
-</div>
-
-<div class="flex flex-col gap-4">
-    @if (Model.Authors.Any())
-    {
-        <h2 class="font-bold text-xl">Authors</h2>
-        <div class="grid gap-2 lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-1">
-            @foreach (var author in Model.Authors)
-            {
-                <a href="/Shop/Book/ByAuthor/@author.Id" class="card border border-primary shadow-lg bg-base-200 hover:bg-base-300 transition-colors duration-300">
-                    <div class="card-body">
-                        <h3 class="font-bold text-lg">@author.LastName
-                            @author.FirstName</h3>
-                    </div>
-                </a>
-            }
-        </div>
-    }
-    else
-    {
-        <p>No authors found.</p>
-    }
-</div>
-
-<div class="flex flex-col gap-4">
-    @if (Model.Books.Any())
-    {
-        <h2 class="font-bold text-xl">Books</h2>
-        <div class="grid gap-2 lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-1">
-            @foreach (var book in Model.Books)
+            @foreach (var book in Model.Items)
             {
                 <div class="card border border-primary shadow-lg bg-base-200 hover:bg-base-300 transition-colors duration-300">
                     <div class="card-body">
@@ -74,7 +32,7 @@
                             }
                             <div class="flex flex-col gap-2">
                                 @if (primaryGenre != null)
-                                { 
+                                {
                                     <div class="flex items-center gap-2">
                                         <span class="text-neutral-300">Primary: </span>
                                         <div class="badge badge-primary">@primaryGenre.GenreName</div>
@@ -102,33 +60,32 @@
                                     @await Html.PartialAsync("_AddToWishList", new WishListItemsEditViewModel() { BookId = book.Id })
                                     @await Html.PartialAsync("_RemoveFromWishList", new WishListItemsEditViewModel() { BookId = book.Id })
                                 </div>
-                              <form method="dialog" class="modal-backdrop">
-                                <button>close</button>
-                              </form>
+                                <form method="dialog" class="modal-backdrop">
+                                    <button>close</button>
+                                </form>
                             </dialog>
-                        </div> 
+                        </div>
                     </div>
-                    
+
                 </div>
             }
         </div>
         <div class="join">
-            @if (Model.CurrentPage > 1)
+            @if (Model.Page > 1)
             {
-                <a asp-action="GlobalSearch" asp-route-page="@(Model.CurrentPage-1)" asp-route-query="@Model.Query" class="join-item btn"><i class="bi bi-chevron-left"></i></a>
+                <a asp-action="ByAuthor" asp-route-authorId="@Model.AuthorId" asp-route-page="@(Model.Page - 1)" class="join-item btn"><i class="bi bi-chevron-left"></i></a>
             }
-            @for (int i = Math.Max(1, Model.CurrentPage - 3); i <= Math.Min(Model.TotalPages, Model.CurrentPage + 3); i++)
+            @for (int i = Math.Max(1, Model.Page - 3); i <= Math.Min(Model.TotalPages, Model.Page + 3); i++)
             {
-                <a asp-action="GlobalSearch"
+                <a asp-action="ByAuthor" asp-route-authorId="@Model.AuthorId"
                    asp-route-page="@i"
-                   asp-route-query="@Model.Query"
-                   class="join-item btn @((i == Model.CurrentPage) ? "btn-primary" : "")">
+                   class="join-item btn @((i == Model.Page) ? "btn-primary" : "")">
                     @i
                 </a>
             }
-            @if (Model.CurrentPage < Model.TotalPages)
+            @if (Model.Page < Model.TotalPages)
             {
-                <a asp-action="GlobalSearch" asp-route-page="@(Model.CurrentPage+1)" asp-route-query="@Model.Query" class="join-item btn"><i class="bi bi-chevron-right"></i></a>
+                <a asp-action="ByAuthor" asp-route-authorId="@Model.AuthorId" asp-route-page="@(Model.Page + 1)" class="join-item btn"><i class="bi bi-chevron-right"></i></a>
             }
         </div>
     }

@@ -44,6 +44,32 @@ public class BookService
         return book;
     }
 
+    public async Task<PaginationObject<Book>> GetByGenrePaginated(
+        int genreId,
+        int pageSize,
+        int page
+    )
+    {
+        return await _unitOfWork.Books.FindPaginated(
+            b => b.Genres.Any(g => g.Id == genreId),
+            page,
+            pageSize
+        );
+    }
+
+    public async Task<PaginationObject<Book>> GetByAuthorPaginated(
+        int authorId,
+        int pageSize,
+        int page
+    )
+    {
+        return await _unitOfWork.Books.FindPaginated(
+            b => b.Authors.Any(a => a.Id == authorId),
+            page,
+            pageSize
+        );
+    }
+
     public async Task<IEnumerable<Book>> GetAll(BookFilterInputDto? filterInputDto = null)
     {
         if (filterInputDto == null)
