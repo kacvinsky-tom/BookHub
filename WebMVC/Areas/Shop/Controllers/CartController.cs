@@ -1,6 +1,5 @@
 ﻿using System.Security.Claims;
 using AutoMapper;
-using Core.DTO.Input.CartItem;
 using Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -74,15 +73,28 @@ public class CartController : Controller
             return NotFound();
         }
 
-        await _cartService.CreateCartItem(
-            new CartItemCreateInputDto
-            {
-                BookId = book.Id,
-                UserId = currentUserId,
-                Quantity = 1
-            }
-        );
+        await _cartService.AddItemToCart(book.Id, currentUserId);
 
+        return RedirectToAction(nameof(Index), nameof(CartController).Replace("Controller", ""));
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Remove(int id)
+    {
+        try
+        {
+            await _cartService.RemoveCartItem(id);
+        }
+        catch (Exception e)
+        {
+            ModelState.AddModelError(string.Empty, e.Message);
+            return RedirectToAction(
+                nameof(Index),
+                nameof(CartController).Replace("Controller", "")
+            );
+        }
+
+        TempData["Success"] = "Item successfully deleted from cart.";
         return RedirectToAction(nameof(Index), nameof(CartController).Replace("Controller", ""));
     }
 }

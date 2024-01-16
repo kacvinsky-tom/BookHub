@@ -101,6 +101,10 @@
       <AdditionalFiles Include="Views\Account\Login.cshtml" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Views\Orders\" />
+    </ItemGroup>
+
     <Target Name="Tailwind" BeforeTargets="Build">
         <Exec Command="npm install" />
         <Exec Command="npm run css:build" />

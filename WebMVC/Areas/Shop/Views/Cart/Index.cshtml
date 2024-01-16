@@ -7,6 +7,21 @@
 
 <div class="container">
     <h2 class="text-2xl font-bold text-white">Cart</h2>
+    
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var modelState in ViewData.ModelState.Values)
+                {
+                    foreach (var error in modelState.Errors)
+                    {
+                        <li>@error.ErrorMessage</li>
+                    }
+                }
+            </ul>
+        </div>
+    }
 
     @foreach (var item in Model)
     {
@@ -18,14 +33,22 @@
                         <p class="card-text">Quantity: @item.Quantity</p>
                     </div>
                     <div>
-                        <button class="btn btn-error btn-sm btn-outline"><i class="bi bi-trash"></i></button>
+                        <form action="/Shop/Cart/Remove/@item.Id" method="post">
+                            <button onclick="return confirm('Really delete @item.BookTitle from cart?')" class="btn btn-error btn-sm">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     }
-    
+
     <div class="mt-4">
-            <a href="#" class="btn btn-primary">Proceed to Order</a>
-        </div>
+        <form action="/Shop/Order/CreateFromCart" method="post">
+            <button class="btn btn-primary">
+                Proceed to Order
+            </button>
+        </form>
+    </div>
 </div>

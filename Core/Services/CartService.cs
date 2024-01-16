@@ -29,6 +29,25 @@ public class CartService
         return _unitOfWork.CartItems.GetByUserIdWithRelations(userId);
     }
 
+    public async Task<CartItem> AddItemToCart(int bookId, int userId)
+    {
+        var cartItem =
+            await _unitOfWork.CartItems.GetByUserIdAndBookId(userId, bookId)
+            ?? await CreateCartItem(
+                new CartItemCreateInputDto
+                {
+                    BookId = bookId,
+                    UserId = userId,
+                    Quantity = 0,
+                }
+            );
+
+        return await UpdateCartItem(
+            new CartItemUpdateInputDto { Quantity = cartItem.Quantity + 1, },
+            cartItem.Id
+        );
+    }
+
     public async Task<CartItem> CreateCartItem(CartItemCreateInputDto cartItemCreateInputDto)
     {
         var book = await _unitOfWork.Books.GetById(cartItemCreateInputDto.BookId);

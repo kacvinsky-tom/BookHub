@@ -1,6 +1,6 @@
 ﻿using DataAccessLayer.Entity;
 
-namespace WebMVC.ViewModels;
+namespace WebMVC.Areas.Shop.ViewModel.Order;
 
 public class OrderDetailViewModel
 {

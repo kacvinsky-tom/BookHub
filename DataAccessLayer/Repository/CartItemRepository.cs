@@ -39,4 +39,11 @@ public class CartItemRepository : GenericRepository<CartItem>, ICartItemReposito
     {
         return await GetBasicQuery().Where(r => r.UserId == userId).ToListAsync();
     }
+
+    public async Task<CartItem?> GetByUserIdAndBookId(int userId, int bookId)
+    {
+        return await Context.CartItems.FirstOrDefaultAsync(r =>
+            r.UserId == userId && r.BookId == bookId
+        );
+    }
 }
