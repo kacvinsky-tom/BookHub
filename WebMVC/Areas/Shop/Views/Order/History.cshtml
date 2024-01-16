@@ -1,7 +1,8 @@
-﻿@model List<WebMVC.ViewModels.OrderViewModel>
+﻿@model List<WebMVC.Areas.Shop.ViewModel.Order.OrderViewModel>
 
 @{
     ViewData["Title"] = "Orders History";
+    Layout = "_Layout";
 }
 
 <div class="container">
@@ -28,7 +29,7 @@
                         <td>@order.TotalPrice</td>
                         <td>@order.OrderStatus</td>
                         <td>
-                            <a asp-controller="Orders" asp-action="OrderDetail" asp-route-id="@order.OrderId" class="btn btn-primary">View Details</a>
+                            <a href="/Shop/Order/Detail/@order.OrderId" class="btn btn-primary">View Details</a>
                         </td>
                     </tr>
                 }
