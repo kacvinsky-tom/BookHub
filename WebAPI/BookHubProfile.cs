@@ -11,6 +11,7 @@ using Core.DTO.Input.User;
 using Core.DTO.Input.Voucher;
 using Core.DTO.Input.WishList;
 using Core.DTO.Input.WishListItem;
+using Core.DTO.Output;
 using Core.DTO.Output.Author;
 using Core.DTO.Output.Book;
 using Core.DTO.Output.CartItem;
@@ -25,6 +26,7 @@ using Core.DTO.Output.WishList;
 using Core.DTO.Output.WishListItem;
 using DataAccessLayer.Entity;
 using DataAccessLayer.Filter;
+using DataAccessLayer.Helpers;
 
 namespace WebAPI;
 
@@ -54,21 +56,28 @@ public class BookHubProfile : Profile
         // Output
         CreateMap<Author, AuthorDetailOutputDto>();
         CreateMap<Author, AuthorListOutputDto>();
+        CreateMap<PaginationObject<Author>, PaginatedResult<AuthorListOutputDto>>();
         CreateMap<Book, BookDetailOutputDto>();
-        CreateMap<Book, BookListOutputDto>();
+        CreateMap<Book, BookListOutputDto>()
+            .ForMember(opt => opt.Genres, opt => opt.MapFrom(src => src.BookGenres));
         CreateMap<Book, BookListWithoutAuthorOutputDto>();
+        CreateMap<PaginationObject<Book>, PaginatedResult<BookListOutputDto>>();
         CreateMap<CartItem, CartItemDetailOutputDto>();
         CreateMap<CartItem, CartItemListOutputDto>();
         CreateMap<CartItem, CartItemListWithoutUserOutputDto>();
         CreateMap<Genre, GenreDetailOutputDto>();
+        CreateMap<Genre, GenreListOutputDto>();
+        CreateMap<PaginationObject<Genre>, PaginatedResult<GenreListOutputDto>>();
         CreateMap<BookGenre, BookGenreListOutputDto>();
         CreateMap<Order, OrderDetailOutputDto>();
         CreateMap<Order, OrderListOutputDto>();
+        CreateMap<PaginationObject<Order>, PaginatedResult<OrderListOutputDto>>();
         CreateMap<OrderItem, OrderItemCreateInputDto>();
         CreateMap<OrderItem, OrderItemDetailOutputDto>();
         CreateMap<OrderItem, OrderItemListOutputDto>();
         CreateMap<Publisher, PublisherDetailOutputDto>();
         CreateMap<Publisher, PublisherListOutputDto>();
+        CreateMap<PaginationObject<Publisher>, PaginatedResult<PublisherListOutputDto>>();
         CreateMap<Review, ReviewDetailOutputDto>();
         CreateMap<Review, ReviewListOutputDto>();
         CreateMap<User, UserDetailOutputDto>();

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.DTO.Input.Order;
+using Core.DTO.Output;
 using Core.DTO.Output.Order;
 using Core.Exception;
 using Core.Services;
@@ -22,11 +23,13 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Fetch()
+    public async Task<IActionResult> FetchPaginated(int page, int pageSize)
     {
-        var orders = await _orderService.GetAll();
+        var orders = await _orderService.GetAllPaginated(page, pageSize);
 
-        return Ok(orders.Select(_mapper.Map<OrderListOutputDto>));
+        var paginatedOrders = _mapper.Map<PaginatedResult<OrderListOutputDto>>(orders);
+
+        return Ok(paginatedOrders);
     }
 
     [HttpGet("{id:int}")]

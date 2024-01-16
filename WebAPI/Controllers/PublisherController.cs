@@ -1,5 +1,7 @@
 using AutoMapper;
 using Core.DTO.Input.Publisher;
+using Core.DTO.Output;
+using Core.DTO.Output.Author;
 using Core.DTO.Output.Publisher;
 using Core.Exception;
 using Core.Services;
@@ -22,11 +24,13 @@ public class PublisherController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Fetch()
+    public async Task<IActionResult> FetchPaginated(int page, int pageSize)
     {
-        var publishers = await _publisherService.GetAll();
+        var publishers = await _publisherService.GetAllPaginated(page, pageSize);
 
-        return Ok(publishers.Select(_mapper.Map<PublisherListOutputDto>));
+        var paginatedPublishers = _mapper.Map<PaginatedResult<PublisherListOutputDto>>(publishers);
+
+        return Ok(paginatedPublishers);
     }
 
     [HttpGet("{id:int}")]
