@@ -69,6 +69,11 @@ public class WishListService
     {
         return await _unitOfWork.WishLists.GetByBookId(bookId, containsBook);
     }
+    
+    public async Task<IEnumerable<WishList>> GetByBookIdAndUserName(int bookId, string userName, bool containsBook = true)
+    {
+        return await _unitOfWork.WishLists.GetByBookIdAndUserName(bookId, userName, containsBook);
+    }
 
     public async Task<WishList> Update(WishListInputDto wishListInputDto, int wishListId)
     {

@@ -3,7 +3,7 @@
 @inject WishListService WishListService
 
 @{
-    var wishlists = (await WishListService.GetByBookId(Model.BookId)).ToList();
+    var wishlists = (await WishListService.GetByBookIdAndUserName(Model.BookId, User.Identity?.Name ?? "")).ToList();
 }
 
 @if (wishlists.Count > 0)

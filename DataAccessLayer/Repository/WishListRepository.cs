@@ -32,6 +32,23 @@ public class WishListRepository : GenericRepository<WishList>, IWishListReposito
             .ToListAsync();
     }
 
+    public async Task<IEnumerable<WishList>> GetByBookIdAndUserName(int bookId, string userName,
+        bool containsBook = true)
+    {
+        if (containsBook)
+        {
+            return await GetBasicQuery()
+                .Where(w => w.User.Username == userName)
+                .Where(w => w.WishListItems.Any(wli => wli.BookId == bookId))
+                .ToListAsync();
+        }
+
+        return await GetBasicQuery()
+            .Where(w => w.User.Username == userName)
+            .Where(w => w.WishListItems.All(wli => wli.BookId != bookId))
+            .ToListAsync();
+    }
+
     public async Task<IEnumerable<WishList>> GetAllForUser(int userId)
     {
         return await GetBasicQuery().Where(w => w.UserId == userId).ToListAsync();
