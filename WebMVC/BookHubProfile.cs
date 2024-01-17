@@ -75,6 +75,7 @@ public class BookHubProfile : Profile
 
         CreateMap<PaginationObject<Author>, PaginationViewModel<AuthorListViewModel>>();
         CreateMap<PaginationObject<Book>, PaginationViewModel<BookListViewModel>>();
+        CreateMap<PaginationObject<Book>, PaginationViewModel<Areas.Admin.ViewModels.Book.BookListViewModel>>();
         CreateMap<PaginationObject<Book>, PaginationViewModel<BookFullListViewModel>>();
         CreateMap<PaginationObject<Book>, PaginatedBooksByAuthorViewModel>();
         CreateMap<PaginationObject<Book>, PaginatedBooksByGenreViewModel>();
