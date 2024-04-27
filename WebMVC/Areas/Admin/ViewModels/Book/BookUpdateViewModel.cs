@@ -23,7 +23,10 @@ public class BookUpdateViewModel
     [DataType(DataType.Url)]
     [Display(Name = "Image URL (optional)")]
     public string? Image { get; set; }
-
+    
+    [Display(Name = "ImageData")]
+    public IFormFile? ImageData { get; set; }
+    
     [Required]
     [DataType(DataType.Currency)]
     public int Price { get; set; }

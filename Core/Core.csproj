@@ -12,6 +12,8 @@
 
     <ItemGroup>
       <PackageReference Include="AutoMapper" Version="12.0.1" />
+      <PackageReference Include="Azure.Core" Version="1.39.0" />
+      <PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
       <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -20,6 +22,12 @@
     <ItemGroup>
       <Reference Include="AutoMapper">
         <HintPath>..\..\..\..\.nuget\packages\automapper\12.0.1\lib\netstandard2.1\AutoMapper.dll</HintPath>
+      </Reference>
+      <Reference Include="Azure.Core">
+        <HintPath>..\..\..\.nuget\packages\azure.core\1.36.0\lib\net6.0\Azure.Core.dll</HintPath>
+      </Reference>
+      <Reference Include="Azure.Storage.Blobs">
+        <HintPath>..\..\..\.nuget\packages\azure.storage.blobs\12.19.1\lib\net6.0\Azure.Storage.Blobs.dll</HintPath>
       </Reference>
     </ItemGroup>
 

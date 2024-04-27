@@ -52,7 +52,7 @@ public class BookController : Controller
         {
             return NotFound();
         }
-
+        
         return View(_mapper.Map<BookDetailViewModel>(book));
     }
 

@@ -1,4 +1,6 @@
+using Azure.Storage.Blobs;
 using Core;
+using Core.Clients;
 using Core.Extensions;
 using DataAccessLayer;
 using LoggingMiddleware.Extensions;
@@ -6,10 +8,17 @@ using Microsoft.EntityFrameworkCore;
 using WebMVC;
 
 var builder = WebApplication.CreateBuilder(args);
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+builder.Services.AddPostgreDbContextFactory(builder.Configuration);
+//builder.Services.AddSqliteDbContextFactory(builder.Configuration);
 
-//builder.Services.AddPostgreDbContextFactory(builder.Configuration);
-builder.Services.AddSqliteDbContextFactory(builder.Configuration);
+var blobServiceClient = new BlobServiceClient("xxx");
 
+// Create the container and return a container client object
+BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient("xxx");
+
+builder.Services.AddSingleton(containerClient);
+builder.Services.AddScoped<IImageBlobClient, ImageBlobClient>();
 builder.Services.AddScoped<UnitOfWork>();
 builder.Services.AddMemoryCacheWithConfiguration();
 builder.Services.AddRepositories();

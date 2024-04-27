@@ -12,7 +12,7 @@
     <div class="card bg-base-200 shadow-lg rounded-2xl lg:max-w-5xl w-full">
         <div class="card-body">
             <h2 class="font-bold text-xl">Edit book @Model.Title</h2>
-            <form asp-action="Edit" method="post" class="grid gap-y-2 gap-x-4 grid-cols-1">
+            <form asp-action="Edit" method="post" class="grid gap-y-2 gap-x-4 grid-cols-1" enctype="multipart/form-data">
                 @Html.ValidationSummary(false, "", new { @class = "text-red-500" })
                 <div class="form-control">
                     <label class="label">
@@ -41,15 +41,14 @@
                         @Html.ValidationMessageFor(b => b.Description, "", new { @class = "label-text text-red-500" })
                     </label>
                 </div>
+                
                 <div class="form-control">
                     <label class="label">
-                        @Html.LabelFor(b => b.Image, new { @class = "label-text" })
+                        @Html.LabelFor(b => b.ImageData, new { @class = "label-text" })
                     </label>
-                    @Html.TextBoxFor(b => b.Image, new { @class = "input input-bordered" })
-                    <label class="label">
-                        @Html.ValidationMessageFor(b => b.Image, "", new { @class = "label-text text-red-500" })
-                    </label>
+                    <input type="file" name="ImageData" id="ImageData" class="btn btn-primary" />
                 </div>
+                
                 <div class="form-control">
                     <label class="label">
                         @Html.LabelFor(b => b.Price, new { @class = "label-text" })

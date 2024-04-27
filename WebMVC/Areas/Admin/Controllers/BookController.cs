@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Storage.Blobs;
 using Core.DTO.Input.Book;
 using Core.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -120,6 +121,29 @@ public class BookController : Controller
     [HttpPost]
     public async Task<IActionResult> Edit(BookUpdateViewModel updated)
     {
+        var file = updated.ImageData;
+        var fileId = Guid.NewGuid().ToString();
+
+        if (file != null)
+        {
+            // Validate file size
+            if (file.Length > 10 * 1024 * 1024) // 10 MB
+            {
+                ModelState.AddModelError("ImageData", "The file is too large.");
+                return View(updated);
+            }
+
+            // Validate file type
+            var supportedTypes = new[] { "jpg", "jpeg", "png" };
+            var fileExt = Path.GetExtension(file.FileName).Substring(1);
+            if (!supportedTypes.Contains(fileExt))
+            {
+                ModelState.AddModelError("ImageData", "Invalid file type.");
+                return View(updated);
+            }
+            
+        }
+    
         if (ModelState.IsValid)
         {
             try
@@ -132,7 +156,7 @@ public class BookController : Controller
                         Description = updated.Description,
                         Price = updated.Price,
                         PublisherId = updated.PublisherId,
-                        Image = updated.Image,
+                        Image = fileId,
                         Quantity = updated.Quantity,
                         ReleaseYear = updated.ReleaseYear,
                         AuthorIds = updated.AuthorIds,
@@ -148,6 +172,11 @@ public class BookController : Controller
                 return View(updated);
             }
 
+            if (file != null)
+            {
+                await _bookService.UploadBookCoverAsync(fileId, file.OpenReadStream());
+            }
+            
             return RedirectToAction(
                 nameof(Index),
                 nameof(BookController).Replace("Controller", "")

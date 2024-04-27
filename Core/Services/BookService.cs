@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using AutoMapper;
+using Core.Clients;
 using Core.DTO.Input.Book;
 using Core.DTO.Input.Search;
 using Core.DTO.Output;
@@ -19,14 +20,20 @@ public class BookService
     private readonly UnitOfWork _unitOfWork;
     private readonly IMemoryCache _memoryCache;
     private readonly IMapper _mapper;
+    private readonly IImageBlobClient _imageBlobClient;
 
-    public BookService(UnitOfWork unitOfWork, IMapper mapper, IMemoryCache memoryCache)
+    public BookService(UnitOfWork unitOfWork, IMapper mapper, IMemoryCache memoryCache, IImageBlobClient blobClient)
     {
         _mapper = mapper;
         _unitOfWork = unitOfWork;
         _memoryCache = memoryCache;
+        _imageBlobClient = blobClient;
     }
 
+    public async Task UploadBookCoverAsync(string id, Stream data)
+    {
+        await _imageBlobClient.UploadImageAsync(id, data);
+    }
     public async Task<Book?> GetById(int id)
     {
         if (_memoryCache.TryGetValue("book-" + id, out Book? cachedBook))
@@ -35,12 +42,13 @@ public class BookService
         }
 
         var book = await _unitOfWork.Books.GetByIdWithRelations(id);
-
+        
         if (book != null)
         {
+            book.Image = _imageBlobClient.GetImage(book.Image).ToString();
             _memoryCache.Set("book-" + id, book);
         }
-
+        
         return book;
     }
 
