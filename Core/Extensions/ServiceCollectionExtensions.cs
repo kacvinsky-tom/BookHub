@@ -53,10 +53,11 @@ public static class ServiceCollectionExtensions
     {
         return services.AddDbContextFactory<BookHubDbContext>(options =>
         {
-            var connectionString = configuration.GetValue<string>(
-                "ConnectionStrings:LocalPostgresConnection"
-            );
-
+            var server = Environment.GetEnvironmentVariable("POSTGRES_SERVER");
+            var dbName = Environment.GetEnvironmentVariable("POSTGRES_DB");
+            var user = Environment.GetEnvironmentVariable("POSTGRES_USER");
+            var password = Environment.GetEnvironmentVariable("POSTGRES_PASSWORD");
+            var connectionString = $"Server={server};Port=5432;Database={dbName};Username={user};Password={password}";
             options.UseNpgsql(connectionString, x => x.MigrationsAssembly("Migrations.Postgre"));
         });
     }

@@ -12,10 +12,10 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 builder.Services.AddPostgreDbContextFactory(builder.Configuration);
 //builder.Services.AddSqliteDbContextFactory(builder.Configuration);
 
-var blobServiceClient = new BlobServiceClient("xxx");
+var blobServiceClient = new BlobServiceClient(Environment.GetEnvironmentVariable("AZURE_BLOB_STORAGE"));
 
 // Create the container and return a container client object
-BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient("xxx");
+BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient("test22f6ed35-1c6f-400e-9dfd-af230721163b");
 
 builder.Services.AddSingleton(containerClient);
 builder.Services.AddScoped<IImageBlobClient, ImageBlobClient>();
